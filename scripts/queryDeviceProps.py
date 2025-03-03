@@ -9,17 +9,9 @@ def hip_check(call_result):
         raise RuntimeError(str(err))
     return result
 
-device_num = 0
+props = hip.hipDeviceProp_t()
+hip_check(hip.hipGetDeviceProperties(props,0))
 
-for attrib in (
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxBlockDimX,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxBlockDimY,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxBlockDimZ,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxGridDimX,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxGridDimY,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeMaxGridDimZ,
-   hip.hipDeviceAttribute_t.hipDeviceAttributeWarpSize,
-):
-    value = hip_check(hip.hipDeviceGetAttribute(attrib,device_num))
-    print(f"{attrib.name}: {value}")
+for attrib in sorted(props.PROPERTIES()):
+    print(f"props.{attrib}={getattr(props,attrib)}")
 print("ok")
