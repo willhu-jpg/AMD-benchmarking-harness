@@ -1,4 +1,4 @@
-extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C) {
+extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C, float alpha, float beta) {
 
     #define BlockSize 16
 
@@ -54,6 +54,6 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     const unsigned block_offset = b_cols * BlockSize * by + BlockSize * bx;
 
     // Write the result to the output matrix
-    C[block_offset + b_cols * ty + tx] = thread_result;
+    C[block_offset + b_cols * ty + tx] = alpha * thread_result + beta * C[block_offset + b_cols * ty + tx];
 
 }

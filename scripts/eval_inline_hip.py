@@ -23,6 +23,8 @@ class EvalConfig(Config):
         self.M = 1024
         self.K = 1024
         self.N = 1024
+        self.alpha = 1.0
+        self.beta = 0.0
 
     def __repr__(self):
         return f"EvalConfig({self.to_dict()})"

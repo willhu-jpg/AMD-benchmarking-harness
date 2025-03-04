@@ -1,4 +1,4 @@
-extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C) {
+extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C, float alpha, float beta) {
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -7,6 +7,6 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
         for (int k = 0; k < K; k++) {
             sum += A[row * K + k] * B[k * N + col];
         }
-        C[row * N + col] = sum;
+        C[row * N + col] = alpha * sum + beta * C[row * N + col];
     }
 }

@@ -15,6 +15,9 @@ class EvalConfig(Config):
         self.K = 1024
         self.N = 1024
 
+        self.alpha = 1.0
+        self.beta = 0.0
+
     def __repr__(self):
         return f"EvalConfig({self.to_dict()})"
 
@@ -27,8 +30,8 @@ def main(config: EvalConfig):
     N = config.N
 
     # Scalars
-    alpha = ctypes.c_float(1.0)
-    beta = ctypes.c_float(0.0)
+    alpha = ctypes.c_float(config.alpha)
+    beta = ctypes.c_float(config.beta)
 
     # Generate input matrices A and B on the host
     A_h = np.random.rand(M, K).astype(np.float32, order="F")
