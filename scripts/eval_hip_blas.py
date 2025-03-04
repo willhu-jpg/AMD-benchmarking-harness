@@ -36,9 +36,9 @@ def main(config: EvalConfig):
     beta = ctypes.c_float(config.beta)
 
     # Generate input matrices A and B on the host
-    A_h = np.random.rand(M, K).astype(np.float16, order="F")
-    B_h = np.random.rand(K, N).astype(np.float16, order="F")
-    C_h = np.random.rand(M, N).astype(np.float16, order="F")  # Output matrix initialized to zero
+    A_h = np.random.rand(M, K).astype(np.float32, order="F")
+    B_h = np.random.rand(K, N).astype(np.float32, order="F")
+    C_h = np.random.rand(M, N).astype(np.float32, order="F")  # Output matrix initialized to zero
 
     # Compute expected result using NumPy
     C_expected = alpha.value * np.dot(A_h, B_h) + beta.value * C_h
@@ -119,7 +119,7 @@ def main(config: EvalConfig):
     # Compute average time
     total_time = sum(kernel_times) / 1000
     avg_time = total_time / num_iterations
-    print(f"\n✅ Average Kernel Execution Time: {avg_time:.4f} s over {num_iterations} runs")
+    print(f"\n✅ Average Kernel Execution Time: {avg_time:.4f}s over {num_iterations} runs")
     print(f"\nPerformance: ({2. * 1e-9 * num_iterations * M * N * K / total_time}) GFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
 
     # Destroy hipBLAS handle
