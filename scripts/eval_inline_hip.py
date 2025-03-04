@@ -63,6 +63,8 @@ def main(config: EvalConfig):
     M = config.M
     K = config.K
     N = config.N
+    alpha = config.alpha
+    beta = config.beta
 
     # Generate random input matrices
     A_h = np.random.rand(M, K).astype(np.float32)
@@ -118,6 +120,8 @@ def main(config: EvalConfig):
                     A_d,
                     B_d,
                     C_d,
+                    ctypes.c_float(alpha),
+                    ctypes.c_float(beta),
                 ),
             )
         )
