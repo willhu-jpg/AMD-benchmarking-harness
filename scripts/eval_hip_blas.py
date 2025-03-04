@@ -8,6 +8,8 @@ from utils.check import hip_check
 import pydra
 from pydra import REQUIRED, Config
 
+import triton.testing
+
 class EvalConfig(Config):
     def __init__(self):
 
@@ -34,9 +36,9 @@ def main(config: EvalConfig):
     beta = ctypes.c_float(config.beta)
 
     # Generate input matrices A and B on the host
-    A_h = np.random.rand(M, K).astype(np.float32, order="F")
-    B_h = np.random.rand(K, N).astype(np.float32, order="F")
-    C_h = np.zeros((M, N), dtype=np.float32, order="F")  # Output matrix initialized to zero
+    A_h = np.random.rand(M, K).astype(np.float16, order="F")
+    B_h = np.random.rand(K, N).astype(np.float16, order="F")
+    C_h = np.random.rand(M, N).astype(np.float16, order="F")  # Output matrix initialized to zero
 
     # Compute expected result using NumPy
     C_expected = alpha.value * np.dot(A_h, B_h) + beta.value * C_h
@@ -53,7 +55,6 @@ def main(config: EvalConfig):
     # Copy input data to the device
     hip_check(hip.hipMemcpy(A_d, A_h, num_bytes_A, hip.hipMemcpyKind.hipMemcpyHostToDevice))
     hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
-    hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
 
     # Create hipBLAS handle
     handle = hip_check(hipblas.hipblasCreate())
@@ -66,7 +67,33 @@ def main(config: EvalConfig):
     start_event = hip_check(hip.hipEventCreate())
     stop_event = hip_check(hip.hipEventCreate())
 
+    # Do a warmup run and check for correctness
+    hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+    # Perform matrix multiplication: C = alpha * (A * B) + beta * C
+    hip_check(hipblas.hipblasSgemm(handle, 
+                        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose for A
+                        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose for B
+                        M, N, K, 
+                        ctypes.addressof(alpha), 
+                        A_d, M, 
+                        B_d, K, 
+                        ctypes.addressof(beta), 
+                        C_d, M))
+
+    # Copy result (stored in C_d) back to host
+    hip_check(hip.hipMemcpy(C_h, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
+
+    # Compare with expected result
+    if np.allclose(C_expected, C_h, atol=1e-3):
+        print("✅ Matrix multiplication successful")
+    else:
+        print("❌ Matrix multiplication FAILED")
+        print(f"Output: {C_h}")
+        print(f"Golden: {C_expected}")
+
     for _ in range(num_iterations):
+        hip_check(hip.hipMemcpy(C_h, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
+
         # Record start event
         hip_check(hip.hipEventRecord(start_event, 0))
 
@@ -81,29 +108,22 @@ def main(config: EvalConfig):
                             ctypes.addressof(beta), 
                             C_d, M))
 
-    # Record stop event
-    hip_check(hip.hipEventRecord(stop_event, 0))
-    hip_check(hip.hipEventSynchronize(stop_event))
+        # Record stop event
+        hip_check(hip.hipEventRecord(stop_event, 0))
+        hip_check(hip.hipEventSynchronize(stop_event))
 
-    # Measure elapsed time
-    elapsed_time = hip_check(hip.hipEventElapsedTime(start_event, stop_event))
-    kernel_times.append(elapsed_time)
+        # Measure elapsed time
+        elapsed_time = hip_check(hip.hipEventElapsedTime(start_event, stop_event))
+        kernel_times.append(elapsed_time)
 
     # Compute average time
-    avg_time = sum(kernel_times) / num_iterations
-    print(f"\n✅ Average Kernel Execution Time: {avg_time:.4f} ms over {num_iterations} runs")
+    total_time = sum(kernel_times) / 1000
+    avg_time = total_time / num_iterations
+    print(f"\n✅ Average Kernel Execution Time: {avg_time:.4f} s over {num_iterations} runs")
+    print(f"\nPerformance: ({2. * 1e-9 * num_iterations * M * N * K / total_time}) GFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
 
     # Destroy hipBLAS handle
     hip_check(hipblas.hipblasDestroy(handle))
-
-    # Copy result (stored in C_d) back to host
-    hip_check(hip.hipMemcpy(C_h, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-
-    # Compare with expected result
-    if np.allclose(C_expected, C_h, atol=1e-3):
-        print("✅ Matrix multiplication successful")
-    else:
-        print("❌ Matrix multiplication FAILED")
 
     # Clean up device memory
     hip_check(hip.hipFree(A_d))
