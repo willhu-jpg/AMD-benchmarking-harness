@@ -2,6 +2,11 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
 
     #define BlockSize 16
 
+    // Shared memory is used to cache the tile from both input matrices
+    // The tile is a square of size BlockSize x BlockSize
+    __shared__ float As[BlockSize][BlockSize];
+    __shared__ float Bs[BlockSize][BlockSize];
+
     const unsigned int tx = threadIdx.x;
     const unsigned int ty = threadIdx.y;
     const unsigned int bx = blockIdx.x;
@@ -13,7 +18,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     const unsigned int b_cols = blockDim.x * gridDim.x;
 
     // The number of tiles is deterimed by A's columns and B's rows
-    const unsigned int steps = a_cols / BlockSize;
+    const unsigned int steps = (K + BlockSize - 1) / BlockSize;
 
     // thread_result is the accumulation variable
     float thread_result = 0.0f;
@@ -23,10 +28,6 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     const unsigned int c_col = bx * BlockSize + tx;
 
     for (unsigned int step = 0; step < steps; step++) {
-        // Shared memory is used to cache the tile from both input matrices
-        // The tile is a square of size BlockSize x BlockSize
-        __shared__ float As[BlockSize][BlockSize];
-        __shared__ float Bs[BlockSize][BlockSize];
 
         const unsigned int a_row = by * BlockSize + ty;
         const unsigned int a_col = step * BlockSize + tx;
@@ -58,7 +59,6 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     }
 
     if (c_row < M && c_col < N)
-        // Write the result to the output matrix
         C[c_row * N + c_col] = alpha * thread_result + beta * C[c_row * N + c_col];
 
 }
