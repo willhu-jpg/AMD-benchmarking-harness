@@ -18,25 +18,32 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     // thread_result is the accumulation variable
     float thread_result = 0.0f;
 
+    // Output tile indices
+    const unsigned int c_row = by * BlockSize + ty;
+    const unsigned int c_col = bx * BlockSize + tx;
+
     for (unsigned int step = 0; step < steps; step++) {
         // Shared memory is used to cache the tile from both input matrices
         // The tile is a square of size BlockSize x BlockSize
         __shared__ float As[BlockSize][BlockSize];
         __shared__ float Bs[BlockSize][BlockSize];
 
-        // Index of the top-left element of the tile in A
-        // BlockSize * a_cols * by is the number of elements to move "down"
-        // BlockSize * step is the number of elements to move "right"
-        const unsigned int a_idx = BlockSize * (a_cols * by + step);
-
-        // Index of the top-left element of the tile in B
-        // BlockSize * b_cols * step is the number of elements to move "down"
-        // BlockSize * bx is the number of elements to move "right"
-        const unsigned int b_idx = BlockSize * (b_cols * step + bx);
+        const unsigned int a_row = by * BlockSize + ty;
+        const unsigned int a_col = step * BlockSize + tx;
 
         // Load each element in the tile to shared memory
-        As[ty][tx] = A[a_idx + a_cols * ty + tx];
-        Bs[ty][tx] = B[b_idx + b_cols * ty + tx];
+        if (a_row < M && a_col < K)
+            As[ty][tx] = A[a_row * K + a_col];
+        else
+            As[ty][tx] = 0.0f;
+
+        const unsigned int b_row = step * BlockSize + ty;
+        const unsigned int b_col = bx * BlockSize + tx;
+
+        if (b_row < K && b_col < N)
+            Bs[ty][tx] = B[b_row * N + b_col];
+        else
+            Bs[ty][tx] = 0.0f;
 
         // Wait for all threads to finish loading
         __syncthreads();
@@ -50,10 +57,8 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
         __syncthreads();
     }
 
-    // Calculate the index of the top-left element of the output block
-    const unsigned block_offset = b_cols * BlockSize * by + BlockSize * bx;
-
-    // Write the result to the output matrix
-    C[block_offset + b_cols * ty + tx] = alpha * thread_result + beta * C[block_offset + b_cols * ty + tx];
+    if (c_row < M && c_col < N)
+        // Write the result to the output matrix
+        C[c_row * N + c_col] = alpha * thread_result + beta * C[c_row * N + c_col];
 
 }
