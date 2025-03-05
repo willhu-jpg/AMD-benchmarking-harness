@@ -1,0 +1,19 @@
+ROCtracer (1124):
+    HSA-trace(*)
+    HIP-trace(*)
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+✅ Matrix multiplication successful
+
+✅ Average Kernel Execution Time: 0.0019s over 10 runs
+
+Performance: (72078.16029482507) GFLOPS. size: (4092 x 4092) * (4092 x 4092).
+
