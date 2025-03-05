@@ -1,0 +1,2 @@
+"Name","Calls","TotalDurationNs","AverageNs","Percentage"
+"matmul_kernel",11,842048061,76549823,100.0

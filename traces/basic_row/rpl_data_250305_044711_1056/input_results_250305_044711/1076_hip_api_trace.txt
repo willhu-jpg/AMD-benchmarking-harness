@@ -1,0 +1,220 @@
+2578577353631374:2578577353678975 1076:1076 hipMalloc(ptr=0x7782c3e00000, size=66977856) :91
+2578577353754879:2578577353790102 1076:1076 hipMalloc(ptr=0x7782bfc00000, size=66977856) :93
+2578577353796461:2578577353822671 1076:1076 hipMalloc(ptr=0x7782bba00000, size=66977856) :95
+2578577353859125:2578577504748393 1076:1076 hipMemcpy(dst=0x7782c3e00000, src=0x778590fbc010, sizeBytes=66977856, kind=1) :97
+2578577504793221:2578577506757609 1076:1076 hipMemcpy(dst=0x7782bfc00000, src=0x77858cfdb010, sizeBytes=66977856, kind=1) :314
+2578577506766953:2578577508482397 1076:1076 hipMemcpy(dst=0x7782bba00000, src=0x778588ffa010, sizeBytes=66977856, kind=1) :331
+2578577510834868:2578577510837081 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eec5878, maxTexture2D=0x77861eec5870, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eec56f8, maxThreadsDim=0x77861eec56ec, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :348
+2578577667948968:2578577668676650 1076:1076 hipModuleLoadData(module=0x311d040, image=0x2842c40) :349
+2578577668709650:2578577668712154 1076:1076 hipModuleGetFunction(function=0x2b3cbe0, module=0x311d040, kname=109) :369
+2578577668776410:2578577668777231 1076:1076 hipEventCreate(event=0x2950f40) :370
+2578577668779295:2578577668779465 1076:1076 hipEventCreate(event=0x281db90) :371
+2578577668795459:2578577668815599 1076:1076 hipEventRecord(event=0x2950f40, stream=0) :372
+2578577668931283:2578577668941949 1076:1076 hipModuleLaunchKernel(f=0x2b3cbe0, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :386
+2578577669008138:2578577669016350 1076:1076 hipEventRecord(event=0x281db90, stream=0) :395
+2578577669021919:2578577745518011 1076:1076 hipEventSynchronize(event=0x281db90) :405
+2578577745536969:2578577745553794 1076:1076 hipEventElapsedTime(ms=76.6852, start=0x2950f40, stop=0x281db90) :408
+2578577745601836:2578577767392309 1076:1076 hipMemcpy(dst=0x7782cc01f010, src=0x7782bba00000, sizeBytes=66977856, kind=2) :415
+2578577809225049:2578577809229516 1076:1076 hipEventDestroy(event=0x2950f40) :438
+2578577809251990:2578577809252961 1076:1076 hipEventDestroy(event=0x281db90) :439
+2578577809258790:2578577809717037 1076:1076 hipModuleUnload(module=0x311d040) :440
+2578578271936447:2578578272105951 1076:1076 hipMalloc(ptr=0x7782a1400000, size=66977856) :443
+2578578272193272:2578578272246893 1076:1076 hipMalloc(ptr=0x77829d200000, size=66977856) :445
+2578578272253723:2578578272296277 1076:1076 hipMalloc(ptr=0x778299000000, size=66977856) :447
+2578578272331991:2578578274507406 1076:1076 hipMemcpy(dst=0x7782a1400000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :449
+2578578274515398:2578578276546356 1076:1076 hipMemcpy(dst=0x77829d200000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :466
+2578578276552996:2578578279070253 1076:1076 hipMemcpy(dst=0x778299000000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :483
+2578578281457456:2578578281465077 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eec9fb8, maxTexture2D=0x77861eec9fb0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eec9e38, maxThreadsDim=0x77861eec9e2c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :500
+2578578518462713:2578578519426470 1076:1076 hipModuleLoadData(module=0x298c740, image=0x2837e10) :501
+2578578519443075:2578578519445879 1076:1076 hipModuleGetFunction(function=0x28ebba0, module=0x298c740, kname=109) :521
+2578578519471367:2578578519473350 1076:1076 hipEventCreate(event=0x29a59a0) :522
+2578578519475474:2578578519475614 1076:1076 hipEventCreate(event=0x27765e0) :523
+2578578519482614:2578578519501372 1076:1076 hipEventRecord(event=0x29a59a0, stream=0) :524
+2578578519587241:2578578519599049 1076:1076 hipModuleLaunchKernel(f=0x28ebba0, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :536
+2578578519603846:2578578519610136 1076:1076 hipEventRecord(event=0x27765e0, stream=0) :547
+2578578519613050:2578578596207650 1076:1076 hipEventSynchronize(event=0x27765e0) :557
+2578578596233479:2578578596253659 1076:1076 hipEventElapsedTime(ms=76.6865, start=0x29a59a0, stop=0x27765e0) :560
+2578578596316193:2578578617330319 1076:1076 hipMemcpy(dst=0x77829501f010, src=0x778299000000, sizeBytes=66977856, kind=2) :567
+2578578660511224:2578578660516291 1076:1076 hipEventDestroy(event=0x29a59a0) :590
+2578578660534629:2578578660535470 1076:1076 hipEventDestroy(event=0x27765e0) :591
+2578578660540478:2578578661003803 1076:1076 hipModuleUnload(module=0x298c740) :592
+2578579079226264:2578579079803250 1076:1076 hipMalloc(ptr=0x778294e00000, size=66977856) :595
+2578579080408598:2578579080560256 1076:1076 hipMalloc(ptr=0x778290c00000, size=66977856) :597
+2578579080585814:2578579080621939 1076:1076 hipMalloc(ptr=0x77828ca00000, size=66977856) :599
+2578579080804202:2578579083454960 1076:1076 hipMemcpy(dst=0x778294e00000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :601
+2578579083477223:2578579085507971 1076:1076 hipMemcpy(dst=0x778290c00000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :618
+2578579085517986:2578579164728582 1076:1076 hipMemcpy(dst=0x77828ca00000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :635
+2578579165192778:2578579165197736 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eece6f8, maxTexture2D=0x77861eece6f0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eece578, maxThreadsDim=0x77861eece56c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :652
+2578579349543735:2578579350365178 1076:1076 hipModuleLoadData(module=0x2cda7a0, image=0x285bde0) :653
+2578579350395924:2578579350399720 1076:1076 hipModuleGetFunction(function=0x2891eb0, module=0x2cda7a0, kname=109) :673
+2578579350501452:2578579350502303 1076:1076 hipEventCreate(event=0x2f1de20) :674
+2578579350507221:2578579350507351 1076:1076 hipEventCreate(event=0x2b78d00) :675
+2578579350518958:2578579350555754 1076:1076 hipEventRecord(event=0x2f1de20, stream=0) :676
+2578579350739920:2578579350759079 1076:1076 hipModuleLaunchKernel(f=0x2891eb0, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :690
+2578579350764527:2578579350775924 1076:1076 hipEventRecord(event=0x2b78d00, stream=0) :699
+2578579350780942:2578579427329753 1076:1076 hipEventSynchronize(event=0x2b78d00) :709
+2578579427352467:2578579427379487 1076:1076 hipEventElapsedTime(ms=76.7567, start=0x2f1de20, stop=0x2b78d00) :712
+2578579427518436:2578579448994727 1076:1076 hipMemcpy(dst=0x778288a1f010, src=0x77828ca00000, sizeBytes=66977856, kind=2) :725
+2578579496056615:2578579496062494 1076:1076 hipEventDestroy(event=0x2f1de20) :742
+2578579496088032:2578579496089394 1076:1076 hipEventDestroy(event=0x2b78d00) :743
+2578579496099049:2578579496526851 1076:1076 hipModuleUnload(module=0x2cda7a0) :744
+2578579970390215:2578579970910426 1076:1076 hipMalloc(ptr=0x778288800000, size=66977856) :747
+2578579971043796:2578579971209795 1076:1076 hipMalloc(ptr=0x778284600000, size=66977856) :749
+2578579971221212:2578579971260591 1076:1076 hipMalloc(ptr=0x778280400000, size=66977856) :751
+2578579971289735:2578579973332481 1076:1076 hipMemcpy(dst=0x778288800000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :753
+2578579973343818:2578579975305702 1076:1076 hipMemcpy(dst=0x778284600000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :770
+2578579975311581:2578579977059574 1076:1076 hipMemcpy(dst=0x778280400000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :787
+2578579977311582:2578579977314897 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eed2e38, maxTexture2D=0x77861eed2e30, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eed2cb8, maxThreadsDim=0x77861eed2cac, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :804
+2578580199974836:2578580200887776 1076:1076 hipModuleLoadData(module=0x311d390, image=0x27e15f0) :805
+2578580200912644:2578580200915708 1076:1076 hipModuleGetFunction(function=0x2847260, module=0x311d390, kname=109) :825
+2578580200947215:2578580200948407 1076:1076 hipEventCreate(event=0x2c38900) :826
+2578580200950681:2578580200950961 1076:1076 hipEventCreate(event=0x28bd750) :827
+2578580200959063:2578580200982008 1076:1076 hipEventRecord(event=0x2c38900, stream=0) :828
+2578580201091061:2578580201105513 1076:1076 hipModuleLaunchKernel(f=0x2847260, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :842
+2578580201111081:2578580201119324 1076:1076 hipEventRecord(event=0x28bd750, stream=0) :851
+2578580201122979:2578580277642687 1076:1076 hipEventSynchronize(event=0x28bd750) :861
+2578580277678520:2578580277707654 1076:1076 hipEventElapsedTime(ms=76.638, start=0x2c38900, stop=0x28bd750) :864
+2578580277765731:2578580307600135 1076:1076 hipMemcpy(dst=0x77827c41f010, src=0x778280400000, sizeBytes=66977856, kind=2) :875
+2578580365756354:2578580365762643 1076:1076 hipEventDestroy(event=0x2c38900) :894
+2578580365788762:2578580365790285 1076:1076 hipEventDestroy(event=0x28bd750) :895
+2578580365796554:2578580366235643 1076:1076 hipModuleUnload(module=0x311d390) :896
+2578580778056637:2578580778612190 1076:1076 hipMalloc(ptr=0x77827c200000, size=66977856) :899
+2578580778822877:2578580778951990 1076:1076 hipMalloc(ptr=0x778278000000, size=66977856) :901
+2578580778960243:2578580779019592 1076:1076 hipMalloc(ptr=0x778273e00000, size=66977856) :903
+2578580779041915:2578580781118592 1076:1076 hipMemcpy(dst=0x77827c200000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :905
+2578580781139753:2578580783126455 1076:1076 hipMemcpy(dst=0x778278000000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :922
+2578580783141648:2578580784918424 1076:1076 hipMemcpy(dst=0x778273e00000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :939
+2578580785203432:2578580785208279 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eed7578, maxTexture2D=0x77861eed7570, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eed73f8, maxThreadsDim=0x77861eed73ec, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :956
+2578581019573275:2578581020290391 1076:1076 hipModuleLoadData(module=0x2cff960, image=0x28599d0) :957
+2578581020306485:2578581020309189 1076:1076 hipModuleGetFunction(function=0x27ca700, module=0x2cff960, kname=109) :977
+2578581020334958:2578581020335629 1076:1076 hipEventCreate(event=0x294de80) :978
+2578581020339895:2578581020340025 1076:1076 hipEventCreate(event=0x2679c80) :979
+2578581020346545:2578581020367587 1076:1076 hipEventRecord(event=0x294de80, stream=0) :980
+2578581020444853:2578581020455509 1076:1076 hipModuleLaunchKernel(f=0x27ca700, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :994
+2578581020460156:2578581020469870 1076:1076 hipEventRecord(event=0x2679c80, stream=0) :1003
+2578581020472534:2578581097032782 1076:1076 hipEventSynchronize(event=0x2679c80) :1013
+2578581097064620:2578581097084710 1076:1076 hipEventElapsedTime(ms=76.643, start=0x294de80, stop=0x2679c80) :1016
+2578581097145722:2578581118065548 1076:1076 hipMemcpy(dst=0x77826fe1f010, src=0x778273e00000, sizeBytes=66977856, kind=2) :1026
+2578581161911640:2578581161918320 1076:1076 hipEventDestroy(event=0x294de80) :1045
+2578581161939732:2578581161941074 1076:1076 hipEventDestroy(event=0x2679c80) :1046
+2578581161952211:2578581162433974 1076:1076 hipModuleUnload(module=0x2cff960) :1047
+2578581568586941:2578581569147462 1076:1076 hipMalloc(ptr=0x77826fc00000, size=66977856) :1050
+2578581569391128:2578581569473822 1076:1076 hipMalloc(ptr=0x77826ba00000, size=66977856) :1052
+2578581569490828:2578581569550938 1076:1076 hipMalloc(ptr=0x778267800000, size=66977856) :1054
+2578581569574363:2578581571648606 1076:1076 hipMemcpy(dst=0x77826fc00000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1056
+2578581571660053:2578581573608467 1076:1076 hipMemcpy(dst=0x77826ba00000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1072
+2578581573616139:2578581575292654 1076:1076 hipMemcpy(dst=0x778267800000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1088
+2578581575639846:2578581575644242 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eedbcb8, maxTexture2D=0x77861eedbcb0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eedbb38, maxThreadsDim=0x77861eedbb2c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1105
+2578581811826164:2578581812578323 1076:1076 hipModuleLoadData(module=0x2cf41c0, image=0x299d820) :1106
+2578581812596611:2578581812598984 1076:1076 hipModuleGetFunction(function=0x2c43f10, module=0x2cf41c0, kname=109) :1126
+2578581812624112:2578581812626335 1076:1076 hipEventCreate(event=0x28c6620) :1127
+2578581812628008:2578581812628198 1076:1076 hipEventCreate(event=0x28c6430) :1128
+2578581812634538:2578581812658423 1076:1076 hipEventRecord(event=0x28c6620, stream=0) :1129
+2578581812737883:2578581812747697 1076:1076 hipModuleLaunchKernel(f=0x2c43f10, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1143
+2578581812754818:2578581812765334 1076:1076 hipEventRecord(event=0x28c6430, stream=0) :1152
+2578581812768308:2578581889283469 1076:1076 hipEventSynchronize(event=0x28c6430) :1162
+2578581889304540:2578581889322277 1076:1076 hipEventElapsedTime(ms=76.6076, start=0x28c6620, stop=0x28c6430) :1165
+2578581889377149:2578581910550356 1076:1076 hipMemcpy(dst=0x77826381f010, src=0x778267800000, sizeBytes=66977856, kind=2) :1176
+2578581954638982:2578581954643188 1076:1076 hipEventDestroy(event=0x28c6620) :1194
+2578581954664741:2578581954665542 1076:1076 hipEventDestroy(event=0x28c6430) :1195
+2578581954670870:2578581955131992 1076:1076 hipModuleUnload(module=0x2cf41c0) :1196
+2578582368917594:2578582369461040 1076:1076 hipMalloc(ptr=0x778263600000, size=66977856) :1199
+2578582369521270:2578582369580218 1076:1076 hipMalloc(ptr=0x77825f400000, size=66977856) :1201
+2578582369595531:2578582369637284 1076:1076 hipMalloc(ptr=0x77825b200000, size=66977856) :1203
+2578582369659417:2578582371662573 1076:1076 hipMemcpy(dst=0x778263600000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1205
+2578582371669554:2578582373597417 1076:1076 hipMemcpy(dst=0x77825f400000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1221
+2578582373603596:2578582375230898 1076:1076 hipMemcpy(dst=0x77825b200000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1237
+2578582375476427:2578582375479932 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eee03f8, maxTexture2D=0x77861eee03f0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eee0278, maxThreadsDim=0x77861eee026c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1254
+2578582608934361:2578582609647671 1076:1076 hipModuleLoadData(module=0x311d040, image=0x2b42010) :1255
+2578582609663705:2578582609666219 1076:1076 hipModuleGetFunction(function=0x2847f50, module=0x311d040, kname=109) :1275
+2578582609693871:2578582609694562 1076:1076 hipEventCreate(event=0x288efd0) :1276
+2578582609696475:2578582609696675 1076:1076 hipEventCreate(event=0x2b1f0e0) :1277
+2578582609705538:2578582609727601 1076:1076 hipEventRecord(event=0x288efd0, stream=0) :1278
+2578582609805098:2578582609815714 1076:1076 hipModuleLaunchKernel(f=0x2847f50, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1292
+2578582609820551:2578582609828383 1076:1076 hipEventRecord(event=0x2b1f0e0, stream=0) :1301
+2578582609831317:2578582686326808 1076:1076 hipEventSynchronize(event=0x2b1f0e0) :1311
+2578582686350103:2578582686367349 1076:1076 hipEventElapsedTime(ms=76.5788, start=0x288efd0, stop=0x2b1f0e0) :1314
+2578582686423223:2578582707563158 1076:1076 hipMemcpy(dst=0x77825721f010, src=0x77825b200000, sizeBytes=66977856, kind=2) :1322
+2578582751524845:2578582751529632 1076:1076 hipEventDestroy(event=0x288efd0) :1343
+2578582751551715:2578582751552626 1076:1076 hipEventDestroy(event=0x2b1f0e0) :1344
+2578582751558064:2578582752024595 1076:1076 hipModuleUnload(module=0x311d040) :1345
+2578583171423711:2578583171998915 1076:1076 hipMalloc(ptr=0x778257000000, size=66977856) :1348
+2578583172163962:2578583172243612 1076:1076 hipMalloc(ptr=0x778252e00000, size=66977856) :1350
+2578583172250442:2578583172297523 1076:1076 hipMalloc(ptr=0x77824ec00000, size=66977856) :1352
+2578583172324634:2578583174351675 1076:1076 hipMemcpy(dst=0x778257000000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1354
+2578583174373268:2578583176326259 1076:1076 hipMemcpy(dst=0x778252e00000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1370
+2578583176340650:2578583178035233 1076:1076 hipMemcpy(dst=0x77824ec00000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1386
+2578583178310987:2578583178314993 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eee4b38, maxTexture2D=0x77861eee4b30, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eee49b8, maxThreadsDim=0x77861eee49ac, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1403
+2578583412026668:2578583412758927 1076:1076 hipModuleLoadData(module=0x298c740, image=0x28e5130) :1404
+2578583412774680:2578583412777194 1076:1076 hipModuleGetFunction(function=0x29f29a0, module=0x298c740, kname=109) :1424
+2578583412804635:2578583412805256 1076:1076 hipEventCreate(event=0x2964a00) :1425
+2578583412806999:2578583412807119 1076:1076 hipEventCreate(event=0x2f5c7e0) :1426
+2578583412813268:2578583412836002 1076:1076 hipEventRecord(event=0x2964a00, stream=0) :1427
+2578583412915922:2578583412926719 1076:1076 hipModuleLaunchKernel(f=0x29f29a0, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1441
+2578583412933489:2578583412940479 1076:1076 hipEventRecord(event=0x2f5c7e0, stream=0) :1450
+2578583412943624:2578583489486486 1076:1076 hipEventSynchronize(event=0x2f5c7e0) :1460
+2578583489514628:2578583489534348 1076:1076 hipEventElapsedTime(ms=76.6285, start=0x2964a00, stop=0x2f5c7e0) :1463
+2578583489597072:2578583511253563 1076:1076 hipMemcpy(dst=0x77824ac1f010, src=0x77824ec00000, sizeBytes=66977856, kind=2) :1476
+2578583555092405:2578583555097302 1076:1076 hipEventDestroy(event=0x2964a00) :1492
+2578583555123732:2578583555124773 1076:1076 hipEventDestroy(event=0x2f5c7e0) :1493
+2578583555130242:2578583555600357 1076:1076 hipModuleUnload(module=0x298c740) :1494
+2578583968944696:2578583969431457 1076:1076 hipMalloc(ptr=0x77824aa00000, size=66977856) :1497
+2578583970060160:2578583970102323 1076:1076 hipMalloc(ptr=0x778246800000, size=66977856) :1499
+2578583970118938:2578583970150636 1076:1076 hipMalloc(ptr=0x778242600000, size=66977856) :1501
+2578583970291297:2578583972265930 1076:1076 hipMemcpy(dst=0x77824aa00000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1503
+2578583972281874:2578583974200915 1076:1076 hipMemcpy(dst=0x778246800000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1519
+2578583974206994:2578583975799444 1076:1076 hipMemcpy(dst=0x778242600000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1535
+2578583976159835:2578583976163400 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eee9278, maxTexture2D=0x77861eee9270, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eee90f8, maxThreadsDim=0x77861eee90ec, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1552
+2578584207501082:2578584208148103 1076:1076 hipModuleLoadData(module=0x2cda7a0, image=0x25cb680) :1553
+2578584208178959:2578584208181613 1076:1076 hipModuleGetFunction(function=0x2632600, module=0x2cda7a0, kname=109) :1573
+2578584208267422:2578584208267973 1076:1076 hipEventCreate(event=0x2b36940) :1574
+2578584208269805:2578584208269966 1076:1076 hipEventCreate(event=0x29502f0) :1575
+2578584208283927:2578584208304528 1076:1076 hipEventRecord(event=0x2b36940, stream=0) :1576
+2578584208474543:2578584208484978 1076:1076 hipModuleLaunchKernel(f=0x2632600, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1590
+2578584208489926:2578584208497798 1076:1076 hipEventRecord(event=0x29502f0, stream=0) :1599
+2578584208500642:2578584285020179 1076:1076 hipEventSynchronize(event=0x29502f0) :1609
+2578584285061221:2578584285084696 1076:1076 hipEventElapsedTime(ms=76.6912, start=0x2b36940, stop=0x29502f0) :1612
+2578584285201852:2578584307902840 1076:1076 hipMemcpy(dst=0x77823e61f010, src=0x778242600000, sizeBytes=66977856, kind=2) :1625
+2578584353758558:2578584353763666 1076:1076 hipEventDestroy(event=0x2b36940) :1641
+2578584353786180:2578584353786861 1076:1076 hipEventDestroy(event=0x29502f0) :1642
+2578584353793511:2578584354299470 1076:1076 hipModuleUnload(module=0x2cda7a0) :1643
+2578584771689181:2578584772640018 1076:1076 hipMalloc(ptr=0x77823e400000, size=66977856) :1646
+2578584772870033:2578584773005927 1076:1076 hipMalloc(ptr=0x77823a200000, size=66977856) :1648
+2578584773016012:2578584773072367 1076:1076 hipMalloc(ptr=0x778236000000, size=66977856) :1650
+2578584773128301:2578584775267311 1076:1076 hipMemcpy(dst=0x77823e400000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1652
+2578584775276455:2578584777267303 1076:1076 hipMemcpy(dst=0x77823a200000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1668
+2578584777276476:2578584778969628 1076:1076 hipMemcpy(dst=0x778236000000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1684
+2578584779980735:2578584779984861 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eeed9b8, maxTexture2D=0x77861eeed9b0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eeed838, maxThreadsDim=0x77861eeed82c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1701
+2578585026283115:2578585027136977 1076:1076 hipModuleLoadData(module=0x2679530, image=0x309b940) :1702
+2578585027153451:2578585027155835 1076:1076 hipModuleGetFunction(function=0x27ca700, module=0x2679530, kname=109) :1722
+2578585027195775:2578585027197748 1076:1076 hipEventCreate(event=0x27cea50) :1723
+2578585027199741:2578585027199881 1076:1076 hipEventCreate(event=0x280d6d0) :1724
+2578585027207232:2578585027228995 1076:1076 hipEventRecord(event=0x27cea50, stream=0) :1725
+2578585027329475:2578585027340662 1076:1076 hipModuleLaunchKernel(f=0x27ca700, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1739
+2578585027345500:2578585027353752 1076:1076 hipEventRecord(event=0x280d6d0, stream=0) :1748
+2578585027358810:2578585103904185 1076:1076 hipEventSynchronize(event=0x280d6d0) :1758
+2578585103924296:2578585103942172 1076:1076 hipEventElapsedTime(ms=76.6574, start=0x27cea50, stop=0x280d6d0) :1761
+2578585104009894:2578585125079605 1076:1076 hipMemcpy(dst=0x77823201f010, src=0x778236000000, sizeBytes=66977856, kind=2) :1768
+2578585169858287:2578585169862533 1076:1076 hipEventDestroy(event=0x27cea50) :1790
+2578585169885047:2578585169885838 1076:1076 hipEventDestroy(event=0x280d6d0) :1791
+2578585169895132:2578585170369223 1076:1076 hipModuleUnload(module=0x2679530) :1792
+2578585572906194:2578585573608759 1076:1076 hipMalloc(ptr=0x778231e00000, size=66977856) :1795
+2578585573940937:2578585573995259 1076:1076 hipMalloc(ptr=0x77822dc00000, size=66977856) :1797
+2578585574004182:2578585574056230 1076:1076 hipMalloc(ptr=0x778229a00000, size=66977856) :1799
+2578585574116130:2578585576397464 1076:1076 hipMemcpy(dst=0x778231e00000, src=0x778598f7d010, sizeBytes=66977856, kind=1) :1801
+2578585576407428:2578585578382522 1076:1076 hipMemcpy(dst=0x77822dc00000, src=0x778588ffc010, sizeBytes=66977856, kind=1) :1817
+2578585578390555:2578585580158848 1076:1076 hipMemcpy(dst=0x778229a00000, src=0x7782cc01f010, sizeBytes=66977856, kind=1) :1833
+2578585580885879:2578585580890506 1076:1076 hipGetDeviceProperties(props={pageableMemoryAccessUsesHostPageTables=0, pageableMemoryAccess=0, concurrentManagedAccess=1, directManagedMemAccessFromHost=0, managedMemory=1, asicRevision=1, isLargeBar=1, cooperativeMultiDeviceUnmatchedSharedMem=1, cooperativeMultiDeviceUnmatchedBlockDim=1, cooperativeMultiDeviceUnmatchedGridDim=1, cooperativeMultiDeviceUnmatchedFunc=1, tccDriver=0, ECCEnabled=0, kernelExecTimeoutEnabled=0, texturePitchAlignment=256, textureAlignment=256, memPitch=2147483647, hdpRegFlushCntl=0x7785acc49004, hdpMemFlushCntl=0x7785acc49000, maxTexture3D=0x77861eef20f8, maxTexture2D=0x77861eef20f0, maxTexture1D=0, maxTexture1DLinear=0, cooperativeMultiDeviceLaunch=1, cooperativeLaunch=1, integrated=0, gcnArchName="gfx942:sramecc+:xnack-", gcnArch=942, canMapHostMemory=1, isMultiGpuBoard=0, maxSharedMemoryPerMultiProcessor=65536, pciDeviceID=0, pciBusID=38, pciDomainID=0, concurrentKernels=1, arch={}, clockInstructionRate=1000000, computeMode=0, maxThreadsPerMultiProcessor=2048, l2CacheSize=33554432, multiProcessorCount=304, minor=4, major=9, totalConstMem=2147483647, memoryBusWidth=8192, memoryClockRate=1300000, clockRate=2100000, maxGridSize=0x77861eef1f78, maxThreadsDim=0x77861eef1f6c, maxThreadsPerBlock=1024, warpSize=64, regsPerBlock=65536, sharedMemPerBlock=65536, totalGlobalMem=206141652992, name="AMD Radeon Graphics"}, device=0) :1850
+2578585814496733:2578585815364656 1076:1076 hipModuleLoadData(module=0x2cff960, image=0x309b940) :1851
+2578585815381721:2578585815384235 1076:1076 hipModuleGetFunction(function=0x277c830, module=0x2cff960, kname=109) :1871
+2578585815421231:2578585815423073 1076:1076 hipEventCreate(event=0x2862b70) :1872
+2578585815425307:2578585815425457 1076:1076 hipEventCreate(event=0x2f550b0) :1873
+2578585815433499:2578585815455432 1076:1076 hipEventRecord(event=0x2862b70, stream=0) :1874
+2578585815557615:2578585815567690 1076:1076 hipModuleLaunchKernel(f=0x277c830, gridDimX=256, gridDimY=256, gridDimZ=1, blockDimX=16, blockDimY=16, blockDimZ=1, sharedMemBytes=0, stream=0, kernelParams=NULL, extra=0x1) kernel=matmul_kernel :1888
+2578585815572377:2578585815579077 1076:1076 hipEventRecord(event=0x2f550b0, stream=0) :1897
+2578585815582042:2578585892092736 1076:1076 hipEventSynchronize(event=0x2f550b0) :1907
+2578585892114719:2578585892131905 1076:1076 hipEventElapsedTime(ms=76.6185, start=0x2862b70, stop=0x2f550b0) :1910
+2578585892197012:2578585913075666 1076:1076 hipMemcpy(dst=0x778225a1f010, src=0x778229a00000, sizeBytes=66977856, kind=2) :1921
+2578585956669690:2578585956674026 1076:1076 hipEventDestroy(event=0x2862b70) :1939
+2578585956692875:2578585956693716 1076:1076 hipEventDestroy(event=0x2f550b0) :1940
+2578585956704322:2578585957160056 1076:1076 hipModuleUnload(module=0x2cff960) :1941

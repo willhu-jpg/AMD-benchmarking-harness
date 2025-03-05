@@ -1,0 +1,30 @@
+ROCtracer (1596):
+    HSA-trace(*)
+    HIP-trace(*)
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+Compiling kernel for b'gfx942:sramecc+:xnack-'
+✅ Matrix multiplication successful
+
+✅ Average Kernel Execution Time: 0.0767s over 10 runs
+
+Performance: (1787.5212323435476) GFLOPS. size: (4092 x 4092) * (4092 x 4092).
+
