@@ -112,8 +112,13 @@ def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, a
 
     # Compute block and grid
     block_size = config.block_size
-    block = hip.dim3(x=block_size, y=block_size)
-    grid = hip.dim3(x=math.ceil(N / block_size), y=math.ceil(M / block_size))
+    
+    BN = 64
+    BM = 64
+    BK = 8
+
+    block = hip.dim3(x=BM * BK)
+    grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
 
     # Create HIP events for timing
     start_event = hip_check(hip.hipEventCreate())

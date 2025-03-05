@@ -14,9 +14,6 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
 
     float thread_result[BK] = {0.0f};
 
-    // Each thread maps to a single element in the input matrix blocks
-    assert(BN * K == BM * K == blockDim.x);
-
     for (int i = 0; i < steps; i++) {
 
         // Load A and B tiles to shared memory
@@ -32,10 +29,10 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
 
         // Multiply the tiles and accumulate the result
         for (int j = 0; j < BK; j++) {
-            float b = Bs[j * BK + threadIdx.x % BN];
+            float b = Bs[j * BN + threadIdx.x % BN];
 
             for (int k = 0; k < BK; k++) {
-                float a = As[threadIdx.x / BN * BK + k * BK + j]
+                float a = As[(threadIdx.x / BN * BK + k) * BK + j];
                 thread_result[k] += a * b;
             }
         }
@@ -46,7 +43,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     // Store the result in the output matrix
     for (int i = 0; i < BK; i++) {
         if (C_row + i < M && C_col + threadIdx.x % BN < N) {
-            C[(C_row + i) * N + C_col + threadIdx.x % BN] = alpha * thread_result[i] + beta * C[(C_row + i) * N + C_col + threadIdx.x % BN];
+            C[(C_row + threadIdx.x / BN * BK + i) * N + C_col + threadIdx.x % BN] = alpha * thread_result[i] + beta * C[(C_row + threadIdx.x / BN * BK + i) * N + C_col + threadIdx.x % BN];
         }
     }
 }
