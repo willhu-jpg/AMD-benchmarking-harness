@@ -1,6 +1,6 @@
 extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C, float alpha, float beta) {
 
-    #define BlockSize 16
+    #define BlockSize 32
 
     // Shared memory is used to cache the tile from both input matrices
     // The tile is a square of size BlockSize x BlockSize
