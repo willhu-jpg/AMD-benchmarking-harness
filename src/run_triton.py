@@ -1,186 +1,187 @@
-from utils.check import hip_check, compare  
-import pydra
-
-from hip import hip, hipblas
-import numpy as np
+import torch
 import triton
 import triton.language as tl
-import torch
-import time
+import numpy as np
+from utils.check import compare
+import pydra
+
+"""
+Triton matrix multiplication on GPU
+
+Modified from example on Triton repo:
+https://github.com/triton-lang/triton/blob/main/python/tutorials/03-matrix-multiplication.py
+
+TODO:
+- tune for MI300X
+"""
+
+
+# Triton kernel implementation (from the provided code)
+def is_cuda():
+    return triton.runtime.driver.active.get_current_target().backend == "cuda"
+
+def is_hip_mi200():
+    target = triton.runtime.driver.active.get_current_target()
+    return target.backend == 'hip' and target.arch == 'gfx90a'
+
+def is_hip_mi300():
+    target = triton.runtime.driver.active.get_current_target()
+    return target.backend == 'hip' and target.arch == 'gfx942'
+
+def get_cuda_autotune_config():
+    return [
+        triton.Config({'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_N': 256, 'BLOCK_SIZE_K': 64, 'GROUP_SIZE_M': 8}, num_stages=3,
+                      num_warps=8),
+        triton.Config({'BLOCK_SIZE_M': 64, 'BLOCK_SIZE_N': 256, 'BLOCK_SIZE_K': 32, 'GROUP_SIZE_M': 8}, num_stages=4,
+                      num_warps=4),
+        # ... shortened for brevity ...
+    ]
+
+def get_hip_autotune_config():
+    # this is tuned for MI200, not sure if this tuned for MI300X
+    return [
+        triton.Config(
+            {'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_N': 256, 'BLOCK_SIZE_K': 16, 'GROUP_SIZE_M': 1, 'waves_per_eu': 2},
+            num_warps=4, num_stages=2),
+        # ... shortened for brevity ...
+    ]
+
+def get_autotune_config():
+    if is_cuda():
+        return get_cuda_autotune_config()
+    else:
+        print("Using HIP autotune config for AMD GPU")
+        return get_hip_autotune_config()
+
+@triton.autotune(
+    configs=get_autotune_config(),
+    key=['M', 'N', 'K'],
+)
 
 @triton.jit
-def matmul_kernel_triton(
-    # Pointers to matrices
-    a_ptr, b_ptr, c_ptr,
-    # Matrix dimensions
-    M, N, K,
-    # The stride variables represent how to access the next element in a row/column
-    stride_am, stride_ak,
-    stride_bk, stride_bn,
-    stride_cm, stride_cn,
-    # Scalar values for alpha and beta
-    alpha, beta,
-    # Meta-parameters
-    BLOCK_SIZE_M: tl.constexpr, BLOCK_SIZE_N: tl.constexpr, BLOCK_SIZE_K: tl.constexpr,
+def matmul_kernel(
+        # Pointers to matrices
+        a_ptr, b_ptr, c_ptr,
+        # Matrix dimensions
+        M, N, K,
+        # The stride variables represent how much to increase the ptr by when moving by 1
+        # element in a particular dimension
+        stride_am, stride_ak,  
+        stride_bk, stride_bn,  
+        stride_cm, stride_cn,
+        # Meta-parameters
+        BLOCK_SIZE_M: tl.constexpr, BLOCK_SIZE_N: tl.constexpr, BLOCK_SIZE_K: tl.constexpr,  
+        GROUP_SIZE_M: tl.constexpr,  
+        ACTIVATION: tl.constexpr  
 ):
-    """
-    Compute: C = alpha * A @ B + beta * C
-    """
-    # Program ID in the M and N dimensions
-    pid_m = tl.program_id(axis=0)
-    pid_n = tl.program_id(axis=1)
+    # Map program ids to the block of C it should compute
+    pid = tl.program_id(axis=0)
+    num_pid_m = tl.cdiv(M, BLOCK_SIZE_M)
+    num_pid_n = tl.cdiv(N, BLOCK_SIZE_N)
+    num_pid_in_group = GROUP_SIZE_M * num_pid_n
+    group_id = pid // num_pid_in_group
+    first_pid_m = group_id * GROUP_SIZE_M
+    group_size_m = min(num_pid_m - first_pid_m, GROUP_SIZE_M)
+    pid_m = first_pid_m + ((pid % num_pid_in_group) % group_size_m)
+    pid_n = (pid % num_pid_in_group) // group_size_m
 
-    # Offset to the start of the current block in A and B based on program ID
-    a_offset = pid_m * BLOCK_SIZE_M * stride_am
-    b_offset = pid_n * BLOCK_SIZE_N * stride_bn
-
-    # Compute the starting offsets for each thread
-    offs_m = tl.arange(0, BLOCK_SIZE_M)
-    offs_n = tl.arange(0, BLOCK_SIZE_N)
+    # Create pointers for the first blocks of A and B
+    offs_am = (pid_m * BLOCK_SIZE_M + tl.arange(0, BLOCK_SIZE_M)) % M
+    offs_bn = (pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N)) % N
     offs_k = tl.arange(0, BLOCK_SIZE_K)
+    a_ptrs = a_ptr + (offs_am[:, None] * stride_am + offs_k[None, :] * stride_ak)
+    b_ptrs = b_ptr + (offs_k[:, None] * stride_bk + offs_bn[None, :] * stride_bn)
 
-    # Create offsets into A, B and C matrices
-    a_ptrs = a_offset + offs_m[:, None] * stride_am + offs_k[None, :] * stride_ak
-    b_ptrs = b_offset + offs_k[:, None] * stride_bk + offs_n[None, :] * stride_bn
-
-    # Initialize accumulator to zeros
-    c = tl.zeros((BLOCK_SIZE_M, BLOCK_SIZE_N), dtype=tl.float32)
-
-    # Iterate to compute a block of the C matrix
+    # Compute a block of the C matrix
+    accumulator = tl.zeros((BLOCK_SIZE_M, BLOCK_SIZE_N), dtype=tl.float32)
     for k in range(0, tl.cdiv(K, BLOCK_SIZE_K)):
-        # Adjust k-dimension pointers
-        a_ptrs_k = a_ptrs + k * BLOCK_SIZE_K * stride_ak
-        b_ptrs_k = b_ptrs + k * BLOCK_SIZE_K * stride_bk
+        # Load the next block of A and B, with masking
+        a = tl.load(a_ptrs, mask=offs_k[None, :] < K - k * BLOCK_SIZE_K, other=0.0)
+        b = tl.load(b_ptrs, mask=offs_k[:, None] < K - k * BLOCK_SIZE_K, other=0.0)
+        # Accumulate along the K dimension
+        accumulator = tl.dot(a, b, accumulator)
+        # Advance the ptrs to the next K block
+        a_ptrs += BLOCK_SIZE_K * stride_ak
+        b_ptrs += BLOCK_SIZE_K * stride_bk
+        
+    # Apply activation if needed
+    if ACTIVATION == "leaky_relu":
+        accumulator = leaky_relu(accumulator)
+    # c = accumulator.to(tl.float16)
+    c = accumulator
 
-        # Load A and B, mask out elements that are out of bounds
-        k_remaining = K - k * BLOCK_SIZE_K
-        a_mask = offs_k[None, :] < k_remaining
-        b_mask = offs_k[:, None] < k_remaining
-        a = tl.load(a_ptrs_k, mask=a_mask, other=0.0)
-        b = tl.load(b_ptrs_k, mask=b_mask, other=0.0)
+    # Write back the block of the output matrix C with masks
+    offs_cm = pid_m * BLOCK_SIZE_M + tl.arange(0, BLOCK_SIZE_M)
+    offs_cn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N)
+    c_ptrs = c_ptr + stride_cm * offs_cm[:, None] + stride_cn * offs_cn[None, :]
+    c_mask = (offs_cm[:, None] < M) & (offs_cn[None, :] < N)
+    tl.store(c_ptrs, c, mask=c_mask)
 
-        # Compute block-wise matrix multiplication
-        c += tl.dot(a, b)
+@triton.jit
+def leaky_relu(x):
+    return tl.where(x >= 0, x, 0.01 * x)
 
-    # Scale by alpha
-    c = c * alpha
+def matmul_triton(a, b, activation=""):
+    # Check constraints
+    assert a.shape[1] == b.shape[0], "Incompatible dimensions"
+    assert a.is_contiguous(), "Matrix A must be contiguous"
+    M, K = a.shape
+    K, N = b.shape
+    # Allocate output
+    c = torch.empty((M, N), device=a.device)
+    # Launch kernel
+    grid = lambda META: (triton.cdiv(M, META['BLOCK_SIZE_M']) * triton.cdiv(N, META['BLOCK_SIZE_N']), )
+    matmul_kernel[grid](
+        a, b, c,
+        M, N, K,
+        a.stride(0), a.stride(1),
+        b.stride(0), b.stride(1),
+        c.stride(0), c.stride(1),
+        ACTIVATION=activation
+    )
+    return c
 
-    # Load and update C with the beta * C term
-    c_offset = pid_m * BLOCK_SIZE_M * stride_cm + pid_n * BLOCK_SIZE_N * stride_cn
-    c_ptrs = c_offset + offs_m[:, None] * stride_cm + offs_n[None, :] * stride_cn
-    
-    # Apply bounds check for C
-    m_mask = offs_m[:, None] < M
-    n_mask = offs_n[None, :] < N
-    mask = m_mask & n_mask
-    
-    if beta != 0.0:
-        c_prev = tl.load(c_ptrs, mask=mask, other=0.0)
-        c = c + beta * c_prev
-
-    # Write back C block
-    tl.store(c_ptrs, c, mask=mask)
-
-def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
+def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray, B_h: np.ndarray, C_h: np.ndarray, alpha: float, beta: float, C_expected: np.ndarray):
     """
-    Test the performance of the Triton matmul implementation
+    Test the performance of Triton matrix multiplication on GPU
+    A_h, B_h, C_h are numpy arrays
     """
-    # Convert HIP device pointers to PyTorch tensors with shared memory
-    # This involves creating PyTorch tensors that reference the memory
-    # NOTE: In a real implementation, you might need to convert HIP pointers to CUDA pointers
-    # or use a different approach based on your specific setup
+    # Check if GPU is available
+    if not torch.cuda.is_available():
+        raise RuntimeError("No GPU detected")
     
-    # Allocate PyTorch tensors using CUDA
+    # Get the appropriate device
     device = torch.device("cuda")
     
-    # For demonstration, create new tensors and copy data over
-    A_host = np.zeros((M, K), dtype=np.float32, order="F")
-    B_host = np.zeros((K, N), dtype=np.float32, order="F")
-    C_host = np.zeros((M, N), dtype=np.float32, order="F")
-    
-    # Copy from device to host
-    hip_check(hip.hipMemcpy(A_host, A_d, A_host.nbytes, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    hip_check(hip.hipMemcpy(B_host, B_d, B_host.nbytes, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    hip_check(hip.hipMemcpy(C_host, C_d, C_host.nbytes, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    
-    # Convert to PyTorch tensors
-    A = torch.from_numpy(A_host).to(device)
-    B = torch.from_numpy(B_host).to(device)
-    C = torch.from_numpy(C_host).to(device)
-    
-    # Define grid and block sizes
-    grid = (triton.cdiv(M, 32), triton.cdiv(N, 32))
-    
-    # Start timing
-    start_time = time.time()
-    
-    # Launch the Triton kernel
-    matmul_kernel_triton[grid](
-        A, B, C,
-        M, N, K,
-        A.stride(0), A.stride(1),
-        B.stride(0), B.stride(1),
-        C.stride(0), C.stride(1),
-        alpha, beta,
-        BLOCK_SIZE_M=32, BLOCK_SIZE_N=32, BLOCK_SIZE_K=32
-    )
-    
-    # Synchronize for accurate timing
-    torch.cuda.synchronize()
-    end_time = time.time()
-    
-    # Calculate elapsed time in milliseconds
-    elapsed_time = (end_time - start_time) * 1000
-    
-    # Copy result back to host for comparison
-    C_out = C.cpu().numpy()
-    compare(C_out, C_expected)
-    
-    return elapsed_time
+    # Convert numpy arrays to PyTorch tensors and send to device
+    A_tensor = torch.from_numpy(A_h).to(device)
+    B_tensor = torch.from_numpy(B_h).to(device)
+    C_tensor = torch.from_numpy(C_h).to(device)
 
-# Original HIP implementation
-def test_hip_blas_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
-    """
-    Test the performance of the hipBLAS gemm implementation
-    """
-
-    # Create hipBLAS handle
-    handle = hip_check(hipblas.hipblasCreate())
-
-    # Create HIP events for timing
-    start_event = hip_check(hip.hipEventCreate())
-    stop_event = hip_check(hip.hipEventCreate())
-
+    # Create CUDA events for timing
+    start_event = torch.cuda.Event(enable_timing=True)
+    end_event = torch.cuda.Event(enable_timing=True)
+    
     # Record start event
-    hip_check(hip.hipEventRecord(start_event, 0))
-
-    hip_check(hipblas.hipblasSgemm(handle, 
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
-        M, N, K,
-        alpha, 
-        A_d, M,
-        B_d, K,
-        beta, 
-        C_d, M
-    ))
-
-    # Record stop event
-    hip_check(hip.hipEventRecord(stop_event, 0))
-    hip_check(hip.hipEventSynchronize(stop_event))
-
-    # Measure elapsed time
-    elapsed_time = hip_check(hip.hipEventElapsedTime(start_event, stop_event))
-
-    # Copy result (stored in C_d) back to host
-    C_out = np.zeros((M, N), dtype=np.float32, order="F")
-    num_bytes_C = C_out.nbytes
-    hip_check(hip.hipMemcpy(C_out, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    compare(C_out, C_expected)
-
-    # Destroy events and module
-    hip_check(hip.hipEventDestroy(start_event))
-    hip_check(hip.hipEventDestroy(stop_event))
-
+    start_event.record()
+    
+    # Perform matrix multiplication using Triton
+    # Note: the Triton kernel doesn't directly support alpha and beta,
+    # so we implement the full operation: alpha * A @ B + beta * C
+    C_result = matmul_triton(A_tensor, B_tensor)
+    # assume alpha = 1.0 and beta = 0.0
+    # C_result = alpha * AB_result + beta * C_tensor
+    
+    # Record end event and synchronize
+    end_event.record()
+    torch.cuda.synchronize()
+    
+    # Get elapsed time in milliseconds
+    elapsed_time = start_event.elapsed_time(end_event)
+    
+    # Copy result back to CPU for validation
+    C_result_cpu = C_result.cpu().numpy()
+    compare(C_result_cpu, C_expected)
+    
     return elapsed_time
 

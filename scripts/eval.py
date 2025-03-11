@@ -11,13 +11,18 @@ import numpy as np
 import pydra
 from pydra import REQUIRED, Config
 
+
+# Write results to JSON file
+import json
+import datetime
+
 # HIP-related imports
 from hip import hip, hiprtc, hipblas
 
 # Local/project imports
 from utils.check import hip_check, compare
 from utils.io import read_file_as_bytes
-from src import run_hip_blas, run_pytorch  # This import needs fixing
+from src import run_hip_blas, run_pytorch, run_triton 
 
 """
 Evaluate the performance of HiP implementations of various kernels
@@ -69,9 +74,12 @@ class EvalConfig(Config):
         self.num_warmup = 3
         self.num_iterations = 10
 
+
+        self.results_dir = os.path.join(REPO_TOP_DIR, "results")
+
     def matmul_shape(self):
         # Standard GEMM shape for benchmarking
-        
+
         self.M = 8192
         self.K = 8192
         self.N = 8192   
@@ -269,9 +277,8 @@ def test_kernel_harness(config: EvalConfig):
             return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         
         case KernelType.TRITON: # Triton
-    
-            raise NotImplementedError("Triton is not implemented yet")
-        
+            return run_triton.test_triton_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
+
         case KernelType.THUNDERKITTEN: # Thunderkitten
             raise NotImplementedError("Thunderkitten is not implemented yet")
 
@@ -325,11 +332,47 @@ def main(config: EvalConfig):
         "total_time": float(f"{np.sum(times_array):.2f}")
     }
     
+    
     # total_time = sum(kernel_times)
     # avg_time = total_time / num_iterations
     print(f"\n✅ Average Kernel Execution Time: {stats['mean']:.4f} ms over {num_iterations} runs")
     print(f"Stats: {stats}")
-    print(f"\nPerformance FLOPS: ({2. * 1e-9 * num_iterations * M * N * K / stats['total_time']:.2f}) TFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
+    flops = 2. * 1e-9 * num_iterations * M * N * K / stats['total_time']
+    print(f"\nPerformance FLOPS: ({flops:.2f}) TFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
     
+
+    results = {
+        "kernel_type": str(config.kernel_type),
+        "kernel_name": config.kernel,
+        "matrix_dims": {
+            "M": M,
+            "N": N, 
+            "K": K,
+            "alpha": alpha,
+            "beta": beta
+        },
+        "parameters": {
+            "num_warmup": config.num_warmup,
+            "num_iterations": num_iterations
+        },
+        "timing_stats": stats,
+        "performance": {
+            "tflops": float(f"{flops:.2f}")
+        },
+        "timestamp": datetime.datetime.now().isoformat(),
+        "precision": "fp32"
+    }
+
+    # Generate filename with timestamp
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"results_{config.kernel_type}_config_{config.kernel}_{M}x{K}x{N}_{timestamp}.json"
+    filepath = os.path.join(config.results_dir, filename)
+
+    # Write results to JSON file
+    with open(filepath, "w") as f:
+        json.dump(results, f, indent=4)
+
+    print(f"\nResults written to: {filepath}")
+
 if __name__ == "__main__":
     main()
