@@ -66,6 +66,11 @@ class EvalConfig(Config):
         self.num_warmup = 3
         self.num_iterations = 10
 
+    def big_shape(self):
+        self.M = 4096
+        self.K = 4096
+        self.N = 4096   
+
 
 
     def __repr__(self):
@@ -217,7 +222,7 @@ def test_kernel(config: EvalConfig):
     # setup kernel
     match kernel_type:
         case KernelType.HIP_BLAS:
-            return run_hip_blas.test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+            return run_hip_blas.test_hip_blas_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         case KernelType.HIP:
             return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         case _:
@@ -253,12 +258,24 @@ def main(config: EvalConfig):
     for _ in range(config.num_iterations):
         kernel_times.append(test_kernel(config))
     
-    # Compute average execution time
-    # Compute average time
-    total_time = sum(kernel_times) / 1000
-    avg_time = total_time / num_iterations
-    print(f"\n✅ Average Kernel Execution Time: {avg_time:.4f}s over {num_iterations} runs")
-    print(f"\nPerformance: ({2. * 1e-9 * num_iterations * M * N * K / total_time}) GFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
 
+    # Compute execution test stats
+    times_array = np.array(kernel_times)
+
+    stats = {
+        "mean": float(f"{np.mean(times_array):.2f}"),
+        "std": float(f"{np.std(times_array):.2f}"), 
+        "min": float(f"{np.min(times_array):.2f}"),
+        "max": float(f"{np.max(times_array):.2f}"),
+        "median": float(f"{np.median(times_array):.2f}"),
+        "total_time": float(f"{np.sum(times_array):.2f}")
+    }
+    
+    # total_time = sum(kernel_times)
+    # avg_time = total_time / num_iterations
+    print(f"\n✅ Average Kernel Execution Time: {stats['mean']:.4f} ms over {num_iterations} runs")
+    print(f"Stats: {stats}")
+    print(f"\nPerformance FLOPS: ({2. * 1e-9 * num_iterations * M * N * K / stats['total_time']:.2f}) TFLOPS. size: ({M} x {K}) * ({K} x {N}).\n")
+    
 if __name__ == "__main__":
     main()

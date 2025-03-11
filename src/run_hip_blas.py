@@ -4,7 +4,7 @@ import pydra
 from hip import hip, hipblas
 import numpy as np
 
-def test_hip_blas(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
+def test_hip_blas_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
     Test the performance of the hipBLAS gemm implementation
     """
