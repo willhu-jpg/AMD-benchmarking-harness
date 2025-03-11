@@ -115,12 +115,23 @@ def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, a
     # Compute block and grid
     block_size = config.block_size
     
-    BN = 64
-    BM = 64
-    BK = 8
+    if (config.kernel == "1d_blocked_matmul"):
+        BN = 64
+        BM = 64
+        BK = 8
 
-    block = hip.dim3(x=BM * BK)
-    grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+        block = hip.dim3(x=BM * BK)
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "blocked_matmul"):
+        BN = 32
+        BM = 32
+        BK = 32
+
+        block = hip.dim3(x=BM, y=BK)
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    else:
+        block = hip.dim3(x=block_size, y=block_size)
+        grid = hip.dim3(x=math.ceil(N / block_size), y=math.ceil(M / block_size))
 
     # Create HIP events for timing
     start_event = hip_check(hip.hipEventCreate())
