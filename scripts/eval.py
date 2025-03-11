@@ -53,6 +53,9 @@ class EvalConfig(Config):
         self.block_size = 16
 
         # matrix size dimensions
+        # A matrix is M x K 
+        # B matrix is K x N
+        # C matrix is M x N
         self.M = 1024
         self.K = 1024
         self.N = 1024
@@ -66,11 +69,32 @@ class EvalConfig(Config):
         self.num_warmup = 3
         self.num_iterations = 10
 
-    def big_shape(self):
-        self.M = 4096
-        self.K = 4096
-        self.N = 4096   
+    def matmul_shape(self):
+        # Standard GEMM shape for benchmarking
+        
+        self.M = 8192
+        self.K = 8192
+        self.N = 8192   
 
+    # Below are shapes of operations used in Llama 70B model
+    def qkv_proj_shape(self):
+        # Fused QKV Projection GEMM shape
+
+        self.M = 16384
+        self.K = 8192
+        self.N = 1280
+
+    def attn_output_shape(self):
+        # Attention Output Projection shape
+        self.M = 16384
+        self.K = 1024
+        self.N = 8192
+
+    def ffn_gemm_shape(self):
+        # FFN GEMM shape
+        self.M = 16384
+        self.K = 3584
+        self.N = 8192
 
 
     def __repr__(self):
