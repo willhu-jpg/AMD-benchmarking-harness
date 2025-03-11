@@ -17,7 +17,7 @@ from hip import hip, hiprtc, hipblas
 # Local/project imports
 from utils.check import hip_check, compare
 from utils.io import read_file_as_bytes
-from src import run_hip_blas  # This import needs fixing
+from src import run_hip_blas, run_pytorch  # This import needs fixing
 
 """
 Evaluate the performance of HiP implementations of various kernels
@@ -81,9 +81,11 @@ def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, a
     Test the performance of the HiP kernel implementation
     Note this is not HIPBlas, but pure HiP kernel
     """
+    assert len(config.kernel) > 0, "Kernel name must be provided"
 
     # Define the HIP kernel (inline compilation)
     kernel_path = os.path.join(KERNEL_DIR, f"{config.kernel}.cpp")
+    assert os.path.exists(kernel_path), f"Kernel file does not exist: {kernel_path}"
     source = read_file_as_bytes(kernel_path)
 
     # Compile kernel using HIPRTC
@@ -170,61 +172,78 @@ def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, a
     return elapsed_time
 
 
-def test_kernel(config: EvalConfig):
+def test_kernel_harness(config: EvalConfig):
     """
     Driver code to test kernels
     """
-
-    # Define matrix dimensions
-    M = config.M
-    K = config.K
-    N = config.N
-
-    # Scalars
-    alpha = ctypes.c_float(config.alpha)
-    beta = ctypes.c_float(config.beta)
-
-    # Generate random input matrices
-
-    # HIP BLAS expects matrices in column-major order
-    if config.kernel == "":
-        A_h = np.random.rand(M, K).astype(np.float32, order="F")
-        B_h = np.random.rand(K, N).astype(np.float32, order="F")
-        C_h = np.random.rand(M, N).astype(np.float32, order="F")
-    else:
-        A_h = np.random.rand(M, K).astype(np.float32)
-        B_h = np.random.rand(K, N).astype(np.float32)
-        C_h = np.random.rand(M, N).astype(np.float32)
-
-    # Compute expected result using NumPy
-    C_expected = alpha.value * np.dot(A_h, B_h) + beta.value * C_h
-
-    # Allocate device memory
-    num_bytes_A = A_h.nbytes
-    num_bytes_B = B_h.nbytes
-    num_bytes_C = C_h.nbytes
-
-    A_d = hip_check(hip.hipMalloc(num_bytes_A))
-    B_d = hip_check(hip.hipMalloc(num_bytes_B))
-    C_d = hip_check(hip.hipMalloc(num_bytes_C))
-
-    # Copy input data to device
-    hip_check(hip.hipMemcpy(A_d, A_h, num_bytes_A, hip.hipMemcpyKind.hipMemcpyHostToDevice))
-    hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
-    hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
 
     # Convert string to KernelType if needed
     if not isinstance(config.kernel_type, KernelType):
         kernel_type = KernelType.from_string(str(config.kernel_type))
     else:
         kernel_type = config.kernel_type
-    
+   
+
+    # Define matrix dimensions
+    M = config.M
+    K = config.K
+    N = config.N
+
+    alpha = config.alpha
+    beta = config.beta
+
+ 
+    # HIP BLAS expects matrices in column-major order
+    order = "F" if kernel_type == KernelType.HIP_BLAS else "C"
+    A_h = np.random.rand(M, K).astype(np.float32, order=order)
+    B_h = np.random.rand(K, N).astype(np.float32, order=order)
+    C_h = np.random.rand(M, N).astype(np.float32, order=order)
+
+    # Compute expected result using NumPy as Golden Reference
+    C_expected = alpha * np.dot(A_h, B_h) + beta * C_h
+
+    if kernel_type in [KernelType.HIP_BLAS, KernelType.HIP]:
+
+        # Scalars
+        alpha = ctypes.c_float(config.alpha)
+        beta = ctypes.c_float(config.beta)
+
+        # Allocate device memory
+        num_bytes_A = A_h.nbytes
+        num_bytes_B = B_h.nbytes
+        num_bytes_C = C_h.nbytes
+
+        A_d = hip_check(hip.hipMalloc(num_bytes_A))
+        B_d = hip_check(hip.hipMalloc(num_bytes_B))
+        C_d = hip_check(hip.hipMalloc(num_bytes_C))
+
+        # Copy input data to device
+        hip_check(hip.hipMemcpy(A_d, A_h, num_bytes_A, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+        hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+        hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+
     # setup kernel
     match kernel_type:
-        case KernelType.HIP_BLAS:
+        case KernelType.HIP_BLAS: # HIP_BLAS
+            
             return run_hip_blas.test_hip_blas_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
-        case KernelType.HIP:
+        
+        case KernelType.HIP: # hand-written kernel
+
+            assert len(config.kernel) > 0, "Kernel name must be provided"
             return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+        
+        case KernelType.TRITON: # Triton
+    
+            raise NotImplementedError("Triton is not implemented yet")
+        
+        case KernelType.THUNDERKITTEN: # Thunderkitten
+            raise NotImplementedError("Thunderkitten is not implemented yet")
+
+        case KernelType.PYTORCH: # PyTorch
+            # pass the numpy arrays to pytorch
+            return run_pytorch.test_pytorch_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
+        
         case _:
             raise ValueError(f"Not implemented for kernel type: {config.kernel_type}")
     
@@ -250,13 +269,13 @@ def main(config: EvalConfig):
 
     # Warmup
     for _ in range(config.num_warmup):
-        test_kernel(config)
+        test_kernel_harness(config)
 
     num_iterations = config.num_iterations
 
     kernel_times = []
     for _ in range(config.num_iterations):
-        kernel_times.append(test_kernel(config))
+        kernel_times.append(test_kernel_harness(config))
     
 
     # Compute execution test stats

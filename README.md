@@ -1,7 +1,18 @@
 # AMD-benchmarking-harness
 
+
+# Install PyTorch
+
+Need to install special PyTorch that targets AMD
+
+From the [PyTorch website](https://pytorch.org/get-started/locally/)
+```
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.2.4
+```
+
 # Install Hip-Python
 Make sure that the version matches that of your ROCm HIP SDK version. Something like this:
+
 
 ```
 pip install -r requirements.txt
