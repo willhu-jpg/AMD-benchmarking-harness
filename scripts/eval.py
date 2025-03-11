@@ -8,6 +8,9 @@ import pydra
 from pydra import REQUIRED, Config
 import os
 
+from enum import Enum, auto
+
+
 from hip import hip, hiprtc, hipblas
 
 from utils.check import hip_check, compare
@@ -21,6 +24,27 @@ Evaluate the performance of HiP implementations of various kernels
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels")
 
+class KernelType(Enum):
+    """Enum for different kernel implementations"""
+    PYTORCH = auto()
+    HIP = auto()
+    HIP_BLAS = auto()
+    TRITON = auto()
+    THUNDERKITTEN = auto()
+    
+    def __str__(self):
+        return self.name.lower()
+    
+    @classmethod
+    def from_string(cls, name: str):
+        """Convert string to enum value, case-insensitive"""
+        try:
+            return cls[name.upper()]
+        except KeyError:
+            valid_values = [k.name.lower() for k in cls]
+            raise ValueError(f"Invalid kernel type: {name}. Valid values are: {', '.join(valid_values)}")
+
+
 class EvalConfig(Config):
     def __init__(self):
         self.kernel = "" # name of the matmul kernel to evaluate
@@ -33,9 +57,13 @@ class EvalConfig(Config):
         self.alpha = 1.0
         self.beta = 0.0
 
+        # which kernel backend to run
+        self.kernel_type = KernelType.HIP
+
         # timing
         self.num_warmup = 3
         self.num_iterations = 10
+
 
 
     def __repr__(self):
@@ -223,7 +251,17 @@ def test_kernel(config: EvalConfig):
     hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
     hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
 
-    # setup
+
+    kernel_type = KernelType.from_string(config.kernel_type)
+    # setup kernel
+    match kernel_type:
+        case KernelType.HIP_BLAS:
+            return test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+        case KernelType.HIP:
+            return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+        case _:
+            raise ValueError(f"Not implemented for kernel type: {config.kernel_type}")
+    
     if config.kernel == "":
         return test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
     else:
@@ -238,9 +276,16 @@ def test_kernel(config: EvalConfig):
 @pydra.main(base=EvalConfig)
 def main(config: EvalConfig):
 
+    print(f"Running {config.kernel_type} kernel")
+
     M = config.M
     N = config.N
     K = config.K
+    alpha = config.alpha
+    beta = config.beta
+
+    print(f"Testing Kernel with size: M {M} x K {K} x N {N} Alpha: {alpha}, Beta: {beta}")
+    print(f"Using Kernel Backend: {config.kernel_type} Kernel Name: {config.kernel}")
 
     # Warmup
     for _ in range(config.num_warmup):
