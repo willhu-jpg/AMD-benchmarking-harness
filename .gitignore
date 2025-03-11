@@ -1,0 +1,9 @@
+build/
+*.egg-info/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+utils/__pycache__/

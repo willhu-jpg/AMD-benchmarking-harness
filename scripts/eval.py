@@ -10,8 +10,13 @@ import os
 
 from hip import hip, hiprtc, hipblas
 
-from utils.check import hip_check
+from utils.check import hip_check, compare
+
 from utils.io import read_file_as_bytes
+
+"""
+Evaluate the performance of HiP implementations of various kernels
+"""
 
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels")
@@ -20,27 +25,27 @@ class EvalConfig(Config):
     def __init__(self):
         self.kernel = "" # name of the matmul kernel to evaluate
         self.block_size = 16
-        self.num_iterations = 10
 
+        # matrix size dimensions
         self.M = 1024
         self.K = 1024
         self.N = 1024
         self.alpha = 1.0
         self.beta = 0.0
 
+        # timing
+        self.num_warmup = 3
+        self.num_iterations = 10
+
+
     def __repr__(self):
         return f"EvalConfig({self.to_dict()})"
 
-def compare(C_h, C_expected):
-    # Compare with expected result
-    if np.allclose(C_expected, C_h, atol=1e-3):
-        print("✅ Matrix multiplication successful")
-    else:
-        print("❌ Matrix multiplication FAILED")
-        print(f"Output: {C_h}")
-        print(f"Golden: {C_expected}")
-
 def test_hip_blas(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
+    """
+    Test the performance of the hipBLAS gemm implementation
+    """
+
     # Create hipBLAS handle
     handle = hip_check(hipblas.hipblasCreate())
 
@@ -82,6 +87,11 @@ def test_hip_blas(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, alp
     return elapsed_time
 
 def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
+    """
+    Test the performance of the HiP kernel implementation
+    Note this is not HIPBlas, but pure HiP kernel
+    """
+
     # Define the HIP kernel (inline compilation)
     kernel_path = os.path.join(KERNEL_DIR, f"{config.kernel}.cpp")
     source = read_file_as_bytes(kernel_path)
@@ -171,6 +181,9 @@ def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, a
 
 
 def test_kernel(config: EvalConfig):
+    """
+    Driver code to test kernels
+    """
 
     # Define matrix dimensions
     M = config.M
@@ -230,9 +243,11 @@ def main(config: EvalConfig):
     K = config.K
 
     # Warmup
-    test_kernel(config)
+    for _ in range(config.num_warmup):
+        test_kernel(config)
 
     num_iterations = config.num_iterations
+
     kernel_times = []
     for _ in range(config.num_iterations):
         kernel_times.append(test_kernel(config))

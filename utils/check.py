@@ -1,5 +1,6 @@
 from hip import hip
 from hip import hipblas
+import numpy as np
 
 def hip_check(call_result):
     """Check HIP and hipBLAS function results."""
@@ -12,3 +13,16 @@ def hip_check(call_result):
     elif isinstance(err, hipblas.hipblasStatus_t) and err != hipblas.hipblasStatus_t.HIPBLAS_STATUS_SUCCESS:
         raise RuntimeError(str(err))
     return result
+
+def compare(C_h: np.ndarray, C_expected: np.ndarray):
+    """
+    Compare the output of the kernel with the expected result
+    """
+
+    # Compare with expected result
+    if np.allclose(C_expected, C_h, atol=1e-3):
+        print("✅ Matrix multiplication successful")
+    else:
+        print("❌ Matrix multiplication FAILED")
+        print(f"Output: {C_h}")
+        print(f"Golden: {C_expected}")
