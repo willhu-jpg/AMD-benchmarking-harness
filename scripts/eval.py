@@ -1,21 +1,23 @@
-import ctypes
-import array
-import random
-import math
-import numpy as np
-
-import pydra
-from pydra import REQUIRED, Config
+# Standard library imports
 import os
-
+import math
+import random
+import array
+import ctypes
 from enum import Enum, auto
 
+# Third-party imports
+import numpy as np
+import pydra
+from pydra import REQUIRED, Config
 
+# HIP-related imports
 from hip import hip, hiprtc, hipblas
 
+# Local/project imports
 from utils.check import hip_check, compare
-
 from utils.io import read_file_as_bytes
+from src import run_hip_blas  # This import needs fixing
 
 """
 Evaluate the performance of HiP implementations of various kernels
@@ -68,51 +70,6 @@ class EvalConfig(Config):
 
     def __repr__(self):
         return f"EvalConfig({self.to_dict()})"
-
-def test_hip_blas(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
-    """
-    Test the performance of the hipBLAS gemm implementation
-    """
-
-    # Create hipBLAS handle
-    handle = hip_check(hipblas.hipblasCreate())
-
-    # Create HIP events for timing
-    start_event = hip_check(hip.hipEventCreate())
-    stop_event = hip_check(hip.hipEventCreate())
-
-    # Record start event
-    hip_check(hip.hipEventRecord(start_event, 0))
-
-    hip_check(hipblas.hipblasSgemm(handle, 
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
-        M, N, K,
-        alpha, 
-        A_d, M,
-        B_d, K,
-        beta, 
-        C_d, M
-    ))
-
-    # Record stop event
-    hip_check(hip.hipEventRecord(stop_event, 0))
-    hip_check(hip.hipEventSynchronize(stop_event))
-
-    # Measure elapsed time
-    elapsed_time = hip_check(hip.hipEventElapsedTime(start_event, stop_event))
-
-    # Copy result (stored in C_d) back to host
-    C_out = np.zeros((M, N), dtype=np.float32, order="F")
-    num_bytes_C = C_out.nbytes
-    hip_check(hip.hipMemcpy(C_out, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    compare(C_out, C_expected)
-
-    # Destroy events and module
-    hip_check(hip.hipEventDestroy(start_event))
-    hip_check(hip.hipEventDestroy(stop_event))
-
-    return elapsed_time
 
 def test_hip_kernel(config: EvalConfig, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
@@ -251,22 +208,21 @@ def test_kernel(config: EvalConfig):
     hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
     hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
 
-
-    kernel_type = KernelType.from_string(config.kernel_type)
+    # Convert string to KernelType if needed
+    if not isinstance(config.kernel_type, KernelType):
+        kernel_type = KernelType.from_string(str(config.kernel_type))
+    else:
+        kernel_type = config.kernel_type
+    
     # setup kernel
     match kernel_type:
         case KernelType.HIP_BLAS:
-            return test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+            return run_hip_blas.test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         case KernelType.HIP:
             return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         case _:
             raise ValueError(f"Not implemented for kernel type: {config.kernel_type}")
     
-    if config.kernel == "":
-        return test_hip_blas(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
-    else:
-        return test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
-
     # Clean up device memory
     hip_check(hip.hipFree(A_d))
     hip_check(hip.hipFree(B_d))
