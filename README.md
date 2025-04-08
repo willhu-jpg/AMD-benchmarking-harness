@@ -10,6 +10,11 @@ From the [PyTorch website](https://pytorch.org/get-started/locally/)
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.2.4
 ```
 
+# Get the ThunderKittens-HIP repo
+```
+git submodule update --init --recursive
+```
+
 # Install Hip-Python
 Make sure that the version matches that of your ROCm HIP SDK version. Something like this:
 
@@ -19,7 +24,6 @@ pip install -r requirements.txt
 pip install --index-url https://test.pypi.org/simple "hip-python==5.7.0.470.16"
 pip install -e .
 ```
-
 
 ### Directory structure
 ```
