@@ -54,12 +54,58 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     # Compute block and grid
     block_size = config.block_size
     
-    if (config.kernel == "1d_blocked_matmul"):
+    if (config.kernel == "warptiling"):
+        BN = 128
+        BM = 128
+        BK = 8
+        TM = 8
+        TN = 8
+
+        block = hip.dim3(x=BM * BN / (TM * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+
+    elif (config.kernel == "resolve_bank_extra_cols"):
+        BN = 128
+        BM = 128
+        BK = 8
+        TM = 8
+        TN = 8
+
+        block = hip.dim3(x=BM * BN / (TM * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "resolve_bank_conflicts"):
+        BN = 128
+        BM = 128
+        BK = 8
+        TM = 8
+        TN = 8
+
+        block = hip.dim3(x=BM * BN / (TM * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "vectorize"):
+        BN = 128
+        BM = 128
+        BK = 8
+        TM = 8
+        TN = 8
+
+        block = hip.dim3(x=BM * BN / (TM * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "2d_blocked_matmul"):
+        BN = 256
+        BM = 256
+        BK = 8
+        TM = 8
+        TN = 8
+
+        block = hip.dim3(x=BM * BN / (TM * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "1d_blocked_matmul"):
         BN = 64
         BM = 64
         BK = 8
 
-        block = hip.dim3(x=BM * BK)
+        block = hip.dim3(x=BM * BN / BK)
         grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
     elif (config.kernel == "blocked_matmul"):
         BN = 32
@@ -111,7 +157,7 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     C_out = np.zeros((M, N), dtype=np.float32)
     num_bytes_C = C_out.nbytes
     hip_check(hip.hipMemcpy(C_out, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    compare(C_out, C_expected)
+    compare(C_out, C_expected, config.debug)
 
     # Destroy events and module
     hip_check(hip.hipEventDestroy(start_event))

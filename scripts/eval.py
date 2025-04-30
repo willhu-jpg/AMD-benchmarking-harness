@@ -73,8 +73,16 @@ class EvalConfig(Config):
         self.num_warmup = 3
         self.num_iterations = 10
 
-
+        self.debug = False
         self.results_dir = os.path.join(REPO_TOP_DIR, "results")
+
+    def correctness(self):
+        self.num_warmup = 0
+        self.num_iterations = 1
+        self.M = 256
+        self.K = 256
+        self.N = 256
+        self.debug = True
 
     def matmul_shape(self):
         # Standard GEMM shape for benchmarking
@@ -134,6 +142,9 @@ def test_kernel_harness(config: EvalConfig):
     A_h = np.random.rand(M, K).astype(np.float32, order=order)
     B_h = np.random.rand(K, N).astype(np.float32, order=order)
     C_h = np.random.rand(M, N).astype(np.float32, order=order)
+    # A_h = np.ones((M, K), dtype=np.float32, order=order)
+    # B_h = np.ones((K, N), dtype=np.float32, order=order)
+    # C_h = np.ones((M, N), dtype=np.float32, order=order)
 
     # Compute expected result using NumPy as Golden Reference
     C_expected = alpha * np.dot(A_h, B_h) + beta * C_h
