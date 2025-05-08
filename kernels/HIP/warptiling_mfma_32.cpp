@@ -31,7 +31,7 @@ __device__ void
 processFromSmem(float *regM, float *regN, float *threadResults, const float *As,
                 const float *Bs, const uint warpRow, const uint warpCol,
                 const uint threadRowInWarp, const uint threadColInWarp) {
-  for (uint dotIdx = 0; dotIdx < BK; dotIdx += 4) {
+  for (uint dotIdx = 0; dotIdx < BK; dotIdx += 2) {
     // execute warptile matmul
     for (uint wSubRowIdx = 0; wSubRowIdx < WMITER; ++wSubRowIdx) {
       for (uint wSubColIdx = 0; wSubColIdx < WNITER; ++wSubColIdx) {
@@ -39,13 +39,12 @@ processFromSmem(float *regM, float *regN, float *threadResults, const float *As,
         float A_elem = As[(dotIdx * BM) + (warpRow * WM) + (wSubRowIdx * WSUBM) + (threadRowInWarp * BN) + threadColInWarp];
         float B_elem = Bs[(dotIdx * BN) + (warpCol * WN) + (wSubColIdx * WSUBN) + (threadRowInWarp * BN) + threadColInWarp];
         
-        float_vec4 acc = {0.0f};
-        acc = __builtin_amdgcn_mfma_f32_16x16x4f32(A_elem, B_elem, acc, 0, 0, 0);
+        float16 acc = {0.0f};
+        acc = __builtin_amdgcn_mfma_f32_32x32x2f32(A_elem, B_elem, acc, 0, 0, 0);
 
-        threadResults[(wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM)] += acc[0];
-        threadResults[(wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM) + 1] += acc[1];
-        threadResults[(wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM) + 2] += acc[2];
-        threadResults[(wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM) + 3] += acc[3];
+        for (uint acc_idx = 0; acc_idx < TM; acc_idx++)
+          threadResults[(wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM) + acc_idx] += acc[acc_idx];
+
       }
     }
   }
@@ -72,8 +71,8 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
     const int BK = 16;
     const int WM = 64;
     const int WN = 64;
-    const int WNITER = 4;
-    const int TM = 4;
+    const int WNITER = 2;
+    const int TM = 16;
     const int TN = 1;
 
     const int NUM_THREADS = 256;
@@ -141,21 +140,24 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
             // load C vector into registers
             const int i = (wSubRowIdx) * (WNITER * TM) + (wSubColIdx * TM);
 
-              C_interim[(threadRowInWarp * TM) * N + threadColInWarp * TN] = 
-              alpha * threadResults[i + 0] + beta * 
-              C_interim[(threadRowInWarp * TM) * N + threadColInWarp * TN];
+            for (uint row_group = 0; row_group < 4; row_group++) {
+              C_interim[(threadRowInWarp * 4 + row_group * 8) * N + threadColInWarp * TN] = 
+              alpha * threadResults[i + row_group * 4 + 0] + beta * 
+              C_interim[(threadRowInWarp * 4 + row_group * 8) * N + threadColInWarp * TN];
 
-              C_interim[(threadRowInWarp * TM + 1) * N + threadColInWarp * TN] = 
-              alpha * threadResults[i + 1] + beta * 
-              C_interim[(threadRowInWarp * TM + 1) * N + threadColInWarp * TN];
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 1) * N + threadColInWarp * TN] = 
+              alpha * threadResults[i + row_group * 4 + 1] + beta * 
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 1) * N + threadColInWarp * TN];
 
-              C_interim[(threadRowInWarp * TM + 2) * N + threadColInWarp * TN] = 
-              alpha * threadResults[i + 2] + beta * 
-              C_interim[(threadRowInWarp * TM + 2) * N + threadColInWarp * TN];
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 2) * N + threadColInWarp * TN] = 
+              alpha * threadResults[i + row_group * 4 + 2] + beta * 
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 2) * N + threadColInWarp * TN];
 
-              C_interim[(threadRowInWarp * TM + 3) * N + threadColInWarp * TN] = 
-              alpha * threadResults[i + 3] + beta * 
-              C_interim[(threadRowInWarp * TM + 3) * N + threadColInWarp * TN];
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 3) * N + threadColInWarp * TN] = 
+              alpha * threadResults[i + row_group * 4 + 3] + beta * 
+              C_interim[(threadRowInWarp * 4 + row_group * 8 + 3) * N + threadColInWarp * TN];
+
+            }
             
         }
     }
