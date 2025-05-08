@@ -64,6 +64,16 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
 
         block = hip.dim3(x=BM * BN / (WMITER * TM * WNITER * TN))
         grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "double_buffering"):
+        BN = 128
+        BM = 128
+        TM = 1
+        TN = 4
+        WNITER = 4
+        WMITER = 4
+
+        block = hip.dim3(x=BM * BN / (WMITER * TM * WNITER * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
     elif (config.kernel == "warptiling"):
         BN = 128
         BM = 128
