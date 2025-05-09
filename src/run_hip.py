@@ -13,7 +13,7 @@ import ctypes
 import numpy as np
 
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP")
+KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP/fp16fp32")
 
 def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
@@ -36,7 +36,7 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
 
     print(f"Compiling kernel for {arch}")
 
-    cflags = [b"--offload-arch=" + arch]
+    cflags = [b"--offload-arch=" + arch, b"-I/opt/rocm-6.3.1/include/hip"]
     err, = hiprtc.hiprtcCompileProgram(prog, len(cflags), cflags)
     if err != hiprtc.hiprtcResult.HIPRTC_SUCCESS:
         log_size = hip_check(hiprtc.hiprtcGetProgramLogSize(prog))
@@ -54,7 +54,18 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     # Compute block and grid
     block_size = config.block_size
     
-    if (config.kernel == "warptiling_mfma"):
+
+    if (config.kernel == "warptiling_mfma_32"):
+        BN = 128
+        BM = 128
+        TM = 16
+        TN = 1
+        WNITER = 2
+        WMITER = 2
+
+        block = hip.dim3(x=BM * BN / (WMITER * TM * WNITER * TN))
+        grid = hip.dim3(x=math.ceil(N / BN), y=math.ceil(M / BM))
+    elif (config.kernel == "warptiling_mfma"):
         BN = 128
         BM = 128
         TM = 4

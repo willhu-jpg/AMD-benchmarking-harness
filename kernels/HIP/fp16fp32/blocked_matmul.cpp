@@ -1,11 +1,12 @@
-extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B, float *C, float alpha, float beta) {
+#include <hip_fp16.h>
+extern "C" __global__ void matmul_kernel(int M, int N, int K, __half *A, __half *B, float *C, float alpha, float beta) {
 
     #define BlockSize 32
 
     // Shared memory is used to cache the tile from both input matrices
     // The tile is a square of size BlockSize x BlockSize
-    __shared__ float As[BlockSize][BlockSize];
-    __shared__ float Bs[BlockSize][BlockSize];
+    __shared__ __half As[BlockSize][BlockSize];
+    __shared__ __half Bs[BlockSize][BlockSize];
 
     const unsigned int tx = threadIdx.x;
     const unsigned int ty = threadIdx.y;
@@ -51,7 +52,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
 
         // Multiply the tile and accumulate the result
         for (unsigned int i = 0; i < BlockSize; i++) {
-            thread_result += As[ty][i] * Bs[i][tx];
+            thread_result += __half2float(As[ty][i] * Bs[i][tx]);
         }
 
         // Wait for all threads to finish multiplying

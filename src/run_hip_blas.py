@@ -19,15 +19,17 @@ def test_hip_blas_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d,
     # Record start event
     hip_check(hip.hipEventRecord(start_event, 0))
 
-    hip_check(hipblas.hipblasSgemm(handle, 
+    hip_check(hipblas.hipblasGemmEx(handle, 
         hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
         hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
         M, N, K,
         alpha, 
-        A_d, M,
-        B_d, K,
+        A_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, M,
+        B_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, K,
         beta, 
-        C_d, M
+        C_d, hipblas.hipblasDatatype_t.HIPBLAS_R_32F, M,
+        hipblas.hipblasDatatype_t.HIPBLAS_R_32F,
+        hipblas.hipblasGemmAlgo_t.HIPBLAS_GEMM_DEFAULT
     ))
 
     # Record stop event

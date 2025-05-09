@@ -50,7 +50,6 @@ class KernelType(Enum):
             valid_values = [k.name.lower() for k in cls]
             raise ValueError(f"Invalid kernel type: {name}. Valid values are: {', '.join(valid_values)}")
 
-
 class EvalConfig(Config):
     def __init__(self):
         self.kernel = "" # name of the matmul kernel to evaluate
@@ -79,9 +78,9 @@ class EvalConfig(Config):
     def correctness(self):
         self.num_warmup = 0
         self.num_iterations = 1
-        self.M = 128
-        self.K = 128
-        self.N = 128
+        self.M = 256
+        self.K = 256
+        self.N = 256
         self.debug = True
 
     def matmul_shape(self):
@@ -115,7 +114,6 @@ class EvalConfig(Config):
     def __repr__(self):
         return f"EvalConfig({self.to_dict()})"
 
-
 def test_kernel_harness(config: EvalConfig):
     """
     Driver code to test kernels
@@ -126,7 +124,6 @@ def test_kernel_harness(config: EvalConfig):
         kernel_type = KernelType.from_string(str(config.kernel_type))
     else:
         kernel_type = config.kernel_type
-   
 
     # Define matrix dimensions
     M = config.M
@@ -135,19 +132,18 @@ def test_kernel_harness(config: EvalConfig):
 
     alpha = config.alpha
     beta = config.beta
-
  
     # HIP BLAS expects matrices in column-major order
     order = "F" if kernel_type == KernelType.HIP_BLAS else "C"
-    A_h = np.random.rand(M, K).astype(np.float32, order=order)
-    B_h = np.random.rand(K, N).astype(np.float32, order=order)
+    A_h = np.random.rand(M, K).astype(np.float16, order=order)
+    B_h = np.random.rand(K, N).astype(np.float16, order=order)
     C_h = np.random.rand(M, N).astype(np.float32, order=order)
     # A_h = np.ones((M, K), dtype=np.float32, order=order)
     # B_h = np.ones((K, N), dtype=np.float32, order=order)
     # C_h = np.ones((M, N), dtype=np.float32, order=order)
 
     # Compute expected result using NumPy as Golden Reference
-    C_expected = alpha * np.dot(A_h, B_h) + beta * C_h
+    C_expected = alpha * np.dot(A_h.astype(np.float32), B_h.astype(np.float32)) + beta * C_h
 
     if kernel_type in [KernelType.HIP_BLAS, KernelType.HIP]:
 

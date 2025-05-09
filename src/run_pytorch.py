@@ -25,9 +25,9 @@ def test_pytorch_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nd
 
     # device = 
     # Convert numpy arrays to PyTorch tensors
-    A_tensor = torch.from_numpy(A_h).to(device)
-    B_tensor = torch.from_numpy(B_h).to(device)
-    C_tensor = torch.from_numpy(C_h).to(device)
+    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float16)
+    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float16)
+    C_tensor = torch.from_numpy(C_h).to(device=device)
 
     # import pdb; pdb.set_trace()
     # Create CUDA events for timing
@@ -41,7 +41,7 @@ def test_pytorch_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nd
 
     # Perform matrix multiplication
     C_result = alpha * torch.matmul(A_tensor, B_tensor) + beta * C_tensor
-    
+
     # Record end event and synchronize
     end_event.record()
     torch.cuda.synchronize()

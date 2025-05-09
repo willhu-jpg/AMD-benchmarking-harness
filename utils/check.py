@@ -24,7 +24,7 @@ def compare(C_h: np.ndarray, C_expected: np.ndarray, debug: bool):
         output_path="compare_output.txt"
         np.set_printoptions(threshold=np.inf, linewidth=np.inf, suppress=True)
 
-    if np.allclose(C_expected, C_h, atol=1e-3):
+    if np.allclose(C_expected, C_h, atol=1e-2):
         print("✅ Matrix multiplication successful")
     else:
         print("❌ Matrix multiplication FAILED")

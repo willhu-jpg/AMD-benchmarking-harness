@@ -154,8 +154,8 @@ def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nda
     device = torch.device("cuda")
     
     # Convert numpy arrays to PyTorch tensors and send to device
-    A_tensor = torch.from_numpy(A_h).to(device)
-    B_tensor = torch.from_numpy(B_h).to(device)
+    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float16)
+    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float16)
     C_tensor = torch.from_numpy(C_h).to(device)
 
     # Create CUDA events for timing
