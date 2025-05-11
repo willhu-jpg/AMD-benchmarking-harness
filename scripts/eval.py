@@ -127,8 +127,8 @@ def test_kernel_harness(config: EvalConfig):
  
     # HIP BLAS expects matrices in column-major order
     order = "F" if kernel_type == KernelType.HIP_BLAS else "C"
-    A_h = np.random.uniform(-1, 1, size=(M, K)).astype(dtype=ab_type, order=order)
-    B_h = np.random.uniform(-1, 1, size=(K, N)).astype(dtype=ab_type, order=order)
+    A_h = np.random.rand(M, K).astype(ab_type, order=order)
+    B_h = np.random.rand(K, N).astype(ab_type, order=order)
     C_h = np.random.rand(M, N).astype(np.float32, order=order)
     # A_h = np.ones((M, K), dtype=np.float32, order=order)
     # B_h = np.ones((K, N), dtype=np.float32, order=order)

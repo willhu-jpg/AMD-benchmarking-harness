@@ -72,7 +72,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, __half *A, __half 
 
             for (int row = 0; row < TM; row++) {
                 for (int col = 0; col < TN; col++) {
-                    thread_result[row * TN + col] += __half2float(regM[row] * regN[col]);
+                    thread_result[row * TN + col] += __half2float(regM[row]) * __half2float(regN[col]);
                 }
             }
 

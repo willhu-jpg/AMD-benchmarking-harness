@@ -70,8 +70,8 @@ processFromSmem(__half *regM, __half *regN, float *threadResults, const __half *
           for (uint resIdxN = 0; resIdxN < TN; ++resIdxN) {
             threadResults[(wSubRowIdx * TM + resIdxM) * (WNITER * TN) +
                           (wSubColIdx * TN) + resIdxN] +=
-                __half2float(regM[wSubRowIdx * TM + resIdxM] *
-                regN[wSubColIdx * TN + resIdxN]);
+                __half2float(regM[wSubRowIdx * TM + resIdxM]) *
+                __half2float(regN[wSubColIdx * TN + resIdxN]);
           }
         }
       }

@@ -34,7 +34,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, __half *A, __half 
 
             for (int k = 0; k < BK; k++) {
                 __half a = As[(threadIdx.x / BN * BK + k) * BK + j];
-                thread_result[k] += __half2float(a * b);
+                thread_result[k] += __half2float(a) * __half2float(b);
             }
         }
 

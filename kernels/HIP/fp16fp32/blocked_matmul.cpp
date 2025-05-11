@@ -52,7 +52,7 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, __half *A, __half 
 
         // Multiply the tile and accumulate the result
         for (unsigned int i = 0; i < BlockSize; i++) {
-            thread_result += __half2float(As[ty][i] * Bs[i][tx]);
+            thread_result += __half2float(As[ty][i]) * __half2float(Bs[i][tx]);
         }
 
         // Wait for all threads to finish multiplying
