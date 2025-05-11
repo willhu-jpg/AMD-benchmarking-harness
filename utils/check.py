@@ -28,10 +28,6 @@ def compare(C_h: np.ndarray, C_expected: np.ndarray, debug: bool):
         print("✅ Matrix multiplication successful")
     else:
         print("❌ Matrix multiplication FAILED")
-        print("=== Computed Output ===")
-        print(C_h)
-        print("\n=== Expected Output ===")
-        print(C_expected)
 
         if debug:
             with open(output_path, "w") as f:

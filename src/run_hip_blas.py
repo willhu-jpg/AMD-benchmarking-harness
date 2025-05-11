@@ -4,6 +4,8 @@ import pydra
 from hip import hip, hipblas
 import numpy as np
 
+from utils.types import DataType
+
 def test_hip_blas_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
     Test the performance of the hipBLAS gemm implementation
@@ -19,18 +21,30 @@ def test_hip_blas_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d,
     # Record start event
     hip_check(hip.hipEventRecord(start_event, 0))
 
-    hip_check(hipblas.hipblasGemmEx(handle, 
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
-        hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
-        M, N, K,
-        alpha, 
-        A_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, M,
-        B_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, K,
-        beta, 
-        C_d, hipblas.hipblasDatatype_t.HIPBLAS_R_32F, M,
-        hipblas.hipblasDatatype_t.HIPBLAS_R_32F,
-        hipblas.hipblasGemmAlgo_t.HIPBLAS_GEMM_DEFAULT
-    ))
+    if config.AB_type == DataType.FP16:
+        hip_check(hipblas.hipblasGemmEx(handle, 
+            hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
+            hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
+            M, N, K,
+            alpha, 
+            A_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, M,
+            B_d, hipblas.hipblasDatatype_t.HIPBLAS_R_16F, K,
+            beta, 
+            C_d, hipblas.hipblasDatatype_t.HIPBLAS_R_32F, M,
+            hipblas.hipblasDatatype_t.HIPBLAS_R_32F,
+            hipblas.hipblasGemmAlgo_t.HIPBLAS_GEMM_DEFAULT
+        ))
+    elif config.AB_type == DataType.FP32:
+            hip_check(hipblas.hipblasSgemm(handle, 
+                hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose A
+                hipblas.hipblasOperation_t.HIPBLAS_OP_N,  # No transpose B
+                M, N, K,
+                alpha, 
+                A_d, M,
+                B_d, K,
+                beta, 
+                C_d, M
+            ))
 
     # Record stop event
     hip_check(hip.hipEventRecord(stop_event, 0))

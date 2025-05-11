@@ -25,8 +25,8 @@ def test_pytorch_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nd
 
     # device = 
     # Convert numpy arrays to PyTorch tensors
-    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float16)
-    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float16)
+    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float32)
+    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float32)
     C_tensor = torch.from_numpy(C_h).to(device=device)
 
     # import pdb; pdb.set_trace()

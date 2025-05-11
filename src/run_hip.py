@@ -12,8 +12,10 @@ import math
 import ctypes
 import numpy as np
 
+from utils.types import DataType
+
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP/fp16fp32")
+KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP")
 
 def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
@@ -22,8 +24,13 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     """
     assert len(config.kernel) > 0, "Kernel name must be provided"
 
+    if config.AB_type == DataType.FP32:
+        type_path = "fp32fp32"
+    elif config.AB_type == DataType.FP16:
+        type_path = "fp16fp32"
+
     # Define the HIP kernel (inline compilation)
-    kernel_path = os.path.join(KERNEL_DIR, f"{config.kernel}.cpp")
+    kernel_path = os.path.join(KERNEL_DIR, f"{type_path}/{config.kernel}.cpp")
     assert os.path.exists(kernel_path), f"Kernel file does not exist: {kernel_path}"
     source = read_file_as_bytes(kernel_path)
 

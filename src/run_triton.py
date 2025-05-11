@@ -5,6 +5,8 @@ import numpy as np
 from utils.check import compare
 import pydra
 
+from utils.types import DataType
+
 """
 Triton matrix multiplication on GPU
 
@@ -149,13 +151,18 @@ def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nda
     # Check if GPU is available
     if not torch.cuda.is_available():
         raise RuntimeError("No GPU detected")
+
+    if config.AB_type == DataType.FP32:
+        ab_type = torch.float32
+    elif config.AB_type == DataType.FP16:
+        ab_type = torch.float16
     
     # Get the appropriate device
     device = torch.device("cuda")
     
     # Convert numpy arrays to PyTorch tensors and send to device
-    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float16)
-    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float16)
+    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=ab_type)
+    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=ab_type)
     C_tensor = torch.from_numpy(C_h).to(device)
 
     # Create CUDA events for timing

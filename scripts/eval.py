@@ -4,7 +4,6 @@ import math
 import random
 import array
 import ctypes
-from enum import Enum, auto
 
 # Third-party imports
 import numpy as np
@@ -21,6 +20,7 @@ from hip import hip, hiprtc, hipblas
 
 # Local/project imports
 from utils.check import hip_check, compare
+from utils.types import DataType, KernelType
 from src import run_hip_blas, run_pytorch, run_triton, run_hip
 
 """
@@ -29,26 +29,6 @@ Evaluate the performance of HiP implementations of various kernels
 
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels")
-
-class KernelType(Enum):
-    """Enum for different kernel implementations"""
-    PYTORCH = auto()
-    HIP = auto()
-    HIP_BLAS = auto()
-    TRITON = auto()
-    THUNDERKITTEN = auto()
-    
-    def __str__(self):
-        return self.name.lower()
-    
-    @classmethod
-    def from_string(cls, name: str):
-        """Convert string to enum value, case-insensitive"""
-        try:
-            return cls[name.upper()]
-        except KeyError:
-            valid_values = [k.name.lower() for k in cls]
-            raise ValueError(f"Invalid kernel type: {name}. Valid values are: {', '.join(valid_values)}")
 
 class EvalConfig(Config):
     def __init__(self):
@@ -64,6 +44,8 @@ class EvalConfig(Config):
         self.N = 1024
         self.alpha = 1.0
         self.beta = 0.0
+
+        self.AB_type = DataType.FP32
 
         # which kernel backend to run
         self.kernel_type = KernelType.HIP
@@ -125,6 +107,16 @@ def test_kernel_harness(config: EvalConfig):
     else:
         kernel_type = config.kernel_type
 
+    # Convert string to DataType if needed
+    if not isinstance(config.AB_type, DataType):
+        config.AB_type = DataType.from_string(str(config.AB_type))
+
+    # Extract AB data type
+    if config.AB_type == DataType.FP32:
+        ab_type = np.float32
+    elif config.AB_type == DataType.FP16:
+        ab_type = np.float16
+
     # Define matrix dimensions
     M = config.M
     K = config.K
@@ -135,8 +127,8 @@ def test_kernel_harness(config: EvalConfig):
  
     # HIP BLAS expects matrices in column-major order
     order = "F" if kernel_type == KernelType.HIP_BLAS else "C"
-    A_h = np.random.rand(M, K).astype(np.float16, order=order)
-    B_h = np.random.rand(K, N).astype(np.float16, order=order)
+    A_h = np.random.uniform(-1, 1, size=(M, K)).astype(dtype=ab_type, order=order)
+    B_h = np.random.uniform(-1, 1, size=(K, N)).astype(dtype=ab_type, order=order)
     C_h = np.random.rand(M, N).astype(np.float32, order=order)
     # A_h = np.ones((M, K), dtype=np.float32, order=order)
     # B_h = np.ones((K, N), dtype=np.float32, order=order)
