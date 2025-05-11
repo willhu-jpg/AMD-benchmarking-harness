@@ -61,7 +61,6 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     # Compute block and grid
     block_size = config.block_size
     
-
     if (config.kernel == "warptiling_mfma_32"):
         BN = 128
         BM = 128

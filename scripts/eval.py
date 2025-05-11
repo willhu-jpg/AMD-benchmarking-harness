@@ -130,8 +130,8 @@ def test_kernel_harness(config: EvalConfig):
     A_h = np.random.rand(M, K).astype(ab_type, order=order)
     B_h = np.random.rand(K, N).astype(ab_type, order=order)
     C_h = np.random.rand(M, N).astype(np.float32, order=order)
-    # A_h = np.ones((M, K), dtype=np.float32, order=order)
-    # B_h = np.ones((K, N), dtype=np.float32, order=order)
+    # A_h = np.ones((M, K), dtype=ab_type, order=order) / 2
+    # B_h = np.ones((K, N), dtype=ab_type, order=order) / 2
     # C_h = np.ones((M, N), dtype=np.float32, order=order)
 
     # Compute expected result using NumPy as Golden Reference
