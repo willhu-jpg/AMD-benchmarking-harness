@@ -17,6 +17,9 @@ from utils.types import DataType
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP")
 
+ROCM_INSTALL_DIR = os.getenv("ROCM_PATH")
+HIP_INCLUDE_DIR  = os.path.join(ROCM_INSTALL_DIR, "include/hip")
+
 def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
     Test the performance of the HiP kernel implementation
@@ -43,7 +46,7 @@ def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
 
     print(f"Compiling kernel for {arch}")
 
-    cflags = [b"--offload-arch=" + arch, b"-I/opt/rocm-6.3.1/include/hip"]
+    cflags = [b"--offload-arch=" + arch, b"-I" + HIP_INCLUDE_DIR.encode()]
     err, = hiprtc.hiprtcCompileProgram(prog, len(cflags), cflags)
     if err != hiprtc.hiprtcResult.HIPRTC_SUCCESS:
         log_size = hip_check(hiprtc.hiprtcGetProgramLogSize(prog))
