@@ -20,7 +20,7 @@ KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/HIP")
 ROCM_INSTALL_DIR = os.getenv("ROCM_PATH")
 HIP_INCLUDE_DIR  = os.path.join(ROCM_INSTALL_DIR, "include/hip")
 
-def test_hip_kernel(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
+def test_hip_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d, alpha: float, beta: float, C_expected):
     """
     Test the performance of the HiP kernel implementation
     Note this is not HIPBlas, but pure HiP kernel

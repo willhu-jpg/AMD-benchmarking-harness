@@ -91,13 +91,13 @@ extern "C" __global__ void matmul_kernel(int M, int N, int K, float *A, float *B
 
     // size of the warp subtile
     constexpr uint WMITER = (WM * WN) / (WARPSIZE * TM * TN * WNITER);
-    constexpr uint WSUBM = WM / WMITER; // 32/2=16
-    constexpr uint WSUBN = WN / WNITER; // 32/2=16
+    constexpr uint WSUBM = WM / WMITER; // 64/4=16
+    constexpr uint WSUBN = WN / WNITER; // 64/4=16
 
     // Placement of the thread in the warp subtile
     const uint threadIdxInWarp = threadIdx.x % WARPSIZE;         // [0, 63]
-    const uint threadColInWarp = threadIdxInWarp % (WSUBN / TN); // i%(64/8)
-    const uint threadRowInWarp = threadIdxInWarp / (WSUBN / TN); // i/(64/8)
+    const uint threadColInWarp = threadIdxInWarp % (WSUBN / TN); // i%(16/1)
+    const uint threadRowInWarp = threadIdxInWarp / (WSUBN / TN); // i/(16/1)
 
     // calculating the indices that this thread will load into SMEM
     // we'll load 128bit / 32bit = 4 elements per thread at each step

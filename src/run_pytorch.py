@@ -1,7 +1,7 @@
-from utils.check import hip_check, compare  
+from utils.check import compare  
+from utils.types import DataType
 import pydra
 
-from hip import hip, hipblas
 import numpy as np
 import torch
 

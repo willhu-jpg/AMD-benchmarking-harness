@@ -21,7 +21,7 @@ from hip import hip, hiprtc, hipblas
 # Local/project imports
 from utils.check import hip_check, compare
 from utils.types import DataType, KernelType
-from src import run_hip_blas, run_pytorch, run_triton, run_hip
+from src import run_hip_blas, run_pytorch, run_triton, run_hip, run_tk
 
 """
 Evaluate the performance of HiP implementations of various kernels
@@ -60,9 +60,9 @@ class EvalConfig(Config):
     def correctness(self):
         self.num_warmup = 0
         self.num_iterations = 1
-        self.M = 256
-        self.K = 256
-        self.N = 256
+        self.M = 16
+        self.K = 16
+        self.N = 16
         self.debug = True
 
     def matmul_shape(self):
@@ -166,13 +166,14 @@ def test_kernel_harness(config: EvalConfig):
         case KernelType.HIP: # hand-written kernel
 
             assert len(config.kernel) > 0, "Kernel name must be provided"
-            return run_hip.test_hip_kernel(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+            return run_hip.test_hip_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         
         case KernelType.TRITON: # Triton
             return run_triton.test_triton_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
 
         case KernelType.THUNDERKITTEN: # Thunderkitten
-            raise NotImplementedError("Thunderkitten is not implemented yet")
+            assert len(config.kernel) > 0, "Kernel name must be provided"
+            return run_tk.test_tk_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
 
         case KernelType.PYTORCH: # PyTorch
             # pass the numpy arrays to pytorch
@@ -181,10 +182,11 @@ def test_kernel_harness(config: EvalConfig):
         case _:
             raise ValueError(f"Not implemented for kernel type: {config.kernel_type}")
     
-    # Clean up device memory
-    hip_check(hip.hipFree(A_d))
-    hip_check(hip.hipFree(B_d))
-    hip_check(hip.hipFree(C_d))
+    if kernel_type in [KernelType.HIP_BLAS, KernelType.HIP]:
+        # Clean up device memory
+        hip_check(hip.hipFree(A_d))
+        hip_check(hip.hipFree(B_d))
+        hip_check(hip.hipFree(C_d))
 
 
 @pydra.main(base=EvalConfig)

@@ -1,2 +1,3 @@
 numpy
 pydra_config
+pybind11
