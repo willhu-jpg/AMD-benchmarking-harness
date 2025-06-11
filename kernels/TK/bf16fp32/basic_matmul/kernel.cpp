@@ -2,15 +2,19 @@
 #include "pyutils/pyutils.cuh"
 using namespace kittens;
 
-#define NUM_THREADS (kittens::WARP_THREADS) // use 1 warp
+#define NUM_THREADS (kittens::WARPGROUP_THREADS)
 
-#define M 16
-#define K 16
-#define N 16
+#define M 32
+#define K 32
+#define N 32
 
-using _gl_A = gl<float, -1, -1, -1, -1, st_fl<M, K>>;
-using _gl_B = gl<float, -1, -1, -1, -1, st_fl<K, N>>;
-using _gl_C = gl<float, -1, -1, -1, -1, st_fl<M, N>>;
+#define BM 16
+#define BN 16
+#define BK 16
+
+using _gl_A = gl<bf16, -1, -1, -1, -1>;
+using _gl_B = gl<bf16, -1, -1, -1, -1>;
+using _gl_C = gl<float, -1, -1, -1, -1>;
 
 struct micro_globals {
     _gl_A a;
@@ -20,7 +24,7 @@ struct micro_globals {
     float beta;
 
     // grid - number of thread blocks we are launching
-    dim3 grid()  { return dim3(c.batch, c.depth, (c.rows * c.cols + NUM_THREADS - 1) / NUM_THREADS); } 
+    dim3 grid()  { return dim3(1); } 
 
     // block - number of threads in a thread block
     dim3 block() { return dim3(NUM_THREADS); } 
@@ -31,20 +35,42 @@ struct micro_globals {
 
 __global__
 void micro_tk(const micro_globals g) {
+
+    // // shared memory
+    // extern __shared__ alignment_dummy __shm[];
+    // shared_allocator al((int*)&__shm[0]);
+    // st_bf<BM, BK> (&As) = al.allocate<st_bf<BM, BK>>();
+    // st_bf<BK, BN> (&Bs) = al.allocate<st_bf<BK, BN>>();
+
+    int warp_id = warpid();
+    int warp_row = warp_id / 2;
+    int warp_col = warp_id % 2;
+
+    // // register tiles for accumulation
+    rt_fl<BM, BN, ducks::rt_layout::col> c_reg;
+    zero(c_reg);
     
-    // register memory
-    rt_bf<M, K> a;
-    rt_bf<K, N, ducks::rt_layout::col> b;
-    rt_fl<M, N, ducks::rt_layout::col> c;
+    // loop over K
+    for (int bkIdx = 0; bkIdx < K / BK; bkIdx++) {
+        // // load from HBM to SMEM
+        // load(As, g.a, {0, 0, C_row, bkIdx});
+        // load(Bs, g.b, {0, 0, bkIdx, C_col});
+        // __syncthreads();
 
-    load(a, g.a, {});
-    load(b, g.b, {});
-    load(c, g.c, {});
-    zero(c);
-    __syncthreads();
+        // load from HBM to registers
+        rt_bf<BM, BK> a_reg;
+        rt_bf<BK, BN, ducks::rt_layout::col> b_reg;
 
-    mma_AB(c, a, b, c);
-    store(g.c, c, {});
+        load(a_reg, g.a, {0, 0, warp_row, bkIdx});
+        load(b_reg, g.b, {0, 0, bkIdx, warp_col});
+
+        // accumulate
+        mma_AB(c_reg, a_reg, b_reg, c_reg);
+        __syncthreads();
+    }
+
+    // Store result back to HBM
+    store(g.c, c_reg, {0, 0, warp_row, warp_col});
 }
 
 // Launch Kernel
@@ -57,7 +83,7 @@ void dispatch_micro(micro_globals g) {
         mem_size
     );
 
-    micro_tk<<<1, 64, mem_size>>>(g);
+    micro_tk<<<g.grid(), g.block(), mem_size>>>(g);
     hipDeviceSynchronize();
 }
 

@@ -9,9 +9,9 @@ import numpy as np
 import torch
 
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/TK/fp16fp32/")
+KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/TK/bf16fp32/")
 
-def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray, B_h: np.ndarray, C_h: np.ndarray, alpha: float, beta: float, C_expected: np.ndarray):
+def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_tensor: torch.Tensor, B_tensor: torch.Tensor, C_tensor: torch.Tensor, alpha: float, beta: float, C_expected: np.ndarray):
     """
     Test the performance of PyTorch matrix multiplication on AMD GPU with ROCm
     A_h, B_h, C_h are numpy arrays
@@ -34,14 +34,6 @@ def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray
 
     import tk_kernel
 
-    device = torch.device("cuda:0")
-
-    # Convert numpy arrays to PyTorch tensors
-    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.bfloat16)
-    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.bfloat16)
-    C_tensor = torch.from_numpy(C_h).to(device=device)
-
-    # import pdb; pdb.set_trace()
     # Create CUDA events for timing
     start_event = torch.cuda.Event(enable_timing=True)
     end_event = torch.cuda.Event(enable_timing=True)
@@ -60,7 +52,7 @@ def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray
     elapsed_time = start_event.elapsed_time(end_event)
 
     # Copy result back to CPU for validation
-    C_tensor_cpu = C_tensor.cpu().numpy()
+    C_tensor_cpu = C_tensor.cpu()
     compare(C_tensor_cpu, C_expected, config.debug)
 
     return elapsed_time
