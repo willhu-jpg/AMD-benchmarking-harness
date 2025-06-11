@@ -143,7 +143,7 @@ def matmul_triton(a, b, activation=""):
     )
     return c
 
-def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray, B_h: np.ndarray, C_h: np.ndarray, alpha: float, beta: float, C_expected: np.ndarray):
+def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_tensor: torch.Tensor, B_tensor: torch.Tensor, C_tensor: torch.Tensor, alpha: float, beta: float, C_expected: torch.Tensor):
     """
     Test the performance of Triton matrix multiplication on GPU
     A_h, B_h, C_h are numpy arrays
@@ -151,19 +151,6 @@ def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nda
     # Check if GPU is available
     if not torch.cuda.is_available():
         raise RuntimeError("No GPU detected")
-
-    if config.AB_type == DataType.FP32:
-        ab_type = torch.float32
-    elif config.AB_type == DataType.FP16:
-        ab_type = torch.float16
-    
-    # Get the appropriate device
-    device = torch.device("cuda")
-    
-    # Convert numpy arrays to PyTorch tensors and send to device
-    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=ab_type)
-    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=ab_type)
-    C_tensor = torch.from_numpy(C_h).to(device)
 
     # Create CUDA events for timing
     start_event = torch.cuda.Event(enable_timing=True)
@@ -187,7 +174,7 @@ def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.nda
     elapsed_time = start_event.elapsed_time(end_event)
     
     # Copy result back to CPU for validation
-    C_result_cpu = C_result.cpu().numpy()
+    C_result_cpu = C_result.cpu()
     compare(C_result_cpu, C_expected, config.debug)
     
     return elapsed_time

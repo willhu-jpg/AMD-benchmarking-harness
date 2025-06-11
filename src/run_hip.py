@@ -11,6 +11,7 @@ from hip import hip, hiprtc, hipblas
 import math
 import ctypes
 import numpy as np
+import torch
 
 from utils.types import DataType
 
@@ -195,9 +196,9 @@ def test_hip_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     elapsed_time = hip_check(hip.hipEventElapsedTime(start_event, stop_event))
 
     # Copy result (stored in C_d) back to host
-    C_out = np.zeros((M, N), dtype=np.float32)
-    num_bytes_C = C_out.nbytes
-    hip_check(hip.hipMemcpy(C_out, C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
+    C_out = torch.zeros((M, N), dtype=torch.float32)
+    num_bytes_C = C_out.numel() * C_out.element_size()
+    hip_check(hip.hipMemcpy(C_out.data_ptr(), C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
     compare(C_out, C_expected, config.debug)
 
     # Destroy events and module

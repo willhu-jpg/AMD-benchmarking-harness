@@ -2,25 +2,19 @@
 #include "pyutils/pyutils.cuh"
 using namespace kittens;
 
-#define NUM_THREADS (kittens::WARP_THREADS)
+#define NUM_THREADS (kittens::WARPGROUP_THREADS)
 
-#define M 8192
-#define K 8192
-#define N 8192
+#define M 32
+#define K 32
+#define N 32
 
-#define BN 128
-#define BM 128
+#define BM 16
+#define BN 16
 #define BK 16
-#define WM 64
-#define WN 64
-#define TM 4
-#define TN 1
-#define WNITER 4
-#define WMITER 4
 
-using _gl_A = gl<float, -1, -1, -1, -1, st_fl<M, K>>;
-using _gl_B = gl<float, -1, -1, -1, -1, st_fl<K, N>>;
-using _gl_C = gl<float, -1, -1, -1, -1, st_fl<M, N>>;
+using _gl_A = gl<float, -1, -1, -1, -1>;
+using _gl_B = gl<float, -1, -1, -1, -1>;
+using _gl_C = gl<float, -1, -1, -1, -1>;
 
 struct micro_globals {
     _gl_A a;
@@ -30,7 +24,7 @@ struct micro_globals {
     float beta;
 
     // grid - number of thread blocks we are launching
-    dim3 grid()  { return dim3(x=math.ceil(N / BN), y=math.ceil(M / BM)); } 
+    dim3 grid()  { return dim3(1); } 
 
     // block - number of threads in a thread block
     dim3 block() { return dim3(NUM_THREADS); } 
@@ -42,36 +36,41 @@ struct micro_globals {
 __global__
 void micro_tk(const micro_globals g) {
 
-    const int C_row = blockIdx.y * BM;
-    const int C_col = blockIdx.x * BN;
+    // // shared memory
+    // extern __shared__ alignment_dummy __shm[];
+    // shared_allocator al((int*)&__shm[0]);
+    // st_bf<BM, BK> (&As) = al.allocate<st_bf<BM, BK>>();
+    // st_bf<BK, BN> (&Bs) = al.allocate<st_bf<BK, BN>>();
 
-    // shared memory
-    extern __shared__ alignment_dummy __shm[];
-    shared_allocator al((int*)&__shm[0]);
-    st_fl<BM, BK> (&As) = al.allocate<st_fl<BM, BK>>();
-    st_fl<BK, BN> (&Bs) = al.allocate<st_fl<BK, BN>>();
+    int warp_id = warpid();
+    int row = warp_id / 2;
+    int col = warp_id % 2;
+
+    // // register tiles for accumulation
+    rt_fl<BM, BN, ducks::rt_layout::col> c_reg;
+    zero(c_reg);
     
-    // register memory
-    rt_bf<WM, BK> a;
-    rt_bf<BK, BN, ducks::rt_layout::col> b;
-    rt_fl<WM, BN, ducks::rt_layout::col> c;
+    // loop over K
+    for (int bkIdx = 0; bkIdx < K / BK; bkIdx++) {
+        // // load from HBM to SMEM
+        // load(As, g.a, {0, 0, C_row, bkIdx});
+        // load(Bs, g.b, {0, 0, bkIdx, C_col});
+        // __syncthreads();
 
-    for (uint bkIdx = 0; bkIdx < K; bkIdx += BK) {
-        // load from HBM to SMEM
-        load(As, g.a, {0, 0, C_row, bkIdx});
-        load(Bs, g.b, {0, 0, bkIdx, C_col});
+        // load from HBM to registers
+        rt_bf<BM, BK> a_reg;
+        rt_bf<BK, BN, ducks::rt_layout::col> b_reg;
+
+        load(a_reg, g.a, {0, 0, row, bkIdx});
+        load(b_reg, g.b, {0, 0, bkIdx, col});
+
+        // accumulate
+        mma_AB(c_reg, a_reg, b_reg, c_reg);
         __syncthreads();
-
-        // load from SMEM to registers
-        load(a, g.a, {});
-        load(b, g.b, {});
-        load(c, g.c, {});
-        zero(c);
-        __syncthreads();
-
-        mma_AB(c, a, b, c);
-        store(g.c, c, {});
     }
+
+    // Store result back to HBM
+    store(g.c, c_reg, {0, 0, row, col});
 }
 
 // Launch Kernel

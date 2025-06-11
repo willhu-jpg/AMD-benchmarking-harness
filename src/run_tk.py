@@ -9,7 +9,7 @@ import numpy as np
 import torch
 
 REPO_TOP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/TK/fp32fp32/")
+KERNEL_DIR = os.path.join(REPO_TOP_DIR, "kernels/TK/fp16fp32/")
 
 def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray, B_h: np.ndarray, C_h: np.ndarray, alpha: float, beta: float, C_expected: np.ndarray):
     """
@@ -37,8 +37,8 @@ def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_h: np.ndarray
     device = torch.device("cuda:0")
 
     # Convert numpy arrays to PyTorch tensors
-    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.float32)
-    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.float32)
+    A_tensor = torch.from_numpy(A_h).to(device=device, dtype=torch.bfloat16)
+    B_tensor = torch.from_numpy(B_h).to(device=device, dtype=torch.bfloat16)
     C_tensor = torch.from_numpy(C_h).to(device=device)
 
     # import pdb; pdb.set_trace()

@@ -4,9 +4,9 @@ import math
 import random
 import array
 import ctypes
+import torch
 
 # Third-party imports
-import numpy as np
 import pydra
 from pydra import REQUIRED, Config
 
@@ -14,14 +14,12 @@ from pydra import REQUIRED, Config
 # Write results to JSON file
 import json
 import datetime
-
-# HIP-related imports
-from hip import hip, hiprtc, hipblas
+from hip import hip, hiprtc
 
 # Local/project imports
 from utils.check import hip_check, compare
 from utils.types import DataType, KernelType
-from src import run_hip_blas, run_pytorch, run_triton, run_hip, run_tk
+from src import run_pytorch, run_triton, run_hip, run_tk
 
 """
 Evaluate the performance of HiP implementations of various kernels
@@ -60,9 +58,9 @@ class EvalConfig(Config):
     def correctness(self):
         self.num_warmup = 0
         self.num_iterations = 1
-        self.M = 16
-        self.K = 16
-        self.N = 16
+        self.M = 1024
+        self.K = 1024
+        self.N = 1024
         self.debug = True
 
     def matmul_shape(self):
@@ -113,9 +111,11 @@ def test_kernel_harness(config: EvalConfig):
 
     # Extract AB data type
     if config.AB_type == DataType.FP32:
-        ab_type = np.float32
+        ab_type = torch.float32
     elif config.AB_type == DataType.FP16:
-        ab_type = np.float16
+        ab_type = torch.float16
+    elif config.AB_type == DataType.BF16:
+        ab_type = torch.bfloat16
 
     # Define matrix dimensions
     M = config.M
@@ -125,68 +125,62 @@ def test_kernel_harness(config: EvalConfig):
     alpha = config.alpha
     beta = config.beta
  
-    # HIP BLAS expects matrices in column-major order
-    order = "F" if kernel_type == KernelType.HIP_BLAS else "C"
-    A_h = np.random.rand(M, K).astype(ab_type, order=order)
-    B_h = np.random.rand(K, N).astype(ab_type, order=order)
-    C_h = np.random.rand(M, N).astype(np.float32, order=order)
-    # A_h = np.ones((M, K), dtype=ab_type, order=order) / 2
-    # B_h = np.ones((K, N), dtype=ab_type, order=order) / 2
-    # C_h = np.ones((M, N), dtype=np.float32, order=order)
+    device = torch.device("cuda")
+    A_h = torch.randn(M, K).to(ab_type).to(device)
+    B_h = torch.randn(K, N).to(ab_type).to(device)
+    C_h = torch.randn(M, N).to(torch.float32).to(device)
 
     # Compute expected result using NumPy as Golden Reference
-    C_expected = alpha * np.dot(A_h.astype(np.float32), B_h.astype(np.float32)) + beta * C_h
+    C_expected = alpha * A_h @ B_h + beta * C_h
+    C_expected = C_expected.cpu()
 
-    if kernel_type in [KernelType.HIP_BLAS, KernelType.HIP]:
+    if kernel_type in [KernelType.HIP]:
 
         # Scalars
         alpha = ctypes.c_float(config.alpha)
         beta = ctypes.c_float(config.beta)
 
         # Allocate device memory
-        num_bytes_A = A_h.nbytes
-        num_bytes_B = B_h.nbytes
-        num_bytes_C = C_h.nbytes
+        num_bytes_A = A_h.numel() * A_h.element_size()
+        num_bytes_B = B_h.numel() * B_h.element_size()
+        num_bytes_C = C_h.numel() * C_h.element_size()
 
         A_d = hip_check(hip.hipMalloc(num_bytes_A))
         B_d = hip_check(hip.hipMalloc(num_bytes_B))
         C_d = hip_check(hip.hipMalloc(num_bytes_C))
 
         # Copy input data to device
-        hip_check(hip.hipMemcpy(A_d, A_h, num_bytes_A, hip.hipMemcpyKind.hipMemcpyHostToDevice))
-        hip_check(hip.hipMemcpy(B_d, B_h, num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
-        hip_check(hip.hipMemcpy(C_d, C_h, num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+        hip_check(hip.hipMemcpy(A_d, A_h.data_ptr(), num_bytes_A, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+        hip_check(hip.hipMemcpy(B_d, B_h.data_ptr(), num_bytes_B, hip.hipMemcpyKind.hipMemcpyHostToDevice))
+        hip_check(hip.hipMemcpy(C_d, C_h.data_ptr(), num_bytes_C, hip.hipMemcpyKind.hipMemcpyHostToDevice))
 
     # setup kernel
     match kernel_type:
-        case KernelType.HIP_BLAS: # HIP_BLAS
-            
-            return run_hip_blas.test_hip_blas_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
-        
         case KernelType.HIP: # hand-written kernel
-
             assert len(config.kernel) > 0, "Kernel name must be provided"
-            return run_hip.test_hip_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
+            C_output = run_hip.test_hip_matmul(config, M, N, K, A_d, B_d, C_d, alpha, beta, C_expected)
         
         case KernelType.TRITON: # Triton
-            return run_triton.test_triton_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
+            C_output = run_triton.test_triton_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
 
         case KernelType.THUNDERKITTEN: # Thunderkitten
             assert len(config.kernel) > 0, "Kernel name must be provided"
-            return run_tk.test_tk_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
+            C_output = run_tk.test_tk_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
 
         case KernelType.PYTORCH: # PyTorch
             # pass the numpy arrays to pytorch
-            return run_pytorch.test_pytorch_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
+            C_output = run_pytorch.test_pytorch_matmul(config, M, N, K, A_h, B_h, C_h, alpha, beta, C_expected)
         
         case _:
             raise ValueError(f"Not implemented for kernel type: {config.kernel_type}")
     
-    if kernel_type in [KernelType.HIP_BLAS, KernelType.HIP]:
+    if kernel_type in [KernelType.HIP]:
         # Clean up device memory
         hip_check(hip.hipFree(A_d))
         hip_check(hip.hipFree(B_d))
         hip_check(hip.hipFree(C_d))
+
+    return C_output
 
 
 @pydra.main(base=EvalConfig)
@@ -215,15 +209,15 @@ def main(config: EvalConfig):
     
 
     # Compute execution test stats
-    times_array = np.array(kernel_times)
+    times_array = torch.tensor(kernel_times)
 
     stats = {
-        "mean": float(f"{np.mean(times_array):.2f}"),
-        "std": float(f"{np.std(times_array):.2f}"), 
-        "min": float(f"{np.min(times_array):.2f}"),
-        "max": float(f"{np.max(times_array):.2f}"),
-        "median": float(f"{np.median(times_array):.2f}"),
-        "total_time": float(f"{np.sum(times_array):.2f}")
+        "mean": float(f"{times_array.mean():.2f}"),
+        "std": float(f"{times_array.std():.2f}"), 
+        "min": float(f"{times_array.min():.2f}"),
+        "max": float(f"{times_array.max():.2f}"),
+        "median": float(f"{times_array.median():.2f}"),
+        "total_time": float(f"{times_array.sum():.2f}")
     }
     
     

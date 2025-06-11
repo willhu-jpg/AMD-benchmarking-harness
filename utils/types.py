@@ -24,6 +24,7 @@ class DataType(Enum):
     """Enum for different kernel implementations"""
     FP32 = auto()
     FP16 = auto()
+    BF16 = auto()
     
     def __str__(self):
         return self.name.lower()

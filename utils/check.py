@@ -1,6 +1,6 @@
 from hip import hip
 from hip import hipblas
-import numpy as np
+import torch
 
 def hip_check(call_result):
     """Check HIP and hipBLAS function results."""
@@ -14,7 +14,7 @@ def hip_check(call_result):
         raise RuntimeError(str(err))
     return result
 
-def compare(C_h: np.ndarray, C_expected: np.ndarray, debug: bool):
+def compare(C_h: torch.Tensor, C_expected: torch.Tensor, debug: bool):
     """
     Compare the output of the kernel with the expected result.
     If mismatched, print full tensors and write them to a file.
@@ -22,9 +22,9 @@ def compare(C_h: np.ndarray, C_expected: np.ndarray, debug: bool):
 
     if debug:
         output_path="compare_output.txt"
-        np.set_printoptions(threshold=np.inf, linewidth=np.inf, suppress=True)
+        torch.set_printoptions(threshold=100000, linewidth=200, sci_mode=False)
 
-    if np.allclose(C_expected, C_h, atol=1e-2):
+    if torch.allclose(C_expected, C_h, atol=1e-1, rtol=1e-3):
         print("✅ Matrix multiplication successful")
     else:
         print("❌ Matrix multiplication FAILED")
