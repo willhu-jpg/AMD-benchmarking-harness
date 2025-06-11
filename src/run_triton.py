@@ -175,7 +175,7 @@ def test_triton_matmul(config: pydra.Config, M: int, N: int, K: int, A_tensor: t
     
     # Copy result back to CPU for validation
     C_result_cpu = C_result.cpu()
-    compare(C_result_cpu, C_expected, config.debug)
+    compare(C_result_cpu, C_expected, config.debug, str(config.AB_type))
     
     return elapsed_time
 

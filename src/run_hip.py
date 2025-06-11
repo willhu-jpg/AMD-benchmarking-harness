@@ -199,7 +199,7 @@ def test_hip_matmul(config: pydra.Config, M: int, N: int, K: int, A_d, B_d, C_d,
     C_out = torch.zeros((M, N), dtype=torch.float32)
     num_bytes_C = C_out.numel() * C_out.element_size()
     hip_check(hip.hipMemcpy(C_out.data_ptr(), C_d, num_bytes_C, hip.hipMemcpyKind.hipMemcpyDeviceToHost))
-    compare(C_out, C_expected, config.debug)
+    compare(C_out, C_expected, config.debug, str(config.AB_type))
 
     # Destroy events and module
     hip_check(hip.hipEventDestroy(start_event))

@@ -8,9 +8,15 @@ using namespace kittens;
 #define K 8192
 #define N 8192
 
-#define BM 16
-#define BN 16
+#define BM 128
+#define BN 128
 #define BK 16
+
+#define WM 64
+#define WN 64
+#define WNITER 4
+#define TM 4
+#define TN 1
 
 using _gl_A = gl<bf16, -1, -1, -1, -1>;
 using _gl_B = gl<bf16, -1, -1, -1, -1>;
@@ -24,7 +30,7 @@ struct micro_globals {
     float beta;
 
     // grid - number of thread blocks we are launching
-    dim3 grid()  { return dim3(256, 256); } 
+    dim3 grid()  { return dim3(N / BN, M / BM); } 
 
     // block - number of threads in a thread block
     dim3 block() { return dim3(NUM_THREADS); } 
@@ -36,11 +42,11 @@ struct micro_globals {
 __global__
 void micro_tk(const micro_globals g) {
 
-    // // shared memory
-    // extern __shared__ alignment_dummy __shm[];
-    // shared_allocator al((int*)&__shm[0]);
-    // st_bf<BM, BK> (&As) = al.allocate<st_bf<BM, BK>>();
-    // st_bf<BK, BN> (&Bs) = al.allocate<st_bf<BK, BN>>();
+    // shared memory
+    extern __shared__ alignment_dummy __shm[];
+    shared_allocator al((int*)&__shm[0]);
+    st_bf<WM, BK> (&As)[2] = al.allocate<st_bf<WM, BK>, 2>();
+    st_bf<BK, WN> (&Bs)[2] = al.allocate<st_bf<BK, WN>, 2>();
 
     int row = blockIdx.x;
     int col = blockIdx.y;
@@ -49,23 +55,25 @@ void micro_tk(const micro_globals g) {
     int warp_row = warp_id / 2;
     int warp_col = warp_id % 2;
 
-    // // register tiles for accumulation
-    rt_fl<BM, BN, ducks::rt_layout::col> c_reg;
+    // register tiles for accumulation
+    rt_fl<WM, WN, ducks::rt_layout::col> c_reg;
     zero(c_reg);
     
     // loop over K
     for (int bkIdx = 0; bkIdx < K / BK; bkIdx++) {
-        // // load from HBM to SMEM
-        // load(As, g.a, {0, 0, C_row, bkIdx});
-        // load(Bs, g.b, {0, 0, bkIdx, C_col});
-        // __syncthreads();
+        // load from HBM to SMEM
+        load(As[0], g.a, {0, 0, row * 2, bkIdx});
+        load(As[1], g.a, {0, 0, row * 2 + 1, bkIdx});
+        load(Bs[0], g.b, {0, 0, bkIdx, col * 2});
+        load(Bs[1], g.b, {0, 0, bkIdx, col * 2 + 1});
+        __syncthreads();
 
         // load from HBM to registers
-        rt_bf<BM, BK> a_reg;
-        rt_bf<BK, BN, ducks::rt_layout::col> b_reg;
+        rt_bf<WM, BK> a_reg;
+        rt_bf<BK, WN, ducks::rt_layout::col> b_reg;
 
-        load(a_reg, g.a, {0, 0, warp_row + row * 2, bkIdx});
-        load(b_reg, g.b, {0, 0, bkIdx, warp_col + col * 2});
+        load(a_reg, As[warp_row]);
+        load(b_reg, Bs[warp_col]);
 
         // accumulate
         mma_AB(c_reg, a_reg, b_reg, c_reg);
@@ -73,7 +81,7 @@ void micro_tk(const micro_globals g) {
     }
 
     // Store result back to HBM
-    store(g.c, c_reg, {0, 0, warp_row + row * 2, warp_col + col * 2});
+    store(g.c, c_reg, {0, 0, row * 2 + warp_row, col * 2 + warp_col});
 }
 
 // Launch Kernel

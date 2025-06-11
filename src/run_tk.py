@@ -53,6 +53,6 @@ def test_tk_matmul(config: pydra.Config, M: int, N: int, K: int, A_tensor: torch
 
     # Copy result back to CPU for validation
     C_tensor_cpu = C_tensor.cpu()
-    compare(C_tensor_cpu, C_expected, config.debug)
+    compare(C_tensor_cpu, C_expected, config.debug, str(config.AB_type))
 
     return elapsed_time
