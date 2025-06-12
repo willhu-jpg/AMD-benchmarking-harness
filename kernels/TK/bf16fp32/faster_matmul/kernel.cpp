@@ -45,8 +45,8 @@ void micro_tk(const micro_globals g) {
     // shared memory
     extern __shared__ alignment_dummy __shm[];
     shared_allocator al((int*)&__shm[0]);
-    st_bf<WM, BK> (&As)[2] = al.allocate<st_bf<WM, BK>, 2>();
-    st_bf<BK, WN> (&Bs)[2] = al.allocate<st_bf<BK, WN>, 2>();
+    st_bf<WM, BK> (&As)[4] = al.allocate<st_bf<WM, BK>, 4>();
+    st_bf<BK, WN> (&Bs)[4] = al.allocate<st_bf<BK, WN>, 4>();
 
     int row = blockIdx.x;
     int col = blockIdx.y;
@@ -59,21 +59,33 @@ void micro_tk(const micro_globals g) {
     rt_fl<WM, WN, ducks::rt_layout::col> c_reg;
     zero(c_reg);
     
-    // loop over K
+    // Pre-load first iteration into buffer 0
+    load(As[0], g.a, {0, 0, row * 2, 0});
+    load(As[1], g.a, {0, 0, row * 2 + 1, 0});
+    load(Bs[0], g.b, {0, 0, 0, col * 2});
+    load(Bs[1], g.b, {0, 0, 0, col * 2 + 1});
+    __syncthreads();
+    
+    // loop over K with double buffering
     for (int bkIdx = 0; bkIdx < K / BK; bkIdx++) {
-        // load from HBM to SMEM
-        load(As[0], g.a, {0, 0, row * 2, bkIdx});
-        load(As[1], g.a, {0, 0, row * 2 + 1, bkIdx});
-        load(Bs[0], g.b, {0, 0, bkIdx, col * 2});
-        load(Bs[1], g.b, {0, 0, bkIdx, col * 2 + 1});
-        __syncthreads();
+        // Determine which buffer to use for current and next iterations
+        int curr_buf = (bkIdx % 2) * 2;      // 0 or 2
+        int next_buf = ((bkIdx + 1) % 2) * 2; // 2 or 0
+        
+        // Prefetch next iteration while computing current (if not last iteration)
+        if (bkIdx + 1 < K / BK) {
+            load(As[next_buf], g.a, {0, 0, row * 2, bkIdx + 1});
+            load(As[next_buf + 1], g.a, {0, 0, row * 2 + 1, bkIdx + 1});
+            load(Bs[next_buf], g.b, {0, 0, bkIdx + 1, col * 2});
+            load(Bs[next_buf + 1], g.b, {0, 0, bkIdx + 1, col * 2 + 1});
+        }
 
-        // load from HBM to registers
+        // load from SMEM to registers for current iteration
         rt_bf<WM, BK> a_reg;
         rt_bf<BK, WN, ducks::rt_layout::col> b_reg;
 
-        load(a_reg, As[warp_row]);
-        load(b_reg, Bs[warp_col]);
+        load(a_reg, As[curr_buf + warp_row]);
+        load(b_reg, Bs[curr_buf + warp_col]);
 
         // accumulate
         mma_AB(c_reg, a_reg, b_reg, c_reg);
