@@ -68,7 +68,7 @@ void micro_tk(const micro_globals g) {
     int consumer_idx = is_consumer ? warp_group_id - 1 : 0;
     
     // Pre-load first iteration into buffer 0
-    if (is_producer) {
+    if (is_producer && warp_id == 0) {
 
         for (int m = 0; m < M_BLOCK; m++) {
             load(As[tic][m], g.a, {0, 0, row + m, 0});
@@ -88,7 +88,7 @@ void micro_tk(const micro_globals g) {
     int num_tiles = K / BLOCK_SIZE;
     for (int tile = 0; tile < num_tiles; ++tile, tic ^= 1, toc ^= 1) {
 
-        if (is_producer && tile + 1 < num_tiles) {
+        if (is_producer && tile + 1 < num_tiles && warp_id == 0) {
             for (int m = 0; m < M_BLOCK; m++) {
                 load(As[toc][m], g.a, {0, 0, row + m, tile + 1});
             }
