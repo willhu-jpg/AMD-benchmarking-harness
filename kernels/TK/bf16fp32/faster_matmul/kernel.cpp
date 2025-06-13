@@ -60,10 +60,12 @@ void micro_tk(const micro_globals g) {
     zero(c_reg);
     
     // Pre-load first iteration into buffer 0
-    load(As[0], g.a, {0, 0, row * 2, 0});
-    load(As[1], g.a, {0, 0, row * 2 + 1, 0});
-    load(Bs[0], g.b, {0, 0, 0, col * 2});
-    load(Bs[1], g.b, {0, 0, 0, col * 2 + 1});
+    if (warp_id == 0) {
+        load(As[0], g.a, {0, 0, row * 2, 0});
+        load(As[1], g.a, {0, 0, row * 2 + 1, 0});
+        load(Bs[0], g.b, {0, 0, 0, col * 2});
+        load(Bs[1], g.b, {0, 0, 0, col * 2 + 1});
+    }
     __syncthreads();
     
     // loop over K with double buffering
@@ -73,7 +75,7 @@ void micro_tk(const micro_globals g) {
         int next_buf = ((bkIdx + 1) % 2) * 2; // 2 or 0
         
         // Prefetch next iteration while computing current (if not last iteration)
-        if (bkIdx + 1 < K / BK) {
+        if (bkIdx + 1 < K / BK && warp_id == 0) {
             load(As[next_buf], g.a, {0, 0, row * 2, bkIdx + 1});
             load(As[next_buf + 1], g.a, {0, 0, row * 2 + 1, bkIdx + 1});
             load(Bs[next_buf], g.b, {0, 0, bkIdx + 1, col * 2});
@@ -99,7 +101,7 @@ void micro_tk(const micro_globals g) {
 // Launch Kernel
 void dispatch_micro(micro_globals g) {
 
-    unsigned long mem_size = kittens::MAX_SHARED_MEMORY;
+    unsigned long mem_size = g.dynamic_shared_memory();
     hipFuncSetAttribute(
         (void*)micro_tk,
         hipFuncAttributeMaxDynamicSharedMemorySize,

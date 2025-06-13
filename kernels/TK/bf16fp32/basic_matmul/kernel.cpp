@@ -79,7 +79,7 @@ void micro_tk(const micro_globals g) {
 // Launch Kernel
 void dispatch_micro(micro_globals g) {
 
-    unsigned long mem_size = kittens::MAX_SHARED_MEMORY;
+    unsigned long mem_size = g.dynamic_shared_memory();
     hipFuncSetAttribute(
         (void*)micro_tk,
         hipFuncAttributeMaxDynamicSharedMemorySize,
