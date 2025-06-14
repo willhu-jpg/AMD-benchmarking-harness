@@ -30,7 +30,7 @@ struct micro_globals {
     size_t dynamic_shared_memory() { return 16384*2; }
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 1)
+__global__ __launch_bounds__(NUM_THREADS, 2)
 void micro_tk(const micro_globals g) {
 
     extern __shared__ alignment_dummy __shm[];
@@ -40,6 +40,7 @@ void micro_tk(const micro_globals g) {
     (void)__shm[0];
 
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
+    #pragma unroll
     for (int i = 0; i < 4; i++) {
         zero(C_accum[i]);
     }
@@ -48,23 +49,20 @@ void micro_tk(const micro_globals g) {
     rt_bf<K_STEP, REG_BLOCK, ducks::rt_layout::col> b_reg_0, b_reg_1;
 
 
-    int row = blockIdx.y;
-    int col = blockIdx.x;
+    const int row = blockIdx.y;
+    const int col = blockIdx.x;
 
-    int warp_id = kittens::warpid();
-    int warp_row = warp_id / 2;
-    int warp_col = warp_id % 2;
+    const int warp_id = kittens::warpid();
+    const int warp_row = warp_id / 2;
+    const int warp_col = warp_id % 2;
 
-    int num_tiles = K / K_STEP;
+    const int num_tiles = K / K_STEP;
+    #pragma unroll
     for (int tile = 0; tile < num_tiles; ++tile) {
 
         G::load(As, g.a, {0, 0, row, tile});
         G::load(Bs, g.b, {0, 0, tile, col});
         __syncthreads();
-
-        int warp_id   = kittens::warpid();
-        int warp_row  = warp_id / 2;
-        int warp_col  = warp_id % 2;
 
         load(a_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row + 0, 0}));
         load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row + 2, 0}));
