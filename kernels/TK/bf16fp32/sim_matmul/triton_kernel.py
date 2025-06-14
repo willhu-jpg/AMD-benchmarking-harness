@@ -40,7 +40,7 @@ def get_hip_autotune_config():
     return [
         triton.Config(
             {'BLOCK_SIZE_M': 128, 'BLOCK_SIZE_N': 256, 'BLOCK_SIZE_K': 16, 'GROUP_SIZE_M': 1, 'waves_per_eu': 1},
-            num_warps=8, num_stages=0),
+            num_warps=8, num_stages=1),
         # ... shortened for brevity ...
     ]
 
