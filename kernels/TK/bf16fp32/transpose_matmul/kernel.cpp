@@ -3,7 +3,7 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE = 128;  
-constexpr int K_STEP     = 32;
+constexpr int K_STEP     = 64;
 constexpr int REG_BLOCK  = BLOCK_SIZE / 4; 
 
 #define NUM_WARPS 4
@@ -23,7 +23,6 @@ struct micro_globals {
     _gl_A a;
     _gl_B b;
     _gl_C c;
-
     dim3 grid()  { return dim3(N / BLOCK_SIZE, M / BLOCK_SIZE); } 
     dim3 block() { return dim3(NUM_THREADS); } 
     size_t dynamic_shared_memory() { return 32768; }
@@ -37,12 +36,9 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
-    rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
-    rt_fl<REG_BLOCK, REG_BLOCK> C_accum_row;
-    #pragma unroll
-    for (int i = 0; i < 4; i++) { zero(C_accum[i]); }
-
     rt_bf<REG_BLOCK, K_STEP> a_reg_0, a_reg_1, b_reg_0, b_reg_1;
+    rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
+    for (int i = 0; i < 4; i++) { zero(C_accum[i]); }
 
     int row = blockIdx.y;
     int col = blockIdx.x;
@@ -52,9 +48,7 @@ void micro_tk(const micro_globals g) {
     int warp_col = warp_id % 2;
 
     int num_tiles = K / K_STEP;
-    #pragma unroll
     for (int tile = 0; tile < num_tiles; ++tile) {
-
         G::load(As, g.a, {0, 0, row, tile});
         G::load(Bs, g.b, {0, 0, col, tile});
         __syncthreads();
@@ -74,12 +68,9 @@ void micro_tk(const micro_globals g) {
     for (int i = 0; i < 4; i++) {
         int offset_row = i / 2;
         int offset_col = i % 2;
-        
         int global_row = row * 4 + offset_row * 2 + warp_row;  
         int global_col = col * 4 + offset_col * 2 + warp_col;
-
-        swap_layout(C_accum_row, C_accum[i]);
-        store(g.c, C_accum_row, {0, 0, global_row, global_col});
+        store(g.c, C_accum[i], {0, 0, global_row, global_col});
     }
 }
 
@@ -90,7 +81,6 @@ void dispatch_micro(micro_globals g) {
         hipFuncAttributeMaxDynamicSharedMemorySize,
         mem_size
     );
-
     micro_tk<<<g.grid(), g.block(), mem_size>>>(g);
     hipDeviceSynchronize();
 }
