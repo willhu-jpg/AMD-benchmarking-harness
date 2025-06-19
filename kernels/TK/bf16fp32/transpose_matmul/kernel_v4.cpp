@@ -4,7 +4,8 @@ using namespace kittens;
 
 constexpr int BLOCK_SIZE = 128;  
 constexpr int K_STEP     = 64;
-constexpr int REG_BLOCK  = BLOCK_SIZE / 4; 
+constexpr int REG_BLOCK  = BLOCK_SIZE / 4;
+// constexpr int DOT_SLICE  = 64;
 
 #define NUM_WARPS 8
 #define NUM_THREADS (kittens::WARP_THREADS * NUM_WARPS)
@@ -47,6 +48,7 @@ void micro_tk(const micro_globals g) {
     const int warp_col_next = warp_col + 2;
 
     const int num_tiles = K / K_STEP;
+    // const int num_slices = K_STEP / DOT_SLICE;
     for (int tile = 0; tile < num_tiles; ++tile) {
 
         // collaboratively load As and Bs
@@ -60,9 +62,19 @@ void micro_tk(const micro_globals g) {
         load(a_reg, As[warp_row]);
         load(b_reg_0, Bs[warp_col]);
         load(b_reg_1, Bs[warp_col_next]);
-                
+        __builtin_amdgcn_s_barrier();
         mma_ABt(C_accum[0], a_reg, b_reg_0, C_accum[0]);
         mma_ABt(C_accum[1], a_reg, b_reg_1, C_accum[1]);
+
+        // #pragma unroll
+        // for (int slice = 0; slice < num_slices; ++slice) {
+        //     load(a_reg, subtile_inplace<REG_BLOCK, DOT_SLICE>(As[warp_row], {0, slice}));
+        //     load(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs[warp_col], {0, slice}));
+        //     load(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs[warp_col_next], {0, slice}));
+        //     __builtin_amdgcn_s_barrier();
+        //     mma_ABt(C_accum[0], a_reg, b_reg_0, C_accum[0]);
+        //     mma_ABt(C_accum[1], a_reg, b_reg_1, C_accum[1]);
+        // }
     }
 
     for (int i = 0; i < 2; i++) {
