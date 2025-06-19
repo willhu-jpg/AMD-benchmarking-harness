@@ -38,8 +38,7 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
-    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1, b_reg_0, b_reg_1;
-    // rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0_next, a_reg_1_next, b_reg_0_next, b_reg_1_next;
+    rt_bf<REG_BLOCK, K_STEP> a_reg_0, a_reg_1, b_reg_0, b_reg_1;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
     for (int i = 0; i < 4; i++) { zero(C_accum[i]); }
 
@@ -62,6 +61,7 @@ void micro_tk(const micro_globals g) {
         G::load(Bs, g.b, {0, 0, col, tile});
         __syncthreads();
 
+<<<<<<< HEAD
         #pragma unroll
         for (int slice = 0; slice < num_slices; ++slice) {
 
@@ -76,6 +76,19 @@ void micro_tk(const micro_globals g) {
             mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
             mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
         }
+=======
+        // Compute on current
+        mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
+        mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+        mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
+        mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
+
+        // Issue loads into _next
+        load(a_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
+        load(b_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
+        load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row_next, 0}));
+        load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col_next, 0}));
+>>>>>>> 7e584404dabe989a22f28ac8c84d947af9067b2c
     }
 
     for (int i = 0; i < 4; i++) {
