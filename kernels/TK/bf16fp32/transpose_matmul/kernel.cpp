@@ -25,7 +25,7 @@ struct micro_globals {
     _gl_C c;
     dim3 grid()  { return dim3(N / BLOCK_SIZE, M / BLOCK_SIZE); } 
     dim3 block() { return dim3(NUM_THREADS); } 
-    size_t dynamic_shared_memory() { return 16384*2; }
+    size_t dynamic_shared_memory() { return 32768; }
 };
 
 __global__ __launch_bounds__(NUM_THREADS, 2)
@@ -37,8 +37,8 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
     rt_bf<REG_BLOCK, K_STEP> a_reg_0, a_reg_1, b_reg_0, b_reg_1;
+    rt_bf<REG_BLOCK, K_STEP> a_reg_0_next, a_reg_1_next, b_reg_0_next, b_reg_1_next;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
-    #pragma unroll
     for (int i = 0; i < 4; i++) { zero(C_accum[i]); }
 
     const int row = blockIdx.y;
@@ -47,31 +47,52 @@ void micro_tk(const micro_globals g) {
     const int warp_id = kittens::warpid();
     const int warp_row = warp_id / 2;
     const int warp_col = warp_id % 2;
+    const int warp_row_next = warp_row + 2;
+    const int warp_col_next = warp_col + 2;
+
+    // prefetch for tile 0
+    G::load(As, g.a, {0, 0, row, 0});
+    G::load(Bs, g.b, {0, 0, col, 0});
+    __syncthreads();
+    
+    load(a_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
+    load(b_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
+    load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row_next, 0}));
+    load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col_next, 0}));
 
     const int num_tiles = K / K_STEP;
-    for (int tile = 0; tile < num_tiles; ++tile) {
+    for (int tile = 1; tile < num_tiles; ++tile) {
         G::load(As, g.a, {0, 0, row, tile});
         G::load(Bs, g.b, {0, 0, col, tile});
         __syncthreads();
 
-        load(a_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
-        load(b_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
-        load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row + 2, 0}));
-        load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col + 2, 0}));
-        __syncthreads();
+        // Issue loads into _next
+        load(a_reg_0_next, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
+        load(b_reg_0_next, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
+        load(a_reg_1_next, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row_next, 0}));
+        load(b_reg_1_next, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col_next, 0}));
 
+        // Compute on current
         mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
-        mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
         mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+        mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
         mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
+
+        // Swap register buffers
+        a_reg_0 = a_reg_0_next;
+        a_reg_1 = a_reg_1_next;
+        b_reg_0 = b_reg_0_next;
+        b_reg_1 = b_reg_1_next;
     }
 
-    #pragma unroll
+    mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
+    mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+    mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
+    mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
+
     for (int i = 0; i < 4; i++) {
-        int offset_row = i / 2;
-        int offset_col = i % 2;
-        int global_row = row * 4 + offset_row * 2 + warp_row;  
-        int global_col = col * 4 + offset_col * 2 + warp_col;
+        int global_row = row * 4 + (i / 2) * 2 + warp_row;  
+        int global_col = col * 4 + (i % 2) * 2 + warp_col;
         store(g.c, C_accum[i], {0, 0, global_row, global_col});
     }
 }
