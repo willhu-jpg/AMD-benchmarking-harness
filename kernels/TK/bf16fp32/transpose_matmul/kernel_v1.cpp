@@ -28,7 +28,7 @@ struct micro_globals {
     size_t dynamic_shared_memory() { return 32768; }
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 1)
+__global__ __launch_bounds__(NUM_THREADS, 2)
 void micro_tk(const micro_globals g) {
 
     extern __shared__ alignment_dummy __shm[];
@@ -40,14 +40,16 @@ void micro_tk(const micro_globals g) {
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[4];
     for (int i = 0; i < 4; i++) { zero(C_accum[i]); }
 
-    int row = blockIdx.y;
-    int col = blockIdx.x;
+    const int row = blockIdx.y;
+    const int col = blockIdx.x;
 
-    int warp_id = kittens::warpid();
-    int warp_row = warp_id / 2;
-    int warp_col = warp_id % 2;
+    const int warp_id = kittens::warpid();
+    const int warp_row = warp_id / 2;
+    const int warp_col = warp_id % 2;
+    const int warp_row_next = warp_row + 2;
+    const int warp_col_next = warp_col + 2;
 
-    int num_tiles = K / K_STEP;
+    const int num_tiles = K / K_STEP;
     for (int tile = 0; tile < num_tiles; ++tile) {
         G::load(As, g.a, {0, 0, row, tile});
         G::load(Bs, g.b, {0, 0, col, tile});
@@ -55,21 +57,19 @@ void micro_tk(const micro_globals g) {
 
         load(a_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
         load(b_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
-        load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row + 2, 0}));
-        load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col + 2, 0}));
+        load(a_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row_next, 0}));
+        load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col_next, 0}));
 
         mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
-        mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
         mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+        mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
         mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
+        __syncthreads();
     }
 
-    #pragma unroll
     for (int i = 0; i < 4; i++) {
-        int offset_row = i / 2;
-        int offset_col = i % 2;
-        int global_row = row * 4 + offset_row * 2 + warp_row;  
-        int global_col = col * 4 + offset_col * 2 + warp_col;
+        int global_row = row * 4 + (i / 2) * 2 + warp_row;  
+        int global_col = col * 4 + (i % 2) * 2 + warp_col;
         store(g.c, C_accum[i], {0, 0, global_row, global_col});
     }
 }
@@ -90,4 +90,5 @@ PYBIND11_MODULE(tk_kernel, m) {
     py::bind_kernel<micro_tk>(m, "micro_tk", &micro_globals::a, &micro_globals::b, &micro_globals::c); 
     py::bind_function<dispatch_micro>(m, "dispatch_micro", &micro_globals::a, &micro_globals::b, &micro_globals::c);
 }
+
 
