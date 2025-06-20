@@ -18,6 +18,8 @@ using _gl_A = gl<bf16, -1, -1, -1, -1>;
 using _gl_B = gl<bf16, -1, -1, -1, -1>;
 using _gl_C = gl<float, -1, -1, -1, -1>;
 
+using G = kittens::group<NUM_WARPS>;
+
 struct micro_globals {
     _gl_A a;
     _gl_B b;
@@ -27,13 +29,13 @@ struct micro_globals {
     size_t dynamic_shared_memory() { return 32768; }
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 2)
+__global__ __launch_bounds__(NUM_THREADS, 4)
 void micro_tk(const micro_globals g) {
 
     extern __shared__ alignment_dummy __shm[];
     shared_allocator al((int*)&__shm[0]);
-    st_bf<REG_BLOCK, K_STEP> (&As)[4] = al.allocate<st_bf<REG_BLOCK, K_STEP>, 4>();
-    st_bf<REG_BLOCK, K_STEP> (&Bs)[4] = al.allocate<st_bf<REG_BLOCK, K_STEP>, 4>();
+    st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
+    st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
     rt_bf<REG_BLOCK, K_STEP> a_reg, b_reg_0, b_reg_1;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[2];
@@ -52,29 +54,16 @@ void micro_tk(const micro_globals g) {
     for (int tile = 0; tile < num_tiles; ++tile) {
 
         // collaboratively load As and Bs
-        if (warp_col == 0) {
-            load(As[warp_row], g.a, {0, 0, row * 4 + warp_row, tile});
-        } else {
-            load(Bs[warp_row], g.b, {0, 0, col * 4 + warp_row, tile});
-        }
+        G::load(As, g.a, {0, 0, row, tile});
+        G::load(Bs, g.b, {0, 0, col, tile});
         __syncthreads();
 
-        load(a_reg, As[warp_row]);
-        load(b_reg_0, Bs[warp_col]);
-        load(b_reg_1, Bs[warp_col_next]);
+        load(a_reg, subtile_inplace<REG_BLOCK, K_STEP>(As, {warp_row, 0}));
+        load(b_reg_0, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col, 0}));
+        load(b_reg_1, subtile_inplace<REG_BLOCK, K_STEP>(Bs, {warp_col_next, 0}));
         __builtin_amdgcn_s_barrier();
         mma_ABt(C_accum[0], a_reg, b_reg_0, C_accum[0]);
         mma_ABt(C_accum[1], a_reg, b_reg_1, C_accum[1]);
-
-        // #pragma unroll
-        // for (int slice = 0; slice < num_slices; ++slice) {
-        //     load(a_reg, subtile_inplace<REG_BLOCK, DOT_SLICE>(As[warp_row], {0, slice}));
-        //     load(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs[warp_col], {0, slice}));
-        //     load(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs[warp_col_next], {0, slice}));
-        //     __builtin_amdgcn_s_barrier();
-        //     mma_ABt(C_accum[0], a_reg, b_reg_0, C_accum[0]);
-        //     mma_ABt(C_accum[1], a_reg, b_reg_1, C_accum[1]);
-        // }
     }
 
     for (int i = 0; i < 2; i++) {
@@ -100,4 +89,3 @@ PYBIND11_MODULE(tk_kernel, m) {
     py::bind_kernel<micro_tk>(m, "micro_tk", &micro_globals::a, &micro_globals::b, &micro_globals::c); 
     py::bind_function<dispatch_micro>(m, "dispatch_micro", &micro_globals::a, &micro_globals::b, &micro_globals::c);
 }
-
