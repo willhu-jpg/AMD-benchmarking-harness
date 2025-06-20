@@ -132,19 +132,26 @@ print("diff[:64, :64].max()", diff[:64, :64].max())
 print("diff[64:128, 64:128].max()", diff[64:128, 64:128].max())
 print("diff[128:192, 128:192].max()", diff[128:192, 128:192].max())
 print("diff[192:256, 192:256].max()", diff[192:256, 192:256].max())
-# print("diff[256:320, 256:320].max()", diff[256:320, 256:320].max())
-# print("diff[320:384, 320:384].max()", diff[320:384, 320:384].max())
-# print("diff[384:448, 384:448].max()", diff[384:448, 384:448].max())
-# print("diff[448:512, 448:512].max()", diff[448:512, 448:512].max())
-# print("diff[512:576, 512:576].max()", diff[512:576, 512:576].max())
-# print("diff[576:640, 576:640].max()", diff[576:640, 576:640].max())
-# print("diff[640:704, 640:704].max()", diff[640:704, 640:704].max())
 
 
-# print("C_float[:64, :64].max()", C_float[:4, :4])
-# print(f"C_ref_float[:64, :64].max()", C_ref_float[:4, :4])
+############### LOGGING OUTPUTS ####################
 
-# print tile around max difference
-# print(f"Tile around max difference {pos_max_diff_index}:")
-# print(C_float[pos_max_diff_index[0] - 2:pos_max_diff_index[0] + 3, pos_max_diff_index[1] - 2:pos_max_diff_index[1] + 3])
-# print(C_ref_float[pos_max_diff_index[0] - 2:pos_max_diff_index[0] + 3, pos_max_diff_index[1] - 2:pos_max_diff_index[1] + 3])
+data_to_log = {
+    "N": N,
+    "avg_time_ref": avg_time_ref,
+    "tflops_ref": tflops_ref,
+    "avg_time": avg_time,
+    "tflops": tflops,
+    "max_error": max_error,
+    "mean_error": mean_error,
+    "error_count": error_count,
+}
+
+import json
+with open(os.path.join(new_dir, "data_to_log.json"), "w") as f:
+    json.dump(data_to_log, f, indent=4)
+
+################ END LOGGING OUTPUTS ###############
+
+
+

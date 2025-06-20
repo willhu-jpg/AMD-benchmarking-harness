@@ -38,8 +38,13 @@ ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype 
 # Default target
 all: $(TARGET)
 
+LOGDIR := /shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs/$(shell date +%m%d_%H%M)_outputs
+LOGFILE := $(LOGDIR)/make_build.log
+
 $(TARGET): $(SRC)
-	$(HIPCXX) $(SRC) $(HIPFLAGS) $(ICXXFLAGS) $(ICPPFLAGS) $(ILDFLAGS) -o $(TARGET)$(shell python3-config --extension-suffix)
+	@mkdir -p $(LOGDIR)
+	$(HIPCXX) $(SRC) $(HIPFLAGS) $(ICXXFLAGS) $(ICPPFLAGS) $(ILDFLAGS) \
+	    -o $(TARGET)$(shell python3-config --extension-suffix) 2>&1 | tee $(LOGFILE)
 
 # Clean target
 clean:
