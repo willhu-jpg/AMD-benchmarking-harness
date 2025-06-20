@@ -26,6 +26,15 @@ Bt = B.t().contiguous()  # Transpose B for the kernel
 import os
 import time
 import shutil
+import re
+
+def parse_makefile_targets(makefile_path):
+    src = None
+    with open(makefile_path, "r") as f:
+        for line in f:
+            if match := re.match(r"^SRC\s*=\s*(\S+)", line):
+                src = match.group(1)
+    return src
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -36,9 +45,11 @@ new_dir = os.path.join(dirpath, f"{timestamp}_outputs")
 os.makedirs(new_dir, exist_ok=True)
 
 # Files to copy (relative to base_dir)
+src_name = parse_makefile_targets(os.path.join(base_dir, "Makefile"))
+print(f"src: {src_name}")
 files_to_copy = [
     "Makefile",
-    "kernel.cpp",
+    src_name, 
     "tk_kernel.cpython-313-x86_64-linux-gnu.so",
     "tk_kernel.cpython-312-x86_64-linux-gnu.so"
 ]
