@@ -2,6 +2,7 @@ import torch
 import tk_kernel
 import random
 import argparse 
+import time
 
 parser = argparse.ArgumentParser(description='Test TK kernel for bfloat16 matrix multiplication.')
 parser.add_argument('--profile', 
@@ -18,6 +19,39 @@ N = 8192
 A = torch.randn(N, N, dtype=torch.bfloat16, device='cuda') / 10.0  
 B = torch.randn(N, N, dtype=torch.bfloat16, device='cuda') / 10.0  
 Bt = B.t().contiguous()  # Transpose B for the kernel
+
+
+############### LOGGING STUFF ###############
+
+import os
+import time
+import shutil
+
+base_dir = os.path.dirname(os.path.realpath(__file__))
+
+# Set destination directory
+dirpath = "/shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs"
+timestamp = time.strftime("%m%d_%H%M")
+new_dir = os.path.join(dirpath, f"{timestamp}_outputs")
+os.makedirs(new_dir, exist_ok=True)
+
+# Files to copy (relative to base_dir)
+files_to_copy = [
+    "Makefile",
+    "kernel.cpp",
+    "tk_kernel.cpython-313-x86_64-linux-gnu.so",
+    "tk_kernel.cpython-312-x86_64-linux-gnu.so"
+]
+
+for filename in files_to_copy:
+    src = os.path.join(base_dir, filename)
+    dst = os.path.join(new_dir, filename)
+    if os.path.exists(src):
+        shutil.copy2(src, dst)
+    else:
+        print(f"Warning: {filename} not found at {src}, skipping.")
+
+################ END LOGGING STUFF ###############
 
 
 num_warmup = 2
@@ -83,11 +117,21 @@ if not args.profile:
 # pos_max_diff = diff.max()
 # pos_max_diff_index = torch.where(diff == pos_max_diff)
 
-# print("diff[:64, :64].max()", diff[:64, :64].max())
-# print("diff[64:128, 64:128].max()", diff[64:128, 64:128].max())
-# print("diff[128:192, 128:192].max()", diff[128:192, 128:192].max())
-# print("diff[192:256, 192:256].max()", diff[192:256, 192:256].max())
+print("diff[:64, :64].max()", diff[:64, :64].max())
+print("diff[64:128, 64:128].max()", diff[64:128, 64:128].max())
+print("diff[128:192, 128:192].max()", diff[128:192, 128:192].max())
+print("diff[192:256, 192:256].max()", diff[192:256, 192:256].max())
 # print("diff[256:320, 256:320].max()", diff[256:320, 256:320].max())
+# print("diff[320:384, 320:384].max()", diff[320:384, 320:384].max())
+# print("diff[384:448, 384:448].max()", diff[384:448, 384:448].max())
+# print("diff[448:512, 448:512].max()", diff[448:512, 448:512].max())
+# print("diff[512:576, 512:576].max()", diff[512:576, 512:576].max())
+# print("diff[576:640, 576:640].max()", diff[576:640, 576:640].max())
+# print("diff[640:704, 640:704].max()", diff[640:704, 640:704].max())
+
+
+# print("C_float[:64, :64].max()", C_float[:4, :4])
+# print(f"C_ref_float[:64, :64].max()", C_ref_float[:4, :4])
 
 # print tile around max difference
 # print(f"Tile around max difference {pos_max_diff_index}:")
