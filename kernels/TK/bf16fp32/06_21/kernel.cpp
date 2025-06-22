@@ -3,8 +3,8 @@
 #include "utils.cpp"
 using namespace kittens;
 
-constexpr int BLOCK_SIZE       = 128;  
-constexpr int K_STEP           = 512;
+constexpr int BLOCK_SIZE       = 256;  
+constexpr int K_STEP           = 256;
 constexpr int DOT_SLICE_SHARED = 64;
 constexpr int REG_BLOCK        = BLOCK_SIZE / 4; 
 constexpr int DOT_SLICE        = 16;
@@ -28,10 +28,10 @@ struct micro_globals {
     _gl_C c;
     dim3 grid()  { return dim3(N / BLOCK_SIZE, M / BLOCK_SIZE); } 
     dim3 block() { return dim3(NUM_THREADS); } 
-    size_t dynamic_shared_memory() { return 32768; }
+    size_t dynamic_shared_memory() { return 65536; }
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 2)
+__global__ __launch_bounds__(NUM_THREADS, 1)
 void micro_tk(const micro_globals g) {
     extern __shared__ alignment_dummy __shm[];
     shared_allocator al((int*)&__shm[0]);
@@ -63,15 +63,19 @@ void micro_tk(const micro_globals g) {
     G::load(As, g.a, {0, 0, row, 0});
     G::load(Bs, g.b, {0, 0, col, 0});
 
-    if (warp_col / 4 == 0) {
-        __builtin_amdgcn_s_barrier();
-    }
 
     // Pre-load second tile into register bufers 
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
         a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As, a_metadata);
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
         b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
+
+    asm volatile("s_waitcnt vmcnt(0)");
+
+    if (warp_col / 4 == 0) {
+        __builtin_amdgcn_s_barrier();
+    }
+
 
     #pragma unroll 2
     for (int tile = 0; tile < num_tiles; ++tile) {
@@ -88,7 +92,9 @@ void micro_tk(const micro_globals g) {
                 load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
                     b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, next_k_offset}, Bs, b_metadata);
             }
+
             __builtin_amdgcn_s_barrier();
+
             
             // Compute on CURRENT data in shared memory
             #pragma unroll 
@@ -99,8 +105,6 @@ void micro_tk(const micro_globals g) {
                 kittens::load(b_reg, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));
                 mma_ABt(C_accum[1], a_reg_0, b_reg, C_accum[1]);
             }
-            __builtin_amdgcn_s_barrier();
-             
 
             // Now wait for loads and write to shared memory
             if (should_load) {

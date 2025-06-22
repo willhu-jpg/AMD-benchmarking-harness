@@ -62,19 +62,15 @@ __device__ inline void load_global_to_registers(
         // Load a batch of elements
         #pragma unroll
         for(int j = 0; j < small_calls; j++) {
-            int load_idx = (offset + j) * N_THREADS + laneid;
-            int row = load_idx / memcpy_per_row;
-            int col = (load_idx % memcpy_per_row) * elem_per_memcpy;
+            int logical_idx = laneid + j * N_THREADS + i * small_calls * N_THREADS;
+            int row = logical_idx / memcpy_per_row;
+            int col = (logical_idx % memcpy_per_row) * elem_per_memcpy;
 
             if (row < dst_template.rows && buf_idx < buffer_size) {
                 reg_buffer[buf_idx] = load_global_vec_new((float4*) (src_ptr + (row * row_stride + col)));
                 buf_idx++;
             }
         }
-        
-        // Wait for this batch to complete before moving to next batch
-        // This maintains the spatial locality pattern from the original
-        asm volatile("s_waitcnt vmcnt(0)");
     }
 }
 
@@ -113,9 +109,7 @@ __device__ inline void store_registers_to_shared(
                 store_shared_vec_new(dst.idx(dst_ptr, {row, col + elem_per_half_memcpy}), {buf_val.z, buf_val.w});
                 buf_idx++;
             }
-        }
-        
-        // Wait for this batch of stores to complete
-        asm volatile("s_waitcnt lgkmcnt(0)");
+        } // Wait for this batch of stores to complete
     }
+    // asm volatile("s_waitcnt lgkmcnt(0)");
 }
