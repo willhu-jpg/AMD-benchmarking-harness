@@ -4,7 +4,7 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE       = 128;  
-constexpr int K_STEP           = 256;
+constexpr int K_STEP           = 512;
 constexpr int DOT_SLICE_SHARED = 64;
 constexpr int REG_BLOCK        = BLOCK_SIZE / 4; 
 constexpr int DOT_SLICE        = 16;
@@ -43,7 +43,7 @@ void micro_tk(const micro_globals g) {
     for (int i = 0; i < 2; i++) { zero(C_accum[i]); }
 
     // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 64;
+    constexpr int BUFFER_SIZE = 16;
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
     int a_metadata[3], b_metadata[3];
@@ -68,11 +68,10 @@ void micro_tk(const micro_globals g) {
     }
 
     // Pre-load second tile into register bufers 
-    const int next_k_offset = 1; 
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
-        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, next_k_offset}, As, a_metadata);
+        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As, a_metadata);
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
-        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, next_k_offset}, Bs, b_metadata);
+        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
 
     #pragma unroll 2
     for (int tile = 0; tile < num_tiles; ++tile) {
