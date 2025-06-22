@@ -105,6 +105,7 @@ void micro_tk(const micro_globals g) {
                 kittens::load(b_reg, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));
                 mma_ABt(C_accum[1], a_reg_0, b_reg, C_accum[1]);
             }
+            asm volatile("s_waitcnt vmcnt(0)");
 
             // Now wait for loads and write to shared memory
             if (should_load) {
