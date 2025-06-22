@@ -77,19 +77,17 @@ void micro_tk(const micro_globals g) {
         b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 2 + warp_row}, Bst, b_metadata);
     asm volatile("s_waitcnt vmcnt(0)");
 
+    __builtin_amdgcn_s_barrier();
+
     // #pragma unroll 2
     for (int tile = 0; tile < num_tiles; ++tile) {
         // Start loading NEXT data to registers 
         if (tile + 1 < num_tiles) {
             load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
                 a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, (tile + 1) * 2 + warp_row}, Ast, a_metadata);
-            
             load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
                 b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst, b_metadata);
         }
-
-        __builtin_amdgcn_s_barrier();
-
         
         // Compute on CURRENT data in shared memory
         // #pragma unroll 
