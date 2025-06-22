@@ -43,7 +43,7 @@ void micro_tk(const micro_globals g) {
     for (int i = 0; i < 2; i++) { zero(C_accum[i]); }
 
     // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 16;
+    constexpr int BUFFER_SIZE = 64;
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
     int a_metadata[3], b_metadata[3];
@@ -70,14 +70,13 @@ void micro_tk(const micro_globals g) {
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
         b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
 
-    asm volatile("s_waitcnt vmcnt(0)");
-
     if (warp_col / 4 == 0) {
         __builtin_amdgcn_s_barrier();
     }
+    asm volatile("s_waitcnt vmcnt(0)");
 
 
-    #pragma unroll 2
+    // #pragma unroll 2
     for (int tile = 0; tile < num_tiles; ++tile) {
 
         for (int shared_slice = 0; shared_slice < num_shared_slices; ++shared_slice) {
@@ -105,7 +104,7 @@ void micro_tk(const micro_globals g) {
                 kittens::load(b_reg, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));
                 mma_ABt(C_accum[1], a_reg_0, b_reg, C_accum[1]);
             }
-            asm volatile("s_waitcnt vmcnt(0)");
+            asm volatile("s_waitcnt vmcnt(1)");
 
             // Now wait for loads and write to shared memory
             if (should_load) {
