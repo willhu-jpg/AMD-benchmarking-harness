@@ -39,7 +39,7 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
-    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1, a_reg_2, a_reg_3;
+    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
     rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
