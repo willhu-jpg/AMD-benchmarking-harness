@@ -4,7 +4,7 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE       = 256;  
-constexpr int K_STEP           = 256;
+constexpr int K_STEP           = 512;
 constexpr int DOT_SLICE_SHARED = 64;
 constexpr int REG_BLOCK      = BLOCK_SIZE / 8; 
 constexpr int DOT_SLICE        = 16;
@@ -31,7 +31,7 @@ struct micro_globals {
     size_t dynamic_shared_memory() { return 65536; }
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 2)
+__global__ __launch_bounds__(NUM_THREADS, 1)
 void micro_tk(const micro_globals g) {
     extern __shared__ alignment_dummy __shm[];
     shared_allocator al((int*)&__shm[0]);
@@ -41,10 +41,11 @@ void micro_tk(const micro_globals g) {
     rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
     rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1, b_reg_2;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
+    #pragma unroll
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
 
     // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 64;
+    constexpr int BUFFER_SIZE = 256;
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
     int a_metadata[3], b_metadata[3];
@@ -73,7 +74,7 @@ void micro_tk(const micro_globals g) {
     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
         b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
     asm volatile("s_waitcnt vmcnt(0)");
-     __builtin_amdgcn_s_barrier();
+    __builtin_amdgcn_s_barrier();
 
     for (int tile = 0; tile < num_tiles; ++tile) {
 
@@ -109,9 +110,9 @@ void micro_tk(const micro_globals g) {
                 mma_ABt(C_accum[2], a_reg_0, b_reg_2, C_accum[2]); 
                 mma_ABt(C_accum[6], a_reg_1, b_reg_2, C_accum[6]);                
                 mma_ABt(C_accum[3], a_reg_0, b_reg_0, C_accum[3]);               
-                mma_ABt(C_accum[7], a_reg_1, b_reg_0, C_accum[7]);
+                mma_ABt(C_accum[7], a_reg_1, b_reg_0, C_accum[7]);                
             }
-            asm volatile("s_waitcnt vmcnt(0)");
+            asm volatile("s_waitcnt vmcnt(1)");
             __builtin_amdgcn_s_barrier();
 
             // Wait for loads and write to shared memory
