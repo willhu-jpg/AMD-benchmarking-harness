@@ -92,7 +92,7 @@ void micro_tk(const micro_globals g) {
             load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
             asm volatile("s_waitcnt lgkmcnt(0)\n");
             kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
-            
+
             if (slice == 1 && loading) {
                 load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
                     b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst);
@@ -113,7 +113,7 @@ void micro_tk(const micro_globals g) {
             mma_ABt(C_accum[6], a_reg_1, b_reg_0, C_accum[6]);
             mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);
 
-            if (slice == 1 || slice == 2) {
+            if (slice <= 2) {
                 __builtin_amdgcn_s_barrier();
             }
         }
