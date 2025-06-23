@@ -45,7 +45,7 @@ void micro_tk(const micro_globals g) {
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
 
     // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 256;
+    constexpr int BUFFER_SIZE = 128;
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
 
@@ -65,12 +65,6 @@ void micro_tk(const micro_globals g) {
     // Load first tile into shared memory
     G::load(As, g.a, {0, 0, row, 0});
     G::load(Bs, g.b, {0, 0, col, 0});
-    // Pre-load second tile into register bufers 
-    load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 2 + warp_row}, Ast);
-    load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 2 + warp_row}, Bst);
-    asm volatile("s_waitcnt vmcnt(0)");
 
     if (warp_row == 1) {
         __syncthreads();
@@ -79,11 +73,11 @@ void micro_tk(const micro_globals g) {
     for (int tile = 0; tile < num_tiles; ++tile) {
         const bool loading = tile + 1 < num_tiles;
         // Start loading NEXT data to registers
+        __syncthreads();
         if (loading) {
             load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
                 a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, (tile + 1) * 2 + warp_row}, Ast);
         }
-        __syncthreads();
         // Compute on CURRENT data in shared memory
         // #pragma unroll 
         for (int slice = 0; slice < num_slices; ++slice) {
@@ -92,11 +86,6 @@ void micro_tk(const micro_globals g) {
             load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
             asm volatile("s_waitcnt lgkmcnt(0)\n");
             kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
-
-            if (slice == 1 && loading) {
-                load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-                    b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst);
-            }
 
             mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
             mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
@@ -112,6 +101,11 @@ void micro_tk(const micro_globals g) {
             mma_ABt(C_accum[5], a_reg_0, b_reg_1, C_accum[5]);
             mma_ABt(C_accum[6], a_reg_1, b_reg_0, C_accum[6]);
             mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);
+
+            if (slice == 1 && loading) {
+                load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
+                    b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst);
+            }
 
             if (slice <= 2) {
                 __syncthreads();
