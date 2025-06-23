@@ -73,7 +73,7 @@ void micro_tk(const micro_globals g) {
     asm volatile("s_waitcnt vmcnt(0)");
 
     if (warp_row == 1) {
-        __builtin_amdgcn_s_barrier();
+        __syncthreads();
     }
 
     for (int tile = 0; tile < num_tiles; ++tile) {
@@ -83,7 +83,7 @@ void micro_tk(const micro_globals g) {
             load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
                 a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, (tile + 1) * 2 + warp_row}, Ast);
         }
-        __builtin_amdgcn_s_barrier();
+        __syncthreads();
         // Compute on CURRENT data in shared memory
         // #pragma unroll 
         for (int slice = 0; slice < num_slices; ++slice) {
@@ -114,7 +114,7 @@ void micro_tk(const micro_globals g) {
             mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);
 
             if (slice <= 2) {
-                __builtin_amdgcn_s_barrier();
+                __syncthreads();
             }
         }
 
@@ -130,7 +130,7 @@ void micro_tk(const micro_globals g) {
     }
 
     if (warp_row == 0) {
-        __builtin_amdgcn_s_barrier();
+        __syncthreads();
     }
 
     #pragma unroll
