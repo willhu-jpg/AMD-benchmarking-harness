@@ -39,7 +39,7 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
-    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
+    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1, a_reg_2, a_reg_3;
     rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
@@ -92,11 +92,15 @@ void micro_tk(const micro_globals g) {
         // Compute on CURRENT data in shared memory
         // #pragma unroll 
         for (int slice = 0; slice < num_slices; ++slice) {
-            kittens::load(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
-            kittens::load(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+            load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
+            asm volatile("s_waitcnt lgkmcnt(0)\n");
+            load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+            asm volatile("s_waitcnt lgkmcnt(0)\n");
+
             kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
             mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
             mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+
 
             if (slice == 1 && loading) {
                 load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
