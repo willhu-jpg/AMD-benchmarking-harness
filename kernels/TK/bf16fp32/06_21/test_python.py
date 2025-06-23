@@ -1,15 +1,9 @@
 import torch
 import tk_kernel
 import random
-import argparse 
 import time
 
-parser = argparse.ArgumentParser(description='Test TK kernel for bfloat16 matrix multiplication.')
-parser.add_argument('--profile', 
-                    action='store_true', 
-                    help='Enable profiling mode to only run the kernel without performance metrics.')
-args = parser.parse_args()
-
+profiling = True
 
 torch.manual_seed(0)
 random.seed(0)
@@ -21,74 +15,75 @@ B = torch.randn(N, N, dtype=torch.bfloat16, device='cuda') / 10.0
 Bt = B.t().contiguous()  # Transpose B for the kernel
 
 
-############### LOGGING STUFF ###############
+if profiling:
+    ############### LOGGING STUFF ###############
 
-import os
-import time
-import shutil
-import re
+    import os
+    import time
+    import shutil
+    import re
 
-def parse_makefile_targets(makefile_path):
-    src = None
-    with open(makefile_path, "r") as f:
-        for line in f:
-            if match := re.match(r"^SRC\s*=\s*(\S+)", line):
-                src = match.group(1)
-    return src
+    def parse_makefile_targets(makefile_path):
+        src = None
+        with open(makefile_path, "r") as f:
+            for line in f:
+                if match := re.match(r"^SRC\s*=\s*(\S+)", line):
+                    src = match.group(1)
+        return src
 
-base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = os.path.dirname(os.path.realpath(__file__))
 
-# Set destination directory
-dirpath = "/shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs"
-timestamp = time.strftime("%m%d_%H%M")
-new_dir = os.path.join(dirpath, f"{timestamp}_outputs")
-os.makedirs(new_dir, exist_ok=True)
+    # Set destination directory
+    dirpath = "/shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs"
+    timestamp = time.strftime("%m%d_%H%M")
+    new_dir = os.path.join(dirpath, f"{timestamp}_outputs")
+    os.makedirs(new_dir, exist_ok=True)
 
-# Files to copy (relative to base_dir)
-src_name = parse_makefile_targets(os.path.join(base_dir, "Makefile"))
-print(f"src: {src_name}")
-files_to_copy = [
-    "Makefile",
-    src_name, 
-    "tk_kernel.cpython-313-x86_64-linux-gnu.so",
-    "tk_kernel.cpython-312-x86_64-linux-gnu.so"
-]
+    # Files to copy (relative to base_dir)
+    src_name = parse_makefile_targets(os.path.join(base_dir, "Makefile"))
+    print(f"src: {src_name}")
+    files_to_copy = [
+        "Makefile",
+        src_name, 
+        "tk_kernel.cpython-313-x86_64-linux-gnu.so",
+        "tk_kernel.cpython-312-x86_64-linux-gnu.so"
+    ]
 
-for filename in files_to_copy:
-    src = os.path.join(base_dir, filename)
-    dst = os.path.join(new_dir, filename)
-    if os.path.exists(src):
-        shutil.copy2(src, dst)
-    else:
-        print(f"Warning: {filename} not found at {src}, skipping.")
+    for filename in files_to_copy:
+        src = os.path.join(base_dir, filename)
+        dst = os.path.join(new_dir, filename)
+        if os.path.exists(src):
+            shutil.copy2(src, dst)
+        else:
+            print(f"Warning: {filename} not found at {src}, skipping.")
 
-################ END LOGGING STUFF ###############
+    ################ END LOGGING STUFF ###############
 
 
-num_warmup = 2
-num_iters = 10
+num_warmup = 20
+num_iters = 20
 start_event = torch.cuda.Event(enable_timing=True) # in milliseconds
 end_event = torch.cuda.Event(enable_timing=True)
 flops_ref = (2 * N**3)  # FLOPs for reference
 
-# Reference matmul using PyTorch
-C_ref = torch.matmul(A, B)
-for _ in range(num_warmup):
-    C_ref = torch.matmul(A, Bt)
-timings_ref = []
-for _ in range(num_iters):
-    torch.cuda.synchronize()
-    start_event.record()
-    C_ref = torch.matmul(A, Bt)
-    end_event.record()
-    torch.cuda.synchronize()
-    elapsed_time = start_event.elapsed_time(end_event)
-    timings_ref.append(elapsed_time)
-if not args.profile:
-    avg_time_ref = sum(timings_ref) / len(timings_ref)
-    tflops_ref = flops_ref / (avg_time_ref * 1e9) 
-    print(f"PyTorch reference average execution time: {avg_time_ref:.4f} ms")
-    print(f"PyTorch reference performance: {tflops_ref:.2f} TFLOPS for {N}x{N} matrix multiplication.\n")
+if profiling:
+    # Reference matmul using PyTorch
+    for _ in range(num_warmup):
+        C_ref = torch.matmul(A, Bt)
+    timings_ref = []
+    for _ in range(num_iters):
+        torch.cuda.synchronize()
+        start_event.record()
+        C_ref = torch.matmul(A, Bt)
+        end_event.record()
+        torch.cuda.synchronize()
+        elapsed_time = start_event.elapsed_time(end_event)
+        timings_ref.append(elapsed_time)
+    if profiling:
+        avg_time_ref = sum(timings_ref) / len(timings_ref)
+        tflops_ref = flops_ref / (avg_time_ref * 1e9) 
+        print(f"PyTorch reference average execution time: {avg_time_ref:.4f} ms")
+        print(f"PyTorch reference performance: {tflops_ref:.2f} TFLOPS for {N}x{N} matrix multiplication.\n")
 
 
 # Kernel matmul
@@ -104,7 +99,7 @@ for _ in range(num_iters):
     torch.cuda.synchronize()
     elapsed_time = start_event.elapsed_time(end_event)
     timings.append(elapsed_time)
-if not args.profile:
+if profiling:
     avg_time = sum(timings) / len(timings)
     tflops = flops_ref / (avg_time * 1e9) 
     print(f"Average execution time: {avg_time:.4f} ms")
@@ -112,7 +107,7 @@ if not args.profile:
 
 
 # Compare against reference
-if not args.profile:
+if profiling:
     C_float = C.float()
     C_ref_float = C_ref.float()
     diff = (C_float - C_ref_float).abs()
@@ -125,41 +120,58 @@ if not args.profile:
     print(f"Mean error: {mean_error}")
     print(f"Number of large errors (>0.1): {error_count}\n")
 
-# pos_max_diff = diff.max()
-# pos_max_diff_index = torch.where(diff == pos_max_diff)
+    # pos_max_diff = diff.max()
+    # pos_max_diff_index = torch.where(diff == pos_max_diff)
 
-print("diff[:64, :64].max()", diff[:64, :64].max())
-print("diff[64:128, 64:128].max()", diff[64:128, 64:128].max())
-print("diff[128:192, 128:192].max()", diff[128:192, 128:192].max())
-print("diff[192:256, 192:256].max()", diff[192:256, 192:256].max())
+    print("diff[:32, :32].max()", diff[:32, :32].max())
+    print("diff[:32, 32:64].max()", diff[:32, 32:64].max())
+    print("diff[32:64, :32].max()", diff[32:64, :32].max())
+    print("diff[32:64, 32:64].max()", diff[32:64, 32:64].max())
+    print()
 
-# end tiles
-print("diff[7168:7232, 7168:7232].max()", diff[7168:7232, 7168:7232].max())
-print("diff[7232:7296, 7232:7296].max()", diff[7232:7296, 7232:7296].max())
-print("diff[7296:7360, 7296:7360].max()", diff[7296:7360, 7296:7360].max())
-print("diff[7360:7424, 7360:7424].max()", diff[7360:7424, 7360:7424].max())
+    # print("diff[:32, 64:96].max()", diff[:32, 64:96].max())
+    # print("diff[:32, 96:128].mean()", diff[:32, 96:128].mean())
+    # print("diff[32:64, 64:96].max()", diff[32:64, 64:96].max())
+    # print("diff[32:64, 96:128].max()", diff[32:64, 96:128].max())
+    # print()
+
+    # print("diff[64:96, :32].max()", diff[64:96, :32].max())
+    # print("diff[64:96, 32:64].max()", diff[64:96, 32:64].max())
+    # print("diff[64:96, 64:96].max()", diff[64:96, 64:96].max())
+    # print()
+
+
+    # print("diff[64:128, 64:128].max()", diff[64:128, 64:128].max())
+    # print("diff[128:192, 128:192].max()", diff[128:192, 128:192].max())
+    # print("diff[192:256, 192:256].max()", diff[192:256, 192:256].max())
+
+    # # end tiles
+    print("diff[7168:7232, 7168:7232].max()", diff[7168:7232, 7168:7232].max())
+    print("diff[7232:7296, 7232:7296].max()", diff[7232:7296, 7232:7296].max())
+    print("diff[7296:7360, 7296:7360].max()", diff[7296:7360, 7296:7360].max())
+    print("diff[7360:7424, 7360:7424].max()", diff[7360:7424, 7360:7424].max())
 
 
 
 
-############### LOGGING OUTPUTS ####################
+    ############### LOGGING OUTPUTS ####################
 
-data_to_log = {
-    "N": N,
-    "avg_time_ref": avg_time_ref,
-    "tflops_ref": tflops_ref,
-    "avg_time": avg_time,
-    "tflops": tflops,
-    "max_error": max_error,
-    "mean_error": mean_error,
-    "error_count": error_count,
-}
+    data_to_log = {
+        "N": N,
+        "avg_time_ref": avg_time_ref,
+        "tflops_ref": tflops_ref,
+        "avg_time": avg_time,
+        "tflops": tflops,
+        "max_error": max_error,
+        "mean_error": mean_error,
+        "error_count": error_count,
+    }
 
-import json
-with open(os.path.join(new_dir, "data_to_log.json"), "w") as f:
-    json.dump(data_to_log, f, indent=4)
+    import json
+    with open(os.path.join(new_dir, "data_to_log.json"), "w") as f:
+        json.dump(data_to_log, f, indent=4)
 
-################ END LOGGING OUTPUTS ###############
+    ################ END LOGGING OUTPUTS ###############
 
 
 

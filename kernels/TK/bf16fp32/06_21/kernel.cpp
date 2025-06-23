@@ -4,7 +4,7 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE       = 256;  
-constexpr int K_STEP           = 256; 
+constexpr int K_STEP           = 512; 
 constexpr int DOT_SLICE_SHARED = 64;
 constexpr int REG_BLOCK        = BLOCK_SIZE / 8; 
 constexpr int DOT_SLICE        = 16;
@@ -87,7 +87,7 @@ void micro_tk(const micro_globals g) {
             }
 
             rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
-            rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1;
+            rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1, b_reg_2, b_reg_3;
             
             // Compute on CURRENT data in shared memory with optimized MMA scheduling
             #pragma unroll 
@@ -105,18 +105,18 @@ void micro_tk(const micro_globals g) {
                 mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);   
                 asm volatile("s_waitcnt lgkmcnt(0)\n");        
                 
-                load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+                load_async_shared_to_register(b_reg_2, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
                 mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
                 mma_ABt(C_accum[5], a_reg_1, b_reg_1, C_accum[5]);
                 asm volatile("s_waitcnt lgkmcnt(0)\n");
 
-                load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
-                mma_ABt(C_accum[2], a_reg_0, b_reg_0, C_accum[2]); 
-                mma_ABt(C_accum[6], a_reg_1, b_reg_0, C_accum[6]);  
+                load_async_shared_to_register(b_reg_3, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
+                mma_ABt(C_accum[2], a_reg_0, b_reg_2, C_accum[2]); 
+                mma_ABt(C_accum[6], a_reg_1, b_reg_2, C_accum[6]);  
                 asm volatile("s_waitcnt lgkmcnt(0)\n");
                               
-                mma_ABt(C_accum[3], a_reg_0, b_reg_1, C_accum[3]);               
-                mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);                
+                mma_ABt(C_accum[3], a_reg_0, b_reg_3, C_accum[3]);               
+                mma_ABt(C_accum[7], a_reg_1, b_reg_3, C_accum[7]);                
             }
             asm volatile("s_waitcnt vmcnt(0)");
             __syncthreads();
