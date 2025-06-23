@@ -4,7 +4,8 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE       = 256;  
-constexpr int K_STEP           = 64;
+constexpr int K_STEP           = 256; 
+constexpr int DOT_SLICE_SHARED = 64;
 constexpr int REG_BLOCK        = BLOCK_SIZE / 8; 
 constexpr int DOT_SLICE        = 16;
 
@@ -30,23 +31,20 @@ struct micro_globals {
     size_t dynamic_shared_memory() { return 65536; } // Increased for double buffering
 };
 
-__global__ __launch_bounds__(NUM_THREADS, 1)
+__global__ __launch_bounds__(NUM_THREADS, 2)
 void micro_tk(const micro_globals g) {
     extern __shared__ alignment_dummy __shm[];
     shared_allocator al((int*)&__shm[0]);
-    st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
-    st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
+    st_bf<BLOCK_SIZE, DOT_SLICE_SHARED> (&As) = al.allocate<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>();
+    st_bf<BLOCK_SIZE, DOT_SLICE_SHARED> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>();
 
-    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
-    rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1, b_reg_2;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
 
     // Reduced buffer size to minimize register pressure
-    constexpr int BUFFER_SIZE = 256; // Compromise between your 64 and my 256
+    constexpr int BUFFER_SIZE = 4; 
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
-    int a_metadata[3], b_metadata[3];
 
     const int row = blockIdx.y;
     const int col = blockIdx.x;
@@ -56,7 +54,8 @@ void micro_tk(const micro_globals g) {
     const int warp_col = warp_id % 2;
 
     const int num_tiles = K / K_STEP;
-    const int num_slices = K_STEP / DOT_SLICE;
+    const int num_shared_slices = K_STEP / DOT_SLICE_SHARED;
+    const int num_slices = DOT_SLICE_SHARED / DOT_SLICE;
 
     // Load first tile into shared memory
     G::load(As, g.a, {0, 0, row, 0});
@@ -65,68 +64,73 @@ void micro_tk(const micro_globals g) {
 
     // Pre-load second tile into register buffers 
     if (num_tiles > 1) {
-        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_A, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-            a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As, a_metadata);
-        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_B, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-            b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
+        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+            a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As);
+        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+            b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs);
     }
     asm volatile("s_waitcnt vmcnt(0)");
 
     for (int tile = 0; tile < num_tiles; ++tile) {
-        const bool should_load = (tile + 1 < num_tiles);
 
-        // Start loading NEXT data to registers 
-        if (should_load) {
-            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_A, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-                a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, tile + 1}, As, a_metadata);
+        for (int shared_slice = 0; shared_slice < num_shared_slices; ++shared_slice) {
+            const int next_k_offset = tile * num_shared_slices + shared_slice + 1;
+            const bool should_load = (next_k_offset < num_tiles * num_shared_slices);
+
+            // Start loading NEXT data to registers 
+            if (should_load) {
+                load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+                    a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, next_k_offset}, As);
+                
+                load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+                    b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, next_k_offset}, Bs);
+            }
+
+            rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
+            rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1;
             
-            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_B, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-                b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, tile + 1}, Bs, b_metadata);
-        }
-        
-        // Compute on CURRENT data in shared memory with optimized MMA scheduling
-        #pragma unroll 
-        for (int slice = 0; slice < num_slices; ++slice) {
-            load_async_shared_to_register(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
-            asm volatile("s_waitcnt lgkmcnt(0)\n");
-            load_async_shared_to_register(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
-            asm volatile("s_waitcnt lgkmcnt(0)\n");
-            load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
-            asm volatile("s_waitcnt lgkmcnt(0)\n");
+            // Compute on CURRENT data in shared memory with optimized MMA scheduling
+            #pragma unroll 
+            for (int slice = 0; slice < num_slices; ++slice) {
+                load_async_shared_to_register(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                load_async_shared_to_register(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
 
-            mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
-            load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));     
-            asm volatile("s_waitcnt lgkmcnt(0)\n");        
+                load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
+                mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
 
-            mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);
-            mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
-            load_async_shared_to_register(b_reg_2, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
-            asm volatile("s_waitcnt lgkmcnt(0)\n");
+                load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));  
+                mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);   
+                asm volatile("s_waitcnt lgkmcnt(0)\n");        
+                
+                load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+                mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+                mma_ABt(C_accum[5], a_reg_1, b_reg_1, C_accum[5]);
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
 
-            mma_ABt(C_accum[5], a_reg_1, b_reg_1, C_accum[5]);
-            mma_ABt(C_accum[2], a_reg_0, b_reg_2, C_accum[2]); 
-            load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
-            asm volatile("s_waitcnt lgkmcnt(0)\n");
-            
-            mma_ABt(C_accum[6], a_reg_1, b_reg_2, C_accum[6]);                
-            mma_ABt(C_accum[3], a_reg_0, b_reg_0, C_accum[3]);               
-            mma_ABt(C_accum[7], a_reg_1, b_reg_0, C_accum[7]);                
-        }
-        asm volatile("s_waitcnt vmcnt(0)");
-        __syncthreads();
+                load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
+                mma_ABt(C_accum[2], a_reg_0, b_reg_0, C_accum[2]); 
+                mma_ABt(C_accum[6], a_reg_1, b_reg_0, C_accum[6]);  
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                              
+                mma_ABt(C_accum[3], a_reg_0, b_reg_1, C_accum[3]);               
+                mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);                
+            }
+            asm volatile("s_waitcnt vmcnt(0)");
+            __syncthreads();
 
-        // Wait for loads and write to shared memory
-        if (should_load) {
-            store_registers_to_shared<st_bf<BLOCK_SIZE, K_STEP>, NUM_THREADS>(
-                a_buffer_next, As, a_metadata);
-            store_registers_to_shared<st_bf<BLOCK_SIZE, K_STEP>, NUM_THREADS>(
-                b_buffer_next, Bs, b_metadata);
+            // Wait for loads and write to shared memory
+            if (should_load) {
+                store_registers_to_shared<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, NUM_THREADS>(
+                    a_buffer_next, As);
+                store_registers_to_shared<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, NUM_THREADS>(
+                    b_buffer_next, Bs);
+            }
         }
     }
 
-    __syncthreads();
-
-    #pragma unroll
     for (int i = 0; i < 8; ++i) {
         const int row_offset = (i < 4) ? 0 : 4;
         const int col_offset = (i % 4) * 2;

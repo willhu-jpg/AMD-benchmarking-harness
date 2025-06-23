@@ -29,30 +29,24 @@ template<int axis, bool assume_aligned,
          int N_THREADS = WARP_THREADS>
 __device__ inline void load_global_to_registers(
     float4* reg_buffer, int buffer_size,
-    const GL& src, const COORD& idx, const ST& dst_template,
-    int* load_metadata)
+    const GL& src, const COORD& idx, const ST& dst_template)
 {
     using T = typename ST::dtype;
-    constexpr int elem_per_vec = sizeof(float4) / sizeof(T);
-    constexpr int memcpy_per_row = ST::cols / elem_per_vec;
+    constexpr int elem_per_memcpy = sizeof(float4)/sizeof(T);
+    constexpr int memcpy_per_row = ST::cols / elem_per_memcpy;
 
     // Total number of float4 chunks across the tile
-    constexpr int total_chunks = (ST::rows * ST::cols) / elem_per_vec;
+    constexpr int total_chunks = (ST::rows * ST::cols) / elem_per_memcpy;
     constexpr int total_calls = (total_chunks + N_THREADS - 1) / N_THREADS;
+    constexpr int small_calls = 16;
+    const int big_calls = (total_calls + small_calls - 1) / small_calls;
 
     // Cache base pointer (SGPR)
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     T* base_ptr = (T*)&src[unit_coord];  // SGPR-backed
 
-    const int row_stride = src.template stride<axis>();  // elements
+    const int row_stride = src.template stride<axis>(); 
     const int laneid = threadIdx.x % N_THREADS;
-
-    // Metadata for symmetry
-    constexpr int small_calls = 16;
-    const int big_calls = (total_calls + small_calls - 1) / small_calls;
-    load_metadata[0] = total_calls;
-    load_metadata[1] = small_calls;
-    load_metadata[2] = big_calls;
 
     int buf_idx = 0;
 
@@ -67,7 +61,7 @@ __device__ inline void load_global_to_registers(
             if (chunk_idx < total_chunks && buf_idx < buffer_size) {
                 // Flattened element offset in terms of float4s
                 int row = chunk_idx / memcpy_per_row;
-                int col = (chunk_idx % memcpy_per_row) * elem_per_vec;
+                int col = (chunk_idx % memcpy_per_row) * elem_per_memcpy;
 
                 // Compute byte address safely
                 int flat_offset = (row * row_stride + col);
@@ -83,23 +77,25 @@ __device__ inline void load_global_to_registers(
 // Store from registers to shared memory (preserving the batched pattern)
 template<ducks::st::all ST, int N_THREADS = WARP_THREADS>
 __device__ inline void store_registers_to_shared(
-    const float4* reg_buffer, ST& dst, 
-    const int* load_metadata)
+    const float4* reg_buffer, ST& dst)
 {
-    constexpr int elem_per_memcpy = sizeof(float4)/sizeof(typename ST::dtype);
-    constexpr int elem_per_half_memcpy = sizeof(float2)/sizeof(typename ST::dtype);
+    using T = typename ST::dtype;
+    constexpr int elem_per_memcpy = sizeof(float4)/sizeof(T);
+    constexpr int elem_per_half_memcpy = sizeof(float2)/sizeof(T);
     constexpr int memcpy_per_row = ST::cols / elem_per_memcpy;
     
     uint32_t dst_ptr = reinterpret_cast<uintptr_t>(&dst.data[0]);
     const int laneid = threadIdx.x % N_THREADS;
-
-    const int total_calls = load_metadata[0];
-    const int small_calls = load_metadata[1];
-    const int big_calls = load_metadata[2];
+    
+    constexpr int total_chunks = (ST::rows * ST::cols) / elem_per_memcpy;
+    constexpr int total_calls = (total_chunks + N_THREADS - 1) / N_THREADS;
+    constexpr int small_calls = 16;
+    const int big_calls = (total_calls + small_calls - 1) / small_calls;
 
     int buf_idx = 0;
     
     // Store in the same batched pattern to maintain locality
+    #pragma unroll
     for (int i = 0; i < big_calls; i++) {
         const int offset = i * small_calls;
         
@@ -117,7 +113,6 @@ __device__ inline void store_registers_to_shared(
             }
         } // Wait for this batch of stores to complete
     }
-    // asm volatile("s_waitcnt lgkmcnt(0)");
 }
 
 __device__ inline float2 load_shared_vec_async(uint32_t lds_off) {
