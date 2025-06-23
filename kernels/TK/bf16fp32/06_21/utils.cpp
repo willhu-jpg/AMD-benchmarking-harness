@@ -33,41 +33,47 @@ __device__ inline void load_global_to_registers(
     int* load_metadata)
 {
     using T = typename ST::dtype;
-    const int row_stride = src.template stride<axis>();
-    
-    constexpr int elem_per_memcpy = sizeof(float4)/sizeof(typename ST::dtype);
-    constexpr int elem_per_half_memcpy = sizeof(float2)/sizeof(typename ST::dtype);
-    constexpr int memcpy_per_row = ST::cols / elem_per_memcpy;
-    constexpr int total_calls = (ST::cols * ST::rows + N_THREADS*elem_per_memcpy-1) / (N_THREADS*elem_per_memcpy);
+    constexpr int elem_per_vec = sizeof(float4) / sizeof(T);
+    constexpr int memcpy_per_row = ST::cols / elem_per_vec;
 
+    // Total number of float4 chunks across the tile
+    constexpr int total_chunks = (ST::rows * ST::cols) / elem_per_vec;
+    constexpr int total_calls = (total_chunks + N_THREADS - 1) / N_THREADS;
+
+    // Cache base pointer (SGPR)
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
-    typename GL::dtype *src_ptr = (typename GL::dtype*)&src[unit_coord];
+    T* base_ptr = (T*)&src[unit_coord];  // SGPR-backed
+
+    const int row_stride = src.template stride<axis>();  // elements
     const int laneid = threadIdx.x % N_THREADS;
 
-    // Use same batching pattern as original for cache locality
-    const int small_calls = 16;
+    // Metadata for symmetry
+    constexpr int small_calls = 16;
     const int big_calls = (total_calls + small_calls - 1) / small_calls;
-
-    // Store metadata for later use
     load_metadata[0] = total_calls;
     load_metadata[1] = small_calls;
     load_metadata[2] = big_calls;
 
     int buf_idx = 0;
-    
-    // Load in batches to maintain cache locality
+
+    // Flattened access pattern
     for (int i = 0; i < big_calls && buf_idx < buffer_size; i++) {
         const int offset = i * small_calls;
-        
-        // Load a batch of elements
-        #pragma unroll
-        for(int j = 0; j < small_calls; j++) {
-            int logical_idx = laneid + j * N_THREADS + i * small_calls * N_THREADS;
-            int row = logical_idx / memcpy_per_row;
-            int col = (logical_idx % memcpy_per_row) * elem_per_memcpy;
 
-            if (row < dst_template.rows && buf_idx < buffer_size) {
-                reg_buffer[buf_idx] = load_global_vec_new((float4*) (src_ptr + (row * row_stride + col)));
+        #pragma unroll
+        for (int j = 0; j < small_calls; j++) {
+            int chunk_idx = (offset + j) * N_THREADS + laneid;
+
+            if (chunk_idx < total_chunks && buf_idx < buffer_size) {
+                // Flattened element offset in terms of float4s
+                int row = chunk_idx / memcpy_per_row;
+                int col = (chunk_idx % memcpy_per_row) * elem_per_vec;
+
+                // Compute byte address safely
+                int flat_offset = (row * row_stride + col);
+                float4* gptr = reinterpret_cast<float4*>(base_ptr + flat_offset);
+
+                reg_buffer[buf_idx] = load_global_vec_new(gptr);
                 buf_idx++;
             }
         }
@@ -113,3 +119,76 @@ __device__ inline void store_registers_to_shared(
     }
     // asm volatile("s_waitcnt lgkmcnt(0)");
 }
+
+__device__ inline float2 load_shared_vec_async(uint32_t lds_off) {
+    float2 result;
+    asm volatile(
+        "ds_read_b64 %0, %1\n"
+        // "s_waitcnt lgkmcnt(0)\n"
+        : "=v"(result)              // Output: store result in float2
+        : "v"(lds_off)              // Input: LDS offset to read from
+        : "memory"
+    );
+    return result;
+}
+/**
+ * @brief Load data from a shared tile into a register tile.
+ *
+ * @tparam RT The register tile type
+ * @tparam ST The shared tile type
+ * @param dst[out] The destination register tile.
+ * @param src[in]  The source shared tile.
+ */
+template<ducks::rt::all RT, ducks::st::all ST>
+__device__ inline static void load_async_shared_to_register(RT &dst, const ST &src) {
+
+    static_assert(RT::height == ST::height, "register tile and shared tile must match height");
+    static_assert(RT::width  == ST::width,  "register tile and shared tile must match width");
+
+    using T2 = RT::dtype;
+    using T  = base_types::packing<T2>::unpacked_type;
+    using U  = ST::dtype;
+    using U2 = base_types::packing<U >::packed_type;
+
+    const int laneid = kittens::laneid();
+    const uint32_t src_ptr = reinterpret_cast<uintptr_t>(&src.data[0]);
+
+    int row_offset, col_offset;
+    if constexpr (std::is_same_v<typename RT::layout, ducks::rt_layout::row>) {
+        row_offset = laneid%16;
+        col_offset = 4*(laneid/16);
+    }
+    else {
+        row_offset = 4*(laneid/16);
+        col_offset = laneid%16;
+    }
+    #pragma unroll
+    for(int i = 0; i < dst.height; i++) {
+        const int row = i*dst.tile_size_row + row_offset;
+        #pragma unroll
+        for(int j = 0; j < dst.width; j++) {
+            const int col = j*dst.tile_size_col + col_offset;
+            if constexpr (std::is_same_v<typename RT::layout, ducks::rt_layout::row>) { // handle the row-major layout
+
+                if constexpr (sizeof(typename ST::dtype) == 4) {
+                    // handle float32
+                    float2 loaded0 = load_shared_vec_async(src.idx(src_ptr, {row, col}));
+                    float2 loaded1 = load_shared_vec_async(src.idx(src_ptr, {row, col+2}));
+                    dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(loaded0);
+                    dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(loaded1);
+                } else {
+                    // handle fp16 and bf16
+                    float2 loaded = load_shared_vec_async(src.idx(src_ptr, {row, col}));
+                    U2* tmp = reinterpret_cast<U2*>(&loaded);
+                    dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
+                    dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
+                }
+            }
+            else { // handle the column-major layout
+                dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(U2{src[{row, col}], src[{row+1, col}]});
+                dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(U2{src[{row+2, col}], src[{row+3, col}]});
+            }
+        }
+    }
+}
+

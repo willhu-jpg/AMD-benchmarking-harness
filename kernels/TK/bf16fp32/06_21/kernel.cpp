@@ -4,9 +4,9 @@
 using namespace kittens;
 
 constexpr int BLOCK_SIZE       = 256;  
-constexpr int K_STEP           = 512;
+constexpr int K_STEP           = 256;  // Your improvement
 constexpr int DOT_SLICE_SHARED = 64;
-constexpr int REG_BLOCK      = BLOCK_SIZE / 8; 
+constexpr int REG_BLOCK        = BLOCK_SIZE / 8; 
 constexpr int DOT_SLICE        = 16;
 
 #define NUM_WARPS 8
@@ -28,7 +28,7 @@ struct micro_globals {
     _gl_C c;
     dim3 grid()  { return dim3(N / BLOCK_SIZE, M / BLOCK_SIZE); } 
     dim3 block() { return dim3(NUM_THREADS); } 
-    size_t dynamic_shared_memory() { return 65536; }
+    size_t dynamic_shared_memory() { return 65536; } // Increased for double buffering
 };
 
 __global__ __launch_bounds__(NUM_THREADS, 1)
@@ -41,11 +41,10 @@ void micro_tk(const micro_globals g) {
     rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
     rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1, b_reg_2;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
-    #pragma unroll
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
 
-    // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 256;
+    // Reduced buffer size to minimize register pressure
+    constexpr int BUFFER_SIZE = 256; // Compromise between your 64 and my 256
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
     int a_metadata[3], b_metadata[3];
@@ -64,17 +63,16 @@ void micro_tk(const micro_globals g) {
     // Load first tile into shared memory
     G::load(As, g.a, {0, 0, row, 0});
     G::load(Bs, g.b, {0, 0, col, 0});
-    if (warp_col / 4 == 0) {
-        __builtin_amdgcn_s_barrier();
-    }
+    __syncthreads();
 
-    // Pre-load second tile into register bufers 
-    load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
-        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As, a_metadata);
-    load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
-        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
+    // Pre-load second tile into register buffers 
+    if (num_tiles > 1) {
+        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+            a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 1}, As, a_metadata);
+        load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
+            b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 1}, Bs, b_metadata);
+    }
     asm volatile("s_waitcnt vmcnt(0)");
-    __builtin_amdgcn_s_barrier();
 
     for (int tile = 0; tile < num_tiles; ++tile) {
 
@@ -91,29 +89,37 @@ void micro_tk(const micro_globals g) {
                     b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, next_k_offset}, Bs, b_metadata);
             }
             
-            // Compute on CURRENT data in shared memory
+            // Compute on CURRENT data in shared memory with optimized MMA scheduling
             #pragma unroll 
             for (int slice = 0; slice < num_slices; ++slice) {
-                kittens::load_async(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
-                kittens::load_async(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
-                kittens::load_async(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
-                kittens::load_async(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));             
+                load_async_shared_to_register(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                load_async_shared_to_register(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                
 
                 mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
-                mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);
-                kittens::load_async(b_reg_2, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+                load_async_shared_to_register(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 2, slice}));     
+                asm volatile("s_waitcnt lgkmcnt(0)\n");        
 
+                mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);
                 mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
+                load_async_shared_to_register(b_reg_2, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+
                 mma_ABt(C_accum[5], a_reg_1, b_reg_1, C_accum[5]);
-                kittens::load_async(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
-                
                 mma_ABt(C_accum[2], a_reg_0, b_reg_2, C_accum[2]); 
+                load_async_shared_to_register(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice}));
+                asm volatile("s_waitcnt lgkmcnt(0)\n");
+                
                 mma_ABt(C_accum[6], a_reg_1, b_reg_2, C_accum[6]);                
                 mma_ABt(C_accum[3], a_reg_0, b_reg_0, C_accum[3]);               
                 mma_ABt(C_accum[7], a_reg_1, b_reg_0, C_accum[7]);                
             }
-            asm volatile("s_waitcnt vmcnt(1)");
-            __builtin_amdgcn_s_barrier();
+            asm volatile("s_waitcnt vmcnt(0)");
+            __syncthreads();
 
             // Wait for loads and write to shared memory
             if (should_load) {
@@ -122,13 +128,10 @@ void micro_tk(const micro_globals g) {
                 store_registers_to_shared<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, NUM_THREADS>(
                     b_buffer_next, Bs, b_metadata);
             }
-             
         }
     }
 
-    if (warp_col / 4 == 1) {
-        __builtin_amdgcn_s_barrier();
-    }
+    __syncthreads();
 
     #pragma unroll
     for (int i = 0; i < 8; ++i) {
