@@ -44,7 +44,7 @@ void micro_tk(const micro_globals g) {
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
 
     // Reduced buffer size to minimize register pressure
-    constexpr int BUFFER_SIZE = 4; 
+    constexpr int BUFFER_SIZE = 128; 
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
 
@@ -81,6 +81,8 @@ void micro_tk(const micro_globals g) {
                 if (slice == 0 && should_load) {
                     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_A, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
                     a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, next_k_offset}, As); 
+                }
+                if (slice == 1 && should_load) {
                     load_global_to_registers<2, false, st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>, _gl_B, coord<st_bf<BLOCK_SIZE, DOT_SLICE_SHARED>>, NUM_THREADS>(
                     b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, next_k_offset}, Bs);
                 }
@@ -98,6 +100,7 @@ void micro_tk(const micro_globals g) {
                 load_async_shared_to_register(b_reg_3, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 6, slice})); 
                 asm volatile("s_barrier");
                 asm volatile("s_waitcnt lgkmcnt(0)\n");
+                
 
                 mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
                 mma_ABt(C_accum[4], a_reg_1, b_reg_0, C_accum[4]);   
