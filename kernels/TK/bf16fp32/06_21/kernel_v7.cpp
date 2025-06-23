@@ -39,7 +39,7 @@ void micro_tk(const micro_globals g) {
     st_bf<BLOCK_SIZE, K_STEP> (&As) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
     st_bf<BLOCK_SIZE, K_STEP> (&Bs) = al.allocate<st_bf<BLOCK_SIZE, K_STEP>>();
 
-    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1, a_reg_2, a_reg_3;
+    rt_bf<REG_BLOCK, DOT_SLICE> a_reg_0, a_reg_1;
     rt_bf<REG_BLOCK, DOT_SLICE> b_reg_0, b_reg_1;
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[8];
     for (int i = 0; i < 8; i++) { zero(C_accum[i]); }
@@ -48,7 +48,6 @@ void micro_tk(const micro_globals g) {
     constexpr int BUFFER_SIZE = 256;
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
-    int a_metadata[3], b_metadata[3];
 
     const int row = blockIdx.y;
     const int col = blockIdx.x;
@@ -72,9 +71,9 @@ void micro_tk(const micro_globals g) {
     }
     // Pre-load second tile into register bufers 
     load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 2 + warp_row}, Ast, a_metadata);
+        a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, 2 + warp_row}, Ast);
     load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 2 + warp_row}, Bst, b_metadata);
+        b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, 2 + warp_row}, Bst);
     asm volatile("s_waitcnt vmcnt(0)");
 
     // #pragma unroll 2
@@ -83,7 +82,7 @@ void micro_tk(const micro_globals g) {
         // Start loading NEXT data to registers 
         if (loading) {
             load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_A, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-                a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, (tile + 1) * 2 + warp_row}, Ast, a_metadata);
+                a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, (tile + 1) * 2 + warp_row}, Ast);
             // load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
             //     b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst, b_metadata);
         }
@@ -95,29 +94,30 @@ void micro_tk(const micro_globals g) {
         for (int slice = 0; slice < num_slices; ++slice) {
             kittens::load(b_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, slice}));
             kittens::load(b_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, slice}));
+            kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
+            mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
+            mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
 
-            if (loading && slice == 0) {
+            if (slice == 1 && loading) {
                 load_global_to_registers<2, false, st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, _gl_B, coord<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>>, NUM_THREADS_IN_GROUP>(
-                    b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst, b_metadata);
+                    b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, (tile + 1) * 2 + warp_row}, Bst);
             }
 
-            kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row, slice}));
             kittens::load(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 2, slice}));
-            kittens::load(a_reg_2, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
-            kittens::load(a_reg_3, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 6, slice}));
+            mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
+            mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
+
+            kittens::load(a_reg_0, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, slice}));
+            kittens::load(a_reg_1, subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 6, slice}));
 
             if (slice == 1) {
                 __builtin_amdgcn_s_barrier();
             }
 
-            mma_ABt(C_accum[0], a_reg_0, b_reg_0, C_accum[0]);
-            mma_ABt(C_accum[1], a_reg_0, b_reg_1, C_accum[1]);
-            mma_ABt(C_accum[2], a_reg_1, b_reg_0, C_accum[2]);
-            mma_ABt(C_accum[3], a_reg_1, b_reg_1, C_accum[3]);
-            mma_ABt(C_accum[4], a_reg_2, b_reg_0, C_accum[4]);
-            mma_ABt(C_accum[5], a_reg_2, b_reg_1, C_accum[5]);
-            mma_ABt(C_accum[6], a_reg_3, b_reg_0, C_accum[6]);
-            mma_ABt(C_accum[7], a_reg_3, b_reg_1, C_accum[7]);
+            mma_ABt(C_accum[4], a_reg_0, b_reg_0, C_accum[4]);
+            mma_ABt(C_accum[5], a_reg_0, b_reg_1, C_accum[5]);
+            mma_ABt(C_accum[6], a_reg_1, b_reg_0, C_accum[6]);
+            mma_ABt(C_accum[7], a_reg_1, b_reg_1, C_accum[7]);
         }
 
         // Now wait for loads and write to shared memory
@@ -125,9 +125,9 @@ void micro_tk(const micro_globals g) {
             asm volatile("s_waitcnt vmcnt(0)");
             __builtin_amdgcn_s_barrier();
             store_registers_to_shared<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, NUM_THREADS_IN_GROUP>(
-                a_buffer_next, Ast, a_metadata);
+                a_buffer_next, Ast);
             store_registers_to_shared<st_subtile<st_bf<BLOCK_SIZE, K_STEP>, BLOCK_SIZE, SUB_K_STEP>, NUM_THREADS_IN_GROUP>(
-                b_buffer_next, Bst, b_metadata);
+                b_buffer_next, Bst);
         }
 
         
