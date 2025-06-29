@@ -68,6 +68,11 @@ void micro_tk(const micro_globals g) {
     for (int tile = 0; tile < num_tiles; ++tile) {
         const bool loading = tile + 1 < num_tiles;
         // Start loading NEXT data to registers
+        if (loading) {
+            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_A, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
+                a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, tile + 1}, As);
+        }
+        __builtin_amdgcn_sched_barrier(0);
 
         load_async_shared_to_register(b_reg_0[0], subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col, 0}));
         load_async_shared_to_register(b_reg_1[0], subtile_inplace<REG_BLOCK, DOT_SLICE>(Bs, {warp_col + 4, 0}));
@@ -78,8 +83,8 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         if (loading) {
-            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_A, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-                a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, tile + 1}, As);
+            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_B, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
+                b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, tile + 1}, Bs);
         }
         __builtin_amdgcn_sched_barrier(0);
 
@@ -89,15 +94,9 @@ void micro_tk(const micro_globals g) {
         load_async_shared_to_register(a_reg_1[1], subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 2, 1}));
         load_async_shared_to_register(a_reg_2[1], subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 4, 1}));
         load_async_shared_to_register(a_reg_3[1], subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 6, 1}));
+        __builtin_amdgcn_s_barrier();
         __builtin_amdgcn_sched_barrier(0);
 
-        if (loading) {
-            load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_B, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
-                b_buffer_next, BUFFER_SIZE, g.b, {0, 0, col, tile + 1}, Bs);
-        }
-        __builtin_amdgcn_s_barrier();
-        asm volatile("s_waitcnt lgkmcnt(0)");
-        __builtin_amdgcn_sched_barrier(0);
 
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], a_reg_0[0], b_reg_0[0], C_accum[0]);
