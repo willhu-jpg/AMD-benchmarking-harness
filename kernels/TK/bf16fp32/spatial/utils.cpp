@@ -2,6 +2,10 @@
 #include "pyutils/pyutils.cuh"
 using namespace kittens;
 
+__device__ inline int swizzle_chiplet(int idx, int num_workgroups, int num_xcds = 8) {
+    return (idx % num_xcds) * (num_workgroups / num_xcds) + (idx / num_xcds);
+}
+
 __device__ inline float4 load_global_vec_new(const float4* gptr) {
     float4 v;
     asm volatile(
