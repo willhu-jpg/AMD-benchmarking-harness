@@ -37,28 +37,39 @@ void printGrid(const int* array, int x, int y) {
     }
 }
 
+
+constexpr int BLOCK_SIZE_M      = 128;
+constexpr int BLOCK_SIZE_N      = 256;  
+
+#define M 8192
+#define K 8192
+#define N 8192
+
 // Kernel: each workgroup writes its global workgroup ID into (y,x) location
 __global__ void write_wgid_to_matrix(int* matrix) {
 
     int wgid = blockIdx.y * gridDim.x + blockIdx.x;
 
-    // // Compute linear workgroup ID
-    // int idx = swizzle_l2_tile(idx, 32, 32, 2, 2);
 
-    // constexpr int WGM = 4;
-    // int num_pid_m = gridDim.y;
-    // int num_pid_n = gridDim.x;
+    // Swizzle for better L2 within the same XCD.
+    const int WGM = 16;
+    const int num_pid_m = gridDim.y;
+    const int num_pid_n = gridDim.x;
 
-    // int num_wgid_in_group = WGM * num_pid_n;
-    // const int group_id = wgid / num_wgid_in_group;
-    // const int first_pid_m = group_id * WGM;
-    // const int group_size_m = min(num_pid_m - first_pid_m, WGM);
-    // const int pid_m = first_pid_m + ((wgid % num_wgid_in_group) % group_size_m);
-    // const int pid_n = (wgid % num_wgid_in_group) / group_size_m;
-    // int idx = pid_m * gridDim.x + pid_n;
+    int num_wgid_in_group = WGM * num_pid_n;
+    int group_id = wgid / num_wgid_in_group;
+    int first_pid_m = group_id * WGM;
+    int group_size_m = min(num_pid_m - first_pid_m, WGM);
+    int pid_m = first_pid_m + ((wgid % num_wgid_in_group) % group_size_m);
+    int pid_n = (wgid % num_wgid_in_group) / group_size_m;
 
-    int idx = swizzle_l2_tile(wgid, 32, 32, 4, 4);
-    
+    // Assign the tile's row/column based on the pid_m and pid_n.
+    const int row = pid_m; // blockIdx.x
+    const int col = pid_n; // blockIdx.y
+    int idx = pid_m * num_pid_n + pid_n;
+
+    // int idx = swizzle_l2_tile(wgid, gridDim.y, gridDim.x, 16, 16);
+    // int idx = swizzle_l2_tile_col_major(wgid, gridDim.y, gridDim.x, 16, 16);
 
     if (threadIdx.x == 0 && threadIdx.y == 0) {
         matrix[idx] = wgid;
@@ -66,7 +77,8 @@ __global__ void write_wgid_to_matrix(int* matrix) {
 }
 
 int main() {
-    const int width = 32;
+    // TODO: Appears to be bug w/ my tiling when width=height=16?
+    const int width = 64;
     const int height = 32;
     const int total_elements = width * height;
 
