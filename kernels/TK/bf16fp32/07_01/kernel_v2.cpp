@@ -22,11 +22,15 @@ using _gl_C = gl<float, -1, -1, -1, -1>;
 
 using G = kittens::group<NUM_WARPS>;
 
+__host__ __device__ inline int ceil_div(int a, int b) {
+  return (a + b - 1) / b;
+}
+
 struct micro_globals {
     _gl_A a;
     _gl_B b;
     _gl_C c;
-    dim3 grid()  { return dim3(N / BLOCK_SIZE_N, M / BLOCK_SIZE_M); } 
+    dim3 grid()  { return dim3((N / BLOCK_SIZE_N) * (M / BLOCK_SIZE_M)); } 
     dim3 block() { return dim3(NUM_THREADS); } 
     size_t dynamic_shared_memory() { return 49152; }
 };
@@ -48,8 +52,32 @@ void micro_tk(const micro_globals g) {
     float4 a_buffer_next[BUFFER_SIZE];
     float4 b_buffer_next[BUFFER_SIZE];
 
-    const int row = blockIdx.y;
-    const int col = blockIdx.x;
+    // Original WGID.
+    int wgid = (blockIdx.y * gridDim.x) + blockIdx.x;
+
+    const int NUM_WGS = gridDim.x * gridDim.y;
+    const int NUM_XCDS = 8;
+    const int CUS_PER_XCD = 38;
+    const int NUM_CUS = CUS_PER_XCD * NUM_XCDS;
+
+    // Swizzle chiplet so that wgids are in the same XCD.
+    wgid = (wgid % NUM_XCDS) * (NUM_WGS / NUM_XCDS) + (wgid / NUM_XCDS);
+
+    // Swizzle for better L2 within the same XCD.
+    const int WGM = 8;
+    const int num_pid_m = ceil_div(M, BLOCK_SIZE_M);
+    const int num_pid_n = ceil_div(N, BLOCK_SIZE_N);
+
+    int num_wgid_in_group = WGM * num_pid_n;
+    int group_id = wgid / num_wgid_in_group;
+    int first_pid_m = group_id * WGM;
+    int group_size_m = min(num_pid_m - first_pid_m, WGM);
+    int pid_m = first_pid_m + ((wgid % num_wgid_in_group) % group_size_m);
+    int pid_n = (wgid % num_wgid_in_group) / group_size_m;
+
+    // Assign the tile's row/column based on the pid_m and pid_n.
+    const int row = pid_m; // blockIdx.x
+    const int col = pid_n; // blockIdx.y
 
     const int warp_id = kittens::warpid();
     const int warp_row = warp_id / 4;
@@ -93,7 +121,6 @@ void micro_tk(const micro_globals g) {
         load_async_shared_to_register(a_reg_1[1], subtile_inplace<REG_BLOCK, DOT_SLICE>(As, {warp_row + 2, 1}));
         __builtin_amdgcn_s_barrier();
         __builtin_amdgcn_sched_barrier(0);
-
 
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], a_reg_0[0], b_reg_0[0], C_accum[0]);
