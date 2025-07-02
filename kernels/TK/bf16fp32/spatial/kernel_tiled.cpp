@@ -52,32 +52,6 @@ void micro_tk(const micro_globals g) {
 	int row = wgid / gridDim.x;
 	int col = wgid % gridDim.y;
 
-    // Define L2 tiles as 2x2 of L1 tiles (512x512)
-    // Radix: [32,        32,        2,          2         ]
-    //        [gridDim.y, gridDim.x, L2_Y_RADIX, L2_X_RADIX]
-    //const int L2_X_RADIX = 4;
-    //const int L2_Y_RADIX = 4;
-
-    // Index within L2 tile.
-    //int cumulative_denominator = 1;
-    //const int L2_x_idx = (wgid / cumulative_denominator) % L2_X_RADIX; // x idx
-    //cumulative_denominator *= L2_X_RADIX;
-    //const int L2_y_idx = (wgid / cumulative_denominator) % L2_Y_RADIX; // y idx
-    //cumulative_denominator *= L2_Y_RADIX;
-
-    //const int temporal_tile_dim_x = L2_X_RADIX;
-    //const int temporal_tile_dim_y = L2_Y_RADIX;
-    // L2 tile index
-    //const int temporal_x = (wgid / cumulative_denominator) % (gridDim.x / temporal_tile_dim_x);
-    //cumulative_denominator *= (gridDim.x / temporal_tile_dim_x);
-    //const int temporal_y = (wgid / cumulative_denominator) % (gridDim.y / temporal_tile_dim_y);
-
-    // Final grid coordinate
-    //const int col = L2_x_idx + temporal_x * L2_X_RADIX;
-    //const int row = L2_y_idx + temporal_y * L2_Y_RADIX;
-
-
-
     const int warp_id = kittens::warpid();
     const int warp_row = warp_id / 4;
     const int warp_col = warp_id % 4;
