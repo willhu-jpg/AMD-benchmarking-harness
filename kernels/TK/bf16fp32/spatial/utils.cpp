@@ -25,6 +25,23 @@ __device__ inline int swizzle_l2_tile(int idx, int l1_y_dim, int l1_x_dim, int l
 	return (temporal_y * l2_y_dim + l2_y_idx) * l1_x_dim + (temporal_x * l2_x_dim + l2_x_idx);
 }
 
+
+__device__ inline int swizzle_l2_tile_col_major(int idx, int l1_y_dim, int l1_x_dim, int l2_y_dim, int l2_x_dim) {
+    // WG tile indices within L2 tile (column-major order)
+    const int l2_y_idx = idx % l2_y_dim;
+    int cumulative_denominator = l2_y_dim;
+    const int l2_x_idx = (idx / cumulative_denominator) % l2_x_dim;
+    cumulative_denominator *= l2_x_dim;
+
+    // L2 tile indices within grid
+    const int temporal_x = (idx / cumulative_denominator) % (l1_x_dim / l2_x_dim);
+    cumulative_denominator *= (l1_x_dim / l2_x_dim);
+    const int temporal_y = (idx / cumulative_denominator) % (l1_y_dim / l2_y_dim);
+
+    return (temporal_y * l2_y_dim + l2_y_idx) * l1_x_dim + (temporal_x * l2_x_dim + l2_x_idx);
+}
+
+
 __device__ inline int swizzle_chiplet(int idx, int num_workgroups, int num_xcds = 8) {
     return (idx % num_xcds) * (num_workgroups / num_xcds) + (idx / num_xcds);
 }
