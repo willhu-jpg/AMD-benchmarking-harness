@@ -48,7 +48,7 @@ void micro_tk(const micro_globals g) {
     float4 b_buffer_next[BUFFER_SIZE];
 
     int wgid = blockIdx.y * gridDim.x + blockIdx.x;
-	wgid = swizzle_l2_tile(wgid, 32, 32, 4, 4);
+	wgid = swizzle_l2_tile(wgid, gridDim.y, gridDim.x, 4, 4);
 	int row = wgid / gridDim.x;
 	int col = wgid % gridDim.y;
 
