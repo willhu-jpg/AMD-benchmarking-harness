@@ -159,7 +159,7 @@ void dispatch_micro(micro_globals g) {
     hipDeviceSynchronize();
 }
 
-PYBIND11_MODULE(tk_kernel, m) {
+PYBIND11_MODULE(kernel_baseline, m) {
     m.doc() = "tk_kernel python module";
     py::bind_kernel<micro_tk>(m, "micro_tk", &micro_globals::a, &micro_globals::b, &micro_globals::c); 
     py::bind_function<dispatch_micro>(m, "dispatch_micro", &micro_globals::a, &micro_globals::b, &micro_globals::c);

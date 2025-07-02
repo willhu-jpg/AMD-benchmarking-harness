@@ -1,8 +1,7 @@
 # Compiler
 GPU_TARGET=CDNA3
 
-TARGET=tk_kernel
-SRC=kernel_baseline.cpp
+SRC=kernel_tiled.cpp kernel_muhammad.cpp kernel_baseline.cpp
 
 # HIP variables
 ROCM_INSTALL_DIR := $(ROCM_PATH)
@@ -34,18 +33,20 @@ ILDLIBS   += $(LDLIBS)
 
 ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype $(shell python3 -m pybind11 --includes) $(shell python3-config --ldflags) -shared -fPIC -Rpass-analysis=kernel-resource-usage
 
+EXT := $(shell python3-config --extension-suffix)
+TARGETS := $(patsubst %.cpp,%$(EXT),$(SRC))
 
 # Default target
-all: $(TARGET)
+all: $(TARGETS)
 
 LOGDIR := /scratch/users/ssiddens/data_logs/$(shell date +%m%d_%H%M)_outputs
 LOGFILE := $(LOGDIR)/make_build.log
 
-$(TARGET): $(SRC)
+%$(EXT): %.cpp
 	@mkdir -p $(LOGDIR)
-	$(HIPCXX) $(SRC) $(HIPFLAGS) $(ICXXFLAGS) $(ICPPFLAGS) $(ILDFLAGS) \
-	    -o $(TARGET)$(shell python3-config --extension-suffix) 2>&1 | tee $(LOGFILE)
+	@echo "Building $< -> $@" | tee -a $(LOGFILE)
+	$(HIPCXX) $< $(HIPFLAGS) $(ICXXFLAGS) $(ICPPFLAGS) $(ILDFLAGS) -o $@ 2>&1 | tee -a $(LOGFILE)
 
 # Clean target
 clean:
-	rm -f $(TARGET) *.so
+	rm -f $(TARGETS) *.so
