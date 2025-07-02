@@ -1,7 +1,8 @@
 # Compiler
 GPU_TARGET=CDNA3
 
-SRC=kernel_tiled.cpp kernel_muhammad.cpp kernel_baseline.cpp
+SRC=kernel_tiled.cpp kernel_muhammad.cpp kernel_baseline.cpp 
+SRC_EXE=check_tiling.cpp
 
 # HIP variables
 ROCM_INSTALL_DIR := $(ROCM_PATH)
@@ -34,7 +35,8 @@ ILDLIBS   += $(LDLIBS)
 ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype $(shell python3 -m pybind11 --includes) $(shell python3-config --ldflags) -shared -fPIC -Rpass-analysis=kernel-resource-usage
 
 EXT := $(shell python3-config --extension-suffix)
-TARGETS := $(patsubst %.cpp,%$(EXT),$(SRC))
+TARGETS_EXE := $(patsubst %.cpp,%,$(SRC_EXE))
+TARGETS := $(patsubst %.cpp,%$(EXT),$(SRC)) $(TARGETS_EXE)
 
 # Default target
 all: $(TARGETS)
@@ -46,6 +48,12 @@ LOGFILE := $(LOGDIR)/make_build.log
 	@mkdir -p $(LOGDIR)
 	@echo "Building $< -> $@" | tee -a $(LOGFILE)
 	$(HIPCXX) $< $(HIPFLAGS) $(ICXXFLAGS) $(ICPPFLAGS) $(ILDFLAGS) -o $@ 2>&1 | tee -a $(LOGFILE)
+
+
+# Rule for standalone executable
+%: %.cpp
+	$(HIPCXX) $< $(HIPFLAGS) $(ICPPFLAGS) $(ILDFLAGS) -std=c++20 -Wall -Wextra -w -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype $(shell python3 -m pybind11 --includes) $(shell python3-config --ldflags) -fPIC -Rpass-analysis=kernel-resource-usage -o $@ 
+
 
 # Clean target
 clean:
