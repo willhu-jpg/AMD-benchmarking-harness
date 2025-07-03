@@ -1,0 +1,1 @@
+To try any of these, toggle the target in the Makefile and ```make clean && make && python test_python.py```
