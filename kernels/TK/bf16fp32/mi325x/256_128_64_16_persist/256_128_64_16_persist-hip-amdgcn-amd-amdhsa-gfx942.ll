@@ -17,15 +17,15 @@ target triple = "amdgcn-amd-amdhsa"
 
 ; Function Attrs: convergent mustprogress norecurse nounwind
 define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4) nocapture noundef readonly byref(%struct.micro_globals) align 8 %0) local_unnamed_addr #0 !dbg !9 {
-  %.sroa.0798.0.copyload = load ptr, ptr addrspace(4) %0, align 8
-  %.sroa.7.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 32
-  %.sroa.7.0.copyload = load i64, ptr addrspace(4) %.sroa.7.0..sroa_idx, align 8
-  %.sroa.9803.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 48
-  %.sroa.9803.0.copyload = load ptr, ptr addrspace(4) %.sroa.9803.0..sroa_idx, align 8
+  %.sroa.01072.0.copyload = load ptr, ptr addrspace(4) %0, align 8
+  %.sroa.71076.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 32
+  %.sroa.71076.0.copyload = load i64, ptr addrspace(4) %.sroa.71076.0..sroa_idx, align 8
+  %.sroa.91077.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 48
+  %.sroa.91077.0.copyload = load ptr, ptr addrspace(4) %.sroa.91077.0..sroa_idx, align 8
   %.sroa.15.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 80
   %.sroa.15.0.copyload = load i64, ptr addrspace(4) %.sroa.15.0..sroa_idx, align 8
-  %.sroa.17807.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 96
-  %.sroa.17807.0.copyload = load ptr, ptr addrspace(4) %.sroa.17807.0..sroa_idx, align 8
+  %.sroa.171081.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 96
+  %.sroa.171081.0.copyload = load ptr, ptr addrspace(4) %.sroa.171081.0..sroa_idx, align 8
   %.sroa.20.0..sroa_idx = getelementptr inbounds i8, ptr addrspace(4) %0, i64 128
   %.sroa.20.0.copyload = load i64, ptr addrspace(4) %.sroa.20.0..sroa_idx, align 8
   %2 = and i64 ptrtoint (ptr addrspacecast (ptr addrspace(3) @__shm to ptr) to i64), 15, !dbg !12
@@ -37,11 +37,11 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %6 = getelementptr inbounds i8, ptr %5, i64 16384, !dbg !20
   %7 = ptrtoint ptr %6 to i64, !dbg !21
   %8 = and i64 %7, 15, !dbg !25
-  %.not.i.i106 = icmp eq i64 %8, 0, !dbg !26
-  %reass.sub.i.i107 = and i64 %7, -16, !dbg !27
-  %9 = add i64 %reass.sub.i.i107, 16, !dbg !27
+  %.not.i.i170 = icmp eq i64 %8, 0, !dbg !26
+  %reass.sub.i.i171 = and i64 %7, -16, !dbg !27
+  %9 = add i64 %reass.sub.i.i171, 16, !dbg !27
   %10 = inttoptr i64 %9 to ptr, !dbg !27
-  %11 = select i1 %.not.i.i106, ptr %6, ptr %10, !dbg !27
+  %11 = select i1 %.not.i.i170, ptr %6, ptr %10, !dbg !27
   %12 = tail call noundef range(i32 0, 1024) i32 @llvm.amdgcn.workitem.id.x(), !dbg !28
   %13 = lshr i32 %12, 6, !dbg !36
   %14 = lshr i32 %12, 8, !dbg !37
@@ -49,7 +49,7 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %16 = tail call noundef i32 @llvm.amdgcn.workgroup.id.x()
   %17 = tail call ptr addrspace(4) @llvm.amdgcn.implicitarg.ptr()
   %18 = load i32, ptr addrspace(4) %17, align 4, !tbaa !39
-  %19 = trunc i64 %.sroa.7.0.copyload to i32
+  %19 = trunc i64 %.sroa.71076.0.copyload to i32
   %20 = ptrtoint ptr %5 to i64
   %21 = shl nuw nsw i32 %12, 3
   %22 = and i32 %21, 56
@@ -152,92 +152,92 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %118 = lshr i32 %117, 4
   %119 = and i32 %118, 120
   %120 = xor i32 %119, %117
-  %121 = shl i32 %30, 1
-  %122 = shl i32 %26, 1
-  %123 = shl i32 %19, 8
-  %124 = or disjoint i32 %115, 32
-  %125 = add i32 %116, %124
+  %121 = or disjoint i32 %110, 16
+  %122 = or disjoint i32 %109, %121
+  %123 = shl nuw nsw i32 %122, 7
+  %124 = add i32 %123, %71
+  %125 = add i32 %124, %115
   %126 = lshr i32 %125, 4
   %127 = and i32 %126, 120
   %128 = xor i32 %127, %125
-  %129 = or disjoint i32 %110, 16
-  %130 = or disjoint i32 %109, %129
+  %129 = or disjoint i32 %109, 128
+  %130 = or disjoint i32 %129, %110
   %131 = shl nuw nsw i32 %130, 7
   %132 = add i32 %131, %71
   %133 = add i32 %132, %115
   %134 = lshr i32 %133, 4
   %135 = and i32 %134, 120
   %136 = xor i32 %135, %133
-  %137 = add i32 %132, %124
-  %138 = lshr i32 %137, 4
-  %139 = and i32 %138, 120
-  %140 = xor i32 %139, %137
-  %141 = or disjoint i32 %109, 128
-  %142 = or disjoint i32 %141, %110
-  %143 = shl nuw nsw i32 %142, 7
-  %144 = add i32 %143, %71
-  %145 = add i32 %144, %115
-  %146 = lshr i32 %145, 4
-  %147 = and i32 %146, 120
-  %148 = xor i32 %147, %145
-  %149 = add i32 %144, %124
-  %150 = lshr i32 %149, 4
-  %151 = and i32 %150, 120
-  %152 = xor i32 %151, %149
-  %153 = or disjoint i32 %141, %129
-  %154 = shl nuw nsw i32 %153, 7
-  %155 = add i32 %154, %71
-  %156 = add i32 %155, %115
-  %157 = lshr i32 %156, 4
-  %158 = and i32 %157, 120
-  %159 = xor i32 %158, %156
-  %160 = add i32 %155, %124
-  %161 = lshr i32 %160, 4
-  %162 = and i32 %161, 120
-  %163 = xor i32 %162, %160
-  %164 = shl nuw nsw i32 %14, 5
-  %165 = or disjoint i32 %164, %110
-  %166 = shl nuw nsw i32 %165, 7
-  %167 = add i32 %166, %32
-  %168 = add i32 %167, %115
-  %169 = lshr i32 %168, 4
-  %170 = and i32 %169, 120
-  %171 = xor i32 %170, %168
-  %172 = add i32 %167, %124
-  %173 = lshr i32 %172, 4
-  %174 = and i32 %173, 120
-  %175 = xor i32 %174, %172
-  %176 = or disjoint i32 %129, %164
-  %177 = shl nuw nsw i32 %176, 7
-  %178 = add i32 %177, %32
-  %179 = add i32 %178, %115
-  %180 = lshr i32 %179, 4
-  %181 = and i32 %180, 120
-  %182 = xor i32 %181, %179
-  %183 = add i32 %178, %124
-  %184 = lshr i32 %183, 4
-  %185 = and i32 %184, 120
-  %186 = xor i32 %185, %183
-  %187 = add nuw nsw i32 %164, 64
-  %188 = or disjoint i32 %187, %110
-  %189 = shl nuw nsw i32 %188, 7
-  %190 = add i32 %189, %32
-  %191 = add i32 %190, %115
-  %192 = lshr i32 %191, 4
-  %193 = and i32 %192, 120
-  %194 = xor i32 %193, %191
-  %195 = add i32 %190, %124
-  %196 = lshr i32 %195, 4
-  %197 = and i32 %196, 120
-  %198 = xor i32 %197, %195
-  %199 = or disjoint i32 %187, %129
-  %200 = shl nuw nsw i32 %199, 7
-  %201 = add i32 %200, %32
-  %202 = add i32 %201, %115
+  %137 = or disjoint i32 %129, %121
+  %138 = shl nuw nsw i32 %137, 7
+  %139 = add i32 %138, %71
+  %140 = add i32 %139, %115
+  %141 = lshr i32 %140, 4
+  %142 = and i32 %141, 120
+  %143 = xor i32 %142, %140
+  %144 = shl nuw nsw i32 %14, 5
+  %145 = or disjoint i32 %144, %110
+  %146 = shl nuw nsw i32 %145, 7
+  %147 = add i32 %146, %32
+  %148 = add i32 %147, %115
+  %149 = lshr i32 %148, 4
+  %150 = and i32 %149, 120
+  %151 = xor i32 %150, %148
+  %152 = or disjoint i32 %121, %144
+  %153 = shl nuw nsw i32 %152, 7
+  %154 = add i32 %153, %32
+  %155 = add i32 %154, %115
+  %156 = lshr i32 %155, 4
+  %157 = and i32 %156, 120
+  %158 = xor i32 %157, %155
+  %159 = add nuw nsw i32 %144, 64
+  %160 = or disjoint i32 %159, %110
+  %161 = shl nuw nsw i32 %160, 7
+  %162 = add i32 %161, %32
+  %163 = add i32 %162, %115
+  %164 = lshr i32 %163, 4
+  %165 = and i32 %164, 120
+  %166 = xor i32 %165, %163
+  %167 = or disjoint i32 %159, %121
+  %168 = shl nuw nsw i32 %167, 7
+  %169 = add i32 %168, %32
+  %170 = add i32 %169, %115
+  %171 = lshr i32 %170, 4
+  %172 = and i32 %171, 120
+  %173 = xor i32 %172, %170
+  %174 = shl i32 %30, 1
+  %175 = shl i32 %26, 1
+  %176 = shl i32 %19, 8
+  %177 = or disjoint i32 %115, 32
+  %178 = add i32 %116, %177
+  %179 = lshr i32 %178, 4
+  %180 = and i32 %179, 120
+  %181 = xor i32 %180, %178
+  %182 = add i32 %124, %177
+  %183 = lshr i32 %182, 4
+  %184 = and i32 %183, 120
+  %185 = xor i32 %184, %182
+  %186 = add i32 %132, %177
+  %187 = lshr i32 %186, 4
+  %188 = and i32 %187, 120
+  %189 = xor i32 %188, %186
+  %190 = add i32 %139, %177
+  %191 = lshr i32 %190, 4
+  %192 = and i32 %191, 120
+  %193 = xor i32 %192, %190
+  %194 = add i32 %147, %177
+  %195 = lshr i32 %194, 4
+  %196 = and i32 %195, 120
+  %197 = xor i32 %196, %194
+  %198 = add i32 %154, %177
+  %199 = lshr i32 %198, 4
+  %200 = and i32 %199, 120
+  %201 = xor i32 %200, %198
+  %202 = add i32 %162, %177
   %203 = lshr i32 %202, 4
   %204 = and i32 %203, 120
   %205 = xor i32 %204, %202
-  %206 = add i32 %201, %124
+  %206 = add i32 %169, %177
   %207 = lshr i32 %206, 4
   %208 = and i32 %207, 120
   %209 = xor i32 %208, %206
@@ -251,64 +251,64 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %217 = lshr i32 %216, 4
   %218 = and i32 %217, 120
   %219 = xor i32 %218, %216
-  %220 = or disjoint i32 %115, 96
-  %221 = add i32 %116, %220
-  %222 = lshr i32 %221, 4
-  %223 = and i32 %222, 120
-  %224 = xor i32 %223, %221
-  %225 = add i32 %132, %215
-  %226 = lshr i32 %225, 4
-  %227 = and i32 %226, 120
-  %228 = xor i32 %227, %225
-  %229 = add i32 %132, %220
-  %230 = lshr i32 %229, 4
-  %231 = and i32 %230, 120
-  %232 = xor i32 %231, %229
-  %233 = add i32 %144, %215
-  %234 = lshr i32 %233, 4
-  %235 = and i32 %234, 120
-  %236 = xor i32 %235, %233
-  %237 = add i32 %144, %220
-  %238 = lshr i32 %237, 4
-  %239 = and i32 %238, 120
-  %240 = xor i32 %239, %237
-  %241 = add i32 %155, %215
-  %242 = lshr i32 %241, 4
-  %243 = and i32 %242, 120
-  %244 = xor i32 %243, %241
-  %245 = add i32 %155, %220
-  %246 = lshr i32 %245, 4
-  %247 = and i32 %246, 120
-  %248 = xor i32 %247, %245
-  %249 = add i32 %167, %215
+  %220 = add i32 %124, %215
+  %221 = lshr i32 %220, 4
+  %222 = and i32 %221, 120
+  %223 = xor i32 %222, %220
+  %224 = add i32 %132, %215
+  %225 = lshr i32 %224, 4
+  %226 = and i32 %225, 120
+  %227 = xor i32 %226, %224
+  %228 = add i32 %139, %215
+  %229 = lshr i32 %228, 4
+  %230 = and i32 %229, 120
+  %231 = xor i32 %230, %228
+  %232 = add i32 %147, %215
+  %233 = lshr i32 %232, 4
+  %234 = and i32 %233, 120
+  %235 = xor i32 %234, %232
+  %236 = add i32 %154, %215
+  %237 = lshr i32 %236, 4
+  %238 = and i32 %237, 120
+  %239 = xor i32 %238, %236
+  %240 = add i32 %162, %215
+  %241 = lshr i32 %240, 4
+  %242 = and i32 %241, 120
+  %243 = xor i32 %242, %240
+  %244 = add i32 %169, %215
+  %245 = lshr i32 %244, 4
+  %246 = and i32 %245, 120
+  %247 = xor i32 %246, %244
+  %248 = or disjoint i32 %115, 96
+  %249 = add i32 %116, %248
   %250 = lshr i32 %249, 4
   %251 = and i32 %250, 120
   %252 = xor i32 %251, %249
-  %253 = add i32 %167, %220
+  %253 = add i32 %124, %248
   %254 = lshr i32 %253, 4
   %255 = and i32 %254, 120
   %256 = xor i32 %255, %253
-  %257 = add i32 %178, %215
+  %257 = add i32 %132, %248
   %258 = lshr i32 %257, 4
   %259 = and i32 %258, 120
   %260 = xor i32 %259, %257
-  %261 = add i32 %178, %220
+  %261 = add i32 %139, %248
   %262 = lshr i32 %261, 4
   %263 = and i32 %262, 120
   %264 = xor i32 %263, %261
-  %265 = add i32 %190, %215
+  %265 = add i32 %147, %248
   %266 = lshr i32 %265, 4
   %267 = and i32 %266, 120
   %268 = xor i32 %267, %265
-  %269 = add i32 %190, %220
+  %269 = add i32 %154, %248
   %270 = lshr i32 %269, 4
   %271 = and i32 %270, 120
   %272 = xor i32 %271, %269
-  %273 = add i32 %201, %215
+  %273 = add i32 %162, %248
   %274 = lshr i32 %273, 4
   %275 = and i32 %274, 120
   %276 = xor i32 %275, %273
-  %277 = add i32 %201, %220
+  %277 = add i32 %169, %248
   %278 = lshr i32 %277, 4
   %279 = and i32 %278, 120
   %280 = xor i32 %279, %277
@@ -383,13 +383,13 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %349 = sext i32 %348 to i64
   %350 = add nsw i32 %343, %110
   %351 = sext i32 %350 to i64
-  %352 = add nsw i32 %337, %129
+  %352 = add nsw i32 %337, %121
   %353 = sext i32 %352 to i64
-  %354 = add nsw i32 %339, %129
+  %354 = add nsw i32 %339, %121
   %355 = sext i32 %354 to i64
-  %356 = add nsw i32 %341, %129
+  %356 = add nsw i32 %341, %121
   %357 = sext i32 %356 to i64
-  %358 = add nsw i32 %343, %129
+  %358 = add nsw i32 %343, %121
   %359 = sext i32 %358 to i64
   %360 = or disjoint i32 %112, 16
   %361 = mul nsw i32 %360, %336
@@ -407,29 +407,29 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %373 = sext i32 %372 to i64
   %374 = add nsw i32 %367, %110
   %375 = sext i32 %374 to i64
-  %376 = add nsw i32 %361, %129
+  %376 = add nsw i32 %361, %121
   %377 = sext i32 %376 to i64
-  %378 = add nsw i32 %363, %129
+  %378 = add nsw i32 %363, %121
   %379 = sext i32 %378 to i64
-  %380 = add nsw i32 %365, %129
+  %380 = add nsw i32 %365, %121
   %381 = sext i32 %380 to i64
-  %382 = add nsw i32 %367, %129
+  %382 = add nsw i32 %367, %121
   %383 = sext i32 %382 to i64
   br label %384, !dbg !43
 
 384:                                              ; preds = %718, %1
-  %.sroa.0638.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.0638.2.off0, %718 ]
-  %.sroa.0638.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.0638.2.off64, %718 ]
+  %.sroa.0796.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.0796.2.off0, %718 ]
+  %.sroa.0796.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.0796.2.off64, %718 ]
   %.sroa.5.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.5.2.off0, %718 ]
   %.sroa.5.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.5.2.off64, %718 ]
-  %.sroa.8639.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.8639.2.off0, %718 ]
-  %.sroa.8639.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.8639.2.off64, %718 ]
+  %.sroa.8797.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.8797.2.off0, %718 ]
+  %.sroa.8797.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.8797.2.off64, %718 ]
   %.sroa.11.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.11.2.off0, %718 ]
   %.sroa.11.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.11.2.off64, %718 ]
-  %.sroa.0640.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.0640.2.off0, %718 ]
-  %.sroa.0640.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.0640.2.off64, %718 ]
-  %.sroa.5641.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.5641.2.off0, %718 ]
-  %.sroa.5641.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.5641.2.off64, %718 ]
+  %.sroa.0798.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.0798.2.off0, %718 ]
+  %.sroa.0798.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.0798.2.off64, %718 ]
+  %.sroa.5799.0.off0 = phi i64 [ undef, %1 ], [ %.sroa.5799.2.off0, %718 ]
+  %.sroa.5799.0.off64 = phi i64 [ 0, %1 ], [ %.sroa.5799.2.off64, %718 ]
   %.0 = phi i32 [ 0, %1 ], [ %806, %718 ], !dbg !44
   %385 = mul i32 %18, %.0, !dbg !45
   %386 = add i32 %385, %16, !dbg !46
@@ -452,8 +452,8 @@ define protected amdgpu_kernel void @_Z8micro_tk13micro_globals(ptr addrspace(4)
   %.rhs.trunc.i = trunc i32 %396 to i16, !dbg !61
   %398 = sdiv i16 %.lhs.trunc.i, %.rhs.trunc.i, !dbg !62
   %399 = mul i16 %398, %.rhs.trunc.i, !dbg !61
-  %.decomposed1130 = sub i16 %.lhs.trunc.i, %399, !dbg !61
-  %.sext.i = sext i16 %.decomposed1130 to i32, !dbg !61
+  %.decomposed1404 = sub i16 %.lhs.trunc.i, %399, !dbg !61
+  %.sext.i = sext i16 %.decomposed1404 to i32, !dbg !61
   %400 = add nsw i32 %394, %.sext.i, !dbg !63
   %.sext23.i = sext i16 %398 to i32, !dbg !62
   %401 = insertelement <2 x i32> poison, i32 %400, i64 0, !dbg !64
@@ -464,14 +464,14 @@ _Z12get_task_idxi.exit:                           ; preds = %384, %388
   %.sroa.0.0.i = phi <2 x i32> [ %402, %388 ], [ <i32 -1, i32 -1>, %384 ], !dbg !70
   %.sroa.0.0.vec.extract.i = extractelement <2 x i32> %.sroa.0.0.i, i64 0, !dbg !73
   %.sroa.0.4.vec.extract.i = extractelement <2 x i32> %.sroa.0.0.i, i64 1, !dbg !73
-  %.not105 = icmp eq i32 %.sroa.0.0.vec.extract.i, -1, !dbg !74
-  br i1 %.not105, label %.critedge, label %403, !dbg !75
+  %.not169 = icmp eq i32 %.sroa.0.0.vec.extract.i, -1, !dbg !74
+  br i1 %.not169, label %.critedge, label %403, !dbg !75
 
 403:                                              ; preds = %_Z12get_task_idxi.exit
   %404 = shl nsw i32 %.sroa.0.0.vec.extract.i, 7, !dbg !76
   %405 = sext i32 %404 to i64, !dbg !86
-  %406 = mul i64 %.sroa.7.0.copyload, %405, !dbg !90
-  %407 = getelementptr %struct.__hip_bfloat16, ptr %.sroa.0798.0.copyload, i64 %406, !dbg !91
+  %406 = mul i64 %.sroa.71076.0.copyload, %405, !dbg !90
+  %407 = getelementptr %struct.__hip_bfloat16, ptr %.sroa.01072.0.copyload, i64 %406, !dbg !91
   %408 = getelementptr inbounds %struct.__hip_bfloat16, ptr %407, i64 %27, !dbg !92
   %409 = tail call i128 asm sideeffect "global_load_dwordx4 $0, $1, off\0A", "=v,v,~{memory}"(ptr %408) #7, !dbg !93, !srcloc !97
   %410 = getelementptr inbounds %struct.__hip_bfloat16, ptr %407, i64 %31, !dbg !92
@@ -491,7 +491,7 @@ _Z12get_task_idxi.exit:                           ; preds = %384, %388
   %412 = shl nsw i32 %.sroa.0.4.vec.extract.i, 8, !dbg !110
   %413 = sext i32 %412 to i64, !dbg !117
   %414 = mul i64 %.sroa.15.0.copyload, %413, !dbg !119
-  %415 = getelementptr %struct.__hip_bfloat16, ptr %.sroa.9803.0.copyload, i64 %414, !dbg !120
+  %415 = getelementptr %struct.__hip_bfloat16, ptr %.sroa.91077.0.copyload, i64 %414, !dbg !120
   %416 = getelementptr inbounds %struct.__hip_bfloat16, ptr %415, i64 %59, !dbg !121
   %417 = tail call i128 asm sideeffect "global_load_dwordx4 $0, $1, off\0A", "=v,v,~{memory}"(ptr %416) #7, !dbg !122, !srcloc !97
   %418 = getelementptr inbounds %struct.__hip_bfloat16, ptr %415, i64 %62, !dbg !121
@@ -501,16 +501,16 @@ _Z12get_task_idxi.exit:                           ; preds = %384, %388
   %422 = getelementptr inbounds %struct.__hip_bfloat16, ptr %415, i64 %70, !dbg !121
   %423 = tail call i128 asm sideeffect "global_load_dwordx4 $0, $1, off\0A", "=v,v,~{memory}"(ptr %422) #7, !dbg !122, !srcloc !97
   tail call void asm sideeffect "s_waitcnt vmcnt(0)", ""() #7, !dbg !124, !srcloc !99
-  %.sroa.0.0.extract.trunc.i.i112 = trunc i128 %417 to i64, !dbg !125
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %77, i64 %.sroa.0.0.extract.trunc.i.i112) #7, !dbg !126, !srcloc !104
-  %.sroa.0.8.extract.shift.i.i113 = lshr i128 %417, 64, !dbg !128
-  %.sroa.0.8.extract.trunc.i.i114 = trunc nuw i128 %.sroa.0.8.extract.shift.i.i113 to i64, !dbg !128
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %81, i64 %.sroa.0.8.extract.trunc.i.i114) #7, !dbg !129, !srcloc !104
-  %.sroa.5.16.extract.trunc.i.i115 = trunc i128 %419 to i64, !dbg !125
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %85, i64 %.sroa.5.16.extract.trunc.i.i115) #7, !dbg !126, !srcloc !104
-  %.sroa.5.24.extract.shift.i.i116 = lshr i128 %419, 64, !dbg !128
-  %.sroa.5.24.extract.trunc.i.i117 = trunc nuw i128 %.sroa.5.24.extract.shift.i.i116 to i64, !dbg !128
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %89, i64 %.sroa.5.24.extract.trunc.i.i117) #7, !dbg !129, !srcloc !104
+  %.sroa.0.0.extract.trunc.i.i176 = trunc i128 %417 to i64, !dbg !125
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %77, i64 %.sroa.0.0.extract.trunc.i.i176) #7, !dbg !126, !srcloc !104
+  %.sroa.0.8.extract.shift.i.i177 = lshr i128 %417, 64, !dbg !128
+  %.sroa.0.8.extract.trunc.i.i178 = trunc nuw i128 %.sroa.0.8.extract.shift.i.i177 to i64, !dbg !128
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %81, i64 %.sroa.0.8.extract.trunc.i.i178) #7, !dbg !129, !srcloc !104
+  %.sroa.5.16.extract.trunc.i.i179 = trunc i128 %419 to i64, !dbg !125
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %85, i64 %.sroa.5.16.extract.trunc.i.i179) #7, !dbg !126, !srcloc !104
+  %.sroa.5.24.extract.shift.i.i180 = lshr i128 %419, 64, !dbg !128
+  %.sroa.5.24.extract.trunc.i.i181 = trunc nuw i128 %.sroa.5.24.extract.shift.i.i180 to i64, !dbg !128
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %89, i64 %.sroa.5.24.extract.trunc.i.i181) #7, !dbg !129, !srcloc !104
   %.sroa.8.32.extract.trunc.i.i = trunc i128 %421 to i64, !dbg !125
   tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %94, i64 %.sroa.8.32.extract.trunc.i.i) #7, !dbg !126, !srcloc !104
   %.sroa.8.40.extract.shift.i.i = lshr i128 %421, 64, !dbg !128
@@ -532,687 +532,703 @@ _Z12get_task_idxi.exit:                           ; preds = %384, %388
   tail call void @llvm.amdgcn.s.barrier(), !dbg !135
   br label %.preheader, !dbg !136
 
-425:                                              ; preds = %684
+425:                                              ; preds = %700
   br i1 %335, label %717, label %718, !dbg !137
 
-426:                                              ; preds = %.preheader, %684
-  %427 = phi <4 x float> [ %716, %684 ], [ zeroinitializer, %.preheader ]
-  %428 = phi <4 x float> [ %714, %684 ], [ zeroinitializer, %.preheader ]
-  %429 = phi <4 x float> [ %712, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.i443933 = phi <4 x float> [ %710, %684 ], [ zeroinitializer, %.preheader ]
-  %430 = phi <4 x float> [ %708, %684 ], [ zeroinitializer, %.preheader ]
-  %431 = phi <4 x float> [ %706, %684 ], [ zeroinitializer, %.preheader ]
-  %432 = phi <4 x float> [ %704, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.i423924 = phi <4 x float> [ %702, %684 ], [ zeroinitializer, %.preheader ]
-  %433 = phi <4 x float> [ %700, %684 ], [ zeroinitializer, %.preheader ]
-  %434 = phi <4 x float> [ %698, %684 ], [ zeroinitializer, %.preheader ]
-  %435 = phi <4 x float> [ %696, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.i403915 = phi <4 x float> [ %694, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.1.1.i478912 = phi <4 x float> [ %692, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.138.i473909 = phi <4 x float> [ %690, %684 ], [ zeroinitializer, %.preheader ]
-  %.val33.1.i468906 = phi <4 x float> [ %688, %684 ], [ zeroinitializer, %.preheader ]
-  %.0103903 = phi i32 [ %436, %684 ], [ 0, %.preheader ]
-  %.sroa.5641.1.off64902 = phi i64 [ %.sroa.5641.2.off64, %684 ], [ %.sroa.5641.0.off64, %.preheader ]
-  %.sroa.5641.1.off0901 = phi i64 [ %.sroa.5641.2.off0, %684 ], [ %.sroa.5641.0.off0, %.preheader ]
-  %.sroa.0640.1.off64900 = phi i64 [ %.sroa.0640.2.off64, %684 ], [ %.sroa.0640.0.off64, %.preheader ]
-  %.sroa.0640.1.off0899 = phi i64 [ %.sroa.0640.2.off0, %684 ], [ %.sroa.0640.0.off0, %.preheader ]
-  %.sroa.11.1.off64898 = phi i64 [ %.sroa.11.2.off64, %684 ], [ %.sroa.11.0.off64, %.preheader ]
-  %.sroa.11.1.off0897 = phi i64 [ %.sroa.11.2.off0, %684 ], [ %.sroa.11.0.off0, %.preheader ]
-  %.sroa.8639.1.off64896 = phi i64 [ %.sroa.8639.2.off64, %684 ], [ %.sroa.8639.0.off64, %.preheader ]
-  %.sroa.8639.1.off0895 = phi i64 [ %.sroa.8639.2.off0, %684 ], [ %.sroa.8639.0.off0, %.preheader ]
-  %.sroa.5.1.off64894 = phi i64 [ %.sroa.5.2.off64, %684 ], [ %.sroa.5.0.off64, %.preheader ]
-  %.sroa.5.1.off0893 = phi i64 [ %.sroa.5.2.off0, %684 ], [ %.sroa.5.0.off0, %.preheader ]
-  %.sroa.0638.1.off64892 = phi i64 [ %.sroa.0638.2.off64, %684 ], [ %.sroa.0638.0.off64, %.preheader ]
-  %.sroa.0638.1.off0891 = phi i64 [ %.sroa.0638.2.off0, %684 ], [ %.sroa.0638.0.off0, %.preheader ]
-  %.val33.i889890 = phi <4 x float> [ %686, %684 ], [ zeroinitializer, %.preheader ]
-  %436 = add nuw nsw i32 %.0103903, 1, !dbg !138
-  %.not = icmp eq i32 %.0103903, 127, !dbg !139
-  br i1 %.not, label %446, label %437, !dbg !140
+426:                                              ; preds = %.preheader, %700
+  %427 = phi <4 x float> [ %716, %700 ], [ zeroinitializer, %.preheader ]
+  %428 = phi <4 x float> [ %715, %700 ], [ zeroinitializer, %.preheader ]
+  %429 = phi <4 x float> [ %714, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.i2721207 = phi <4 x float> [ %713, %700 ], [ zeroinitializer, %.preheader ]
+  %430 = phi <4 x float> [ %712, %700 ], [ zeroinitializer, %.preheader ]
+  %431 = phi <4 x float> [ %711, %700 ], [ zeroinitializer, %.preheader ]
+  %432 = phi <4 x float> [ %710, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.i2601198 = phi <4 x float> [ %709, %700 ], [ zeroinitializer, %.preheader ]
+  %433 = phi <4 x float> [ %708, %700 ], [ zeroinitializer, %.preheader ]
+  %434 = phi <4 x float> [ %707, %700 ], [ zeroinitializer, %.preheader ]
+  %435 = phi <4 x float> [ %706, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.i2481189 = phi <4 x float> [ %705, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.1.1.i6461186 = phi <4 x float> [ %704, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.135.i6431183 = phi <4 x float> [ %703, %700 ], [ zeroinitializer, %.preheader ]
+  %.val30.1.i6401180 = phi <4 x float> [ %702, %700 ], [ zeroinitializer, %.preheader ]
+  %.01671177 = phi i32 [ %436, %700 ], [ 0, %.preheader ]
+  %.sroa.5799.1.off641176 = phi i64 [ %.sroa.5799.2.off64, %700 ], [ %.sroa.5799.0.off64, %.preheader ]
+  %.sroa.5799.1.off01175 = phi i64 [ %.sroa.5799.2.off0, %700 ], [ %.sroa.5799.0.off0, %.preheader ]
+  %.sroa.0798.1.off641174 = phi i64 [ %.sroa.0798.2.off64, %700 ], [ %.sroa.0798.0.off64, %.preheader ]
+  %.sroa.0798.1.off01173 = phi i64 [ %.sroa.0798.2.off0, %700 ], [ %.sroa.0798.0.off0, %.preheader ]
+  %.sroa.11.1.off641172 = phi i64 [ %.sroa.11.2.off64, %700 ], [ %.sroa.11.0.off64, %.preheader ]
+  %.sroa.11.1.off01171 = phi i64 [ %.sroa.11.2.off0, %700 ], [ %.sroa.11.0.off0, %.preheader ]
+  %.sroa.8797.1.off641170 = phi i64 [ %.sroa.8797.2.off64, %700 ], [ %.sroa.8797.0.off64, %.preheader ]
+  %.sroa.8797.1.off01169 = phi i64 [ %.sroa.8797.2.off0, %700 ], [ %.sroa.8797.0.off0, %.preheader ]
+  %.sroa.5.1.off641168 = phi i64 [ %.sroa.5.2.off64, %700 ], [ %.sroa.5.0.off64, %.preheader ]
+  %.sroa.5.1.off01167 = phi i64 [ %.sroa.5.2.off0, %700 ], [ %.sroa.5.0.off0, %.preheader ]
+  %.sroa.0796.1.off641166 = phi i64 [ %.sroa.0796.2.off64, %700 ], [ %.sroa.0796.0.off64, %.preheader ]
+  %.sroa.0796.1.off01165 = phi i64 [ %.sroa.0796.2.off0, %700 ], [ %.sroa.0796.0.off0, %.preheader ]
+  %.val30.i11631164 = phi <4 x float> [ %701, %700 ], [ zeroinitializer, %.preheader ]
+  %436 = add nuw nsw i32 %.01671177, 1, !dbg !138
+  %.not = icmp eq i32 %.01671177, 127, !dbg !139
+  %437 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %120) #7, !dbg !140, !srcloc !146
+  %.sroa.036.2.extract.shift37.i = lshr i64 %437, 16, !dbg !147
+  %438 = insertelement <2 x i64> poison, i64 %437, i64 0, !dbg !147
+  %439 = insertelement <2 x i64> %438, i64 %.sroa.036.2.extract.shift37.i, i64 1, !dbg !147
+  %440 = shufflevector <2 x i64> %438, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !140
+  %441 = lshr <2 x i64> %440, <i64 32, i64 48>, !dbg !140
+  %442 = shufflevector <2 x i64> %439, <2 x i64> %441, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !148
+  %.sroa.0866.6.vec.insert8821373 = trunc <4 x i64> %442 to <4 x i16>, !dbg !148
+  %443 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %128) #7, !dbg !140, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i = lshr i64 %443, 16, !dbg !147
+  %444 = insertelement <2 x i64> poison, i64 %443, i64 0, !dbg !147
+  %445 = insertelement <2 x i64> %444, i64 %.sroa.036.2.extract.shift37.1.i, i64 1, !dbg !147
+  %446 = shufflevector <2 x i64> %444, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !140
+  %447 = lshr <2 x i64> %446, <i64 32, i64 48>, !dbg !140
+  %448 = shufflevector <2 x i64> %445, <2 x i64> %447, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !148
+  %.sroa.18883.14.vec.insert8991372 = trunc <4 x i64> %448 to <4 x i16>, !dbg !148
+  %449 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %136) #7, !dbg !152, !srcloc !146
+  %.sroa.036.2.extract.shift37.i189 = lshr i64 %449, 16, !dbg !155
+  %450 = insertelement <2 x i64> poison, i64 %449, i64 0, !dbg !155
+  %451 = insertelement <2 x i64> %450, i64 %.sroa.036.2.extract.shift37.i189, i64 1, !dbg !155
+  %452 = shufflevector <2 x i64> %450, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !152
+  %453 = lshr <2 x i64> %452, <i64 32, i64 48>, !dbg !152
+  %454 = shufflevector <2 x i64> %451, <2 x i64> %453, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
+  %.sroa.0801.6.vec.insert8171371 = trunc <4 x i64> %454 to <4 x i16>, !dbg !156
+  %455 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %143) #7, !dbg !152, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i198 = lshr i64 %455, 16, !dbg !155
+  %456 = insertelement <2 x i64> poison, i64 %455, i64 0, !dbg !155
+  %457 = insertelement <2 x i64> %456, i64 %.sroa.036.2.extract.shift37.1.i198, i64 1, !dbg !155
+  %458 = shufflevector <2 x i64> %456, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !152
+  %459 = lshr <2 x i64> %458, <i64 32, i64 48>, !dbg !152
+  %460 = shufflevector <2 x i64> %457, <2 x i64> %459, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
+  %.sroa.18.14.vec.insert8331370 = trunc <4 x i64> %460 to <4 x i16>, !dbg !156
+  %461 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %151) #7, !dbg !158, !srcloc !146
+  %.sroa.036.2.extract.shift37.i208 = lshr i64 %461, 16, !dbg !162
+  %462 = insertelement <2 x i64> poison, i64 %461, i64 0, !dbg !162
+  %463 = insertelement <2 x i64> %462, i64 %.sroa.036.2.extract.shift37.i208, i64 1, !dbg !162
+  %464 = shufflevector <2 x i64> %462, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !158
+  %465 = lshr <2 x i64> %464, <i64 32, i64 48>, !dbg !158
+  %466 = shufflevector <2 x i64> %463, <2 x i64> %465, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !163
+  %.sroa.01002.6.vec.insert10181369 = trunc <4 x i64> %466 to <4 x i16>, !dbg !163
+  %467 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %158) #7, !dbg !158, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i215 = lshr i64 %467, 16, !dbg !162
+  %468 = insertelement <2 x i64> poison, i64 %467, i64 0, !dbg !162
+  %469 = insertelement <2 x i64> %468, i64 %.sroa.036.2.extract.shift37.1.i215, i64 1, !dbg !162
+  %470 = shufflevector <2 x i64> %468, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !158
+  %471 = lshr <2 x i64> %470, <i64 32, i64 48>, !dbg !158
+  %472 = shufflevector <2 x i64> %469, <2 x i64> %471, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !163
+  %.sroa.181019.14.vec.insert10351368 = trunc <4 x i64> %472 to <4 x i16>, !dbg !163
+  %473 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %166) #7, !dbg !165, !srcloc !146
+  %.sroa.036.2.extract.shift37.i227 = lshr i64 %473, 16, !dbg !168
+  %474 = insertelement <2 x i64> poison, i64 %473, i64 0, !dbg !168
+  %475 = insertelement <2 x i64> %474, i64 %.sroa.036.2.extract.shift37.i227, i64 1, !dbg !168
+  %476 = shufflevector <2 x i64> %474, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !165
+  %477 = lshr <2 x i64> %476, <i64 32, i64 48>, !dbg !165
+  %478 = shufflevector <2 x i64> %475, <2 x i64> %477, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !169
+  %.sroa.0934.6.vec.insert9501367 = trunc <4 x i64> %478 to <4 x i16>, !dbg !169
+  %479 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %173) #7, !dbg !165, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i236 = lshr i64 %479, 16, !dbg !168
+  %480 = insertelement <2 x i64> poison, i64 %479, i64 0, !dbg !168
+  %481 = insertelement <2 x i64> %480, i64 %.sroa.036.2.extract.shift37.1.i236, i64 1, !dbg !168
+  %482 = shufflevector <2 x i64> %480, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !165
+  %483 = lshr <2 x i64> %482, <i64 32, i64 48>, !dbg !165
+  %484 = shufflevector <2 x i64> %481, <2 x i64> %483, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !169
+  %.sroa.18951.14.vec.insert9671366 = trunc <4 x i64> %484 to <4 x i16>, !dbg !169
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !171
+  br i1 %.not, label %494, label %485, !dbg !172
 
-437:                                              ; preds = %426
-  %438 = shl nuw nsw i32 %436, 6
-  %439 = zext nneg i32 %438 to i64
-  %440 = getelementptr %struct.__hip_bfloat16, ptr %407, i64 %439
-  %441 = ptrtoint ptr %440 to i64
-  %442 = bitcast i64 %441 to <2 x i32>
-  %.sroa.0.0.vec.expand.i.i = shufflevector <2 x i32> %442, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
-  %443 = insertelement <4 x i32> %.sroa.0.0.vec.expand.i.i, i32 1114112, i64 3
-  %.sroa.0.12.vec.insert.i.i = insertelement <4 x i32> %443, i32 %123, i64 2
-  %444 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i, i32 noundef %122, i32 noundef 0, i32 noundef 0) #7, !dbg !141
-  %445 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i, i32 noundef %121, i32 noundef 0, i32 noundef 0) #7, !dbg !141
-  %extract.t862 = trunc i128 %444 to i64, !dbg !147
-  %extract864 = lshr i128 %444, 64, !dbg !147
-  %extract.t865 = trunc nuw i128 %extract864 to i64, !dbg !147
-  %extract.t875 = trunc i128 %445 to i64, !dbg !147
-  %extract877 = lshr i128 %445, 64, !dbg !147
-  %extract.t878 = trunc nuw i128 %extract877 to i64, !dbg !147
-  br label %446, !dbg !147
+485:                                              ; preds = %426
+  %486 = shl nuw nsw i32 %436, 6
+  %487 = zext nneg i32 %486 to i64
+  %488 = getelementptr %struct.__hip_bfloat16, ptr %407, i64 %487
+  %489 = ptrtoint ptr %488 to i64
+  %490 = bitcast i64 %489 to <2 x i32>
+  %.sroa.0.0.vec.expand.i.i = shufflevector <2 x i32> %490, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+  %491 = insertelement <4 x i32> %.sroa.0.0.vec.expand.i.i, i32 1114112, i64 3
+  %.sroa.0.12.vec.insert.i.i = insertelement <4 x i32> %491, i32 %176, i64 2
+  %492 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i, i32 noundef %175, i32 noundef 0, i32 noundef 0) #7, !dbg !173
+  %493 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i, i32 noundef %174, i32 noundef 0, i32 noundef 0) #7, !dbg !173
+  %extract.t1136 = trunc i128 %492 to i64, !dbg !178
+  %extract1138 = lshr i128 %492, 64, !dbg !178
+  %extract.t1139 = trunc nuw i128 %extract1138 to i64, !dbg !178
+  %extract.t1149 = trunc i128 %493 to i64, !dbg !178
+  %extract1151 = lshr i128 %493, 64, !dbg !178
+  %extract.t1152 = trunc nuw i128 %extract1151 to i64, !dbg !178
+  br label %494, !dbg !178
 
-446:                                              ; preds = %437, %426
-  %.sroa.0640.2.off0 = phi i64 [ %.sroa.0640.1.off0899, %426 ], [ %extract.t862, %437 ]
-  %.sroa.0640.2.off64 = phi i64 [ %.sroa.0640.1.off64900, %426 ], [ %extract.t865, %437 ]
-  %.sroa.5641.2.off0 = phi i64 [ %.sroa.5641.1.off0901, %426 ], [ %extract.t875, %437 ]
-  %.sroa.5641.2.off64 = phi i64 [ %.sroa.5641.1.off64902, %426 ], [ %extract.t878, %437 ]
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !148
-  %447 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %120) #7, !dbg !149, !srcloc !154
-  %.sroa.036.2.extract.shift37.i = lshr i64 %447, 16, !dbg !155
-  %448 = insertelement <2 x i64> poison, i64 %447, i64 0, !dbg !155
-  %449 = insertelement <2 x i64> %448, i64 %.sroa.036.2.extract.shift37.i, i64 1, !dbg !155
-  %450 = shufflevector <2 x i64> %448, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !149
-  %451 = lshr <2 x i64> %450, <i64 32, i64 48>, !dbg !149
-  %452 = shufflevector <2 x i64> %449, <2 x i64> %451, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
-  %.sroa.0676.6.vec.insert1099 = trunc <4 x i64> %452 to <4 x i16>, !dbg !156
-  %453 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %128) #7, !dbg !149, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i = lshr i64 %453, 16, !dbg !155
-  %454 = insertelement <2 x i64> poison, i64 %453, i64 0, !dbg !155
-  %455 = insertelement <2 x i64> %454, i64 %.sroa.036.2.extract.shift37.1.i, i64 1, !dbg !155
-  %456 = shufflevector <2 x i64> %454, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !149
-  %457 = lshr <2 x i64> %456, <i64 32, i64 48>, !dbg !149
-  %458 = shufflevector <2 x i64> %455, <2 x i64> %457, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
-  %.sroa.10681.14.vec.insert1098 = trunc <4 x i64> %458 to <4 x i16>, !dbg !156
-  %459 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %136) #7, !dbg !149, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i = lshr i64 %459, 16, !dbg !155
-  %460 = insertelement <2 x i64> poison, i64 %459, i64 0, !dbg !155
-  %461 = insertelement <2 x i64> %460, i64 %.sroa.036.2.extract.shift37.145.i, i64 1, !dbg !155
-  %462 = shufflevector <2 x i64> %460, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !149
-  %463 = lshr <2 x i64> %462, <i64 32, i64 48>, !dbg !149
-  %464 = shufflevector <2 x i64> %461, <2 x i64> %463, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
-  %.sroa.18686.22.vec.insert1097 = trunc <4 x i64> %464 to <4 x i16>, !dbg !156
-  %465 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %140) #7, !dbg !149, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i = lshr i64 %465, 16, !dbg !155
-  %466 = insertelement <2 x i64> poison, i64 %465, i64 0, !dbg !155
-  %467 = insertelement <2 x i64> %466, i64 %.sroa.036.2.extract.shift37.1.1.i, i64 1, !dbg !155
-  %468 = shufflevector <2 x i64> %466, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !149
-  %469 = lshr <2 x i64> %468, <i64 32, i64 48>, !dbg !149
-  %470 = shufflevector <2 x i64> %467, <2 x i64> %469, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !156
-  %.sroa.26691.30.vec.insert1096 = trunc <4 x i64> %470 to <4 x i16>, !dbg !156
-  %471 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %148) #7, !dbg !160, !srcloc !154
-  %.sroa.036.2.extract.shift37.i126 = lshr i64 %471, 16, !dbg !163
-  %472 = insertelement <2 x i64> poison, i64 %471, i64 0, !dbg !163
-  %473 = insertelement <2 x i64> %472, i64 %.sroa.036.2.extract.shift37.i126, i64 1, !dbg !163
-  %474 = shufflevector <2 x i64> %472, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !160
-  %475 = lshr <2 x i64> %474, <i64 32, i64 48>, !dbg !160
-  %476 = shufflevector <2 x i64> %473, <2 x i64> %475, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !164
-  %.sroa.0643.6.vec.insert1095 = trunc <4 x i64> %476 to <4 x i16>, !dbg !164
-  %477 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %152) #7, !dbg !160, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i135 = lshr i64 %477, 16, !dbg !163
-  %478 = insertelement <2 x i64> poison, i64 %477, i64 0, !dbg !163
-  %479 = insertelement <2 x i64> %478, i64 %.sroa.036.2.extract.shift37.1.i135, i64 1, !dbg !163
-  %480 = shufflevector <2 x i64> %478, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !160
-  %481 = lshr <2 x i64> %480, <i64 32, i64 48>, !dbg !160
-  %482 = shufflevector <2 x i64> %479, <2 x i64> %481, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !164
-  %.sroa.10.14.vec.insert1094 = trunc <4 x i64> %482 to <4 x i16>, !dbg !164
-  %483 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %159) #7, !dbg !160, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i144 = lshr i64 %483, 16, !dbg !163
-  %484 = insertelement <2 x i64> poison, i64 %483, i64 0, !dbg !163
-  %485 = insertelement <2 x i64> %484, i64 %.sroa.036.2.extract.shift37.145.i144, i64 1, !dbg !163
-  %486 = shufflevector <2 x i64> %484, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !160
-  %487 = lshr <2 x i64> %486, <i64 32, i64 48>, !dbg !160
-  %488 = shufflevector <2 x i64> %485, <2 x i64> %487, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !164
-  %.sroa.18.22.vec.insert1093 = trunc <4 x i64> %488 to <4 x i16>, !dbg !164
-  %489 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %163) #7, !dbg !160, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i153 = lshr i64 %489, 16, !dbg !163
-  %490 = insertelement <2 x i64> poison, i64 %489, i64 0, !dbg !163
-  %491 = insertelement <2 x i64> %490, i64 %.sroa.036.2.extract.shift37.1.1.i153, i64 1, !dbg !163
-  %492 = shufflevector <2 x i64> %490, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !160
-  %493 = lshr <2 x i64> %492, <i64 32, i64 48>, !dbg !160
-  %494 = shufflevector <2 x i64> %491, <2 x i64> %493, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !164
-  %.sroa.26.30.vec.insert1092 = trunc <4 x i64> %494 to <4 x i16>, !dbg !164
-  %495 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %171) #7, !dbg !166, !srcloc !154
-  %.sroa.036.2.extract.shift37.i163 = lshr i64 %495, 16, !dbg !170
-  %496 = insertelement <2 x i64> poison, i64 %495, i64 0, !dbg !170
-  %497 = insertelement <2 x i64> %496, i64 %.sroa.036.2.extract.shift37.i163, i64 1, !dbg !170
-  %498 = shufflevector <2 x i64> %496, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !166
-  %499 = lshr <2 x i64> %498, <i64 32, i64 48>, !dbg !166
-  %500 = shufflevector <2 x i64> %497, <2 x i64> %499, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !171
-  %.sroa.0756.6.vec.insert1091 = trunc <4 x i64> %500 to <4 x i16>, !dbg !171
-  %501 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %175) #7, !dbg !166, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i170 = lshr i64 %501, 16, !dbg !170
-  %502 = insertelement <2 x i64> poison, i64 %501, i64 0, !dbg !170
-  %503 = insertelement <2 x i64> %502, i64 %.sroa.036.2.extract.shift37.1.i170, i64 1, !dbg !170
-  %504 = shufflevector <2 x i64> %502, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !166
-  %505 = lshr <2 x i64> %504, <i64 32, i64 48>, !dbg !166
-  %506 = shufflevector <2 x i64> %503, <2 x i64> %505, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !171
-  %.sroa.10761.14.vec.insert1090 = trunc <4 x i64> %506 to <4 x i16>, !dbg !171
-  %507 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %182) #7, !dbg !166, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i177 = lshr i64 %507, 16, !dbg !170
-  %508 = insertelement <2 x i64> poison, i64 %507, i64 0, !dbg !170
-  %509 = insertelement <2 x i64> %508, i64 %.sroa.036.2.extract.shift37.145.i177, i64 1, !dbg !170
-  %510 = shufflevector <2 x i64> %508, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !166
-  %511 = lshr <2 x i64> %510, <i64 32, i64 48>, !dbg !166
-  %512 = shufflevector <2 x i64> %509, <2 x i64> %511, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !171
-  %.sroa.18766.22.vec.insert1089 = trunc <4 x i64> %512 to <4 x i16>, !dbg !171
-  %513 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %186) #7, !dbg !166, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i184 = lshr i64 %513, 16, !dbg !170
-  %514 = insertelement <2 x i64> poison, i64 %513, i64 0, !dbg !170
-  %515 = insertelement <2 x i64> %514, i64 %.sroa.036.2.extract.shift37.1.1.i184, i64 1, !dbg !170
-  %516 = shufflevector <2 x i64> %514, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !166
-  %517 = lshr <2 x i64> %516, <i64 32, i64 48>, !dbg !166
-  %518 = shufflevector <2 x i64> %515, <2 x i64> %517, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !171
-  %.sroa.26771.30.vec.insert1088 = trunc <4 x i64> %518 to <4 x i16>, !dbg !171
-  %519 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %194) #7, !dbg !173, !srcloc !154
-  %.sroa.036.2.extract.shift37.i196 = lshr i64 %519, 16, !dbg !176
-  %520 = insertelement <2 x i64> poison, i64 %519, i64 0, !dbg !176
-  %521 = insertelement <2 x i64> %520, i64 %.sroa.036.2.extract.shift37.i196, i64 1, !dbg !176
-  %522 = shufflevector <2 x i64> %520, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !173
-  %523 = lshr <2 x i64> %522, <i64 32, i64 48>, !dbg !173
-  %524 = shufflevector <2 x i64> %521, <2 x i64> %523, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !177
-  %.sroa.0716.6.vec.insert1087 = trunc <4 x i64> %524 to <4 x i16>, !dbg !177
-  %525 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %198) #7, !dbg !173, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i205 = lshr i64 %525, 16, !dbg !176
-  %526 = insertelement <2 x i64> poison, i64 %525, i64 0, !dbg !176
-  %527 = insertelement <2 x i64> %526, i64 %.sroa.036.2.extract.shift37.1.i205, i64 1, !dbg !176
-  %528 = shufflevector <2 x i64> %526, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !173
-  %529 = lshr <2 x i64> %528, <i64 32, i64 48>, !dbg !173
-  %530 = shufflevector <2 x i64> %527, <2 x i64> %529, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !177
-  %.sroa.10721.14.vec.insert1086 = trunc <4 x i64> %530 to <4 x i16>, !dbg !177
-  %531 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %205) #7, !dbg !173, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i214 = lshr i64 %531, 16, !dbg !176
-  %532 = insertelement <2 x i64> poison, i64 %531, i64 0, !dbg !176
-  %533 = insertelement <2 x i64> %532, i64 %.sroa.036.2.extract.shift37.145.i214, i64 1, !dbg !176
-  %534 = shufflevector <2 x i64> %532, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !173
-  %535 = lshr <2 x i64> %534, <i64 32, i64 48>, !dbg !173
-  %536 = shufflevector <2 x i64> %533, <2 x i64> %535, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !177
-  %.sroa.18726.22.vec.insert1085 = trunc <4 x i64> %536 to <4 x i16>, !dbg !177
-  %537 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %209) #7, !dbg !173, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i223 = lshr i64 %537, 16, !dbg !176
-  %538 = insertelement <2 x i64> poison, i64 %537, i64 0, !dbg !176
-  %539 = insertelement <2 x i64> %538, i64 %.sroa.036.2.extract.shift37.1.1.i223, i64 1, !dbg !176
-  %540 = shufflevector <2 x i64> %538, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !173
-  %541 = lshr <2 x i64> %540, <i64 32, i64 48>, !dbg !173
-  %542 = shufflevector <2 x i64> %539, <2 x i64> %541, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !177
-  %.sroa.26731.30.vec.insert1084 = trunc <4 x i64> %542 to <4 x i16>, !dbg !177
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !179
-  br i1 %.not, label %554, label %543, !dbg !180
+494:                                              ; preds = %485, %426
+  %.sroa.0798.2.off0 = phi i64 [ %.sroa.0798.1.off01173, %426 ], [ %extract.t1136, %485 ]
+  %.sroa.0798.2.off64 = phi i64 [ %.sroa.0798.1.off641174, %426 ], [ %extract.t1139, %485 ]
+  %.sroa.5799.2.off0 = phi i64 [ %.sroa.5799.1.off01175, %426 ], [ %extract.t1149, %485 ]
+  %.sroa.5799.2.off64 = phi i64 [ %.sroa.5799.1.off641176, %426 ], [ %extract.t1152, %485 ]
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !179
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !180
+  tail call void asm sideeffect "s_waitcnt lgkmcnt(0)", ""() #7, !dbg !181, !srcloc !182
+  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !183
+  %495 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert10181369, <4 x i16> %.sroa.0866.6.vec.insert8821373, <4 x float> %.val30.i11631164, i32 0, i32 0, i32 0), !dbg !184
+  %496 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert10181369, <4 x i16> %.sroa.18883.14.vec.insert8991372, <4 x float> %.val30.1.i6401180, i32 0, i32 0, i32 0), !dbg !184
+  %497 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert10351368, <4 x i16> %.sroa.0866.6.vec.insert8821373, <4 x float> %.val30.135.i6431183, i32 0, i32 0, i32 0), !dbg !184
+  %498 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert10351368, <4 x i16> %.sroa.18883.14.vec.insert8991372, <4 x float> %.val30.1.1.i6461186, i32 0, i32 0, i32 0), !dbg !184
+  %499 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert10181369, <4 x i16> %.sroa.0801.6.vec.insert8171371, <4 x float> %.val30.i2481189, i32 0, i32 0, i32 0), !dbg !192
+  %500 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert10181369, <4 x i16> %.sroa.18.14.vec.insert8331370, <4 x float> %435, i32 0, i32 0, i32 0), !dbg !192
+  %501 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert10351368, <4 x i16> %.sroa.0801.6.vec.insert8171371, <4 x float> %434, i32 0, i32 0, i32 0), !dbg !192
+  %502 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert10351368, <4 x i16> %.sroa.18.14.vec.insert8331370, <4 x float> %433, i32 0, i32 0, i32 0), !dbg !192
+  %503 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert9501367, <4 x i16> %.sroa.0866.6.vec.insert8821373, <4 x float> %.val30.i2601198, i32 0, i32 0, i32 0), !dbg !196
+  %504 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert9501367, <4 x i16> %.sroa.18883.14.vec.insert8991372, <4 x float> %432, i32 0, i32 0, i32 0), !dbg !196
+  %505 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert9671366, <4 x i16> %.sroa.0866.6.vec.insert8821373, <4 x float> %431, i32 0, i32 0, i32 0), !dbg !196
+  %506 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert9671366, <4 x i16> %.sroa.18883.14.vec.insert8991372, <4 x float> %430, i32 0, i32 0, i32 0), !dbg !196
+  %507 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert9501367, <4 x i16> %.sroa.0801.6.vec.insert8171371, <4 x float> %.val30.i2721207, i32 0, i32 0, i32 0), !dbg !200
+  %508 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert9501367, <4 x i16> %.sroa.18.14.vec.insert8331370, <4 x float> %429, i32 0, i32 0, i32 0), !dbg !200
+  %509 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert9671366, <4 x i16> %.sroa.0801.6.vec.insert8171371, <4 x float> %428, i32 0, i32 0, i32 0), !dbg !200
+  %510 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert9671366, <4 x i16> %.sroa.18.14.vec.insert8331370, <4 x float> %427, i32 0, i32 0, i32 0), !dbg !200
+  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !204
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !205
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !206
+  %511 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %181) #7, !dbg !207, !srcloc !146
+  %.sroa.036.2.extract.shift37.i289 = lshr i64 %511, 16, !dbg !210
+  %512 = insertelement <2 x i64> poison, i64 %511, i64 0, !dbg !210
+  %513 = insertelement <2 x i64> %512, i64 %.sroa.036.2.extract.shift37.i289, i64 1, !dbg !210
+  %514 = shufflevector <2 x i64> %512, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
+  %515 = lshr <2 x i64> %514, <i64 32, i64 48>, !dbg !207
+  %516 = shufflevector <2 x i64> %513, <2 x i64> %515, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
+  %.sroa.34900.22.vec.insert9161365 = trunc <4 x i64> %516 to <4 x i16>, !dbg !211
+  %517 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %185) #7, !dbg !207, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i298 = lshr i64 %517, 16, !dbg !210
+  %518 = insertelement <2 x i64> poison, i64 %517, i64 0, !dbg !210
+  %519 = insertelement <2 x i64> %518, i64 %.sroa.036.2.extract.shift37.1.i298, i64 1, !dbg !210
+  %520 = shufflevector <2 x i64> %518, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
+  %521 = lshr <2 x i64> %520, <i64 32, i64 48>, !dbg !207
+  %522 = shufflevector <2 x i64> %519, <2 x i64> %521, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
+  %.sroa.50917.30.vec.insert9331364 = trunc <4 x i64> %522 to <4 x i16>, !dbg !211
+  %523 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %189) #7, !dbg !213, !srcloc !146
+  %.sroa.036.2.extract.shift37.i310 = lshr i64 %523, 16, !dbg !216
+  %524 = insertelement <2 x i64> poison, i64 %523, i64 0, !dbg !216
+  %525 = insertelement <2 x i64> %524, i64 %.sroa.036.2.extract.shift37.i310, i64 1, !dbg !216
+  %526 = shufflevector <2 x i64> %524, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
+  %527 = lshr <2 x i64> %526, <i64 32, i64 48>, !dbg !213
+  %528 = shufflevector <2 x i64> %525, <2 x i64> %527, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
+  %.sroa.34.22.vec.insert8491363 = trunc <4 x i64> %528 to <4 x i16>, !dbg !217
+  %529 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %193) #7, !dbg !213, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i319 = lshr i64 %529, 16, !dbg !216
+  %530 = insertelement <2 x i64> poison, i64 %529, i64 0, !dbg !216
+  %531 = insertelement <2 x i64> %530, i64 %.sroa.036.2.extract.shift37.1.i319, i64 1, !dbg !216
+  %532 = shufflevector <2 x i64> %530, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
+  %533 = lshr <2 x i64> %532, <i64 32, i64 48>, !dbg !213
+  %534 = shufflevector <2 x i64> %531, <2 x i64> %533, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
+  %.sroa.50.30.vec.insert8651362 = trunc <4 x i64> %534 to <4 x i16>, !dbg !217
+  %535 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %197) #7, !dbg !219, !srcloc !146
+  %.sroa.036.2.extract.shift37.i331 = lshr i64 %535, 16, !dbg !222
+  %536 = insertelement <2 x i64> poison, i64 %535, i64 0, !dbg !222
+  %537 = insertelement <2 x i64> %536, i64 %.sroa.036.2.extract.shift37.i331, i64 1, !dbg !222
+  %538 = shufflevector <2 x i64> %536, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !219
+  %539 = lshr <2 x i64> %538, <i64 32, i64 48>, !dbg !219
+  %540 = shufflevector <2 x i64> %537, <2 x i64> %539, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !223
+  %.sroa.341036.22.vec.insert10521361 = trunc <4 x i64> %540 to <4 x i16>, !dbg !223
+  %541 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %201) #7, !dbg !219, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i340 = lshr i64 %541, 16, !dbg !222
+  %542 = insertelement <2 x i64> poison, i64 %541, i64 0, !dbg !222
+  %543 = insertelement <2 x i64> %542, i64 %.sroa.036.2.extract.shift37.1.i340, i64 1, !dbg !222
+  %544 = shufflevector <2 x i64> %542, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !219
+  %545 = lshr <2 x i64> %544, <i64 32, i64 48>, !dbg !219
+  %546 = shufflevector <2 x i64> %543, <2 x i64> %545, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !223
+  %.sroa.501053.30.vec.insert10691360 = trunc <4 x i64> %546 to <4 x i16>, !dbg !223
+  %547 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %205) #7, !dbg !225, !srcloc !146
+  %.sroa.036.2.extract.shift37.i352 = lshr i64 %547, 16, !dbg !228
+  %548 = insertelement <2 x i64> poison, i64 %547, i64 0, !dbg !228
+  %549 = insertelement <2 x i64> %548, i64 %.sroa.036.2.extract.shift37.i352, i64 1, !dbg !228
+  %550 = shufflevector <2 x i64> %548, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !225
+  %551 = lshr <2 x i64> %550, <i64 32, i64 48>, !dbg !225
+  %552 = shufflevector <2 x i64> %549, <2 x i64> %551, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !229
+  %.sroa.34968.22.vec.insert9841359 = trunc <4 x i64> %552 to <4 x i16>, !dbg !229
+  %553 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %209) #7, !dbg !225, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i361 = lshr i64 %553, 16, !dbg !228
+  %554 = insertelement <2 x i64> poison, i64 %553, i64 0, !dbg !228
+  %555 = insertelement <2 x i64> %554, i64 %.sroa.036.2.extract.shift37.1.i361, i64 1, !dbg !228
+  %556 = shufflevector <2 x i64> %554, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !225
+  %557 = lshr <2 x i64> %556, <i64 32, i64 48>, !dbg !225
+  %558 = shufflevector <2 x i64> %555, <2 x i64> %557, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !229
+  %.sroa.50985.30.vec.insert10011358 = trunc <4 x i64> %558 to <4 x i16>, !dbg !229
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !231
+  br i1 %.not, label %570, label %559, !dbg !232
 
-543:                                              ; preds = %446
-  %544 = shl nuw nsw i32 %436, 6, !dbg !181
-  %545 = zext nneg i32 %544 to i64, !dbg !185
-  %546 = getelementptr %struct.__hip_bfloat16, ptr %415, i64 %545, !dbg !187
-  %547 = ptrtoint ptr %546 to i64, !dbg !188
-  %548 = bitcast i64 %547 to <2 x i32>, !dbg !188
-  %.sroa.0.0.vec.expand.i.i231 = shufflevector <2 x i32> %548, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>, !dbg !188
-  %549 = insertelement <4 x i32> %.sroa.0.0.vec.expand.i.i231, i32 1114112, i64 3, !dbg !188
-  %.sroa.0.12.vec.insert.i.i232 = insertelement <4 x i32> %549, i32 %210, i64 2, !dbg !188
-  %550 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i232, i32 noundef %211, i32 noundef 0, i32 noundef 0) #7, !dbg !191
-  %551 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i232, i32 noundef %212, i32 noundef 0, i32 noundef 0) #7, !dbg !191
-  %552 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i232, i32 noundef %213, i32 noundef 0, i32 noundef 0) #7, !dbg !191
-  %553 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i232, i32 noundef %214, i32 noundef 0, i32 noundef 0) #7, !dbg !191
-  %extract.t810 = trunc i128 %550 to i64, !dbg !193
-  %extract812 = lshr i128 %550, 64, !dbg !193
-  %extract.t813 = trunc nuw i128 %extract812 to i64, !dbg !193
-  %extract.t823 = trunc i128 %551 to i64, !dbg !193
-  %extract825 = lshr i128 %551, 64, !dbg !193
-  %extract.t826 = trunc nuw i128 %extract825 to i64, !dbg !193
-  %extract.t836 = trunc i128 %552 to i64, !dbg !193
-  %extract838 = lshr i128 %552, 64, !dbg !193
-  %extract.t839 = trunc nuw i128 %extract838 to i64, !dbg !193
-  %extract.t849 = trunc i128 %553 to i64, !dbg !193
-  %extract851 = lshr i128 %553, 64, !dbg !193
-  %extract.t852 = trunc nuw i128 %extract851 to i64, !dbg !193
-  br label %554, !dbg !193
+559:                                              ; preds = %494
+  %560 = shl nuw nsw i32 %436, 6, !dbg !233
+  %561 = zext nneg i32 %560 to i64, !dbg !237
+  %562 = getelementptr %struct.__hip_bfloat16, ptr %415, i64 %561, !dbg !239
+  %563 = ptrtoint ptr %562 to i64, !dbg !240
+  %564 = bitcast i64 %563 to <2 x i32>, !dbg !240
+  %.sroa.0.0.vec.expand.i.i369 = shufflevector <2 x i32> %564, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>, !dbg !240
+  %565 = insertelement <4 x i32> %.sroa.0.0.vec.expand.i.i369, i32 1114112, i64 3, !dbg !240
+  %.sroa.0.12.vec.insert.i.i370 = insertelement <4 x i32> %565, i32 %210, i64 2, !dbg !240
+  %566 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i370, i32 noundef %211, i32 noundef 0, i32 noundef 0) #7, !dbg !243
+  %567 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i370, i32 noundef %212, i32 noundef 0, i32 noundef 0) #7, !dbg !243
+  %568 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i370, i32 noundef %213, i32 noundef 0, i32 noundef 0) #7, !dbg !243
+  %569 = tail call noundef i128 @llvm.amdgcn.raw.buffer.load.i128(<4 x i32> noundef %.sroa.0.12.vec.insert.i.i370, i32 noundef %214, i32 noundef 0, i32 noundef 0) #7, !dbg !243
+  %extract.t1084 = trunc i128 %566 to i64, !dbg !245
+  %extract1086 = lshr i128 %566, 64, !dbg !245
+  %extract.t1087 = trunc nuw i128 %extract1086 to i64, !dbg !245
+  %extract.t1097 = trunc i128 %567 to i64, !dbg !245
+  %extract1099 = lshr i128 %567, 64, !dbg !245
+  %extract.t1100 = trunc nuw i128 %extract1099 to i64, !dbg !245
+  %extract.t1110 = trunc i128 %568 to i64, !dbg !245
+  %extract1112 = lshr i128 %568, 64, !dbg !245
+  %extract.t1113 = trunc nuw i128 %extract1112 to i64, !dbg !245
+  %extract.t1123 = trunc i128 %569 to i64, !dbg !245
+  %extract1125 = lshr i128 %569, 64, !dbg !245
+  %extract.t1126 = trunc nuw i128 %extract1125 to i64, !dbg !245
+  br label %570, !dbg !245
 
-554:                                              ; preds = %543, %446
-  %.sroa.0638.2.off0 = phi i64 [ %.sroa.0638.1.off0891, %446 ], [ %extract.t810, %543 ]
-  %.sroa.0638.2.off64 = phi i64 [ %.sroa.0638.1.off64892, %446 ], [ %extract.t813, %543 ]
-  %.sroa.5.2.off0 = phi i64 [ %.sroa.5.1.off0893, %446 ], [ %extract.t823, %543 ]
-  %.sroa.5.2.off64 = phi i64 [ %.sroa.5.1.off64894, %446 ], [ %extract.t826, %543 ]
-  %.sroa.8639.2.off0 = phi i64 [ %.sroa.8639.1.off0895, %446 ], [ %extract.t836, %543 ]
-  %.sroa.8639.2.off64 = phi i64 [ %.sroa.8639.1.off64896, %446 ], [ %extract.t839, %543 ]
-  %.sroa.11.2.off0 = phi i64 [ %.sroa.11.1.off0897, %446 ], [ %extract.t849, %543 ]
-  %.sroa.11.2.off64 = phi i64 [ %.sroa.11.1.off64898, %446 ], [ %extract.t852, %543 ]
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !194
-  %555 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %219) #7, !dbg !195, !srcloc !154
-  %.sroa.036.2.extract.shift37.i240 = lshr i64 %555, 16, !dbg !198
-  %556 = insertelement <2 x i64> poison, i64 %555, i64 0, !dbg !198
-  %557 = insertelement <2 x i64> %556, i64 %.sroa.036.2.extract.shift37.i240, i64 1, !dbg !198
-  %558 = shufflevector <2 x i64> %556, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !195
-  %559 = lshr <2 x i64> %558, <i64 32, i64 48>, !dbg !195
-  %560 = shufflevector <2 x i64> %557, <2 x i64> %559, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !199
-  %.sroa.34696.38.vec.insert1083 = trunc <4 x i64> %560 to <4 x i16>, !dbg !199
-  %561 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %224) #7, !dbg !195, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i249 = lshr i64 %561, 16, !dbg !198
-  %562 = insertelement <2 x i64> poison, i64 %561, i64 0, !dbg !198
-  %563 = insertelement <2 x i64> %562, i64 %.sroa.036.2.extract.shift37.1.i249, i64 1, !dbg !198
-  %564 = shufflevector <2 x i64> %562, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !195
-  %565 = lshr <2 x i64> %564, <i64 32, i64 48>, !dbg !195
-  %566 = shufflevector <2 x i64> %563, <2 x i64> %565, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !199
-  %.sroa.42701.46.vec.insert1082 = trunc <4 x i64> %566 to <4 x i16>, !dbg !199
-  %567 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %228) #7, !dbg !195, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i258 = lshr i64 %567, 16, !dbg !198
-  %568 = insertelement <2 x i64> poison, i64 %567, i64 0, !dbg !198
-  %569 = insertelement <2 x i64> %568, i64 %.sroa.036.2.extract.shift37.145.i258, i64 1, !dbg !198
-  %570 = shufflevector <2 x i64> %568, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !195
-  %571 = lshr <2 x i64> %570, <i64 32, i64 48>, !dbg !195
-  %572 = shufflevector <2 x i64> %569, <2 x i64> %571, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !199
-  %.sroa.50706.54.vec.insert1081 = trunc <4 x i64> %572 to <4 x i16>, !dbg !199
-  %573 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %232) #7, !dbg !195, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i267 = lshr i64 %573, 16, !dbg !198
-  %574 = insertelement <2 x i64> poison, i64 %573, i64 0, !dbg !198
-  %575 = insertelement <2 x i64> %574, i64 %.sroa.036.2.extract.shift37.1.1.i267, i64 1, !dbg !198
-  %576 = shufflevector <2 x i64> %574, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !195
-  %577 = lshr <2 x i64> %576, <i64 32, i64 48>, !dbg !195
-  %578 = shufflevector <2 x i64> %575, <2 x i64> %577, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !199
-  %.sroa.58711.62.vec.insert1080 = trunc <4 x i64> %578 to <4 x i16>, !dbg !199
-  %579 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %236) #7, !dbg !201, !srcloc !154
-  %.sroa.036.2.extract.shift37.i279 = lshr i64 %579, 16, !dbg !204
-  %580 = insertelement <2 x i64> poison, i64 %579, i64 0, !dbg !204
-  %581 = insertelement <2 x i64> %580, i64 %.sroa.036.2.extract.shift37.i279, i64 1, !dbg !204
-  %582 = shufflevector <2 x i64> %580, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !201
-  %583 = lshr <2 x i64> %582, <i64 32, i64 48>, !dbg !201
-  %584 = shufflevector <2 x i64> %581, <2 x i64> %583, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !205
-  %.sroa.34.38.vec.insert1079 = trunc <4 x i64> %584 to <4 x i16>, !dbg !205
-  %585 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %240) #7, !dbg !201, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i288 = lshr i64 %585, 16, !dbg !204
-  %586 = insertelement <2 x i64> poison, i64 %585, i64 0, !dbg !204
-  %587 = insertelement <2 x i64> %586, i64 %.sroa.036.2.extract.shift37.1.i288, i64 1, !dbg !204
-  %588 = shufflevector <2 x i64> %586, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !201
-  %589 = lshr <2 x i64> %588, <i64 32, i64 48>, !dbg !201
-  %590 = shufflevector <2 x i64> %587, <2 x i64> %589, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !205
-  %.sroa.42.46.vec.insert1078 = trunc <4 x i64> %590 to <4 x i16>, !dbg !205
-  %591 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %244) #7, !dbg !201, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i297 = lshr i64 %591, 16, !dbg !204
-  %592 = insertelement <2 x i64> poison, i64 %591, i64 0, !dbg !204
-  %593 = insertelement <2 x i64> %592, i64 %.sroa.036.2.extract.shift37.145.i297, i64 1, !dbg !204
-  %594 = shufflevector <2 x i64> %592, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !201
-  %595 = lshr <2 x i64> %594, <i64 32, i64 48>, !dbg !201
-  %596 = shufflevector <2 x i64> %593, <2 x i64> %595, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !205
-  %.sroa.50.54.vec.insert1077 = trunc <4 x i64> %596 to <4 x i16>, !dbg !205
-  %597 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %248) #7, !dbg !201, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i306 = lshr i64 %597, 16, !dbg !204
-  %598 = insertelement <2 x i64> poison, i64 %597, i64 0, !dbg !204
-  %599 = insertelement <2 x i64> %598, i64 %.sroa.036.2.extract.shift37.1.1.i306, i64 1, !dbg !204
-  %600 = shufflevector <2 x i64> %598, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !201
-  %601 = lshr <2 x i64> %600, <i64 32, i64 48>, !dbg !201
-  %602 = shufflevector <2 x i64> %599, <2 x i64> %601, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !205
-  %.sroa.58.62.vec.insert1076 = trunc <4 x i64> %602 to <4 x i16>, !dbg !205
-  %603 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %252) #7, !dbg !207, !srcloc !154
-  %.sroa.036.2.extract.shift37.i318 = lshr i64 %603, 16, !dbg !210
-  %604 = insertelement <2 x i64> poison, i64 %603, i64 0, !dbg !210
-  %605 = insertelement <2 x i64> %604, i64 %.sroa.036.2.extract.shift37.i318, i64 1, !dbg !210
-  %606 = shufflevector <2 x i64> %604, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
-  %607 = lshr <2 x i64> %606, <i64 32, i64 48>, !dbg !207
-  %608 = shufflevector <2 x i64> %605, <2 x i64> %607, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
-  %.sroa.34776.38.vec.insert1075 = trunc <4 x i64> %608 to <4 x i16>, !dbg !211
-  %609 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %256) #7, !dbg !207, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i327 = lshr i64 %609, 16, !dbg !210
-  %610 = insertelement <2 x i64> poison, i64 %609, i64 0, !dbg !210
-  %611 = insertelement <2 x i64> %610, i64 %.sroa.036.2.extract.shift37.1.i327, i64 1, !dbg !210
-  %612 = shufflevector <2 x i64> %610, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
-  %613 = lshr <2 x i64> %612, <i64 32, i64 48>, !dbg !207
-  %614 = shufflevector <2 x i64> %611, <2 x i64> %613, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
-  %.sroa.42781.46.vec.insert1074 = trunc <4 x i64> %614 to <4 x i16>, !dbg !211
-  %615 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %260) #7, !dbg !207, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i336 = lshr i64 %615, 16, !dbg !210
-  %616 = insertelement <2 x i64> poison, i64 %615, i64 0, !dbg !210
-  %617 = insertelement <2 x i64> %616, i64 %.sroa.036.2.extract.shift37.145.i336, i64 1, !dbg !210
-  %618 = shufflevector <2 x i64> %616, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
-  %619 = lshr <2 x i64> %618, <i64 32, i64 48>, !dbg !207
-  %620 = shufflevector <2 x i64> %617, <2 x i64> %619, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
-  %.sroa.50786.54.vec.insert1073 = trunc <4 x i64> %620 to <4 x i16>, !dbg !211
-  %621 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %264) #7, !dbg !207, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i345 = lshr i64 %621, 16, !dbg !210
-  %622 = insertelement <2 x i64> poison, i64 %621, i64 0, !dbg !210
-  %623 = insertelement <2 x i64> %622, i64 %.sroa.036.2.extract.shift37.1.1.i345, i64 1, !dbg !210
-  %624 = shufflevector <2 x i64> %622, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !207
-  %625 = lshr <2 x i64> %624, <i64 32, i64 48>, !dbg !207
-  %626 = shufflevector <2 x i64> %623, <2 x i64> %625, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !211
-  %.sroa.58791.62.vec.insert1072 = trunc <4 x i64> %626 to <4 x i16>, !dbg !211
-  %627 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %268) #7, !dbg !213, !srcloc !154
-  %.sroa.036.2.extract.shift37.i357 = lshr i64 %627, 16, !dbg !216
-  %628 = insertelement <2 x i64> poison, i64 %627, i64 0, !dbg !216
-  %629 = insertelement <2 x i64> %628, i64 %.sroa.036.2.extract.shift37.i357, i64 1, !dbg !216
-  %630 = shufflevector <2 x i64> %628, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
-  %631 = lshr <2 x i64> %630, <i64 32, i64 48>, !dbg !213
-  %632 = shufflevector <2 x i64> %629, <2 x i64> %631, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
-  %.sroa.34736.38.vec.insert1071 = trunc <4 x i64> %632 to <4 x i16>, !dbg !217
-  %633 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %272) #7, !dbg !213, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.i366 = lshr i64 %633, 16, !dbg !216
-  %634 = insertelement <2 x i64> poison, i64 %633, i64 0, !dbg !216
-  %635 = insertelement <2 x i64> %634, i64 %.sroa.036.2.extract.shift37.1.i366, i64 1, !dbg !216
-  %636 = shufflevector <2 x i64> %634, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
-  %637 = lshr <2 x i64> %636, <i64 32, i64 48>, !dbg !213
-  %638 = shufflevector <2 x i64> %635, <2 x i64> %637, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
-  %.sroa.42741.46.vec.insert1070 = trunc <4 x i64> %638 to <4 x i16>, !dbg !217
-  %639 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %276) #7, !dbg !213, !srcloc !154
-  %.sroa.036.2.extract.shift37.145.i375 = lshr i64 %639, 16, !dbg !216
-  %640 = insertelement <2 x i64> poison, i64 %639, i64 0, !dbg !216
-  %641 = insertelement <2 x i64> %640, i64 %.sroa.036.2.extract.shift37.145.i375, i64 1, !dbg !216
-  %642 = shufflevector <2 x i64> %640, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
-  %643 = lshr <2 x i64> %642, <i64 32, i64 48>, !dbg !213
-  %644 = shufflevector <2 x i64> %641, <2 x i64> %643, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
-  %.sroa.50746.54.vec.insert1069 = trunc <4 x i64> %644 to <4 x i16>, !dbg !217
-  %645 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %280) #7, !dbg !213, !srcloc !154
-  %.sroa.036.2.extract.shift37.1.1.i384 = lshr i64 %645, 16, !dbg !216
-  %646 = insertelement <2 x i64> poison, i64 %645, i64 0, !dbg !216
-  %647 = insertelement <2 x i64> %646, i64 %.sroa.036.2.extract.shift37.1.1.i384, i64 1, !dbg !216
-  %648 = shufflevector <2 x i64> %646, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !213
-  %649 = lshr <2 x i64> %648, <i64 32, i64 48>, !dbg !213
-  %650 = shufflevector <2 x i64> %647, <2 x i64> %649, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !217
-  %.sroa.58751.62.vec.insert1068 = trunc <4 x i64> %650 to <4 x i16>, !dbg !217
-  tail call void @llvm.amdgcn.s.barrier(), !dbg !219
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !220
-  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !221
-  %651 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0756.6.vec.insert1091, <4 x i16> %.sroa.0676.6.vec.insert1099, <4 x float> %.val33.i889890, i32 0, i32 0, i32 0), !dbg !222
-  %652 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10761.14.vec.insert1090, <4 x i16> %.sroa.10681.14.vec.insert1098, <4 x float> %651, i32 0, i32 0, i32 0), !dbg !230
-  %653 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0756.6.vec.insert1091, <4 x i16> %.sroa.18686.22.vec.insert1097, <4 x float> %.val33.1.i468906, i32 0, i32 0, i32 0), !dbg !222
-  %654 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10761.14.vec.insert1090, <4 x i16> %.sroa.26691.30.vec.insert1096, <4 x float> %653, i32 0, i32 0, i32 0), !dbg !230
-  %655 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18766.22.vec.insert1089, <4 x i16> %.sroa.0676.6.vec.insert1099, <4 x float> %.val33.138.i473909, i32 0, i32 0, i32 0), !dbg !222
-  %656 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26771.30.vec.insert1088, <4 x i16> %.sroa.10681.14.vec.insert1098, <4 x float> %655, i32 0, i32 0, i32 0), !dbg !230
-  %657 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18766.22.vec.insert1089, <4 x i16> %.sroa.18686.22.vec.insert1097, <4 x float> %.val33.1.1.i478912, i32 0, i32 0, i32 0), !dbg !222
-  %658 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26771.30.vec.insert1088, <4 x i16> %.sroa.26691.30.vec.insert1096, <4 x float> %657, i32 0, i32 0, i32 0), !dbg !230
-  %659 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0756.6.vec.insert1091, <4 x i16> %.sroa.0643.6.vec.insert1095, <4 x float> %.val33.i403915, i32 0, i32 0, i32 0), !dbg !233
-  %660 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10761.14.vec.insert1090, <4 x i16> %.sroa.10.14.vec.insert1094, <4 x float> %659, i32 0, i32 0, i32 0), !dbg !237
-  %661 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0756.6.vec.insert1091, <4 x i16> %.sroa.18.22.vec.insert1093, <4 x float> %435, i32 0, i32 0, i32 0), !dbg !233
-  %662 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10761.14.vec.insert1090, <4 x i16> %.sroa.26.30.vec.insert1092, <4 x float> %661, i32 0, i32 0, i32 0), !dbg !237
-  %663 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18766.22.vec.insert1089, <4 x i16> %.sroa.0643.6.vec.insert1095, <4 x float> %434, i32 0, i32 0, i32 0), !dbg !233
-  %664 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26771.30.vec.insert1088, <4 x i16> %.sroa.10.14.vec.insert1094, <4 x float> %663, i32 0, i32 0, i32 0), !dbg !237
-  %665 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18766.22.vec.insert1089, <4 x i16> %.sroa.18.22.vec.insert1093, <4 x float> %433, i32 0, i32 0, i32 0), !dbg !233
-  %666 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26771.30.vec.insert1088, <4 x i16> %.sroa.26.30.vec.insert1092, <4 x float> %665, i32 0, i32 0, i32 0), !dbg !237
-  %667 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0716.6.vec.insert1087, <4 x i16> %.sroa.0676.6.vec.insert1099, <4 x float> %.val33.i423924, i32 0, i32 0, i32 0), !dbg !240
-  %668 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10721.14.vec.insert1086, <4 x i16> %.sroa.10681.14.vec.insert1098, <4 x float> %667, i32 0, i32 0, i32 0), !dbg !244
-  %669 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0716.6.vec.insert1087, <4 x i16> %.sroa.18686.22.vec.insert1097, <4 x float> %432, i32 0, i32 0, i32 0), !dbg !240
-  %670 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10721.14.vec.insert1086, <4 x i16> %.sroa.26691.30.vec.insert1096, <4 x float> %669, i32 0, i32 0, i32 0), !dbg !244
-  %671 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18726.22.vec.insert1085, <4 x i16> %.sroa.0676.6.vec.insert1099, <4 x float> %431, i32 0, i32 0, i32 0), !dbg !240
-  %672 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26731.30.vec.insert1084, <4 x i16> %.sroa.10681.14.vec.insert1098, <4 x float> %671, i32 0, i32 0, i32 0), !dbg !244
-  %673 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18726.22.vec.insert1085, <4 x i16> %.sroa.18686.22.vec.insert1097, <4 x float> %430, i32 0, i32 0, i32 0), !dbg !240
-  %674 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26731.30.vec.insert1084, <4 x i16> %.sroa.26691.30.vec.insert1096, <4 x float> %673, i32 0, i32 0, i32 0), !dbg !244
-  %675 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0716.6.vec.insert1087, <4 x i16> %.sroa.0643.6.vec.insert1095, <4 x float> %.val33.i443933, i32 0, i32 0, i32 0), !dbg !247
-  %676 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10721.14.vec.insert1086, <4 x i16> %.sroa.10.14.vec.insert1094, <4 x float> %675, i32 0, i32 0, i32 0), !dbg !251
-  %677 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0716.6.vec.insert1087, <4 x i16> %.sroa.18.22.vec.insert1093, <4 x float> %429, i32 0, i32 0, i32 0), !dbg !247
-  %678 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.10721.14.vec.insert1086, <4 x i16> %.sroa.26.30.vec.insert1092, <4 x float> %677, i32 0, i32 0, i32 0), !dbg !251
-  %679 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18726.22.vec.insert1085, <4 x i16> %.sroa.0643.6.vec.insert1095, <4 x float> %428, i32 0, i32 0, i32 0), !dbg !247
-  %680 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26731.30.vec.insert1084, <4 x i16> %.sroa.10.14.vec.insert1094, <4 x float> %679, i32 0, i32 0, i32 0), !dbg !251
-  %681 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18726.22.vec.insert1085, <4 x i16> %.sroa.18.22.vec.insert1093, <4 x float> %427, i32 0, i32 0, i32 0), !dbg !247
-  %682 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.26731.30.vec.insert1084, <4 x i16> %.sroa.26.30.vec.insert1092, <4 x float> %681, i32 0, i32 0, i32 0), !dbg !251
-  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !254
-  tail call void @llvm.amdgcn.s.barrier(), !dbg !255
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !256
-  br i1 %.not, label %684, label %683, !dbg !257
+570:                                              ; preds = %559, %494
+  %.sroa.0796.2.off0 = phi i64 [ %.sroa.0796.1.off01165, %494 ], [ %extract.t1084, %559 ]
+  %.sroa.0796.2.off64 = phi i64 [ %.sroa.0796.1.off641166, %494 ], [ %extract.t1087, %559 ]
+  %.sroa.5.2.off0 = phi i64 [ %.sroa.5.1.off01167, %494 ], [ %extract.t1097, %559 ]
+  %.sroa.5.2.off64 = phi i64 [ %.sroa.5.1.off641168, %494 ], [ %extract.t1100, %559 ]
+  %.sroa.8797.2.off0 = phi i64 [ %.sroa.8797.1.off01169, %494 ], [ %extract.t1110, %559 ]
+  %.sroa.8797.2.off64 = phi i64 [ %.sroa.8797.1.off641170, %494 ], [ %extract.t1113, %559 ]
+  %.sroa.11.2.off0 = phi i64 [ %.sroa.11.1.off01171, %494 ], [ %extract.t1123, %559 ]
+  %.sroa.11.2.off64 = phi i64 [ %.sroa.11.1.off641172, %494 ], [ %extract.t1126, %559 ]
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !246
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !247
+  tail call void asm sideeffect "s_waitcnt lgkmcnt(0)", ""() #7, !dbg !248, !srcloc !249
+  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !250
+  %571 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert10521361, <4 x i16> %.sroa.34900.22.vec.insert9161365, <4 x float> %495, i32 0, i32 0, i32 0), !dbg !251
+  %572 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert10521361, <4 x i16> %.sroa.50917.30.vec.insert9331364, <4 x float> %496, i32 0, i32 0, i32 0), !dbg !251
+  %573 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert10691360, <4 x i16> %.sroa.34900.22.vec.insert9161365, <4 x float> %497, i32 0, i32 0, i32 0), !dbg !251
+  %574 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert10691360, <4 x i16> %.sroa.50917.30.vec.insert9331364, <4 x float> %498, i32 0, i32 0, i32 0), !dbg !251
+  %575 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert10521361, <4 x i16> %.sroa.34.22.vec.insert8491363, <4 x float> %499, i32 0, i32 0, i32 0), !dbg !255
+  %576 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert10521361, <4 x i16> %.sroa.50.30.vec.insert8651362, <4 x float> %500, i32 0, i32 0, i32 0), !dbg !255
+  %577 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert10691360, <4 x i16> %.sroa.34.22.vec.insert8491363, <4 x float> %501, i32 0, i32 0, i32 0), !dbg !255
+  %578 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert10691360, <4 x i16> %.sroa.50.30.vec.insert8651362, <4 x float> %502, i32 0, i32 0, i32 0), !dbg !255
+  %579 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert9841359, <4 x i16> %.sroa.34900.22.vec.insert9161365, <4 x float> %503, i32 0, i32 0, i32 0), !dbg !259
+  %580 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert9841359, <4 x i16> %.sroa.50917.30.vec.insert9331364, <4 x float> %504, i32 0, i32 0, i32 0), !dbg !259
+  %581 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert10011358, <4 x i16> %.sroa.34900.22.vec.insert9161365, <4 x float> %505, i32 0, i32 0, i32 0), !dbg !259
+  %582 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert10011358, <4 x i16> %.sroa.50917.30.vec.insert9331364, <4 x float> %506, i32 0, i32 0, i32 0), !dbg !259
+  %583 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert9841359, <4 x i16> %.sroa.34.22.vec.insert8491363, <4 x float> %507, i32 0, i32 0, i32 0), !dbg !263
+  %584 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert9841359, <4 x i16> %.sroa.50.30.vec.insert8651362, <4 x float> %508, i32 0, i32 0, i32 0), !dbg !263
+  %585 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert10011358, <4 x i16> %.sroa.34.22.vec.insert8491363, <4 x float> %509, i32 0, i32 0, i32 0), !dbg !263
+  %586 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert10011358, <4 x i16> %.sroa.50.30.vec.insert8651362, <4 x float> %510, i32 0, i32 0, i32 0), !dbg !263
+  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !267
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !268
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !269
+  %587 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %219) #7, !dbg !270, !srcloc !146
+  %.sroa.036.2.extract.shift37.i426 = lshr i64 %587, 16, !dbg !273
+  %588 = insertelement <2 x i64> poison, i64 %587, i64 0, !dbg !273
+  %589 = insertelement <2 x i64> %588, i64 %.sroa.036.2.extract.shift37.i426, i64 1, !dbg !273
+  %590 = shufflevector <2 x i64> %588, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !270
+  %591 = lshr <2 x i64> %590, <i64 32, i64 48>, !dbg !270
+  %592 = shufflevector <2 x i64> %589, <2 x i64> %591, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !274
+  %.sroa.0866.6.vec.insert1357 = trunc <4 x i64> %592 to <4 x i16>, !dbg !274
+  %593 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %223) #7, !dbg !270, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i435 = lshr i64 %593, 16, !dbg !273
+  %594 = insertelement <2 x i64> poison, i64 %593, i64 0, !dbg !273
+  %595 = insertelement <2 x i64> %594, i64 %.sroa.036.2.extract.shift37.1.i435, i64 1, !dbg !273
+  %596 = shufflevector <2 x i64> %594, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !270
+  %597 = lshr <2 x i64> %596, <i64 32, i64 48>, !dbg !270
+  %598 = shufflevector <2 x i64> %595, <2 x i64> %597, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !274
+  %.sroa.18883.14.vec.insert1356 = trunc <4 x i64> %598 to <4 x i16>, !dbg !274
+  %599 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %227) #7, !dbg !276, !srcloc !146
+  %.sroa.036.2.extract.shift37.i447 = lshr i64 %599, 16, !dbg !279
+  %600 = insertelement <2 x i64> poison, i64 %599, i64 0, !dbg !279
+  %601 = insertelement <2 x i64> %600, i64 %.sroa.036.2.extract.shift37.i447, i64 1, !dbg !279
+  %602 = shufflevector <2 x i64> %600, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !276
+  %603 = lshr <2 x i64> %602, <i64 32, i64 48>, !dbg !276
+  %604 = shufflevector <2 x i64> %601, <2 x i64> %603, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !280
+  %.sroa.0801.6.vec.insert1355 = trunc <4 x i64> %604 to <4 x i16>, !dbg !280
+  %605 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %231) #7, !dbg !276, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i456 = lshr i64 %605, 16, !dbg !279
+  %606 = insertelement <2 x i64> poison, i64 %605, i64 0, !dbg !279
+  %607 = insertelement <2 x i64> %606, i64 %.sroa.036.2.extract.shift37.1.i456, i64 1, !dbg !279
+  %608 = shufflevector <2 x i64> %606, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !276
+  %609 = lshr <2 x i64> %608, <i64 32, i64 48>, !dbg !276
+  %610 = shufflevector <2 x i64> %607, <2 x i64> %609, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !280
+  %.sroa.18.14.vec.insert1354 = trunc <4 x i64> %610 to <4 x i16>, !dbg !280
+  %611 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %235) #7, !dbg !282, !srcloc !146
+  %.sroa.036.2.extract.shift37.i468 = lshr i64 %611, 16, !dbg !285
+  %612 = insertelement <2 x i64> poison, i64 %611, i64 0, !dbg !285
+  %613 = insertelement <2 x i64> %612, i64 %.sroa.036.2.extract.shift37.i468, i64 1, !dbg !285
+  %614 = shufflevector <2 x i64> %612, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !282
+  %615 = lshr <2 x i64> %614, <i64 32, i64 48>, !dbg !282
+  %616 = shufflevector <2 x i64> %613, <2 x i64> %615, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !286
+  %.sroa.01002.6.vec.insert1353 = trunc <4 x i64> %616 to <4 x i16>, !dbg !286
+  %617 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %239) #7, !dbg !282, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i477 = lshr i64 %617, 16, !dbg !285
+  %618 = insertelement <2 x i64> poison, i64 %617, i64 0, !dbg !285
+  %619 = insertelement <2 x i64> %618, i64 %.sroa.036.2.extract.shift37.1.i477, i64 1, !dbg !285
+  %620 = shufflevector <2 x i64> %618, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !282
+  %621 = lshr <2 x i64> %620, <i64 32, i64 48>, !dbg !282
+  %622 = shufflevector <2 x i64> %619, <2 x i64> %621, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !286
+  %.sroa.181019.14.vec.insert1352 = trunc <4 x i64> %622 to <4 x i16>, !dbg !286
+  %623 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %243) #7, !dbg !288, !srcloc !146
+  %.sroa.036.2.extract.shift37.i489 = lshr i64 %623, 16, !dbg !291
+  %624 = insertelement <2 x i64> poison, i64 %623, i64 0, !dbg !291
+  %625 = insertelement <2 x i64> %624, i64 %.sroa.036.2.extract.shift37.i489, i64 1, !dbg !291
+  %626 = shufflevector <2 x i64> %624, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !288
+  %627 = lshr <2 x i64> %626, <i64 32, i64 48>, !dbg !288
+  %628 = shufflevector <2 x i64> %625, <2 x i64> %627, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !292
+  %.sroa.0934.6.vec.insert1351 = trunc <4 x i64> %628 to <4 x i16>, !dbg !292
+  %629 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %247) #7, !dbg !288, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i498 = lshr i64 %629, 16, !dbg !291
+  %630 = insertelement <2 x i64> poison, i64 %629, i64 0, !dbg !291
+  %631 = insertelement <2 x i64> %630, i64 %.sroa.036.2.extract.shift37.1.i498, i64 1, !dbg !291
+  %632 = shufflevector <2 x i64> %630, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !288
+  %633 = lshr <2 x i64> %632, <i64 32, i64 48>, !dbg !288
+  %634 = shufflevector <2 x i64> %631, <2 x i64> %633, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !292
+  %.sroa.18951.14.vec.insert1350 = trunc <4 x i64> %634 to <4 x i16>, !dbg !292
+  %635 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %252) #7, !dbg !294, !srcloc !146
+  %.sroa.036.2.extract.shift37.i510 = lshr i64 %635, 16, !dbg !297
+  %636 = insertelement <2 x i64> poison, i64 %635, i64 0, !dbg !297
+  %637 = insertelement <2 x i64> %636, i64 %.sroa.036.2.extract.shift37.i510, i64 1, !dbg !297
+  %638 = shufflevector <2 x i64> %636, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !294
+  %639 = lshr <2 x i64> %638, <i64 32, i64 48>, !dbg !294
+  %640 = shufflevector <2 x i64> %637, <2 x i64> %639, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !298
+  %.sroa.34900.22.vec.insert1349 = trunc <4 x i64> %640 to <4 x i16>, !dbg !298
+  %641 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %256) #7, !dbg !294, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i519 = lshr i64 %641, 16, !dbg !297
+  %642 = insertelement <2 x i64> poison, i64 %641, i64 0, !dbg !297
+  %643 = insertelement <2 x i64> %642, i64 %.sroa.036.2.extract.shift37.1.i519, i64 1, !dbg !297
+  %644 = shufflevector <2 x i64> %642, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !294
+  %645 = lshr <2 x i64> %644, <i64 32, i64 48>, !dbg !294
+  %646 = shufflevector <2 x i64> %643, <2 x i64> %645, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !298
+  %.sroa.50917.30.vec.insert1348 = trunc <4 x i64> %646 to <4 x i16>, !dbg !298
+  %647 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %260) #7, !dbg !300, !srcloc !146
+  %.sroa.036.2.extract.shift37.i531 = lshr i64 %647, 16, !dbg !303
+  %648 = insertelement <2 x i64> poison, i64 %647, i64 0, !dbg !303
+  %649 = insertelement <2 x i64> %648, i64 %.sroa.036.2.extract.shift37.i531, i64 1, !dbg !303
+  %650 = shufflevector <2 x i64> %648, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !300
+  %651 = lshr <2 x i64> %650, <i64 32, i64 48>, !dbg !300
+  %652 = shufflevector <2 x i64> %649, <2 x i64> %651, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !304
+  %.sroa.34.22.vec.insert1347 = trunc <4 x i64> %652 to <4 x i16>, !dbg !304
+  %653 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %264) #7, !dbg !300, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i540 = lshr i64 %653, 16, !dbg !303
+  %654 = insertelement <2 x i64> poison, i64 %653, i64 0, !dbg !303
+  %655 = insertelement <2 x i64> %654, i64 %.sroa.036.2.extract.shift37.1.i540, i64 1, !dbg !303
+  %656 = shufflevector <2 x i64> %654, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !300
+  %657 = lshr <2 x i64> %656, <i64 32, i64 48>, !dbg !300
+  %658 = shufflevector <2 x i64> %655, <2 x i64> %657, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !304
+  %.sroa.50.30.vec.insert1346 = trunc <4 x i64> %658 to <4 x i16>, !dbg !304
+  %659 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %268) #7, !dbg !306, !srcloc !146
+  %.sroa.036.2.extract.shift37.i552 = lshr i64 %659, 16, !dbg !309
+  %660 = insertelement <2 x i64> poison, i64 %659, i64 0, !dbg !309
+  %661 = insertelement <2 x i64> %660, i64 %.sroa.036.2.extract.shift37.i552, i64 1, !dbg !309
+  %662 = shufflevector <2 x i64> %660, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !306
+  %663 = lshr <2 x i64> %662, <i64 32, i64 48>, !dbg !306
+  %664 = shufflevector <2 x i64> %661, <2 x i64> %663, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !310
+  %.sroa.341036.22.vec.insert1345 = trunc <4 x i64> %664 to <4 x i16>, !dbg !310
+  %665 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %272) #7, !dbg !306, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i561 = lshr i64 %665, 16, !dbg !309
+  %666 = insertelement <2 x i64> poison, i64 %665, i64 0, !dbg !309
+  %667 = insertelement <2 x i64> %666, i64 %.sroa.036.2.extract.shift37.1.i561, i64 1, !dbg !309
+  %668 = shufflevector <2 x i64> %666, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !306
+  %669 = lshr <2 x i64> %668, <i64 32, i64 48>, !dbg !306
+  %670 = shufflevector <2 x i64> %667, <2 x i64> %669, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !310
+  %.sroa.501053.30.vec.insert1344 = trunc <4 x i64> %670 to <4 x i16>, !dbg !310
+  %671 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %276) #7, !dbg !312, !srcloc !146
+  %.sroa.036.2.extract.shift37.i573 = lshr i64 %671, 16, !dbg !315
+  %672 = insertelement <2 x i64> poison, i64 %671, i64 0, !dbg !315
+  %673 = insertelement <2 x i64> %672, i64 %.sroa.036.2.extract.shift37.i573, i64 1, !dbg !315
+  %674 = shufflevector <2 x i64> %672, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !312
+  %675 = lshr <2 x i64> %674, <i64 32, i64 48>, !dbg !312
+  %676 = shufflevector <2 x i64> %673, <2 x i64> %675, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !316
+  %.sroa.34968.22.vec.insert1343 = trunc <4 x i64> %676 to <4 x i16>, !dbg !316
+  %677 = tail call i64 asm sideeffect "ds_read_b64 $0, $1\0A", "=v,v,~{memory}"(i32 %280) #7, !dbg !312, !srcloc !146
+  %.sroa.036.2.extract.shift37.1.i582 = lshr i64 %677, 16, !dbg !315
+  %678 = insertelement <2 x i64> poison, i64 %677, i64 0, !dbg !315
+  %679 = insertelement <2 x i64> %678, i64 %.sroa.036.2.extract.shift37.1.i582, i64 1, !dbg !315
+  %680 = shufflevector <2 x i64> %678, <2 x i64> poison, <2 x i32> zeroinitializer, !dbg !312
+  %681 = lshr <2 x i64> %680, <i64 32, i64 48>, !dbg !312
+  %682 = shufflevector <2 x i64> %679, <2 x i64> %681, <4 x i32> <i32 0, i32 1, i32 2, i32 3>, !dbg !316
+  %.sroa.50985.30.vec.insert1342 = trunc <4 x i64> %682 to <4 x i16>, !dbg !316
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !318
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !319
+  tail call void asm sideeffect "s_waitcnt lgkmcnt(8)", ""() #7, !dbg !320, !srcloc !321
+  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !322
+  %683 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert1353, <4 x i16> %.sroa.0866.6.vec.insert1357, <4 x float> %571, i32 0, i32 0, i32 0), !dbg !323
+  %684 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert1353, <4 x i16> %.sroa.18883.14.vec.insert1356, <4 x float> %572, i32 0, i32 0, i32 0), !dbg !323
+  %685 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert1352, <4 x i16> %.sroa.0866.6.vec.insert1357, <4 x float> %573, i32 0, i32 0, i32 0), !dbg !323
+  %686 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert1352, <4 x i16> %.sroa.18883.14.vec.insert1356, <4 x float> %574, i32 0, i32 0, i32 0), !dbg !323
+  %687 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert1353, <4 x i16> %.sroa.0801.6.vec.insert1355, <4 x float> %575, i32 0, i32 0, i32 0), !dbg !327
+  %688 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.01002.6.vec.insert1353, <4 x i16> %.sroa.18.14.vec.insert1354, <4 x float> %576, i32 0, i32 0, i32 0), !dbg !327
+  %689 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert1352, <4 x i16> %.sroa.0801.6.vec.insert1355, <4 x float> %577, i32 0, i32 0, i32 0), !dbg !327
+  %690 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.181019.14.vec.insert1352, <4 x i16> %.sroa.18.14.vec.insert1354, <4 x float> %578, i32 0, i32 0, i32 0), !dbg !327
+  %691 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert1351, <4 x i16> %.sroa.0866.6.vec.insert1357, <4 x float> %579, i32 0, i32 0, i32 0), !dbg !331
+  %692 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert1351, <4 x i16> %.sroa.18883.14.vec.insert1356, <4 x float> %580, i32 0, i32 0, i32 0), !dbg !331
+  %693 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert1350, <4 x i16> %.sroa.0866.6.vec.insert1357, <4 x float> %581, i32 0, i32 0, i32 0), !dbg !331
+  %694 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert1350, <4 x i16> %.sroa.18883.14.vec.insert1356, <4 x float> %582, i32 0, i32 0, i32 0), !dbg !331
+  %695 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert1351, <4 x i16> %.sroa.0801.6.vec.insert1355, <4 x float> %583, i32 0, i32 0, i32 0), !dbg !335
+  %696 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.0934.6.vec.insert1351, <4 x i16> %.sroa.18.14.vec.insert1354, <4 x float> %584, i32 0, i32 0, i32 0), !dbg !335
+  %697 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert1350, <4 x i16> %.sroa.0801.6.vec.insert1355, <4 x float> %585, i32 0, i32 0, i32 0), !dbg !335
+  %698 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.18951.14.vec.insert1350, <4 x i16> %.sroa.18.14.vec.insert1354, <4 x float> %586, i32 0, i32 0, i32 0), !dbg !335
+  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !339
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !340
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !341
+  br i1 %.not, label %700, label %699, !dbg !342
 
-683:                                              ; preds = %554
-  tail call void asm sideeffect "s_waitcnt vmcnt(0)", ""() #7, !dbg !258, !srcloc !259
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %288, i64 %.sroa.0640.2.off0) #7, !dbg !260, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %292, i64 %.sroa.0640.2.off64) #7, !dbg !266, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %296, i64 %.sroa.5641.2.off0) #7, !dbg !260, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %300, i64 %.sroa.5641.2.off64) #7, !dbg !266, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %306, i64 %.sroa.0638.2.off0) #7, !dbg !268, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %310, i64 %.sroa.0638.2.off64) #7, !dbg !272, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %314, i64 %.sroa.5.2.off0) #7, !dbg !268, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %318, i64 %.sroa.5.2.off64) #7, !dbg !272, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %322, i64 %.sroa.8639.2.off0) #7, !dbg !268, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %326, i64 %.sroa.8639.2.off64) #7, !dbg !272, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %330, i64 %.sroa.11.2.off0) #7, !dbg !268, !srcloc !265
-  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %334, i64 %.sroa.11.2.off64) #7, !dbg !272, !srcloc !265
-  br label %684, !dbg !274
+699:                                              ; preds = %570
+  tail call void asm sideeffect "s_waitcnt vmcnt(4)", ""() #7, !dbg !343, !srcloc !344
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %288, i64 %.sroa.0798.2.off0) #7, !dbg !345, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %292, i64 %.sroa.0798.2.off64) #7, !dbg !351, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %296, i64 %.sroa.5799.2.off0) #7, !dbg !345, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %300, i64 %.sroa.5799.2.off64) #7, !dbg !351, !srcloc !350
+  tail call void asm sideeffect "s_waitcnt vmcnt(0)", ""() #7, !dbg !353, !srcloc !354
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %306, i64 %.sroa.0796.2.off0) #7, !dbg !355, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %310, i64 %.sroa.0796.2.off64) #7, !dbg !359, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %314, i64 %.sroa.5.2.off0) #7, !dbg !355, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %318, i64 %.sroa.5.2.off64) #7, !dbg !359, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %322, i64 %.sroa.8797.2.off0) #7, !dbg !355, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %326, i64 %.sroa.8797.2.off64) #7, !dbg !359, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %330, i64 %.sroa.11.2.off0) #7, !dbg !355, !srcloc !350
+  tail call void asm sideeffect "ds_write_b64 $0, $1\0A", "v,v,~{memory}"(i32 %334, i64 %.sroa.11.2.off64) #7, !dbg !359, !srcloc !350
+  br label %700, !dbg !361
 
-684:                                              ; preds = %683, %554
-  tail call void @llvm.amdgcn.s.barrier(), !dbg !275
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !276
-  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !277
-  %685 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34776.38.vec.insert1075, <4 x i16> %.sroa.34696.38.vec.insert1083, <4 x float> %652, i32 0, i32 0, i32 0), !dbg !278
-  %686 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42781.46.vec.insert1074, <4 x i16> %.sroa.42701.46.vec.insert1082, <4 x float> %685, i32 0, i32 0, i32 0), !dbg !282
-  %687 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34776.38.vec.insert1075, <4 x i16> %.sroa.50706.54.vec.insert1081, <4 x float> %654, i32 0, i32 0, i32 0), !dbg !278
-  %688 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42781.46.vec.insert1074, <4 x i16> %.sroa.58711.62.vec.insert1080, <4 x float> %687, i32 0, i32 0, i32 0), !dbg !282
-  %689 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50786.54.vec.insert1073, <4 x i16> %.sroa.34696.38.vec.insert1083, <4 x float> %656, i32 0, i32 0, i32 0), !dbg !278
-  %690 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58791.62.vec.insert1072, <4 x i16> %.sroa.42701.46.vec.insert1082, <4 x float> %689, i32 0, i32 0, i32 0), !dbg !282
-  %691 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50786.54.vec.insert1073, <4 x i16> %.sroa.50706.54.vec.insert1081, <4 x float> %658, i32 0, i32 0, i32 0), !dbg !278
-  %692 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58791.62.vec.insert1072, <4 x i16> %.sroa.58711.62.vec.insert1080, <4 x float> %691, i32 0, i32 0, i32 0), !dbg !282
-  %693 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34776.38.vec.insert1075, <4 x i16> %.sroa.34.38.vec.insert1079, <4 x float> %660, i32 0, i32 0, i32 0), !dbg !285
-  %694 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42781.46.vec.insert1074, <4 x i16> %.sroa.42.46.vec.insert1078, <4 x float> %693, i32 0, i32 0, i32 0), !dbg !289
-  %695 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34776.38.vec.insert1075, <4 x i16> %.sroa.50.54.vec.insert1077, <4 x float> %662, i32 0, i32 0, i32 0), !dbg !285
-  %696 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42781.46.vec.insert1074, <4 x i16> %.sroa.58.62.vec.insert1076, <4 x float> %695, i32 0, i32 0, i32 0), !dbg !289
-  %697 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50786.54.vec.insert1073, <4 x i16> %.sroa.34.38.vec.insert1079, <4 x float> %664, i32 0, i32 0, i32 0), !dbg !285
-  %698 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58791.62.vec.insert1072, <4 x i16> %.sroa.42.46.vec.insert1078, <4 x float> %697, i32 0, i32 0, i32 0), !dbg !289
-  %699 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50786.54.vec.insert1073, <4 x i16> %.sroa.50.54.vec.insert1077, <4 x float> %666, i32 0, i32 0, i32 0), !dbg !285
-  %700 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58791.62.vec.insert1072, <4 x i16> %.sroa.58.62.vec.insert1076, <4 x float> %699, i32 0, i32 0, i32 0), !dbg !289
-  %701 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34736.38.vec.insert1071, <4 x i16> %.sroa.34696.38.vec.insert1083, <4 x float> %668, i32 0, i32 0, i32 0), !dbg !292
-  %702 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42741.46.vec.insert1070, <4 x i16> %.sroa.42701.46.vec.insert1082, <4 x float> %701, i32 0, i32 0, i32 0), !dbg !296
-  %703 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34736.38.vec.insert1071, <4 x i16> %.sroa.50706.54.vec.insert1081, <4 x float> %670, i32 0, i32 0, i32 0), !dbg !292
-  %704 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42741.46.vec.insert1070, <4 x i16> %.sroa.58711.62.vec.insert1080, <4 x float> %703, i32 0, i32 0, i32 0), !dbg !296
-  %705 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50746.54.vec.insert1069, <4 x i16> %.sroa.34696.38.vec.insert1083, <4 x float> %672, i32 0, i32 0, i32 0), !dbg !292
-  %706 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58751.62.vec.insert1068, <4 x i16> %.sroa.42701.46.vec.insert1082, <4 x float> %705, i32 0, i32 0, i32 0), !dbg !296
-  %707 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50746.54.vec.insert1069, <4 x i16> %.sroa.50706.54.vec.insert1081, <4 x float> %674, i32 0, i32 0, i32 0), !dbg !292
-  %708 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58751.62.vec.insert1068, <4 x i16> %.sroa.58711.62.vec.insert1080, <4 x float> %707, i32 0, i32 0, i32 0), !dbg !296
-  %709 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34736.38.vec.insert1071, <4 x i16> %.sroa.34.38.vec.insert1079, <4 x float> %676, i32 0, i32 0, i32 0), !dbg !299
-  %710 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42741.46.vec.insert1070, <4 x i16> %.sroa.42.46.vec.insert1078, <4 x float> %709, i32 0, i32 0, i32 0), !dbg !303
-  %711 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34736.38.vec.insert1071, <4 x i16> %.sroa.50.54.vec.insert1077, <4 x float> %678, i32 0, i32 0, i32 0), !dbg !299
-  %712 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.42741.46.vec.insert1070, <4 x i16> %.sroa.58.62.vec.insert1076, <4 x float> %711, i32 0, i32 0, i32 0), !dbg !303
-  %713 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50746.54.vec.insert1069, <4 x i16> %.sroa.34.38.vec.insert1079, <4 x float> %680, i32 0, i32 0, i32 0), !dbg !299
-  %714 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58751.62.vec.insert1068, <4 x i16> %.sroa.42.46.vec.insert1078, <4 x float> %713, i32 0, i32 0, i32 0), !dbg !303
-  %715 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50746.54.vec.insert1069, <4 x i16> %.sroa.50.54.vec.insert1077, <4 x float> %682, i32 0, i32 0, i32 0), !dbg !299
-  %716 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.58751.62.vec.insert1068, <4 x i16> %.sroa.58.62.vec.insert1076, <4 x float> %715, i32 0, i32 0, i32 0), !dbg !303
-  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !306
-  tail call void @llvm.amdgcn.s.barrier(), !dbg !307
-  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !308
-  %exitcond.not = icmp eq i32 %436, 128, !dbg !309
-  br i1 %exitcond.not, label %425, label %426, !dbg !134, !llvm.loop !310
+700:                                              ; preds = %699, %570
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !362
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !363
+  tail call void asm sideeffect "s_waitcnt lgkmcnt(12)", ""() #7, !dbg !364, !srcloc !365
+  tail call void @llvm.amdgcn.s.setprio(i16 1), !dbg !366
+  %701 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert1345, <4 x i16> %.sroa.34900.22.vec.insert1349, <4 x float> %683, i32 0, i32 0, i32 0), !dbg !367
+  %702 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert1345, <4 x i16> %.sroa.50917.30.vec.insert1348, <4 x float> %684, i32 0, i32 0, i32 0), !dbg !367
+  %703 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert1344, <4 x i16> %.sroa.34900.22.vec.insert1349, <4 x float> %685, i32 0, i32 0, i32 0), !dbg !367
+  %704 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert1344, <4 x i16> %.sroa.50917.30.vec.insert1348, <4 x float> %686, i32 0, i32 0, i32 0), !dbg !367
+  %705 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert1345, <4 x i16> %.sroa.34.22.vec.insert1347, <4 x float> %687, i32 0, i32 0, i32 0), !dbg !371
+  %706 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.341036.22.vec.insert1345, <4 x i16> %.sroa.50.30.vec.insert1346, <4 x float> %688, i32 0, i32 0, i32 0), !dbg !371
+  %707 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert1344, <4 x i16> %.sroa.34.22.vec.insert1347, <4 x float> %689, i32 0, i32 0, i32 0), !dbg !371
+  %708 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.501053.30.vec.insert1344, <4 x i16> %.sroa.50.30.vec.insert1346, <4 x float> %690, i32 0, i32 0, i32 0), !dbg !371
+  %709 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert1343, <4 x i16> %.sroa.34900.22.vec.insert1349, <4 x float> %691, i32 0, i32 0, i32 0), !dbg !375
+  %710 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert1343, <4 x i16> %.sroa.50917.30.vec.insert1348, <4 x float> %692, i32 0, i32 0, i32 0), !dbg !375
+  %711 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert1342, <4 x i16> %.sroa.34900.22.vec.insert1349, <4 x float> %693, i32 0, i32 0, i32 0), !dbg !375
+  %712 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert1342, <4 x i16> %.sroa.50917.30.vec.insert1348, <4 x float> %694, i32 0, i32 0, i32 0), !dbg !375
+  %713 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert1343, <4 x i16> %.sroa.34.22.vec.insert1347, <4 x float> %695, i32 0, i32 0, i32 0), !dbg !379
+  %714 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.34968.22.vec.insert1343, <4 x i16> %.sroa.50.30.vec.insert1346, <4 x float> %696, i32 0, i32 0, i32 0), !dbg !379
+  %715 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert1342, <4 x i16> %.sroa.34.22.vec.insert1347, <4 x float> %697, i32 0, i32 0, i32 0), !dbg !379
+  %716 = tail call contract <4 x float> @llvm.amdgcn.mfma.f32.16x16x16bf16.1k(<4 x i16> %.sroa.50985.30.vec.insert1342, <4 x i16> %.sroa.50.30.vec.insert1346, <4 x float> %698, i32 0, i32 0, i32 0), !dbg !379
+  tail call void @llvm.amdgcn.s.setprio(i16 0), !dbg !383
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !384
+  tail call void @llvm.amdgcn.sched.barrier(i32 0), !dbg !385
+  %exitcond.not = icmp eq i32 %436, 128, !dbg !386
+  br i1 %exitcond.not, label %425, label %426, !dbg !134, !llvm.loop !387
 
 717:                                              ; preds = %425
-  tail call void @llvm.amdgcn.s.barrier(), !dbg !313
-  br label %718, !dbg !314
+  tail call void @llvm.amdgcn.s.barrier(), !dbg !390
+  br label %718, !dbg !391
 
 718:                                              ; preds = %717, %425
   %719 = shl nsw i32 %.sroa.0.0.vec.extract.i, 2
   %720 = or disjoint i32 %719, %14
   %721 = shl nsw i32 %.sroa.0.4.vec.extract.i, 3
-  %722 = or disjoint i32 %721, %15, !dbg !315
-  %723 = shl nsw i32 %720, 5, !dbg !316
-  %724 = shl nsw i32 %722, 5, !dbg !324
-  %725 = sext i32 %723 to i64, !dbg !325
-  %726 = mul i64 %.sroa.20.0.copyload, %725, !dbg !328
-  %727 = sext i32 %724 to i64, !dbg !329
-  %728 = getelementptr float, ptr %.sroa.17807.0.copyload, i64 %726, !dbg !330
-  %729 = getelementptr float, ptr %728, i64 %727, !dbg !330
-  %.sroa.0.0.vec.extract = extractelement <4 x float> %686, i64 0, !dbg !331
-  %730 = getelementptr inbounds float, ptr %729, i64 %345, !dbg !332
-  store float %.sroa.0.0.vec.extract, ptr %730, align 4, !dbg !333, !tbaa !334
-  %.sroa.0.4.vec.extract = extractelement <4 x float> %686, i64 1, !dbg !338
-  %731 = getelementptr inbounds float, ptr %729, i64 %347, !dbg !339
-  store float %.sroa.0.4.vec.extract, ptr %731, align 4, !dbg !340, !tbaa !334
-  %.sroa.0.8.vec.extract = extractelement <4 x float> %686, i64 2, !dbg !341
-  %732 = getelementptr inbounds float, ptr %729, i64 %349, !dbg !342
-  store float %.sroa.0.8.vec.extract, ptr %732, align 4, !dbg !343, !tbaa !334
-  %.sroa.0.12.vec.extract = extractelement <4 x float> %686, i64 3, !dbg !344
-  %733 = getelementptr inbounds float, ptr %729, i64 %351, !dbg !345
-  store float %.sroa.0.12.vec.extract, ptr %733, align 4, !dbg !346, !tbaa !334
-  %.sroa.12.16.vec.extract = extractelement <4 x float> %688, i64 0, !dbg !331
-  %734 = getelementptr inbounds float, ptr %729, i64 %353, !dbg !332
-  store float %.sroa.12.16.vec.extract, ptr %734, align 4, !dbg !333, !tbaa !334
-  %.sroa.12.20.vec.extract = extractelement <4 x float> %688, i64 1, !dbg !338
-  %735 = getelementptr inbounds float, ptr %729, i64 %355, !dbg !339
-  store float %.sroa.12.20.vec.extract, ptr %735, align 4, !dbg !340, !tbaa !334
-  %.sroa.12.24.vec.extract = extractelement <4 x float> %688, i64 2, !dbg !341
-  %736 = getelementptr inbounds float, ptr %729, i64 %357, !dbg !342
-  store float %.sroa.12.24.vec.extract, ptr %736, align 4, !dbg !343, !tbaa !334
-  %.sroa.12.28.vec.extract = extractelement <4 x float> %688, i64 3, !dbg !344
-  %737 = getelementptr inbounds float, ptr %729, i64 %359, !dbg !345
-  store float %.sroa.12.28.vec.extract, ptr %737, align 4, !dbg !346, !tbaa !334
-  %.sroa.22.32.vec.extract = extractelement <4 x float> %690, i64 0, !dbg !331
-  %738 = getelementptr inbounds float, ptr %729, i64 %369, !dbg !332
-  store float %.sroa.22.32.vec.extract, ptr %738, align 4, !dbg !333, !tbaa !334
-  %.sroa.22.36.vec.extract = extractelement <4 x float> %690, i64 1, !dbg !338
-  %739 = getelementptr inbounds float, ptr %729, i64 %371, !dbg !339
-  store float %.sroa.22.36.vec.extract, ptr %739, align 4, !dbg !340, !tbaa !334
-  %.sroa.22.40.vec.extract = extractelement <4 x float> %690, i64 2, !dbg !341
-  %740 = getelementptr inbounds float, ptr %729, i64 %373, !dbg !342
-  store float %.sroa.22.40.vec.extract, ptr %740, align 4, !dbg !343, !tbaa !334
-  %.sroa.22.44.vec.extract = extractelement <4 x float> %690, i64 3, !dbg !344
-  %741 = getelementptr inbounds float, ptr %729, i64 %375, !dbg !345
-  store float %.sroa.22.44.vec.extract, ptr %741, align 4, !dbg !346, !tbaa !334
-  %.sroa.32.48.vec.extract = extractelement <4 x float> %692, i64 0, !dbg !331
-  %742 = getelementptr inbounds float, ptr %729, i64 %377, !dbg !332
-  store float %.sroa.32.48.vec.extract, ptr %742, align 4, !dbg !333, !tbaa !334
-  %.sroa.32.52.vec.extract = extractelement <4 x float> %692, i64 1, !dbg !338
-  %743 = getelementptr inbounds float, ptr %729, i64 %379, !dbg !339
-  store float %.sroa.32.52.vec.extract, ptr %743, align 4, !dbg !340, !tbaa !334
-  %.sroa.32.56.vec.extract = extractelement <4 x float> %692, i64 2, !dbg !341
-  %744 = getelementptr inbounds float, ptr %729, i64 %381, !dbg !342
-  store float %.sroa.32.56.vec.extract, ptr %744, align 4, !dbg !343, !tbaa !334
-  %.sroa.32.60.vec.extract = extractelement <4 x float> %692, i64 3, !dbg !344
-  %745 = getelementptr inbounds float, ptr %729, i64 %383, !dbg !345
-  store float %.sroa.32.60.vec.extract, ptr %745, align 4, !dbg !346, !tbaa !334
-  %746 = or disjoint i32 %721, %15, !dbg !315
-  %747 = shl i32 %746, 5, !dbg !324
-  %748 = or disjoint i32 %747, 128, !dbg !324
-  %749 = sext i32 %748 to i64, !dbg !329
-  %750 = getelementptr float, ptr %728, i64 %749, !dbg !330
-  %.sroa.42.64.vec.extract = extractelement <4 x float> %694, i64 0, !dbg !331
-  %751 = getelementptr inbounds float, ptr %750, i64 %345, !dbg !332
-  store float %.sroa.42.64.vec.extract, ptr %751, align 4, !dbg !333, !tbaa !334
-  %.sroa.42.68.vec.extract = extractelement <4 x float> %694, i64 1, !dbg !338
-  %752 = getelementptr inbounds float, ptr %750, i64 %347, !dbg !339
-  store float %.sroa.42.68.vec.extract, ptr %752, align 4, !dbg !340, !tbaa !334
-  %.sroa.42.72.vec.extract = extractelement <4 x float> %694, i64 2, !dbg !341
-  %753 = getelementptr inbounds float, ptr %750, i64 %349, !dbg !342
-  store float %.sroa.42.72.vec.extract, ptr %753, align 4, !dbg !343, !tbaa !334
-  %.sroa.42.76.vec.extract = extractelement <4 x float> %694, i64 3, !dbg !344
-  %754 = getelementptr inbounds float, ptr %750, i64 %351, !dbg !345
-  store float %.sroa.42.76.vec.extract, ptr %754, align 4, !dbg !346, !tbaa !334
-  %.sroa.52.80.vec.extract = extractelement <4 x float> %696, i64 0, !dbg !331
-  %755 = getelementptr inbounds float, ptr %750, i64 %353, !dbg !332
-  store float %.sroa.52.80.vec.extract, ptr %755, align 4, !dbg !333, !tbaa !334
-  %.sroa.52.84.vec.extract = extractelement <4 x float> %696, i64 1, !dbg !338
-  %756 = getelementptr inbounds float, ptr %750, i64 %355, !dbg !339
-  store float %.sroa.52.84.vec.extract, ptr %756, align 4, !dbg !340, !tbaa !334
-  %.sroa.52.88.vec.extract = extractelement <4 x float> %696, i64 2, !dbg !341
-  %757 = getelementptr inbounds float, ptr %750, i64 %357, !dbg !342
-  store float %.sroa.52.88.vec.extract, ptr %757, align 4, !dbg !343, !tbaa !334
-  %.sroa.52.92.vec.extract = extractelement <4 x float> %696, i64 3, !dbg !344
-  %758 = getelementptr inbounds float, ptr %750, i64 %359, !dbg !345
-  store float %.sroa.52.92.vec.extract, ptr %758, align 4, !dbg !346, !tbaa !334
-  %.sroa.62.96.vec.extract = extractelement <4 x float> %698, i64 0, !dbg !331
-  %759 = getelementptr inbounds float, ptr %750, i64 %369, !dbg !332
-  store float %.sroa.62.96.vec.extract, ptr %759, align 4, !dbg !333, !tbaa !334
-  %.sroa.62.100.vec.extract = extractelement <4 x float> %698, i64 1, !dbg !338
-  %760 = getelementptr inbounds float, ptr %750, i64 %371, !dbg !339
-  store float %.sroa.62.100.vec.extract, ptr %760, align 4, !dbg !340, !tbaa !334
-  %.sroa.62.104.vec.extract = extractelement <4 x float> %698, i64 2, !dbg !341
-  %761 = getelementptr inbounds float, ptr %750, i64 %373, !dbg !342
-  store float %.sroa.62.104.vec.extract, ptr %761, align 4, !dbg !343, !tbaa !334
-  %.sroa.62.108.vec.extract = extractelement <4 x float> %698, i64 3, !dbg !344
-  %762 = getelementptr inbounds float, ptr %750, i64 %375, !dbg !345
-  store float %.sroa.62.108.vec.extract, ptr %762, align 4, !dbg !346, !tbaa !334
-  %.sroa.72.112.vec.extract = extractelement <4 x float> %700, i64 0, !dbg !331
-  %763 = getelementptr inbounds float, ptr %750, i64 %377, !dbg !332
-  store float %.sroa.72.112.vec.extract, ptr %763, align 4, !dbg !333, !tbaa !334
-  %.sroa.72.116.vec.extract = extractelement <4 x float> %700, i64 1, !dbg !338
-  %764 = getelementptr inbounds float, ptr %750, i64 %379, !dbg !339
-  store float %.sroa.72.116.vec.extract, ptr %764, align 4, !dbg !340, !tbaa !334
-  %.sroa.72.120.vec.extract = extractelement <4 x float> %700, i64 2, !dbg !341
-  %765 = getelementptr inbounds float, ptr %750, i64 %381, !dbg !342
-  store float %.sroa.72.120.vec.extract, ptr %765, align 4, !dbg !343, !tbaa !334
-  %.sroa.72.124.vec.extract = extractelement <4 x float> %700, i64 3, !dbg !344
-  %766 = getelementptr inbounds float, ptr %750, i64 %383, !dbg !345
-  store float %.sroa.72.124.vec.extract, ptr %766, align 4, !dbg !346, !tbaa !334
-  %767 = shl i32 %720, 5, !dbg !316
-  %768 = add i32 %767, 64, !dbg !316
-  %769 = sext i32 %768 to i64, !dbg !325
-  %770 = mul i64 %.sroa.20.0.copyload, %769, !dbg !328
-  %771 = getelementptr float, ptr %.sroa.17807.0.copyload, i64 %770, !dbg !330
-  %772 = getelementptr float, ptr %771, i64 %727, !dbg !330
-  %.sroa.82.128.vec.extract = extractelement <4 x float> %702, i64 0, !dbg !331
-  %773 = getelementptr inbounds float, ptr %772, i64 %345, !dbg !332
-  store float %.sroa.82.128.vec.extract, ptr %773, align 4, !dbg !333, !tbaa !334
-  %.sroa.82.132.vec.extract = extractelement <4 x float> %702, i64 1, !dbg !338
-  %774 = getelementptr inbounds float, ptr %772, i64 %347, !dbg !339
-  store float %.sroa.82.132.vec.extract, ptr %774, align 4, !dbg !340, !tbaa !334
-  %.sroa.82.136.vec.extract = extractelement <4 x float> %702, i64 2, !dbg !341
-  %775 = getelementptr inbounds float, ptr %772, i64 %349, !dbg !342
-  store float %.sroa.82.136.vec.extract, ptr %775, align 4, !dbg !343, !tbaa !334
-  %.sroa.82.140.vec.extract = extractelement <4 x float> %702, i64 3, !dbg !344
-  %776 = getelementptr inbounds float, ptr %772, i64 %351, !dbg !345
-  store float %.sroa.82.140.vec.extract, ptr %776, align 4, !dbg !346, !tbaa !334
-  %.sroa.92.144.vec.extract = extractelement <4 x float> %704, i64 0, !dbg !331
-  %777 = getelementptr inbounds float, ptr %772, i64 %353, !dbg !332
-  store float %.sroa.92.144.vec.extract, ptr %777, align 4, !dbg !333, !tbaa !334
-  %.sroa.92.148.vec.extract = extractelement <4 x float> %704, i64 1, !dbg !338
-  %778 = getelementptr inbounds float, ptr %772, i64 %355, !dbg !339
-  store float %.sroa.92.148.vec.extract, ptr %778, align 4, !dbg !340, !tbaa !334
-  %.sroa.92.152.vec.extract = extractelement <4 x float> %704, i64 2, !dbg !341
-  %779 = getelementptr inbounds float, ptr %772, i64 %357, !dbg !342
-  store float %.sroa.92.152.vec.extract, ptr %779, align 4, !dbg !343, !tbaa !334
-  %.sroa.92.156.vec.extract = extractelement <4 x float> %704, i64 3, !dbg !344
-  %780 = getelementptr inbounds float, ptr %772, i64 %359, !dbg !345
-  store float %.sroa.92.156.vec.extract, ptr %780, align 4, !dbg !346, !tbaa !334
-  %.sroa.102.160.vec.extract = extractelement <4 x float> %706, i64 0, !dbg !331
-  %781 = getelementptr inbounds float, ptr %772, i64 %369, !dbg !332
-  store float %.sroa.102.160.vec.extract, ptr %781, align 4, !dbg !333, !tbaa !334
-  %.sroa.102.164.vec.extract = extractelement <4 x float> %706, i64 1, !dbg !338
-  %782 = getelementptr inbounds float, ptr %772, i64 %371, !dbg !339
-  store float %.sroa.102.164.vec.extract, ptr %782, align 4, !dbg !340, !tbaa !334
-  %.sroa.102.168.vec.extract = extractelement <4 x float> %706, i64 2, !dbg !341
-  %783 = getelementptr inbounds float, ptr %772, i64 %373, !dbg !342
-  store float %.sroa.102.168.vec.extract, ptr %783, align 4, !dbg !343, !tbaa !334
-  %.sroa.102.172.vec.extract = extractelement <4 x float> %706, i64 3, !dbg !344
-  %784 = getelementptr inbounds float, ptr %772, i64 %375, !dbg !345
-  store float %.sroa.102.172.vec.extract, ptr %784, align 4, !dbg !346, !tbaa !334
-  %.sroa.112.176.vec.extract = extractelement <4 x float> %708, i64 0, !dbg !331
-  %785 = getelementptr inbounds float, ptr %772, i64 %377, !dbg !332
-  store float %.sroa.112.176.vec.extract, ptr %785, align 4, !dbg !333, !tbaa !334
-  %.sroa.112.180.vec.extract = extractelement <4 x float> %708, i64 1, !dbg !338
-  %786 = getelementptr inbounds float, ptr %772, i64 %379, !dbg !339
-  store float %.sroa.112.180.vec.extract, ptr %786, align 4, !dbg !340, !tbaa !334
-  %.sroa.112.184.vec.extract = extractelement <4 x float> %708, i64 2, !dbg !341
-  %787 = getelementptr inbounds float, ptr %772, i64 %381, !dbg !342
-  store float %.sroa.112.184.vec.extract, ptr %787, align 4, !dbg !343, !tbaa !334
-  %.sroa.112.188.vec.extract = extractelement <4 x float> %708, i64 3, !dbg !344
-  %788 = getelementptr inbounds float, ptr %772, i64 %383, !dbg !345
-  store float %.sroa.112.188.vec.extract, ptr %788, align 4, !dbg !346, !tbaa !334
-  %789 = getelementptr float, ptr %771, i64 %749, !dbg !330
-  %.sroa.122.192.vec.extract = extractelement <4 x float> %710, i64 0, !dbg !331
-  %790 = getelementptr inbounds float, ptr %789, i64 %345, !dbg !332
-  store float %.sroa.122.192.vec.extract, ptr %790, align 4, !dbg !333, !tbaa !334
-  %.sroa.122.196.vec.extract = extractelement <4 x float> %710, i64 1, !dbg !338
-  %791 = getelementptr inbounds float, ptr %789, i64 %347, !dbg !339
-  store float %.sroa.122.196.vec.extract, ptr %791, align 4, !dbg !340, !tbaa !334
-  %.sroa.122.200.vec.extract = extractelement <4 x float> %710, i64 2, !dbg !341
-  %792 = getelementptr inbounds float, ptr %789, i64 %349, !dbg !342
-  store float %.sroa.122.200.vec.extract, ptr %792, align 4, !dbg !343, !tbaa !334
-  %.sroa.122.204.vec.extract = extractelement <4 x float> %710, i64 3, !dbg !344
-  %793 = getelementptr inbounds float, ptr %789, i64 %351, !dbg !345
-  store float %.sroa.122.204.vec.extract, ptr %793, align 4, !dbg !346, !tbaa !334
-  %.sroa.132.208.vec.extract = extractelement <4 x float> %712, i64 0, !dbg !331
-  %794 = getelementptr inbounds float, ptr %789, i64 %353, !dbg !332
-  store float %.sroa.132.208.vec.extract, ptr %794, align 4, !dbg !333, !tbaa !334
-  %.sroa.132.212.vec.extract = extractelement <4 x float> %712, i64 1, !dbg !338
-  %795 = getelementptr inbounds float, ptr %789, i64 %355, !dbg !339
-  store float %.sroa.132.212.vec.extract, ptr %795, align 4, !dbg !340, !tbaa !334
-  %.sroa.132.216.vec.extract = extractelement <4 x float> %712, i64 2, !dbg !341
-  %796 = getelementptr inbounds float, ptr %789, i64 %357, !dbg !342
-  store float %.sroa.132.216.vec.extract, ptr %796, align 4, !dbg !343, !tbaa !334
-  %.sroa.132.220.vec.extract = extractelement <4 x float> %712, i64 3, !dbg !344
-  %797 = getelementptr inbounds float, ptr %789, i64 %359, !dbg !345
-  store float %.sroa.132.220.vec.extract, ptr %797, align 4, !dbg !346, !tbaa !334
-  %.sroa.142.224.vec.extract = extractelement <4 x float> %714, i64 0, !dbg !331
-  %798 = getelementptr inbounds float, ptr %789, i64 %369, !dbg !332
-  store float %.sroa.142.224.vec.extract, ptr %798, align 4, !dbg !333, !tbaa !334
-  %.sroa.142.228.vec.extract = extractelement <4 x float> %714, i64 1, !dbg !338
-  %799 = getelementptr inbounds float, ptr %789, i64 %371, !dbg !339
-  store float %.sroa.142.228.vec.extract, ptr %799, align 4, !dbg !340, !tbaa !334
-  %.sroa.142.232.vec.extract = extractelement <4 x float> %714, i64 2, !dbg !341
-  %800 = getelementptr inbounds float, ptr %789, i64 %373, !dbg !342
-  store float %.sroa.142.232.vec.extract, ptr %800, align 4, !dbg !343, !tbaa !334
-  %.sroa.142.236.vec.extract = extractelement <4 x float> %714, i64 3, !dbg !344
-  %801 = getelementptr inbounds float, ptr %789, i64 %375, !dbg !345
-  store float %.sroa.142.236.vec.extract, ptr %801, align 4, !dbg !346, !tbaa !334
-  %.sroa.152.240.vec.extract = extractelement <4 x float> %716, i64 0, !dbg !331
-  %802 = getelementptr inbounds float, ptr %789, i64 %377, !dbg !332
-  store float %.sroa.152.240.vec.extract, ptr %802, align 4, !dbg !333, !tbaa !334
-  %.sroa.152.244.vec.extract = extractelement <4 x float> %716, i64 1, !dbg !338
-  %803 = getelementptr inbounds float, ptr %789, i64 %379, !dbg !339
-  store float %.sroa.152.244.vec.extract, ptr %803, align 4, !dbg !340, !tbaa !334
-  %.sroa.152.248.vec.extract = extractelement <4 x float> %716, i64 2, !dbg !341
-  %804 = getelementptr inbounds float, ptr %789, i64 %381, !dbg !342
-  store float %.sroa.152.248.vec.extract, ptr %804, align 4, !dbg !343, !tbaa !334
-  %.sroa.152.252.vec.extract = extractelement <4 x float> %716, i64 3, !dbg !344
-  %805 = getelementptr inbounds float, ptr %789, i64 %383, !dbg !345
-  store float %.sroa.152.252.vec.extract, ptr %805, align 4, !dbg !346, !tbaa !334
-  %806 = add nuw nsw i32 %.0, 1, !dbg !347
-  br label %384, !dbg !348, !llvm.loop !349
+  %722 = or disjoint i32 %721, %15, !dbg !392
+  %723 = shl nsw i32 %720, 5, !dbg !393
+  %724 = shl nsw i32 %722, 5, !dbg !401
+  %725 = sext i32 %723 to i64, !dbg !402
+  %726 = mul i64 %.sroa.20.0.copyload, %725, !dbg !405
+  %727 = sext i32 %724 to i64, !dbg !406
+  %728 = getelementptr float, ptr %.sroa.171081.0.copyload, i64 %726, !dbg !407
+  %729 = getelementptr float, ptr %728, i64 %727, !dbg !407
+  %.sroa.0.0.vec.extract = extractelement <4 x float> %701, i64 0, !dbg !408
+  %730 = getelementptr inbounds float, ptr %729, i64 %345, !dbg !409
+  store float %.sroa.0.0.vec.extract, ptr %730, align 4, !dbg !410, !tbaa !411
+  %.sroa.0.4.vec.extract = extractelement <4 x float> %701, i64 1, !dbg !415
+  %731 = getelementptr inbounds float, ptr %729, i64 %347, !dbg !416
+  store float %.sroa.0.4.vec.extract, ptr %731, align 4, !dbg !417, !tbaa !411
+  %.sroa.0.8.vec.extract = extractelement <4 x float> %701, i64 2, !dbg !418
+  %732 = getelementptr inbounds float, ptr %729, i64 %349, !dbg !419
+  store float %.sroa.0.8.vec.extract, ptr %732, align 4, !dbg !420, !tbaa !411
+  %.sroa.0.12.vec.extract = extractelement <4 x float> %701, i64 3, !dbg !421
+  %733 = getelementptr inbounds float, ptr %729, i64 %351, !dbg !422
+  store float %.sroa.0.12.vec.extract, ptr %733, align 4, !dbg !423, !tbaa !411
+  %.sroa.12.16.vec.extract = extractelement <4 x float> %702, i64 0, !dbg !408
+  %734 = getelementptr inbounds float, ptr %729, i64 %353, !dbg !409
+  store float %.sroa.12.16.vec.extract, ptr %734, align 4, !dbg !410, !tbaa !411
+  %.sroa.12.20.vec.extract = extractelement <4 x float> %702, i64 1, !dbg !415
+  %735 = getelementptr inbounds float, ptr %729, i64 %355, !dbg !416
+  store float %.sroa.12.20.vec.extract, ptr %735, align 4, !dbg !417, !tbaa !411
+  %.sroa.12.24.vec.extract = extractelement <4 x float> %702, i64 2, !dbg !418
+  %736 = getelementptr inbounds float, ptr %729, i64 %357, !dbg !419
+  store float %.sroa.12.24.vec.extract, ptr %736, align 4, !dbg !420, !tbaa !411
+  %.sroa.12.28.vec.extract = extractelement <4 x float> %702, i64 3, !dbg !421
+  %737 = getelementptr inbounds float, ptr %729, i64 %359, !dbg !422
+  store float %.sroa.12.28.vec.extract, ptr %737, align 4, !dbg !423, !tbaa !411
+  %.sroa.22.32.vec.extract = extractelement <4 x float> %703, i64 0, !dbg !408
+  %738 = getelementptr inbounds float, ptr %729, i64 %369, !dbg !409
+  store float %.sroa.22.32.vec.extract, ptr %738, align 4, !dbg !410, !tbaa !411
+  %.sroa.22.36.vec.extract = extractelement <4 x float> %703, i64 1, !dbg !415
+  %739 = getelementptr inbounds float, ptr %729, i64 %371, !dbg !416
+  store float %.sroa.22.36.vec.extract, ptr %739, align 4, !dbg !417, !tbaa !411
+  %.sroa.22.40.vec.extract = extractelement <4 x float> %703, i64 2, !dbg !418
+  %740 = getelementptr inbounds float, ptr %729, i64 %373, !dbg !419
+  store float %.sroa.22.40.vec.extract, ptr %740, align 4, !dbg !420, !tbaa !411
+  %.sroa.22.44.vec.extract = extractelement <4 x float> %703, i64 3, !dbg !421
+  %741 = getelementptr inbounds float, ptr %729, i64 %375, !dbg !422
+  store float %.sroa.22.44.vec.extract, ptr %741, align 4, !dbg !423, !tbaa !411
+  %.sroa.32.48.vec.extract = extractelement <4 x float> %704, i64 0, !dbg !408
+  %742 = getelementptr inbounds float, ptr %729, i64 %377, !dbg !409
+  store float %.sroa.32.48.vec.extract, ptr %742, align 4, !dbg !410, !tbaa !411
+  %.sroa.32.52.vec.extract = extractelement <4 x float> %704, i64 1, !dbg !415
+  %743 = getelementptr inbounds float, ptr %729, i64 %379, !dbg !416
+  store float %.sroa.32.52.vec.extract, ptr %743, align 4, !dbg !417, !tbaa !411
+  %.sroa.32.56.vec.extract = extractelement <4 x float> %704, i64 2, !dbg !418
+  %744 = getelementptr inbounds float, ptr %729, i64 %381, !dbg !419
+  store float %.sroa.32.56.vec.extract, ptr %744, align 4, !dbg !420, !tbaa !411
+  %.sroa.32.60.vec.extract = extractelement <4 x float> %704, i64 3, !dbg !421
+  %745 = getelementptr inbounds float, ptr %729, i64 %383, !dbg !422
+  store float %.sroa.32.60.vec.extract, ptr %745, align 4, !dbg !423, !tbaa !411
+  %746 = or disjoint i32 %721, %15, !dbg !392
+  %747 = shl i32 %746, 5, !dbg !401
+  %748 = or disjoint i32 %747, 128, !dbg !401
+  %749 = sext i32 %748 to i64, !dbg !406
+  %750 = getelementptr float, ptr %728, i64 %749, !dbg !407
+  %.sroa.42.64.vec.extract = extractelement <4 x float> %705, i64 0, !dbg !408
+  %751 = getelementptr inbounds float, ptr %750, i64 %345, !dbg !409
+  store float %.sroa.42.64.vec.extract, ptr %751, align 4, !dbg !410, !tbaa !411
+  %.sroa.42.68.vec.extract = extractelement <4 x float> %705, i64 1, !dbg !415
+  %752 = getelementptr inbounds float, ptr %750, i64 %347, !dbg !416
+  store float %.sroa.42.68.vec.extract, ptr %752, align 4, !dbg !417, !tbaa !411
+  %.sroa.42.72.vec.extract = extractelement <4 x float> %705, i64 2, !dbg !418
+  %753 = getelementptr inbounds float, ptr %750, i64 %349, !dbg !419
+  store float %.sroa.42.72.vec.extract, ptr %753, align 4, !dbg !420, !tbaa !411
+  %.sroa.42.76.vec.extract = extractelement <4 x float> %705, i64 3, !dbg !421
+  %754 = getelementptr inbounds float, ptr %750, i64 %351, !dbg !422
+  store float %.sroa.42.76.vec.extract, ptr %754, align 4, !dbg !423, !tbaa !411
+  %.sroa.52.80.vec.extract = extractelement <4 x float> %706, i64 0, !dbg !408
+  %755 = getelementptr inbounds float, ptr %750, i64 %353, !dbg !409
+  store float %.sroa.52.80.vec.extract, ptr %755, align 4, !dbg !410, !tbaa !411
+  %.sroa.52.84.vec.extract = extractelement <4 x float> %706, i64 1, !dbg !415
+  %756 = getelementptr inbounds float, ptr %750, i64 %355, !dbg !416
+  store float %.sroa.52.84.vec.extract, ptr %756, align 4, !dbg !417, !tbaa !411
+  %.sroa.52.88.vec.extract = extractelement <4 x float> %706, i64 2, !dbg !418
+  %757 = getelementptr inbounds float, ptr %750, i64 %357, !dbg !419
+  store float %.sroa.52.88.vec.extract, ptr %757, align 4, !dbg !420, !tbaa !411
+  %.sroa.52.92.vec.extract = extractelement <4 x float> %706, i64 3, !dbg !421
+  %758 = getelementptr inbounds float, ptr %750, i64 %359, !dbg !422
+  store float %.sroa.52.92.vec.extract, ptr %758, align 4, !dbg !423, !tbaa !411
+  %.sroa.62.96.vec.extract = extractelement <4 x float> %707, i64 0, !dbg !408
+  %759 = getelementptr inbounds float, ptr %750, i64 %369, !dbg !409
+  store float %.sroa.62.96.vec.extract, ptr %759, align 4, !dbg !410, !tbaa !411
+  %.sroa.62.100.vec.extract = extractelement <4 x float> %707, i64 1, !dbg !415
+  %760 = getelementptr inbounds float, ptr %750, i64 %371, !dbg !416
+  store float %.sroa.62.100.vec.extract, ptr %760, align 4, !dbg !417, !tbaa !411
+  %.sroa.62.104.vec.extract = extractelement <4 x float> %707, i64 2, !dbg !418
+  %761 = getelementptr inbounds float, ptr %750, i64 %373, !dbg !419
+  store float %.sroa.62.104.vec.extract, ptr %761, align 4, !dbg !420, !tbaa !411
+  %.sroa.62.108.vec.extract = extractelement <4 x float> %707, i64 3, !dbg !421
+  %762 = getelementptr inbounds float, ptr %750, i64 %375, !dbg !422
+  store float %.sroa.62.108.vec.extract, ptr %762, align 4, !dbg !423, !tbaa !411
+  %.sroa.72.112.vec.extract = extractelement <4 x float> %708, i64 0, !dbg !408
+  %763 = getelementptr inbounds float, ptr %750, i64 %377, !dbg !409
+  store float %.sroa.72.112.vec.extract, ptr %763, align 4, !dbg !410, !tbaa !411
+  %.sroa.72.116.vec.extract = extractelement <4 x float> %708, i64 1, !dbg !415
+  %764 = getelementptr inbounds float, ptr %750, i64 %379, !dbg !416
+  store float %.sroa.72.116.vec.extract, ptr %764, align 4, !dbg !417, !tbaa !411
+  %.sroa.72.120.vec.extract = extractelement <4 x float> %708, i64 2, !dbg !418
+  %765 = getelementptr inbounds float, ptr %750, i64 %381, !dbg !419
+  store float %.sroa.72.120.vec.extract, ptr %765, align 4, !dbg !420, !tbaa !411
+  %.sroa.72.124.vec.extract = extractelement <4 x float> %708, i64 3, !dbg !421
+  %766 = getelementptr inbounds float, ptr %750, i64 %383, !dbg !422
+  store float %.sroa.72.124.vec.extract, ptr %766, align 4, !dbg !423, !tbaa !411
+  %767 = shl i32 %720, 5, !dbg !393
+  %768 = add i32 %767, 64, !dbg !393
+  %769 = sext i32 %768 to i64, !dbg !402
+  %770 = mul i64 %.sroa.20.0.copyload, %769, !dbg !405
+  %771 = getelementptr float, ptr %.sroa.171081.0.copyload, i64 %770, !dbg !407
+  %772 = getelementptr float, ptr %771, i64 %727, !dbg !407
+  %.sroa.82.128.vec.extract = extractelement <4 x float> %709, i64 0, !dbg !408
+  %773 = getelementptr inbounds float, ptr %772, i64 %345, !dbg !409
+  store float %.sroa.82.128.vec.extract, ptr %773, align 4, !dbg !410, !tbaa !411
+  %.sroa.82.132.vec.extract = extractelement <4 x float> %709, i64 1, !dbg !415
+  %774 = getelementptr inbounds float, ptr %772, i64 %347, !dbg !416
+  store float %.sroa.82.132.vec.extract, ptr %774, align 4, !dbg !417, !tbaa !411
+  %.sroa.82.136.vec.extract = extractelement <4 x float> %709, i64 2, !dbg !418
+  %775 = getelementptr inbounds float, ptr %772, i64 %349, !dbg !419
+  store float %.sroa.82.136.vec.extract, ptr %775, align 4, !dbg !420, !tbaa !411
+  %.sroa.82.140.vec.extract = extractelement <4 x float> %709, i64 3, !dbg !421
+  %776 = getelementptr inbounds float, ptr %772, i64 %351, !dbg !422
+  store float %.sroa.82.140.vec.extract, ptr %776, align 4, !dbg !423, !tbaa !411
+  %.sroa.92.144.vec.extract = extractelement <4 x float> %710, i64 0, !dbg !408
+  %777 = getelementptr inbounds float, ptr %772, i64 %353, !dbg !409
+  store float %.sroa.92.144.vec.extract, ptr %777, align 4, !dbg !410, !tbaa !411
+  %.sroa.92.148.vec.extract = extractelement <4 x float> %710, i64 1, !dbg !415
+  %778 = getelementptr inbounds float, ptr %772, i64 %355, !dbg !416
+  store float %.sroa.92.148.vec.extract, ptr %778, align 4, !dbg !417, !tbaa !411
+  %.sroa.92.152.vec.extract = extractelement <4 x float> %710, i64 2, !dbg !418
+  %779 = getelementptr inbounds float, ptr %772, i64 %357, !dbg !419
+  store float %.sroa.92.152.vec.extract, ptr %779, align 4, !dbg !420, !tbaa !411
+  %.sroa.92.156.vec.extract = extractelement <4 x float> %710, i64 3, !dbg !421
+  %780 = getelementptr inbounds float, ptr %772, i64 %359, !dbg !422
+  store float %.sroa.92.156.vec.extract, ptr %780, align 4, !dbg !423, !tbaa !411
+  %.sroa.102.160.vec.extract = extractelement <4 x float> %711, i64 0, !dbg !408
+  %781 = getelementptr inbounds float, ptr %772, i64 %369, !dbg !409
+  store float %.sroa.102.160.vec.extract, ptr %781, align 4, !dbg !410, !tbaa !411
+  %.sroa.102.164.vec.extract = extractelement <4 x float> %711, i64 1, !dbg !415
+  %782 = getelementptr inbounds float, ptr %772, i64 %371, !dbg !416
+  store float %.sroa.102.164.vec.extract, ptr %782, align 4, !dbg !417, !tbaa !411
+  %.sroa.102.168.vec.extract = extractelement <4 x float> %711, i64 2, !dbg !418
+  %783 = getelementptr inbounds float, ptr %772, i64 %373, !dbg !419
+  store float %.sroa.102.168.vec.extract, ptr %783, align 4, !dbg !420, !tbaa !411
+  %.sroa.102.172.vec.extract = extractelement <4 x float> %711, i64 3, !dbg !421
+  %784 = getelementptr inbounds float, ptr %772, i64 %375, !dbg !422
+  store float %.sroa.102.172.vec.extract, ptr %784, align 4, !dbg !423, !tbaa !411
+  %.sroa.112.176.vec.extract = extractelement <4 x float> %712, i64 0, !dbg !408
+  %785 = getelementptr inbounds float, ptr %772, i64 %377, !dbg !409
+  store float %.sroa.112.176.vec.extract, ptr %785, align 4, !dbg !410, !tbaa !411
+  %.sroa.112.180.vec.extract = extractelement <4 x float> %712, i64 1, !dbg !415
+  %786 = getelementptr inbounds float, ptr %772, i64 %379, !dbg !416
+  store float %.sroa.112.180.vec.extract, ptr %786, align 4, !dbg !417, !tbaa !411
+  %.sroa.112.184.vec.extract = extractelement <4 x float> %712, i64 2, !dbg !418
+  %787 = getelementptr inbounds float, ptr %772, i64 %381, !dbg !419
+  store float %.sroa.112.184.vec.extract, ptr %787, align 4, !dbg !420, !tbaa !411
+  %.sroa.112.188.vec.extract = extractelement <4 x float> %712, i64 3, !dbg !421
+  %788 = getelementptr inbounds float, ptr %772, i64 %383, !dbg !422
+  store float %.sroa.112.188.vec.extract, ptr %788, align 4, !dbg !423, !tbaa !411
+  %789 = getelementptr float, ptr %771, i64 %749, !dbg !407
+  %.sroa.122.192.vec.extract = extractelement <4 x float> %713, i64 0, !dbg !408
+  %790 = getelementptr inbounds float, ptr %789, i64 %345, !dbg !409
+  store float %.sroa.122.192.vec.extract, ptr %790, align 4, !dbg !410, !tbaa !411
+  %.sroa.122.196.vec.extract = extractelement <4 x float> %713, i64 1, !dbg !415
+  %791 = getelementptr inbounds float, ptr %789, i64 %347, !dbg !416
+  store float %.sroa.122.196.vec.extract, ptr %791, align 4, !dbg !417, !tbaa !411
+  %.sroa.122.200.vec.extract = extractelement <4 x float> %713, i64 2, !dbg !418
+  %792 = getelementptr inbounds float, ptr %789, i64 %349, !dbg !419
+  store float %.sroa.122.200.vec.extract, ptr %792, align 4, !dbg !420, !tbaa !411
+  %.sroa.122.204.vec.extract = extractelement <4 x float> %713, i64 3, !dbg !421
+  %793 = getelementptr inbounds float, ptr %789, i64 %351, !dbg !422
+  store float %.sroa.122.204.vec.extract, ptr %793, align 4, !dbg !423, !tbaa !411
+  %.sroa.132.208.vec.extract = extractelement <4 x float> %714, i64 0, !dbg !408
+  %794 = getelementptr inbounds float, ptr %789, i64 %353, !dbg !409
+  store float %.sroa.132.208.vec.extract, ptr %794, align 4, !dbg !410, !tbaa !411
+  %.sroa.132.212.vec.extract = extractelement <4 x float> %714, i64 1, !dbg !415
+  %795 = getelementptr inbounds float, ptr %789, i64 %355, !dbg !416
+  store float %.sroa.132.212.vec.extract, ptr %795, align 4, !dbg !417, !tbaa !411
+  %.sroa.132.216.vec.extract = extractelement <4 x float> %714, i64 2, !dbg !418
+  %796 = getelementptr inbounds float, ptr %789, i64 %357, !dbg !419
+  store float %.sroa.132.216.vec.extract, ptr %796, align 4, !dbg !420, !tbaa !411
+  %.sroa.132.220.vec.extract = extractelement <4 x float> %714, i64 3, !dbg !421
+  %797 = getelementptr inbounds float, ptr %789, i64 %359, !dbg !422
+  store float %.sroa.132.220.vec.extract, ptr %797, align 4, !dbg !423, !tbaa !411
+  %.sroa.142.224.vec.extract = extractelement <4 x float> %715, i64 0, !dbg !408
+  %798 = getelementptr inbounds float, ptr %789, i64 %369, !dbg !409
+  store float %.sroa.142.224.vec.extract, ptr %798, align 4, !dbg !410, !tbaa !411
+  %.sroa.142.228.vec.extract = extractelement <4 x float> %715, i64 1, !dbg !415
+  %799 = getelementptr inbounds float, ptr %789, i64 %371, !dbg !416
+  store float %.sroa.142.228.vec.extract, ptr %799, align 4, !dbg !417, !tbaa !411
+  %.sroa.142.232.vec.extract = extractelement <4 x float> %715, i64 2, !dbg !418
+  %800 = getelementptr inbounds float, ptr %789, i64 %373, !dbg !419
+  store float %.sroa.142.232.vec.extract, ptr %800, align 4, !dbg !420, !tbaa !411
+  %.sroa.142.236.vec.extract = extractelement <4 x float> %715, i64 3, !dbg !421
+  %801 = getelementptr inbounds float, ptr %789, i64 %375, !dbg !422
+  store float %.sroa.142.236.vec.extract, ptr %801, align 4, !dbg !423, !tbaa !411
+  %.sroa.152.240.vec.extract = extractelement <4 x float> %716, i64 0, !dbg !408
+  %802 = getelementptr inbounds float, ptr %789, i64 %377, !dbg !409
+  store float %.sroa.152.240.vec.extract, ptr %802, align 4, !dbg !410, !tbaa !411
+  %.sroa.152.244.vec.extract = extractelement <4 x float> %716, i64 1, !dbg !415
+  %803 = getelementptr inbounds float, ptr %789, i64 %379, !dbg !416
+  store float %.sroa.152.244.vec.extract, ptr %803, align 4, !dbg !417, !tbaa !411
+  %.sroa.152.248.vec.extract = extractelement <4 x float> %716, i64 2, !dbg !418
+  %804 = getelementptr inbounds float, ptr %789, i64 %381, !dbg !419
+  store float %.sroa.152.248.vec.extract, ptr %804, align 4, !dbg !420, !tbaa !411
+  %.sroa.152.252.vec.extract = extractelement <4 x float> %716, i64 3, !dbg !421
+  %805 = getelementptr inbounds float, ptr %789, i64 %383, !dbg !422
+  store float %.sroa.152.252.vec.extract, ptr %805, align 4, !dbg !423, !tbaa !411
+  %806 = add nuw nsw i32 %.0, 1, !dbg !424
+  br label %384, !dbg !425, !llvm.loop !426
 
 .critedge:                                        ; preds = %_Z12get_task_idxi.exit
-  ret void, !dbg !351
+  ret void, !dbg !428
 }
 
 ; Function Attrs: convergent mustprogress nocallback nofree nounwind willreturn
@@ -1393,218 +1409,295 @@ attributes #7 = { convergent nounwind }
 !134 = !DILocation(line: 114, column: 9, scope: !9)
 !135 = !DILocation(line: 111, column: 13, scope: !9)
 !136 = !DILocation(line: 112, column: 9, scope: !9)
-!137 = !DILocation(line: 173, column: 13, scope: !9)
-!138 = !DILocation(line: 116, column: 39, scope: !9)
-!139 = !DILocation(line: 116, column: 43, scope: !9)
-!140 = !DILocation(line: 118, column: 17, scope: !9)
-!141 = !DILocation(line: 26, column: 23, scope: !142, inlinedAt: !144)
-!142 = distinct !DISubprogram(name: "buffer_load_vec4", scope: !143, file: !143, line: 25, type: !10, scopeLine: 25, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!143 = !DIFile(filename: "./../utils.cpp", directory: "/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/256_128_64_16_persist")
-!144 = distinct !DILocation(line: 77, column: 39, scope: !145, inlinedAt: !146)
-!145 = distinct !DISubprogram(name: "load_global_to_registers<2, false, kittens::st<__hip_bfloat16, 128, 64>, kittens::gl<__hip_bfloat16, -1, -1, -1, -1>, kittens::coord<kittens::st<__hip_bfloat16, 128, 64> >, 512>", scope: !143, file: !143, line: 41, type: !10, scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!146 = distinct !DILocation(line: 119, column: 17, scope: !9)
-!147 = !DILocation(line: 121, column: 13, scope: !9)
-!148 = !DILocation(line: 122, column: 13, scope: !9)
-!149 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !151)
-!150 = distinct !DISubprogram(name: "load_shared_vec_async", scope: !143, file: !143, line: 127, type: !10, scopeLine: 127, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!151 = distinct !DILocation(line: 185, column: 37, scope: !152, inlinedAt: !153)
-!152 = distinct !DISubprogram(name: "load_async_shared_to_register<kittens::rt<__hip_bfloat16, 32, 32, kittens::ducks::rt_layout::row>, kittens::st_subtile<kittens::st<__hip_bfloat16, 256, 64>, 32, 32> >", scope: !143, file: !143, line: 147, type: !10, scopeLine: 147, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!153 = distinct !DILocation(line: 124, column: 13, scope: !9)
-!154 = !{i64 4294499}
-!155 = !DILocation(line: 187, column: 47, scope: !152, inlinedAt: !153)
-!156 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !159)
-!157 = distinct !DISubprogram(name: "operator=", scope: !158, file: !158, line: 492, type: !10, scopeLine: 492, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!158 = !DIFile(filename: "/opt/rocm-6.4.1/lib/llvm/bin/../../../include/hip/amd_detail/amd_hip_bf16.h", directory: "")
-!159 = distinct !DILocation(line: 188, column: 45, scope: !152, inlinedAt: !153)
-!160 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !161)
-!161 = distinct !DILocation(line: 185, column: 37, scope: !152, inlinedAt: !162)
-!162 = distinct !DILocation(line: 125, column: 13, scope: !9)
-!163 = !DILocation(line: 187, column: 47, scope: !152, inlinedAt: !162)
-!164 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !165)
-!165 = distinct !DILocation(line: 188, column: 45, scope: !152, inlinedAt: !162)
-!166 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !167)
-!167 = distinct !DILocation(line: 185, column: 37, scope: !168, inlinedAt: !169)
-!168 = distinct !DISubprogram(name: "load_async_shared_to_register<kittens::rt<__hip_bfloat16, 32, 32, kittens::ducks::rt_layout::row>, kittens::st_subtile<kittens::st<__hip_bfloat16, 128, 64>, 32, 32> >", scope: !143, file: !143, line: 147, type: !10, scopeLine: 147, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!169 = distinct !DILocation(line: 126, column: 13, scope: !9)
-!170 = !DILocation(line: 187, column: 47, scope: !168, inlinedAt: !169)
-!171 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !172)
-!172 = distinct !DILocation(line: 188, column: 45, scope: !168, inlinedAt: !169)
-!173 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !174)
-!174 = distinct !DILocation(line: 185, column: 37, scope: !168, inlinedAt: !175)
-!175 = distinct !DILocation(line: 127, column: 13, scope: !9)
-!176 = !DILocation(line: 187, column: 47, scope: !168, inlinedAt: !175)
-!177 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !178)
-!178 = distinct !DILocation(line: 188, column: 45, scope: !168, inlinedAt: !175)
+!137 = !DILocation(line: 216, column: 13, scope: !9)
+!138 = !DILocation(line: 115, column: 39, scope: !9)
+!139 = !DILocation(line: 115, column: 43, scope: !9)
+!140 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !143)
+!141 = distinct !DISubprogram(name: "load_shared_vec_async", scope: !142, file: !142, line: 227, type: !10, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!142 = !DIFile(filename: "./../utils.cpp", directory: "/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/256_128_64_16_persist")
+!143 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !145)
+!144 = distinct !DISubprogram(name: "load_async_shared_to_register<kittens::rt<__hip_bfloat16, 32, 16, kittens::ducks::rt_layout::row>, kittens::st_subtile<kittens::st<__hip_bfloat16, 256, 64>, 32, 16> >", scope: !142, file: !142, line: 247, type: !10, scopeLine: 247, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!145 = distinct !DILocation(line: 118, column: 13, scope: !9)
+!146 = !{i64 4294578}
+!147 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !145)
+!148 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !151)
+!149 = distinct !DISubprogram(name: "operator=", scope: !150, file: !150, line: 492, type: !10, scopeLine: 492, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!150 = !DIFile(filename: "/opt/rocm-6.4.1/lib/llvm/bin/../../../include/hip/amd_detail/amd_hip_bf16.h", directory: "")
+!151 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !145)
+!152 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !153)
+!153 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !154)
+!154 = distinct !DILocation(line: 119, column: 13, scope: !9)
+!155 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !154)
+!156 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !157)
+!157 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !154)
+!158 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !159)
+!159 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !161)
+!160 = distinct !DISubprogram(name: "load_async_shared_to_register<kittens::rt<__hip_bfloat16, 32, 16, kittens::ducks::rt_layout::row>, kittens::st_subtile<kittens::st<__hip_bfloat16, 128, 64>, 32, 16> >", scope: !142, file: !142, line: 247, type: !10, scopeLine: 247, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!161 = distinct !DILocation(line: 120, column: 13, scope: !9)
+!162 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !161)
+!163 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !164)
+!164 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !161)
+!165 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !166)
+!166 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !167)
+!167 = distinct !DILocation(line: 121, column: 13, scope: !9)
+!168 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !167)
+!169 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !170)
+!170 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !167)
+!171 = !DILocation(line: 122, column: 13, scope: !9)
+!172 = !DILocation(line: 124, column: 17, scope: !9)
+!173 = !DILocation(line: 26, column: 23, scope: !174, inlinedAt: !175)
+!174 = distinct !DISubprogram(name: "buffer_load_vec4", scope: !142, file: !142, line: 25, type: !10, scopeLine: 25, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!175 = distinct !DILocation(line: 177, column: 39, scope: !176, inlinedAt: !177)
+!176 = distinct !DISubprogram(name: "load_global_to_registers<2, false, kittens::st<__hip_bfloat16, 128, 64>, kittens::gl<__hip_bfloat16, -1, -1, -1, -1>, kittens::coord<kittens::st<__hip_bfloat16, 128, 64> >, 512>", scope: !142, file: !142, line: 139, type: !10, scopeLine: 142, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!177 = distinct !DILocation(line: 125, column: 17, scope: !9)
+!178 = !DILocation(line: 127, column: 13, scope: !9)
 !179 = !DILocation(line: 128, column: 13, scope: !9)
-!180 = !DILocation(line: 130, column: 17, scope: !9)
-!181 = !DILocation(line: 61, column: 18, scope: !111, inlinedAt: !182)
-!182 = distinct !DILocation(line: 54, column: 39, scope: !183, inlinedAt: !184)
-!183 = distinct !DISubprogram(name: "load_global_to_registers<2, false, kittens::st<__hip_bfloat16, 256, 64>, kittens::gl<__hip_bfloat16, -1, -1, -1, -1>, kittens::coord<kittens::st<__hip_bfloat16, 256, 64> >, 512>", scope: !143, file: !143, line: 41, type: !10, scopeLine: 44, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!184 = distinct !DILocation(line: 131, column: 17, scope: !9)
-!185 = !DILocation(line: 63, column: 68, scope: !87, inlinedAt: !186)
-!186 = distinct !DILocation(line: 55, column: 24, scope: !183, inlinedAt: !184)
-!187 = !DILocation(line: 63, column: 16, scope: !87, inlinedAt: !186)
-!188 = !DILocation(line: 32, column: 28, scope: !189, inlinedAt: !190)
-!189 = distinct !DISubprogram(name: "make_srsrc", scope: !143, file: !143, line: 31, type: !10, scopeLine: 31, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!190 = distinct !DILocation(line: 60, column: 19, scope: !183, inlinedAt: !184)
-!191 = !DILocation(line: 26, column: 23, scope: !142, inlinedAt: !192)
-!192 = distinct !DILocation(line: 77, column: 39, scope: !183, inlinedAt: !184)
-!193 = !DILocation(line: 133, column: 13, scope: !9)
-!194 = !DILocation(line: 134, column: 13, scope: !9)
-!195 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !196)
-!196 = distinct !DILocation(line: 185, column: 37, scope: !152, inlinedAt: !197)
-!197 = distinct !DILocation(line: 136, column: 13, scope: !9)
-!198 = !DILocation(line: 187, column: 47, scope: !152, inlinedAt: !197)
-!199 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !200)
-!200 = distinct !DILocation(line: 188, column: 45, scope: !152, inlinedAt: !197)
-!201 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !202)
-!202 = distinct !DILocation(line: 185, column: 37, scope: !152, inlinedAt: !203)
+!180 = !DILocation(line: 129, column: 13, scope: !9)
+!181 = !DILocation(line: 132, column: 13, scope: !9)
+!182 = !{i64 4303822}
+!183 = !DILocation(line: 133, column: 13, scope: !9)
+!184 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !187)
+!185 = distinct !DISubprogram(name: "mfma161616", scope: !186, file: !186, line: 25, type: !10, scopeLine: 28, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!186 = !DIFile(filename: "ThunderKittens-HIP/include/ops/warp/register/tile/mma.cuh", directory: "/workdir/AMD-benchmarking-harness")
+!187 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !189)
+!188 = distinct !DISubprogram(name: "mma_ABt_base", scope: !186, file: !186, line: 77, type: !10, scopeLine: 80, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!189 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !191)
+!190 = distinct !DISubprogram(name: "mma_ABt<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::rt<__hip_bfloat16, 32, 16, kittens::ducks::rt_layout::row>, kittens::rt<__hip_bfloat16, 32, 16, kittens::ducks::rt_layout::row>, kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> >", scope: !186, file: !186, line: 197, type: !10, scopeLine: 200, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!191 = distinct !DILocation(line: 134, column: 13, scope: !9)
+!192 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !193)
+!193 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !194)
+!194 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !195)
+!195 = distinct !DILocation(line: 135, column: 13, scope: !9)
+!196 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !197)
+!197 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !198)
+!198 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !199)
+!199 = distinct !DILocation(line: 136, column: 13, scope: !9)
+!200 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !201)
+!201 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !202)
+!202 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !203)
 !203 = distinct !DILocation(line: 137, column: 13, scope: !9)
-!204 = !DILocation(line: 187, column: 47, scope: !152, inlinedAt: !203)
-!205 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !206)
-!206 = distinct !DILocation(line: 188, column: 45, scope: !152, inlinedAt: !203)
-!207 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !208)
-!208 = distinct !DILocation(line: 185, column: 37, scope: !168, inlinedAt: !209)
-!209 = distinct !DILocation(line: 138, column: 13, scope: !9)
-!210 = !DILocation(line: 187, column: 47, scope: !168, inlinedAt: !209)
-!211 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !212)
-!212 = distinct !DILocation(line: 188, column: 45, scope: !168, inlinedAt: !209)
-!213 = !DILocation(line: 129, column: 5, scope: !150, inlinedAt: !214)
-!214 = distinct !DILocation(line: 185, column: 37, scope: !168, inlinedAt: !215)
-!215 = distinct !DILocation(line: 139, column: 13, scope: !9)
-!216 = !DILocation(line: 187, column: 47, scope: !168, inlinedAt: !215)
-!217 = !DILocation(line: 494, column: 7, scope: !157, inlinedAt: !218)
-!218 = distinct !DILocation(line: 188, column: 45, scope: !168, inlinedAt: !215)
-!219 = !DILocation(line: 140, column: 13, scope: !9)
-!220 = !DILocation(line: 141, column: 13, scope: !9)
-!221 = !DILocation(line: 143, column: 13, scope: !9)
-!222 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !225)
-!223 = distinct !DISubprogram(name: "mfma161616", scope: !224, file: !224, line: 25, type: !10, scopeLine: 28, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!224 = !DIFile(filename: "ThunderKittens-HIP/include/ops/warp/register/tile/mma.cuh", directory: "/workdir/AMD-benchmarking-harness")
-!225 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !227)
-!226 = distinct !DISubprogram(name: "mma_ABt_base", scope: !224, file: !224, line: 77, type: !10, scopeLine: 80, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!227 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !229)
-!228 = distinct !DISubprogram(name: "mma_ABt<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::rt<__hip_bfloat16, 32, 32, kittens::ducks::rt_layout::row>, kittens::rt<__hip_bfloat16, 32, 32, kittens::ducks::rt_layout::row>, kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> >", scope: !224, file: !224, line: 197, type: !10, scopeLine: 200, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!229 = distinct !DILocation(line: 144, column: 13, scope: !9)
-!230 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !231)
-!231 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !232)
-!232 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !229)
-!233 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !234)
-!234 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !235)
-!235 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !236)
-!236 = distinct !DILocation(line: 145, column: 13, scope: !9)
-!237 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !238)
-!238 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !239)
-!239 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !236)
-!240 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !241)
-!241 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !242)
-!242 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !243)
-!243 = distinct !DILocation(line: 146, column: 13, scope: !9)
-!244 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !245)
-!245 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !246)
-!246 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !243)
-!247 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !248)
-!248 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !249)
-!249 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !250)
-!250 = distinct !DILocation(line: 147, column: 13, scope: !9)
-!251 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !252)
-!252 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !253)
-!253 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !250)
-!254 = !DILocation(line: 148, column: 13, scope: !9)
-!255 = !DILocation(line: 149, column: 13, scope: !9)
-!256 = !DILocation(line: 150, column: 13, scope: !9)
-!257 = !DILocation(line: 153, column: 17, scope: !9)
-!258 = !DILocation(line: 154, column: 17, scope: !9)
-!259 = !{i64 4305057}
-!260 = !DILocation(line: 17, column: 5, scope: !261, inlinedAt: !262)
-!261 = distinct !DISubprogram(name: "store_shared_vec_new", scope: !143, file: !143, line: 16, type: !10, scopeLine: 16, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!262 = distinct !DILocation(line: 119, column: 17, scope: !263, inlinedAt: !264)
-!263 = distinct !DISubprogram(name: "store_registers_to_shared<kittens::st<__hip_bfloat16, 128, 64>, 512>", scope: !143, file: !143, line: 88, type: !10, scopeLine: 90, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!264 = distinct !DILocation(line: 155, column: 17, scope: !9)
-!265 = !{i64 4290525}
-!266 = !DILocation(line: 17, column: 5, scope: !261, inlinedAt: !267)
-!267 = distinct !DILocation(line: 120, column: 17, scope: !263, inlinedAt: !264)
-!268 = !DILocation(line: 17, column: 5, scope: !261, inlinedAt: !269)
-!269 = distinct !DILocation(line: 119, column: 17, scope: !270, inlinedAt: !271)
-!270 = distinct !DISubprogram(name: "store_registers_to_shared<kittens::st<__hip_bfloat16, 256, 64>, 512>", scope: !143, file: !143, line: 88, type: !10, scopeLine: 90, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!271 = distinct !DILocation(line: 157, column: 17, scope: !9)
-!272 = !DILocation(line: 17, column: 5, scope: !261, inlinedAt: !273)
-!273 = distinct !DILocation(line: 120, column: 17, scope: !270, inlinedAt: !271)
-!274 = !DILocation(line: 159, column: 13, scope: !9)
-!275 = !DILocation(line: 160, column: 13, scope: !9)
-!276 = !DILocation(line: 161, column: 13, scope: !9)
-!277 = !DILocation(line: 163, column: 13, scope: !9)
-!278 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !279)
-!279 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !280)
-!280 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !281)
-!281 = distinct !DILocation(line: 164, column: 13, scope: !9)
-!282 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !283)
-!283 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !284)
-!284 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !281)
-!285 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !286)
-!286 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !287)
-!287 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !288)
-!288 = distinct !DILocation(line: 165, column: 13, scope: !9)
-!289 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !290)
-!290 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !291)
-!291 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !288)
-!292 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !293)
-!293 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !294)
-!294 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !295)
-!295 = distinct !DILocation(line: 166, column: 13, scope: !9)
-!296 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !297)
-!297 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !298)
-!298 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !295)
-!299 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !300)
-!300 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !301)
-!301 = distinct !DILocation(line: 216, column: 13, scope: !228, inlinedAt: !302)
-!302 = distinct !DILocation(line: 167, column: 13, scope: !9)
-!303 = !DILocation(line: 29, column: 27, scope: !223, inlinedAt: !304)
-!304 = distinct !DILocation(line: 81, column: 5, scope: !226, inlinedAt: !305)
-!305 = distinct !DILocation(line: 224, column: 17, scope: !228, inlinedAt: !302)
-!306 = !DILocation(line: 168, column: 13, scope: !9)
-!307 = !DILocation(line: 169, column: 13, scope: !9)
-!308 = !DILocation(line: 170, column: 13, scope: !9)
-!309 = !DILocation(line: 114, column: 33, scope: !9)
-!310 = distinct !{!310, !134, !311, !312}
-!311 = !DILocation(line: 171, column: 9, scope: !9)
-!312 = !{!"llvm.loop.mustprogress"}
-!313 = !DILocation(line: 174, column: 13, scope: !9)
-!314 = !DILocation(line: 175, column: 9, scope: !9)
-!315 = !DILocation(line: 184, column: 36, scope: !9)
-!316 = !DILocation(line: 60, column: 34, scope: !317, inlinedAt: !318)
-!317 = distinct !DISubprogram(name: "unit_coord<2, 3>", scope: !78, file: !78, line: 51, type: !10, scopeLine: 51, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!318 = distinct !DILocation(line: 192, column: 41, scope: !319, inlinedAt: !321)
-!319 = distinct !DISubprogram(name: "store<2, kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::gl<float, -1, -1, -1, -1>, kittens::coord<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> > >", scope: !320, file: !320, line: 188, type: !10, scopeLine: 188, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!320 = !DIFile(filename: "ThunderKittens-HIP/include/ops/warp/memory/tile/global_to_register.cuh", directory: "/workdir/AMD-benchmarking-harness")
-!321 = distinct !DILocation(line: 212, column: 5, scope: !322, inlinedAt: !323)
-!322 = distinct !DISubprogram(name: "store<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::gl<float, -1, -1, -1, -1>, kittens::coord<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> > >", scope: !320, file: !320, line: 211, type: !10, scopeLine: 211, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!323 = distinct !DILocation(line: 181, column: 13, scope: !9)
-!324 = !DILocation(line: 61, column: 18, scope: !317, inlinedAt: !318)
-!325 = !DILocation(line: 63, column: 54, scope: !326, inlinedAt: !327)
-!326 = distinct !DISubprogram(name: "operator[]", scope: !88, file: !88, line: 62, type: !10, scopeLine: 62, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
-!327 = distinct !DILocation(line: 192, column: 23, scope: !319, inlinedAt: !321)
-!328 = !DILocation(line: 63, column: 60, scope: !326, inlinedAt: !327)
-!329 = !DILocation(line: 63, column: 68, scope: !326, inlinedAt: !327)
-!330 = !DILocation(line: 63, column: 16, scope: !326, inlinedAt: !327)
-!331 = !DILocation(line: 203, column: 49, scope: !319, inlinedAt: !321)
-!332 = !DILocation(line: 203, column: 13, scope: !319, inlinedAt: !321)
-!333 = !DILocation(line: 203, column: 47, scope: !319, inlinedAt: !321)
-!334 = !{!335, !335, i64 0}
-!335 = !{!"float", !336, i64 0}
-!336 = !{!"omnipotent char", !337, i64 0}
-!337 = !{!"Simple C++ TBAA"}
-!338 = !DILocation(line: 204, column: 49, scope: !319, inlinedAt: !321)
-!339 = !DILocation(line: 204, column: 13, scope: !319, inlinedAt: !321)
-!340 = !DILocation(line: 204, column: 47, scope: !319, inlinedAt: !321)
-!341 = !DILocation(line: 205, column: 49, scope: !319, inlinedAt: !321)
-!342 = !DILocation(line: 205, column: 13, scope: !319, inlinedAt: !321)
-!343 = !DILocation(line: 205, column: 47, scope: !319, inlinedAt: !321)
-!344 = !DILocation(line: 206, column: 49, scope: !319, inlinedAt: !321)
-!345 = !DILocation(line: 206, column: 13, scope: !319, inlinedAt: !321)
-!346 = !DILocation(line: 206, column: 47, scope: !319, inlinedAt: !321)
-!347 = !DILocation(line: 87, column: 43, scope: !9)
-!348 = !DILocation(line: 87, column: 5, scope: !9)
-!349 = distinct !{!349, !348, !350, !312}
-!350 = !DILocation(line: 188, column: 5, scope: !9)
-!351 = !DILocation(line: 189, column: 1, scope: !9)
+!204 = !DILocation(line: 138, column: 13, scope: !9)
+!205 = !DILocation(line: 139, column: 13, scope: !9)
+!206 = !DILocation(line: 140, column: 13, scope: !9)
+!207 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !208)
+!208 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !209)
+!209 = distinct !DILocation(line: 143, column: 13, scope: !9)
+!210 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !209)
+!211 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !212)
+!212 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !209)
+!213 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !214)
+!214 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !215)
+!215 = distinct !DILocation(line: 144, column: 13, scope: !9)
+!216 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !215)
+!217 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !218)
+!218 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !215)
+!219 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !220)
+!220 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !221)
+!221 = distinct !DILocation(line: 145, column: 13, scope: !9)
+!222 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !221)
+!223 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !224)
+!224 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !221)
+!225 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !226)
+!226 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !227)
+!227 = distinct !DILocation(line: 146, column: 13, scope: !9)
+!228 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !227)
+!229 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !230)
+!230 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !227)
+!231 = !DILocation(line: 147, column: 13, scope: !9)
+!232 = !DILocation(line: 149, column: 17, scope: !9)
+!233 = !DILocation(line: 61, column: 18, scope: !111, inlinedAt: !234)
+!234 = distinct !DILocation(line: 153, column: 39, scope: !235, inlinedAt: !236)
+!235 = distinct !DISubprogram(name: "load_global_to_registers<2, false, kittens::st<__hip_bfloat16, 256, 64>, kittens::gl<__hip_bfloat16, -1, -1, -1, -1>, kittens::coord<kittens::st<__hip_bfloat16, 256, 64> >, 512>", scope: !142, file: !142, line: 139, type: !10, scopeLine: 142, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!236 = distinct !DILocation(line: 150, column: 17, scope: !9)
+!237 = !DILocation(line: 63, column: 68, scope: !87, inlinedAt: !238)
+!238 = distinct !DILocation(line: 154, column: 24, scope: !235, inlinedAt: !236)
+!239 = !DILocation(line: 63, column: 16, scope: !87, inlinedAt: !238)
+!240 = !DILocation(line: 32, column: 28, scope: !241, inlinedAt: !242)
+!241 = distinct !DISubprogram(name: "make_srsrc", scope: !142, file: !142, line: 31, type: !10, scopeLine: 31, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!242 = distinct !DILocation(line: 160, column: 19, scope: !235, inlinedAt: !236)
+!243 = !DILocation(line: 26, column: 23, scope: !174, inlinedAt: !244)
+!244 = distinct !DILocation(line: 177, column: 39, scope: !235, inlinedAt: !236)
+!245 = !DILocation(line: 152, column: 13, scope: !9)
+!246 = !DILocation(line: 153, column: 13, scope: !9)
+!247 = !DILocation(line: 154, column: 13, scope: !9)
+!248 = !DILocation(line: 157, column: 13, scope: !9)
+!249 = !{i64 4305199}
+!250 = !DILocation(line: 158, column: 13, scope: !9)
+!251 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !252)
+!252 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !253)
+!253 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !254)
+!254 = distinct !DILocation(line: 159, column: 13, scope: !9)
+!255 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !256)
+!256 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !257)
+!257 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !258)
+!258 = distinct !DILocation(line: 160, column: 13, scope: !9)
+!259 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !260)
+!260 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !261)
+!261 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !262)
+!262 = distinct !DILocation(line: 161, column: 13, scope: !9)
+!263 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !264)
+!264 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !265)
+!265 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !266)
+!266 = distinct !DILocation(line: 162, column: 13, scope: !9)
+!267 = !DILocation(line: 163, column: 13, scope: !9)
+!268 = !DILocation(line: 164, column: 13, scope: !9)
+!269 = !DILocation(line: 165, column: 13, scope: !9)
+!270 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !271)
+!271 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !272)
+!272 = distinct !DILocation(line: 169, column: 13, scope: !9)
+!273 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !272)
+!274 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !275)
+!275 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !272)
+!276 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !277)
+!277 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !278)
+!278 = distinct !DILocation(line: 170, column: 13, scope: !9)
+!279 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !278)
+!280 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !281)
+!281 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !278)
+!282 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !283)
+!283 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !284)
+!284 = distinct !DILocation(line: 171, column: 13, scope: !9)
+!285 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !284)
+!286 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !287)
+!287 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !284)
+!288 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !289)
+!289 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !290)
+!290 = distinct !DILocation(line: 172, column: 13, scope: !9)
+!291 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !290)
+!292 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !293)
+!293 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !290)
+!294 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !295)
+!295 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !296)
+!296 = distinct !DILocation(line: 173, column: 13, scope: !9)
+!297 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !296)
+!298 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !299)
+!299 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !296)
+!300 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !301)
+!301 = distinct !DILocation(line: 285, column: 37, scope: !144, inlinedAt: !302)
+!302 = distinct !DILocation(line: 174, column: 13, scope: !9)
+!303 = !DILocation(line: 287, column: 47, scope: !144, inlinedAt: !302)
+!304 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !305)
+!305 = distinct !DILocation(line: 288, column: 45, scope: !144, inlinedAt: !302)
+!306 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !307)
+!307 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !308)
+!308 = distinct !DILocation(line: 175, column: 13, scope: !9)
+!309 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !308)
+!310 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !311)
+!311 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !308)
+!312 = !DILocation(line: 229, column: 5, scope: !141, inlinedAt: !313)
+!313 = distinct !DILocation(line: 285, column: 37, scope: !160, inlinedAt: !314)
+!314 = distinct !DILocation(line: 176, column: 13, scope: !9)
+!315 = !DILocation(line: 287, column: 47, scope: !160, inlinedAt: !314)
+!316 = !DILocation(line: 494, column: 7, scope: !149, inlinedAt: !317)
+!317 = distinct !DILocation(line: 288, column: 45, scope: !160, inlinedAt: !314)
+!318 = !DILocation(line: 178, column: 13, scope: !9)
+!319 = !DILocation(line: 179, column: 13, scope: !9)
+!320 = !DILocation(line: 182, column: 13, scope: !9)
+!321 = !{i64 4306715}
+!322 = !DILocation(line: 183, column: 13, scope: !9)
+!323 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !324)
+!324 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !325)
+!325 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !326)
+!326 = distinct !DILocation(line: 184, column: 13, scope: !9)
+!327 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !328)
+!328 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !329)
+!329 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !330)
+!330 = distinct !DILocation(line: 185, column: 13, scope: !9)
+!331 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !332)
+!332 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !333)
+!333 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !334)
+!334 = distinct !DILocation(line: 186, column: 13, scope: !9)
+!335 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !336)
+!336 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !337)
+!337 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !338)
+!338 = distinct !DILocation(line: 187, column: 13, scope: !9)
+!339 = !DILocation(line: 188, column: 13, scope: !9)
+!340 = !DILocation(line: 189, column: 13, scope: !9)
+!341 = !DILocation(line: 190, column: 13, scope: !9)
+!342 = !DILocation(line: 193, column: 17, scope: !9)
+!343 = !DILocation(line: 194, column: 17, scope: !9)
+!344 = !{i64 4307249}
+!345 = !DILocation(line: 17, column: 5, scope: !346, inlinedAt: !347)
+!346 = distinct !DISubprogram(name: "store_shared_vec_new", scope: !142, file: !142, line: 16, type: !10, scopeLine: 16, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!347 = distinct !DILocation(line: 219, column: 17, scope: !348, inlinedAt: !349)
+!348 = distinct !DISubprogram(name: "store_registers_to_shared<kittens::st<__hip_bfloat16, 128, 64>, 512>", scope: !142, file: !142, line: 188, type: !10, scopeLine: 190, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!349 = distinct !DILocation(line: 195, column: 17, scope: !9)
+!350 = !{i64 4290525}
+!351 = !DILocation(line: 17, column: 5, scope: !346, inlinedAt: !352)
+!352 = distinct !DILocation(line: 220, column: 17, scope: !348, inlinedAt: !349)
+!353 = !DILocation(line: 197, column: 17, scope: !9)
+!354 = !{i64 4307442}
+!355 = !DILocation(line: 17, column: 5, scope: !346, inlinedAt: !356)
+!356 = distinct !DILocation(line: 219, column: 17, scope: !357, inlinedAt: !358)
+!357 = distinct !DISubprogram(name: "store_registers_to_shared<kittens::st<__hip_bfloat16, 256, 64>, 512>", scope: !142, file: !142, line: 188, type: !10, scopeLine: 190, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!358 = distinct !DILocation(line: 198, column: 17, scope: !9)
+!359 = !DILocation(line: 17, column: 5, scope: !346, inlinedAt: !360)
+!360 = distinct !DILocation(line: 220, column: 17, scope: !357, inlinedAt: !358)
+!361 = !DILocation(line: 200, column: 13, scope: !9)
+!362 = !DILocation(line: 201, column: 13, scope: !9)
+!363 = !DILocation(line: 202, column: 13, scope: !9)
+!364 = !DILocation(line: 205, column: 13, scope: !9)
+!365 = !{i64 4307736}
+!366 = !DILocation(line: 206, column: 13, scope: !9)
+!367 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !368)
+!368 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !369)
+!369 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !370)
+!370 = distinct !DILocation(line: 207, column: 13, scope: !9)
+!371 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !372)
+!372 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !373)
+!373 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !374)
+!374 = distinct !DILocation(line: 208, column: 13, scope: !9)
+!375 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !376)
+!376 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !377)
+!377 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !378)
+!378 = distinct !DILocation(line: 209, column: 13, scope: !9)
+!379 = !DILocation(line: 29, column: 27, scope: !185, inlinedAt: !380)
+!380 = distinct !DILocation(line: 81, column: 5, scope: !188, inlinedAt: !381)
+!381 = distinct !DILocation(line: 216, column: 13, scope: !190, inlinedAt: !382)
+!382 = distinct !DILocation(line: 210, column: 13, scope: !9)
+!383 = !DILocation(line: 211, column: 13, scope: !9)
+!384 = !DILocation(line: 212, column: 13, scope: !9)
+!385 = !DILocation(line: 213, column: 13, scope: !9)
+!386 = !DILocation(line: 114, column: 33, scope: !9)
+!387 = distinct !{!387, !134, !388, !389}
+!388 = !DILocation(line: 214, column: 9, scope: !9)
+!389 = !{!"llvm.loop.mustprogress"}
+!390 = !DILocation(line: 217, column: 13, scope: !9)
+!391 = !DILocation(line: 218, column: 9, scope: !9)
+!392 = !DILocation(line: 227, column: 36, scope: !9)
+!393 = !DILocation(line: 60, column: 34, scope: !394, inlinedAt: !395)
+!394 = distinct !DISubprogram(name: "unit_coord<2, 3>", scope: !78, file: !78, line: 51, type: !10, scopeLine: 51, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!395 = distinct !DILocation(line: 192, column: 41, scope: !396, inlinedAt: !398)
+!396 = distinct !DISubprogram(name: "store<2, kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::gl<float, -1, -1, -1, -1>, kittens::coord<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> > >", scope: !397, file: !397, line: 188, type: !10, scopeLine: 188, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!397 = !DIFile(filename: "ThunderKittens-HIP/include/ops/warp/memory/tile/global_to_register.cuh", directory: "/workdir/AMD-benchmarking-harness")
+!398 = distinct !DILocation(line: 212, column: 5, scope: !399, inlinedAt: !400)
+!399 = distinct !DISubprogram(name: "store<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col>, kittens::gl<float, -1, -1, -1, -1>, kittens::coord<kittens::rt<float, 32, 32, kittens::ducks::rt_layout::col> > >", scope: !397, file: !397, line: 211, type: !10, scopeLine: 211, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!400 = distinct !DILocation(line: 224, column: 13, scope: !9)
+!401 = !DILocation(line: 61, column: 18, scope: !394, inlinedAt: !395)
+!402 = !DILocation(line: 63, column: 54, scope: !403, inlinedAt: !404)
+!403 = distinct !DISubprogram(name: "operator[]", scope: !88, file: !88, line: 62, type: !10, scopeLine: 62, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
+!404 = distinct !DILocation(line: 192, column: 23, scope: !396, inlinedAt: !398)
+!405 = !DILocation(line: 63, column: 60, scope: !403, inlinedAt: !404)
+!406 = !DILocation(line: 63, column: 68, scope: !403, inlinedAt: !404)
+!407 = !DILocation(line: 63, column: 16, scope: !403, inlinedAt: !404)
+!408 = !DILocation(line: 203, column: 49, scope: !396, inlinedAt: !398)
+!409 = !DILocation(line: 203, column: 13, scope: !396, inlinedAt: !398)
+!410 = !DILocation(line: 203, column: 47, scope: !396, inlinedAt: !398)
+!411 = !{!412, !412, i64 0}
+!412 = !{!"float", !413, i64 0}
+!413 = !{!"omnipotent char", !414, i64 0}
+!414 = !{!"Simple C++ TBAA"}
+!415 = !DILocation(line: 204, column: 49, scope: !396, inlinedAt: !398)
+!416 = !DILocation(line: 204, column: 13, scope: !396, inlinedAt: !398)
+!417 = !DILocation(line: 204, column: 47, scope: !396, inlinedAt: !398)
+!418 = !DILocation(line: 205, column: 49, scope: !396, inlinedAt: !398)
+!419 = !DILocation(line: 205, column: 13, scope: !396, inlinedAt: !398)
+!420 = !DILocation(line: 205, column: 47, scope: !396, inlinedAt: !398)
+!421 = !DILocation(line: 206, column: 49, scope: !396, inlinedAt: !398)
+!422 = !DILocation(line: 206, column: 13, scope: !396, inlinedAt: !398)
+!423 = !DILocation(line: 206, column: 47, scope: !396, inlinedAt: !398)
+!424 = !DILocation(line: 87, column: 43, scope: !9)
+!425 = !DILocation(line: 87, column: 5, scope: !9)
+!426 = distinct !{!426, !425, !427, !389}
+!427 = !DILocation(line: 231, column: 5, scope: !9)
+!428 = !DILocation(line: 232, column: 1, scope: !9)
