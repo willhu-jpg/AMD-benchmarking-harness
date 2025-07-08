@@ -12,5 +12,6 @@ To try any of these, toggle the target in the Makefile and ```make clean && make
 - ```256_128_64_32_outbf16/```: 645 TFLOPs // updated to store c in bf16
 
 - ```256_256_32_16/```: 490 TFLOPs
+- ```256_256_64_16_alt/```: 307 TFLOPS
 - ```256_256_64_16/```: 61 TFLOPs
 - ```256_256_64_16_rolled/```: 485 TFLOPs
