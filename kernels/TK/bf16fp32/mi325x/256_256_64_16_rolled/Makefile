@@ -2,7 +2,7 @@
 GPU_TARGET=CDNA3
 
 TARGET=tk_kernel
-SRC=256_256_64_16_rolled.cpp
+SRC=256_128_64_16_rolled.cpp
 
 # HIP variables
 ROCM_INSTALL_DIR := $(ROCM_PATH)
@@ -12,10 +12,18 @@ HIPCXX ?= $(ROCM_INSTALL_DIR)/bin/hipcc
 
 # Compiler flags based on GPU target
 ifeq ($(GPU_TARGET),CDNA2)
-HIPFLAGS+= -DKITTENS_CDNA2 --offload-arch=gfx90a
+HIPFLAGS+= -DKITTENS_CDNA2 --offload-arch=gfx90a -mcpu=gfx90a
 else ifeq ($(GPU_TARGET),CDNA3)
-HIPFLAGS+= -DKITTENS_CDNA3 --offload-arch=gfx942
+HIPFLAGS+= -DKITTENS_CDNA3 --offload-arch=gfx942 -mcpu=gfx942
 endif
+
+# Performance flags
+PERF_FLAGS := -O3 -DNDEBUG -ffast-math -funroll-loops -fvectorize
+PERF_FLAGS += -Rpass-analysis=kernel-resource-usage -Rpass=loop-vectorize
+
+# Add performance flags
+HIPFLAGS += $(PERF_FLAGS)
+
 
 # Common variables and flags
 CXX_STD   := c++20
@@ -32,7 +40,8 @@ ICPPFLAGS += $(CPPFLAGS)
 ILDFLAGS  += $(LDFLAGS)
 ILDLIBS   += $(LDLIBS)
 
-ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype $(shell python3 -m pybind11 --includes) $(shell python3-config --ldflags) -shared -fPIC -Rpass-analysis=kernel-resource-usage
+ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype $(shell python3 -m pybind11 --includes) $(shell python3-config --ldflags) -shared -fPIC -Rpass-analysis=kernel-resource-usage -Xclang -Rpass=kernel-resource-usage
+
 
 
 # Default target
