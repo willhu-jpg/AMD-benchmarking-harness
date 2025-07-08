@@ -1,13 +1,13 @@
 ```
-256_128_64_32.cpp:75:1: remark:     SGPRs: 50 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     VGPRs: 256 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     AGPRs: 0 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     ScratchSize [bytes/lane]: 24 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     Dynamic Stack: False [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     Occupancy [waves/SIMD]: 2 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     SGPRs Spill: 0 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     VGPRs Spill: 5 [-Rpass-analysis=kernel-resource-usage]
-256_128_64_32.cpp:75:1: remark:     LDS Size [bytes/block]: 0 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     SGPRs: 34 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     VGPRs: 207 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     AGPRs: 0 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     ScratchSize [bytes/lane]: 0 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     Dynamic Stack: False [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     Occupancy [waves/SIMD]: 2 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     SGPRs Spill: 0 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     VGPRs Spill: 0 [-Rpass-analysis=kernel-resource-usage]
+256_128_64_32.cpp:41:1: remark:     LDS Size [bytes/block]: 0 [-Rpass-analysis=kernel-resource-usage]
 
 root@gpu-10:/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/256_128_64_32_outbf16# python test_python.py 
 src: 256_128_64_32.cpp
@@ -17,8 +17,8 @@ PyTorch reference average execution time: 1.3812 ms
 PyTorch reference performance: 796.03 TFLOPS for 8192x8192 matrix multiplication.
 
 C.dtype=torch.bfloat16
-Average execution time: 1.7107 ms
-Performance: 642.74 TFLOPS for 8192x8192 matrix multiplication.
+Average execution time: 1.6948 ms
+Performance: 648.74 TFLOPS for 8192x8192 matrix multiplication.
 
 Max error between kernel and reference: 0.015625
 Max error: 0.015625
