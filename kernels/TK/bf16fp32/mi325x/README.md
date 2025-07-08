@@ -13,5 +13,5 @@ To try any of these, toggle the target in the Makefile and ```make clean && make
 
 - ```256_256_32_16/```: 490 TFLOPs
 - ```256_256_64_16_alt/```: 307 TFLOPS
-- ```256_256_64_16/```: 117 TFLOPs
+- ```256_256_64_16/```: 200 TFLOPs
 - ```256_256_64_16_rolled/```: 485 TFLOPs
