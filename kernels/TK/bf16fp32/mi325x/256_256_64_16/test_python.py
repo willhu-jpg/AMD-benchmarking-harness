@@ -84,6 +84,7 @@ if profiling:
         elapsed_time = start_event.elapsed_time(end_event)
         timings_ref.append(elapsed_time)
     if profiling:
+        print(f"{C_ref.dtype=}")
         avg_time_ref = sum(timings_ref) / len(timings_ref)
         tflops_ref = flops_ref / (avg_time_ref * 1e9) 
         print(f"PyTorch reference average execution time: {avg_time_ref:.4f} ms")
@@ -91,7 +92,7 @@ if profiling:
 
 
 # Kernel matmul
-C = torch.zeros(N, N, dtype=torch.float32, device='cuda')
+C = torch.zeros(N, N, dtype=torch.bfloat16, device='cuda')
 for _ in range(num_warmup):
     tk_kernel.dispatch_micro(A, B, C)
 timings = []
@@ -104,6 +105,7 @@ for _ in range(num_iters):
     elapsed_time = start_event.elapsed_time(end_event)
     timings.append(elapsed_time)
 if profiling:
+    print(f"{C.dtype=}")
     avg_time = sum(timings) / len(timings)
     tflops = flops_ref / (avg_time * 1e9) 
     print(f"Average execution time: {avg_time:.4f} ms")

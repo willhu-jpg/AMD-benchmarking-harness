@@ -723,8 +723,8 @@ _Z14dispatch_micro13micro_globals:      # @_Z14dispatch_micro13micro_globals
 	movl	$8, %esi
 	movl	$65536, %edx                    # imm = 0x10000
 	callq	hipFuncSetAttribute@PLT
-	movabsq	$137438953504, %rdi             # imm = 0x2000000020
 	movabsq	$4294967808, %rdx               # imm = 0x100000200
+	leaq	512(%rdx), %rdi
 	movl	$65536, %r8d                    # imm = 0x10000
 	movl	$1, %esi
 	movl	$1, %ecx
@@ -928,7 +928,7 @@ PyInit_tk_kernel:                       # @PyInit_tk_kernel
 .Ltmp54:
 # %bb.15:                               # %.noexc.i.i.i.i
 	movq	48(%rsp), %rax
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_(%rip), %rcx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_(%rip), %rcx
 	movq	%rcx, 48(%rax)
 	movw	$3, 94(%rax)
 	andb	$63, 89(%rax)
@@ -936,8 +936,8 @@ PyInit_tk_kernel:                       # @PyInit_tk_kernel
 	movq	%rbx, 112(%rax)
 	movq	%r15, 120(%rax)
 .Ltmp56:
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature(%rip), %rdx
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types(%rip), %rcx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature(%rip), %rdx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types(%rip), %rcx
 	movq	%rsp, %rdi
 	leaq	48(%rsp), %rsi
 	movl	$3, %r8d
@@ -1030,7 +1030,7 @@ PyInit_tk_kernel:                       # @PyInit_tk_kernel
 .Ltmp106:
 # %bb.32:                               # %.noexc.i.i.i19.i
 	movq	48(%rsp), %rax
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_(%rip), %rcx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_(%rip), %rcx
 	movq	%rcx, 48(%rax)
 	movw	$3, 94(%rax)
 	andb	$63, 89(%rax)
@@ -1038,8 +1038,8 @@ PyInit_tk_kernel:                       # @PyInit_tk_kernel
 	movq	%rbx, 112(%rax)
 	movq	%r15, 120(%rax)
 .Ltmp108:
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature(%rip), %rdx
-	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types(%rip), %rcx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature(%rip), %rdx
+	leaq	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types(%rip), %rcx
 	movq	%rsp, %rdi
 	leaq	48(%rsp), %rsi
 	movl	$3, %r8d
@@ -41221,9 +41221,9 @@ GCC_except_table170:
 	.p2align	2, 0x0
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_,@function
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_: # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
+	.p2align	4, 0x90                         # -- Begin function _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_,@function
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_: # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
 .Lfunc_begin92:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -41257,7 +41257,7 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 # %bb.8:
 .Ltmp2586:
 	leaq	16(%rsp), %rdi
-	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
+	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
 .Ltmp2587:
 # %bb.9:
 	movq	_Py_NoneStruct@GOTPCREL(%rip), %rax
@@ -41277,7 +41277,7 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 .LBB171_3:
 .Ltmp2577:
 	leaq	16(%rsp), %rdi
-	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
+	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
 .Ltmp2578:
 # %bb.4:
 	movq	_Py_NoneStruct@GOTPCREL(%rip), %rax
@@ -41308,7 +41308,7 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 	leaq	16(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
 .Ltmp2601:
-# %bb.14:                               # %_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENKUlRNS_6detail13function_callEE_clES10_.exit
+# %bb.14:                               # %_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENKUlRNS_6detail13function_callEE_clESZ_.exit
 	movq	%rbx, %rax
 	addq	$40, %rsp
 	.cfi_def_cfa_offset 24
@@ -41356,7 +41356,7 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end171:
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_, .Lfunc_end171-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_, .Lfunc_end171-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
 	.cfi_endproc
 	.section	.gcc_except_table,"a",@progbits
 	.p2align	2, 0x0
@@ -41420,9 +41420,9 @@ GCC_except_table171:
 	.p2align	2, 0x0
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
-	.type	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_,@function
-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_: # @_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
+	.p2align	4, 0x90                         # -- Begin function _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
+	.type	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_,@function
+_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_: # @_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
 .Lfunc_begin93:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -41483,7 +41483,7 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 .Ltmp2615:
 	.cfi_escape 0x2e, 0x00
 	movq	%rsp, %rsi
-	callq	_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
+	callq	_ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
 .Ltmp2616:
 # %bb.6:
 .Ltmp2627:
@@ -41514,7 +41514,7 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 # %bb.10:                               # %.noexc7.i
 .Ltmp2638:
 	.cfi_escape 0x2e, 0x00
-	movabsq	$137438953504, %rdi             # imm = 0x2000000020
+	movabsq	$4294968320, %rdi               # imm = 0x100000400
 	movabsq	$4294967808, %rdx               # imm = 0x100000200
 	movl	$65536, %r8d                    # imm = 0x10000
 	movl	$1, %esi
@@ -41589,7 +41589,7 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 	leaq	40(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
 .Ltmp2661:
-# %bb.17:                               # %_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE9call_implIvRZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES8_NS_7module_EPKcJNS5_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESE_NSC_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_JLm0ELm1ELm2EENS0_9void_typeEEET_OSI_St16integer_sequenceImJXspT1_EEEOSH_.exit
+# %bb.17:                               # %_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE9call_implIvRZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES8_NS_7module_EPKcJNS5_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESE_SE_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_JLm0ELm1ELm2EENS0_9void_typeEEET_OSH_St16integer_sequenceImJXspT1_EEEOSG_.exit
 	addq	$400, %rsp                      # imm = 0x190
 	.cfi_def_cfa_offset 16
 	popq	%rbx
@@ -41711,7 +41711,7 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
 .Lfunc_end172:
-	.size	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_, .Lfunc_end172-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
+	.size	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_, .Lfunc_end172-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
 	.cfi_endproc
 	.section	.gcc_except_table,"a",@progbits
 	.p2align	2, 0x0
@@ -42383,7 +42383,7 @@ _ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4mak
 	testb	%bpl, %bpl
 	jne	.LBB175_58
 # %bb.65:
-	movups	.L__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape(%rip), %xmm0
+	movups	.L__const._ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape(%rip), %xmm0
 	movaps	%xmm0, 80(%rsp)
 	movq	120(%rsp), %rax                 # 8-byte Reload
 	movq	(%rax), %rax
@@ -43152,806 +43152,132 @@ GCC_except_table175:
 .Lttbase66:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE,"axG",@progbits,_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE,comdat
-	.weak	_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE # -- Begin function _ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE
+	.section	.text._ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,"axG",@progbits,_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,comdat
+	.hidden	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_ # -- Begin function _ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
+	.weak	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
 	.p2align	4, 0x90
-	.type	_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE,@function
-_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE: # @_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE
+	.type	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,@function
+_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_: # @_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
 .Lfunc_begin97:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
 	.cfi_lsda 27, .Lexception97
 # %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	pushq	%r15
-	.cfi_def_cfa_offset 24
 	pushq	%r14
-	.cfi_def_cfa_offset 32
-	pushq	%r13
-	.cfi_def_cfa_offset 40
-	pushq	%r12
-	.cfi_def_cfa_offset 48
+	.cfi_def_cfa_offset 16
 	pushq	%rbx
-	.cfi_def_cfa_offset 56
-	subq	$168, %rsp
-	.cfi_def_cfa_offset 224
-	.cfi_offset %rbx, -56
-	.cfi_offset %r12, -48
-	.cfi_offset %r13, -40
-	.cfi_offset %r14, -32
-	.cfi_offset %r15, -24
-	.cfi_offset %rbp, -16
-	movq	%rsi, %rbp
-	movq	%rdi, 160(%rsp)                 # 8-byte Spill
-	movq	(%rsi), %rdi
-	leaq	.L.str.178(%rip), %rbx
-	movq	%rbx, %rsi
-	callq	PyObject_HasAttrString@PLT
-	cmpl	$1, %eax
-	jne	.LBB176_112
+	.cfi_def_cfa_offset 24
+	pushq	%rax
+	.cfi_def_cfa_offset 32
+	.cfi_offset %rbx, -24
+	.cfi_offset %r14, -16
+	movq	%rsi, %r14
+	movq	%rdi, %rbx
+	callq	PyGILState_Check@PLT
+	testl	%eax, %eax
+	je	.LBB176_18
 # %bb.1:
-	movq	(%rbp), %rax
-	movq	%rax, 136(%rsp)
-	movq	%rbx, 144(%rsp)
-	leaq	152(%rsp), %r12
-	movq	$0, 152(%rsp)
+	xorl	%edi, %edi
+	callq	PyTuple_New@PLT
+	movq	%rax, (%rsp)
+	testq	%rax, %rax
+	je	.LBB176_2
+# %bb.6:                                # %_ZN8pybind116detail17collect_argumentsILNS_19return_value_policyE1EJEvEENS0_16simple_collectorIXT_EEEDpOT0_.exit
 .Ltmp2847:
-	leaq	128(%rsp), %rdi
+	movq	%r14, %rdi
 	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
 .Ltmp2848:
-# %bb.2:                                # %.noexc
-	movq	(%rax), %rax
-	movq	%rax, 8(%rsp)
+# %bb.7:
+	movq	(%rax), %rdi
+	movq	(%rsp), %rsi
 .Ltmp2849:
-	leaq	8(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7inc_refEv
+	callq	PyObject_CallObject@PLT
 .Ltmp2850:
-# %bb.3:                                # %.noexc62
-	movq	8(%rsp), %rax
-	movq	%rax, 56(%rsp)
-	leaq	.L.str.95(%rip), %rax
-	movq	%rax, 64(%rsp)
-	movq	$0, 72(%rsp)
+# %bb.8:                                # %.noexc
+	testq	%rax, %rax
+	je	.LBB176_9
+# %bb.14:
+	movq	%rax, (%rbx)
+.Ltmp2851:
+	movq	%rsp, %rdi
+	callq	_ZNKR8pybind116handle7dec_refEv
 .Ltmp2852:
-	leaq	8(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2853:
-# %bb.4:
-.Ltmp2855:
-	leaq	72(%rsp), %r13
-	leaq	48(%rsp), %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
-.Ltmp2856:
-# %bb.5:                                # %.noexc63
-	leaq	24(%rsp), %r15
-	movq	%r15, 8(%rsp)
-	movq	$0, 16(%rsp)
-	movb	$0, 24(%rsp)
-.Ltmp2858:
-	leaq	8(%rsp), %rdi
-	movq	%rax, %rsi
-	callq	_ZN8pybind116detail9load_typeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEvEERNS0_11type_casterIT_T0_EESC_RKNS_6handleE
-.Ltmp2859:
-# %bb.6:                                # %_ZN8pybind116detail9load_typeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEENS0_11type_casterINS0_14intrinsic_typeIT_E4typeEvEERKNS_6handleE.exit.i.i.i
-	leaq	96(%rsp), %rbx
-	movq	%rbx, 80(%rsp)
-	movq	8(%rsp), %rdi
-	cmpq	%r15, %rdi
-	je	.LBB176_7
-# %bb.10:                               # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i.i.i
-	movq	%rdi, 80(%rsp)
-	movq	16(%rsp), %r14
-	movq	24(%rsp), %rax
-	movq	%rax, 96(%rsp)
-	movq	%rbp, 120(%rsp)                 # 8-byte Spill
-	movq	%r14, 88(%rsp)
-	cmpq	$6, %r14
-	jne	.LBB176_12
-.LBB176_13:
-	movl	$1936614740, %eax               # imm = 0x736E6554
-	xorl	(%rdi), %eax
-	movzwl	4(%rdi), %ecx
-	xorl	$29295, %ecx                    # imm = 0x726F
-	orl	%eax, %ecx
-	sete	%bpl
-	cmpq	%rbx, %rdi
-	jne	.LBB176_15
-	jmp	.LBB176_16
-.LBB176_7:
-	movq	16(%rsp), %r14
-	leaq	1(%r14), %rdx
-	movq	%rbx, %rdi
-	movq	%r15, %rsi
-	callq	memcpy@PLT
-	movq	%rbx, %rdi
-	movq	%rbp, 120(%rsp)                 # 8-byte Spill
-	movq	%r14, 88(%rsp)
-	cmpq	$6, %r14
-	je	.LBB176_13
-.LBB176_12:
-	xorl	%ebp, %ebp
-	cmpq	%rbx, %rdi
-	je	.LBB176_16
-.LBB176_15:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
-	movq	96(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-.LBB176_16:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
-.Ltmp2867:
-	movq	%r13, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2868:
-# %bb.17:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit
-.Ltmp2870:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2871:
-# %bb.18:                               # %.critedge60
-	testb	%bpl, %bpl
-	movq	120(%rsp), %r14                 # 8-byte Reload
-	je	.LBB176_112
-# %bb.19:
-	movq	(%r14), %rax
-	movq	%rax, 16(%rsp)
-	leaq	.L.str.180(%rip), %rax
-	movq	%rax, 24(%rsp)
-	leaq	32(%rsp), %r12
-	movq	$0, 32(%rsp)
-.Ltmp2876:
-	leaq	80(%rsp), %rdi
-	leaq	8(%rsp), %rsi
-	callq	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
-.Ltmp2877:
-# %bb.20:
-	movq	80(%rsp), %rax
-	cmpq	$2, (%rax)
-	jl	.LBB176_23
-# %bb.21:
-.Ltmp2881:
-	leaq	48(%rsp), %rdi
-	leaq	80(%rsp), %rsi
-	callq	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Ltmp2882:
-# %bb.22:                               # %.noexc66
-	movzbl	48(%rsp), %ebx
-	jmp	.LBB176_25
-.LBB176_23:
-.Ltmp2879:
-	leaq	80(%rsp), %rdi
-	callq	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-.Ltmp2880:
-# %bb.24:
-	movl	%eax, %ebx
-.LBB176_25:                             # %_ZNO8pybind116object4castIbEET_v.exit
-.Ltmp2890:
-	leaq	80(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2891:
-# %bb.26:                               # %_ZN8pybind116objectD2Ev.exit
-.Ltmp2893:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2894:
-# %bb.27:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit68
-	testb	$1, %bl
-	je	.LBB176_28
-# %bb.40:
-	movq	(%r14), %rax
-	movq	%rax, 136(%rsp)
-	leaq	.L.str.182(%rip), %rax
-	movq	%rax, 144(%rsp)
-	leaq	152(%rsp), %r12
-	movq	$0, 152(%rsp)
-.Ltmp2899:
-	leaq	128(%rsp), %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
-.Ltmp2900:
-# %bb.41:                               # %.noexc75
-	movq	(%rax), %rax
-	movq	%rax, 8(%rsp)
-.Ltmp2901:
-	leaq	8(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp2902:
-# %bb.42:                               # %.noexc76
-	movq	8(%rsp), %rax
-	movq	%rax, 56(%rsp)
-	leaq	.L.str.183(%rip), %rax
-	movq	%rax, 64(%rsp)
-	movq	$0, 72(%rsp)
-.Ltmp2904:
-	leaq	8(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2905:
-# %bb.43:
-.Ltmp2907:
-	leaq	72(%rsp), %r13
-	leaq	48(%rsp), %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
-.Ltmp2908:
-# %bb.44:                               # %.noexc84
-	movq	%r15, 8(%rsp)
-	movq	$0, 16(%rsp)
-	movb	$0, 24(%rsp)
-.Ltmp2910:
-	leaq	8(%rsp), %rdi
-	movq	%rax, %rsi
-	callq	_ZN8pybind116detail9load_typeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEvEERNS0_11type_casterIT_T0_EESC_RKNS_6handleE
-.Ltmp2911:
-# %bb.45:                               # %_ZN8pybind116detail9load_typeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEENS0_11type_casterINS0_14intrinsic_typeIT_E4typeEvEERKNS_6handleE.exit.i.i.i81
-	leaq	96(%rsp), %rbx
-	movq	%rbx, 80(%rsp)
-	movq	8(%rsp), %rdi
-	cmpq	%r15, %rdi
-	je	.LBB176_46
-# %bb.49:                               # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i.i.i82
-	movq	%rdi, 80(%rsp)
-	movq	16(%rsp), %r14
-	movq	24(%rsp), %rax
-	movq	%rax, 96(%rsp)
-	movq	%r14, 88(%rsp)
-	cmpq	$3, %r14
-	jne	.LBB176_51
-.LBB176_52:
-	movzwl	(%rdi), %eax
-	xorl	$28771, %eax                    # imm = 0x7063
-	movzbl	2(%rdi), %ecx
-	xorl	$117, %ecx
-	orw	%ax, %cx
-	sete	%bpl
-	cmpq	%rbx, %rdi
-	jne	.LBB176_54
-	jmp	.LBB176_55
-.LBB176_46:
-	movq	16(%rsp), %r14
-	leaq	1(%r14), %rdx
-	movq	%rbx, %rdi
-	movq	%r15, %rsi
-	callq	memcpy@PLT
-	movq	%rbx, %rdi
-	movq	%r14, 88(%rsp)
-	cmpq	$3, %r14
-	je	.LBB176_52
-.LBB176_51:
-	xorl	%ebp, %ebp
-	cmpq	%rbx, %rdi
-	je	.LBB176_55
-.LBB176_54:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i90
-	movq	96(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-.LBB176_55:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit92
-.Ltmp2919:
-	movq	%r13, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2920:
-# %bb.56:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit93
-.Ltmp2922:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2923:
-# %bb.57:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit94
-	testb	%bpl, %bpl
-	jne	.LBB176_58
-# %bb.65:
-	movups	.L__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape(%rip), %xmm0
-	movaps	%xmm0, 80(%rsp)
-	movq	120(%rsp), %rax                 # 8-byte Reload
-	movq	(%rax), %rax
-	movq	%rax, 16(%rsp)
-	leaq	.L.str.186(%rip), %rax
-	movq	%rax, 24(%rsp)
-	leaq	32(%rsp), %r15
-	movq	$0, 32(%rsp)
-.Ltmp2925:
-	leaq	8(%rsp), %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
-.Ltmp2926:
-# %bb.66:                               # %.noexc98
-	movq	(%rax), %rax
-	movq	%rax, 48(%rsp)
-.Ltmp2927:
-	leaq	48(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp2928:
-# %bb.67:                               # %.noexc99
-.Ltmp2930:
-	leaq	128(%rsp), %rdi
-	leaq	48(%rsp), %rsi
-	callq	_ZN8pybind115tupleC2EONS_6objectE
-.Ltmp2931:
-# %bb.68:
-.Ltmp2939:
-	leaq	48(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2940:
-# %bb.69:
-.Ltmp2942:
-	movq	%r15, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2943:
-# %bb.70:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit102
-	movq	128(%rsp), %rdi
-.Ltmp2945:
-	callq	PyTuple_Size@PLT
-.Ltmp2946:
-# %bb.71:                               # %_ZNK8pybind115tuple4sizeEv.exit
-	movq	%rax, %r12
-	cmpq	$4, %rax
-	ja	.LBB176_83
-# %bb.72:                               # %.preheader
-	testq	%r12, %r12
-	je	.LBB176_93
-# %bb.73:                               # %.lr.ph
-	leaq	32(%rsp), %r15
-	leaq	(,%r12,4), %rax
-	negq	%rax
-	leaq	(%rsp,%rax), %r14
-	addq	$96, %r14
-	xorl	%ebx, %ebx
-	leaq	8(%rsp), %r13
-	leaq	48(%rsp), %rbp
-	.p2align	4, 0x90
-.LBB176_74:                             # =>This Inner Loop Header: Depth=1
-	movq	128(%rsp), %rax
-	movq	%rax, 16(%rsp)
-	movq	%rbx, 24(%rsp)
-	movq	$0, 32(%rsp)
-.Ltmp2947:
-	movq	%r13, %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies10tuple_itemEE9get_cacheEv
-.Ltmp2948:
-# %bb.75:                               # %.noexc107
-                                        #   in Loop: Header=BB176_74 Depth=1
-	movq	(%rax), %rax
-	movq	%rax, 48(%rsp)
-.Ltmp2949:
-	movq	%rbp, %rdi
-	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp2950:
-# %bb.76:                               # %_ZNK8pybind116detail8accessorINS0_17accessor_policies10tuple_itemEEcvNS_6objectEEv.exit
-                                        #   in Loop: Header=BB176_74 Depth=1
-	movq	48(%rsp), %rax
-	cmpq	$2, (%rax)
-	jl	.LBB176_89
-# %bb.77:                               #   in Loop: Header=BB176_74 Depth=1
-.Ltmp2954:
-	leaq	40(%rsp), %rdi
-	movq	%rbp, %rsi
-	callq	_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Ltmp2955:
-# %bb.78:                               # %.noexc109
-                                        #   in Loop: Header=BB176_74 Depth=1
-	movl	40(%rsp), %eax
-	jmp	.LBB176_90
-	.p2align	4, 0x90
-.LBB176_89:                             #   in Loop: Header=BB176_74 Depth=1
-.Ltmp2952:
-	movq	%rbp, %rdi
-	callq	_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-.Ltmp2953:
-.LBB176_90:                             # %_ZN8pybind114castIiEENSt9enable_ifIXaantsr6detail11is_pyobjectIT_EE5valuesr6detail20move_if_unreferencedIS2_EE5valueES2_E4typeEONS_6objectE.exit
-                                        #   in Loop: Header=BB176_74 Depth=1
-	movl	%eax, (%r14,%rbx,4)
-.Ltmp2963:
-	movq	%rbp, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2964:
-# %bb.91:                               # %_ZN8pybind116objectD2Ev.exit111
-                                        #   in Loop: Header=BB176_74 Depth=1
-.Ltmp2966:
-	movq	%r15, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2967:
-# %bb.92:                               # %_ZN8pybind116detail8accessorINS0_17accessor_policies10tuple_itemEED2Ev.exit
-                                        #   in Loop: Header=BB176_74 Depth=1
-	incq	%rbx
-	cmpq	%rbx, %r12
-	jne	.LBB176_74
-.LBB176_93:                             # %._crit_edge
-	movq	120(%rsp), %rax                 # 8-byte Reload
-	movq	(%rax), %rax
-	movq	%rax, 16(%rsp)
-	leaq	.L.str.188(%rip), %rax
-	movq	%rax, 24(%rsp)
-	leaq	32(%rsp), %r14
-	movq	$0, 32(%rsp)
-.Ltmp2969:
-	leaq	40(%rsp), %rdi
-	leaq	8(%rsp), %rsi
-	callq	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
-.Ltmp2970:
-# %bb.94:
-	movq	40(%rsp), %rax
-	cmpq	$2, (%rax)
-	jl	.LBB176_101
-# %bb.95:
-.Ltmp2974:
-	leaq	48(%rsp), %rdi
-	leaq	40(%rsp), %rsi
-	callq	_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Ltmp2975:
-# %bb.96:                               # %.noexc116
-	movq	48(%rsp), %rbx
-	jmp	.LBB176_103
-.LBB176_101:
-.Ltmp2972:
-	leaq	40(%rsp), %rdi
-	callq	_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-.Ltmp2973:
-# %bb.102:
-	movq	%rax, %rbx
-.LBB176_103:                            # %_ZNO8pybind116object4castImEET_v.exit
-.Ltmp2983:
-	leaq	40(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2984:
-# %bb.104:                              # %_ZN8pybind116objectD2Ev.exit118
-.Ltmp2986:
-	movq	%r14, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2987:
-# %bb.105:
-	movq	160(%rsp), %rax                 # 8-byte Reload
-	movq	%rbx, (%rax)
-	movq	%rax, %rbx
-	movdqa	80(%rsp), %xmm0
-	pshufd	$238, %xmm0, %xmm1              # xmm1 = xmm0[2,3,2,3]
-	pxor	%xmm2, %xmm2
-	pxor	%xmm3, %xmm3
-	pcmpgtd	%xmm1, %xmm3
-	punpckldq	%xmm3, %xmm1            # xmm1 = xmm1[0],xmm3[0],xmm1[1],xmm3[1]
-	pcmpgtd	%xmm0, %xmm2
-	punpckldq	%xmm2, %xmm0            # xmm0 = xmm0[0],xmm2[0],xmm0[1],xmm2[1]
-	movdqu	%xmm0, 8(%rax)
-	movdqu	%xmm1, 24(%rax)
-.Ltmp2989:
-	leaq	128(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2990:
-# %bb.106:                              # %_ZN8pybind116objectD2Ev.exit120
+# %bb.15:                               # %_ZN8pybind116detail16simple_collectorILNS_19return_value_policyE1EED2Ev.exit
 	movq	%rbx, %rax
-	addq	$168, %rsp
-	.cfi_def_cfa_offset 56
-	popq	%rbx
-	.cfi_def_cfa_offset 48
-	popq	%r12
-	.cfi_def_cfa_offset 40
-	popq	%r13
-	.cfi_def_cfa_offset 32
-	popq	%r14
+	addq	$8, %rsp
 	.cfi_def_cfa_offset 24
-	popq	%r15
+	popq	%rbx
 	.cfi_def_cfa_offset 16
-	popq	%rbp
+	popq	%r14
 	.cfi_def_cfa_offset 8
 	retq
-.LBB176_112:                            # %.critedge60.thread
-	.cfi_def_cfa_offset 224
-	movl	$16, %edi
-	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %r14
-.Ltmp2873:
-	leaq	.L.str.189(%rip), %rsi
-	movq	%rax, %rdi
-	callq	_ZNSt13runtime_errorC1EPKc@PLT
-.Ltmp2874:
-	jmp	.LBB176_29
-.LBB176_28:
-	movl	$16, %edi
-	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %r14
-.Ltmp2896:
-	leaq	.L.str.181(%rip), %rsi
-	movq	%rax, %rdi
-	callq	_ZNSt13runtime_errorC1EPKc@PLT
-.Ltmp2897:
-	jmp	.LBB176_29
-.LBB176_58:
-	movl	$16, %edi
-	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %r14
-.Ltmp3001:
-	leaq	.L.str.185(%rip), %rsi
-	movq	%rax, %rdi
-	callq	_ZNSt13runtime_errorC1EPKc@PLT
-.Ltmp3002:
-.LBB176_29:
-	movq	_ZTISt13runtime_error@GOTPCREL(%rip), %rsi
-	movq	_ZNSt13runtime_errorD1Ev@GOTPCREL(%rip), %rdx
-	movq	%r14, %rdi
-	callq	__cxa_throw@PLT
-.LBB176_83:
-	movl	$16, %edi
-	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %r14
-.Ltmp2992:
-	leaq	.L.str.187(%rip), %rsi
-	movq	%rax, %rdi
-	callq	_ZNSt13runtime_errorC1EPKc@PLT
-.Ltmp2993:
-# %bb.84:
-.Ltmp2995:
-	movq	_ZTISt13runtime_error@GOTPCREL(%rip), %rsi
-	movq	_ZNSt13runtime_errorD1Ev@GOTPCREL(%rip), %rdx
-	movq	%r14, %rdi
-	callq	__cxa_throw@PLT
-.Ltmp2996:
-# %bb.116:
-.LBB176_88:
-.Ltmp2994:
-	movq	%rax, %rbx
-	movq	%r14, %rdi
-	callq	__cxa_free_exception@PLT
-	jmp	.LBB176_111
-.LBB176_64:
-.Ltmp3003:
-	jmp	.LBB176_114
-.LBB176_39:
-.Ltmp2898:
-	jmp	.LBB176_114
-.LBB176_134:
-.Ltmp2991:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_133:
-.Ltmp2988:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_132:
-.Ltmp2985:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_107:
-.Ltmp2976:
-	movq	%rax, %rbx
-.Ltmp2977:
-	leaq	40(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2978:
-	jmp	.LBB176_110
-.LBB176_108:
-.Ltmp2979:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_109:
-.Ltmp2971:
-	movq	%rax, %rbx
-.LBB176_110:                            # %_ZN8pybind116objectD2Ev.exit121
-.Ltmp2980:
-	movq	%r14, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2981:
-	jmp	.LBB176_111
-.LBB176_135:
-.Ltmp2982:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_82:
-.Ltmp2944:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_79:
-.Ltmp2941:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_81:
-.Ltmp2932:
-	movq	%rax, %rbx
-.Ltmp2933:
-	leaq	48(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2934:
-	jmp	.LBB176_86
-.LBB176_80:
-.Ltmp2935:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_126:
-.Ltmp2924:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_125:
-.Ltmp2921:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_47:
-.Ltmp2912:
-	movq	%rax, %rbx
-	movq	8(%rsp), %rdi
-	cmpq	%r15, %rdi
-	je	.LBB176_60
-# %bb.48:                               # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i.i5.i.i.i78
-	movq	24(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	jmp	.LBB176_60
-.LBB176_59:
-.Ltmp2909:
-	movq	%rax, %rbx
-.LBB176_60:                             # %.body85
-.Ltmp2913:
-	movq	%r13, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2914:
-	jmp	.LBB176_63
-.LBB176_61:
-.Ltmp2915:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_124:
-.Ltmp2906:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_121:
-.Ltmp2895:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_120:
-.Ltmp2892:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_35:
-.Ltmp2883:
-	movq	%rax, %rbx
-.Ltmp2884:
-	leaq	80(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2885:
-	jmp	.LBB176_38
-.LBB176_36:
-.Ltmp2886:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_37:
-.Ltmp2878:
-	movq	%rax, %rbx
-.LBB176_38:                             # %_ZN8pybind116objectD2Ev.exit71
-.Ltmp2887:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2888:
-	jmp	.LBB176_115
-.LBB176_123:
-.Ltmp2889:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_119:
-.Ltmp2872:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_118:
-.Ltmp2869:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_8:
-.Ltmp2860:
-	movq	%rax, %rbx
-	movq	8(%rsp), %rdi
-	cmpq	%r15, %rdi
-	je	.LBB176_31
-# %bb.9:                                # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i.i5.i.i.i
-	movq	24(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	jmp	.LBB176_31
-.LBB176_113:
-.Ltmp2875:
-.LBB176_114:
-	movq	%rax, %rbx
-	movq	%r14, %rdi
-	callq	__cxa_free_exception@PLT
-	movq	%rbx, %rdi
-	callq	_Unwind_Resume@PLT
-.LBB176_30:
-.Ltmp2857:
-	movq	%rax, %rbx
-.LBB176_31:                             # %.body
-.Ltmp2861:
-	movq	%r13, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2862:
-	jmp	.LBB176_34
-.LBB176_32:
+.LBB176_18:
+	.cfi_def_cfa_offset 32
+	leaq	.L.str.154(%rip), %rdi
+	callq	_ZN8pybind1113pybind11_failEPKc
+.LBB176_2:
 .Ltmp2863:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_117:
+	leaq	.L.str.148(%rip), %rdi
+	callq	_ZN8pybind1113pybind11_failEPKc
+.Ltmp2864:
+# %bb.3:
+.LBB176_9:
+	movl	$24, %edi
+	callq	__cxa_allocate_exception@PLT
+	movq	%rax, %r14
 .Ltmp2854:
 	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_87:
-.Ltmp2997:
+	callq	_ZN8pybind1117error_already_setC2Ev
+.Ltmp2855:
+# %bb.10:
+.Ltmp2857:
+	leaq	_ZTIN8pybind1117error_already_setE(%rip), %rsi
+	leaq	_ZN8pybind1117error_already_setD2Ev(%rip), %rdx
+	movq	%r14, %rdi
+	callq	__cxa_throw@PLT
+.Ltmp2858:
+# %bb.11:                               # %.noexc2
+.LBB176_12:
+.Ltmp2856:
 	movq	%rax, %rbx
-	jmp	.LBB176_111
-.LBB176_85:
-.Ltmp2929:
-	movq	%rax, %rbx
-.LBB176_86:                             # %.body100
-.Ltmp2936:
-	movq	%r15, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2937:
-	jmp	.LBB176_115
-.LBB176_128:
-.Ltmp2938:
+	movq	%r14, %rdi
+	callq	__cxa_free_exception@PLT
+	jmp	.LBB176_17
+.LBB176_13:
+.Ltmp2853:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB176_62:
-.Ltmp2903:
-	movq	%rax, %rbx
-.LBB176_63:                             # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit95
-.Ltmp2916:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2917:
-	jmp	.LBB176_115
-.LBB176_127:
-.Ltmp2918:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_33:
-.Ltmp2851:
-	movq	%rax, %rbx
-.LBB176_34:                             # %_ZN8pybind116detail8accessorINS0_17accessor_policies8str_attrEED2Ev.exit69
-.Ltmp2864:
-	movq	%r12, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
+.LBB176_4:
 .Ltmp2865:
-	jmp	.LBB176_115
-.LBB176_122:
+	movq	%rax, %rbx
 .Ltmp2866:
+	movq	%rsp, %rdi
+	callq	_ZNKR8pybind116handle7dec_refEv
+.Ltmp2867:
+	jmp	.LBB176_5
+.LBB176_19:
+.Ltmp2868:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB176_97:
-.Ltmp2956:
+.LBB176_16:
+.Ltmp2859:
 	movq	%rax, %rbx
-.Ltmp2957:
-	leaq	48(%rsp), %rdi
+.LBB176_17:                             # %.body
+.Ltmp2860:
+	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2958:
-	jmp	.LBB176_100
-.LBB176_98:
-.Ltmp2959:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_129:
-.Ltmp2965:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_130:
-.Ltmp2968:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_99:
-.Ltmp2951:
-	movq	%rax, %rbx
-.LBB176_100:                            # %_ZN8pybind116objectD2Ev.exit112
-.Ltmp2960:
-	movq	%r15, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2961:
-.LBB176_111:
-.Ltmp2998:
-	leaq	128(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp2999:
-.LBB176_115:
+.Ltmp2861:
+.LBB176_5:                              # %common.resume
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
-.LBB176_136:
-.Ltmp3000:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB176_131:
-.Ltmp2962:
+.LBB176_20:
+.Ltmp2862:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
 .Lfunc_end176:
-	.size	_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE, .Lfunc_end176-_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE
+	.size	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_, .Lfunc_end176-_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE,"aG",@progbits,_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE,comdat
+	.section	.gcc_except_table._ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,"aG",@progbits,_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,comdat
 	.p2align	2, 0x0
 GCC_except_table176:
 .Lexception97:
@@ -43968,230 +43294,46 @@ GCC_except_table176:
 	.byte	0                               #   On action: cleanup
 	.uleb128 .Ltmp2847-.Lfunc_begin97       # >> Call Site 2 <<
 	.uleb128 .Ltmp2850-.Ltmp2847            #   Call between .Ltmp2847 and .Ltmp2850
-	.uleb128 .Ltmp2851-.Lfunc_begin97       #     jumps to .Ltmp2851
+	.uleb128 .Ltmp2859-.Lfunc_begin97       #     jumps to .Ltmp2859
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2852-.Lfunc_begin97       # >> Call Site 3 <<
-	.uleb128 .Ltmp2853-.Ltmp2852            #   Call between .Ltmp2852 and .Ltmp2853
-	.uleb128 .Ltmp2854-.Lfunc_begin97       #     jumps to .Ltmp2854
+	.uleb128 .Ltmp2851-.Lfunc_begin97       # >> Call Site 3 <<
+	.uleb128 .Ltmp2852-.Ltmp2851            #   Call between .Ltmp2851 and .Ltmp2852
+	.uleb128 .Ltmp2853-.Lfunc_begin97       #     jumps to .Ltmp2853
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2855-.Lfunc_begin97       # >> Call Site 4 <<
-	.uleb128 .Ltmp2856-.Ltmp2855            #   Call between .Ltmp2855 and .Ltmp2856
-	.uleb128 .Ltmp2857-.Lfunc_begin97       #     jumps to .Ltmp2857
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2858-.Lfunc_begin97       # >> Call Site 5 <<
-	.uleb128 .Ltmp2859-.Ltmp2858            #   Call between .Ltmp2858 and .Ltmp2859
-	.uleb128 .Ltmp2860-.Lfunc_begin97       #     jumps to .Ltmp2860
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2859-.Lfunc_begin97       # >> Call Site 6 <<
-	.uleb128 .Ltmp2867-.Ltmp2859            #   Call between .Ltmp2859 and .Ltmp2867
+	.uleb128 .Ltmp2852-.Lfunc_begin97       # >> Call Site 4 <<
+	.uleb128 .Ltmp2863-.Ltmp2852            #   Call between .Ltmp2852 and .Ltmp2863
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2867-.Lfunc_begin97       # >> Call Site 7 <<
-	.uleb128 .Ltmp2868-.Ltmp2867            #   Call between .Ltmp2867 and .Ltmp2868
-	.uleb128 .Ltmp2869-.Lfunc_begin97       #     jumps to .Ltmp2869
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2870-.Lfunc_begin97       # >> Call Site 8 <<
-	.uleb128 .Ltmp2871-.Ltmp2870            #   Call between .Ltmp2870 and .Ltmp2871
-	.uleb128 .Ltmp2872-.Lfunc_begin97       #     jumps to .Ltmp2872
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2876-.Lfunc_begin97       # >> Call Site 9 <<
-	.uleb128 .Ltmp2877-.Ltmp2876            #   Call between .Ltmp2876 and .Ltmp2877
-	.uleb128 .Ltmp2878-.Lfunc_begin97       #     jumps to .Ltmp2878
+	.uleb128 .Ltmp2863-.Lfunc_begin97       # >> Call Site 5 <<
+	.uleb128 .Ltmp2864-.Ltmp2863            #   Call between .Ltmp2863 and .Ltmp2864
+	.uleb128 .Ltmp2865-.Lfunc_begin97       #     jumps to .Ltmp2865
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2881-.Lfunc_begin97       # >> Call Site 10 <<
-	.uleb128 .Ltmp2880-.Ltmp2881            #   Call between .Ltmp2881 and .Ltmp2880
-	.uleb128 .Ltmp2883-.Lfunc_begin97       #     jumps to .Ltmp2883
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2890-.Lfunc_begin97       # >> Call Site 11 <<
-	.uleb128 .Ltmp2891-.Ltmp2890            #   Call between .Ltmp2890 and .Ltmp2891
-	.uleb128 .Ltmp2892-.Lfunc_begin97       #     jumps to .Ltmp2892
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2893-.Lfunc_begin97       # >> Call Site 12 <<
-	.uleb128 .Ltmp2894-.Ltmp2893            #   Call between .Ltmp2893 and .Ltmp2894
-	.uleb128 .Ltmp2895-.Lfunc_begin97       #     jumps to .Ltmp2895
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2899-.Lfunc_begin97       # >> Call Site 13 <<
-	.uleb128 .Ltmp2902-.Ltmp2899            #   Call between .Ltmp2899 and .Ltmp2902
-	.uleb128 .Ltmp2903-.Lfunc_begin97       #     jumps to .Ltmp2903
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2904-.Lfunc_begin97       # >> Call Site 14 <<
-	.uleb128 .Ltmp2905-.Ltmp2904            #   Call between .Ltmp2904 and .Ltmp2905
-	.uleb128 .Ltmp2906-.Lfunc_begin97       #     jumps to .Ltmp2906
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2907-.Lfunc_begin97       # >> Call Site 15 <<
-	.uleb128 .Ltmp2908-.Ltmp2907            #   Call between .Ltmp2907 and .Ltmp2908
-	.uleb128 .Ltmp2909-.Lfunc_begin97       #     jumps to .Ltmp2909
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2910-.Lfunc_begin97       # >> Call Site 16 <<
-	.uleb128 .Ltmp2911-.Ltmp2910            #   Call between .Ltmp2910 and .Ltmp2911
-	.uleb128 .Ltmp2912-.Lfunc_begin97       #     jumps to .Ltmp2912
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2911-.Lfunc_begin97       # >> Call Site 17 <<
-	.uleb128 .Ltmp2919-.Ltmp2911            #   Call between .Ltmp2911 and .Ltmp2919
+	.uleb128 .Ltmp2864-.Lfunc_begin97       # >> Call Site 6 <<
+	.uleb128 .Ltmp2854-.Ltmp2864            #   Call between .Ltmp2864 and .Ltmp2854
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2919-.Lfunc_begin97       # >> Call Site 18 <<
-	.uleb128 .Ltmp2920-.Ltmp2919            #   Call between .Ltmp2919 and .Ltmp2920
-	.uleb128 .Ltmp2921-.Lfunc_begin97       #     jumps to .Ltmp2921
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2922-.Lfunc_begin97       # >> Call Site 19 <<
-	.uleb128 .Ltmp2923-.Ltmp2922            #   Call between .Ltmp2922 and .Ltmp2923
-	.uleb128 .Ltmp2924-.Lfunc_begin97       #     jumps to .Ltmp2924
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2925-.Lfunc_begin97       # >> Call Site 20 <<
-	.uleb128 .Ltmp2928-.Ltmp2925            #   Call between .Ltmp2925 and .Ltmp2928
-	.uleb128 .Ltmp2929-.Lfunc_begin97       #     jumps to .Ltmp2929
+	.uleb128 .Ltmp2854-.Lfunc_begin97       # >> Call Site 7 <<
+	.uleb128 .Ltmp2855-.Ltmp2854            #   Call between .Ltmp2854 and .Ltmp2855
+	.uleb128 .Ltmp2856-.Lfunc_begin97       #     jumps to .Ltmp2856
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2930-.Lfunc_begin97       # >> Call Site 21 <<
-	.uleb128 .Ltmp2931-.Ltmp2930            #   Call between .Ltmp2930 and .Ltmp2931
-	.uleb128 .Ltmp2932-.Lfunc_begin97       #     jumps to .Ltmp2932
+	.uleb128 .Ltmp2857-.Lfunc_begin97       # >> Call Site 8 <<
+	.uleb128 .Ltmp2858-.Ltmp2857            #   Call between .Ltmp2857 and .Ltmp2858
+	.uleb128 .Ltmp2859-.Lfunc_begin97       #     jumps to .Ltmp2859
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2939-.Lfunc_begin97       # >> Call Site 22 <<
-	.uleb128 .Ltmp2940-.Ltmp2939            #   Call between .Ltmp2939 and .Ltmp2940
-	.uleb128 .Ltmp2941-.Lfunc_begin97       #     jumps to .Ltmp2941
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2942-.Lfunc_begin97       # >> Call Site 23 <<
-	.uleb128 .Ltmp2943-.Ltmp2942            #   Call between .Ltmp2942 and .Ltmp2943
-	.uleb128 .Ltmp2944-.Lfunc_begin97       #     jumps to .Ltmp2944
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2945-.Lfunc_begin97       # >> Call Site 24 <<
-	.uleb128 .Ltmp2946-.Ltmp2945            #   Call between .Ltmp2945 and .Ltmp2946
-	.uleb128 .Ltmp2997-.Lfunc_begin97       #     jumps to .Ltmp2997
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2947-.Lfunc_begin97       # >> Call Site 25 <<
-	.uleb128 .Ltmp2950-.Ltmp2947            #   Call between .Ltmp2947 and .Ltmp2950
-	.uleb128 .Ltmp2951-.Lfunc_begin97       #     jumps to .Ltmp2951
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2954-.Lfunc_begin97       # >> Call Site 26 <<
-	.uleb128 .Ltmp2953-.Ltmp2954            #   Call between .Ltmp2954 and .Ltmp2953
-	.uleb128 .Ltmp2956-.Lfunc_begin97       #     jumps to .Ltmp2956
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2963-.Lfunc_begin97       # >> Call Site 27 <<
-	.uleb128 .Ltmp2964-.Ltmp2963            #   Call between .Ltmp2963 and .Ltmp2964
-	.uleb128 .Ltmp2965-.Lfunc_begin97       #     jumps to .Ltmp2965
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2966-.Lfunc_begin97       # >> Call Site 28 <<
-	.uleb128 .Ltmp2967-.Ltmp2966            #   Call between .Ltmp2966 and .Ltmp2967
-	.uleb128 .Ltmp2968-.Lfunc_begin97       #     jumps to .Ltmp2968
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2969-.Lfunc_begin97       # >> Call Site 29 <<
-	.uleb128 .Ltmp2970-.Ltmp2969            #   Call between .Ltmp2969 and .Ltmp2970
-	.uleb128 .Ltmp2971-.Lfunc_begin97       #     jumps to .Ltmp2971
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2974-.Lfunc_begin97       # >> Call Site 30 <<
-	.uleb128 .Ltmp2973-.Ltmp2974            #   Call between .Ltmp2974 and .Ltmp2973
-	.uleb128 .Ltmp2976-.Lfunc_begin97       #     jumps to .Ltmp2976
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2983-.Lfunc_begin97       # >> Call Site 31 <<
-	.uleb128 .Ltmp2984-.Ltmp2983            #   Call between .Ltmp2983 and .Ltmp2984
-	.uleb128 .Ltmp2985-.Lfunc_begin97       #     jumps to .Ltmp2985
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2986-.Lfunc_begin97       # >> Call Site 32 <<
-	.uleb128 .Ltmp2987-.Ltmp2986            #   Call between .Ltmp2986 and .Ltmp2987
-	.uleb128 .Ltmp2988-.Lfunc_begin97       #     jumps to .Ltmp2988
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2989-.Lfunc_begin97       # >> Call Site 33 <<
-	.uleb128 .Ltmp2990-.Ltmp2989            #   Call between .Ltmp2989 and .Ltmp2990
-	.uleb128 .Ltmp2991-.Lfunc_begin97       #     jumps to .Ltmp2991
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2990-.Lfunc_begin97       # >> Call Site 34 <<
-	.uleb128 .Ltmp2873-.Ltmp2990            #   Call between .Ltmp2990 and .Ltmp2873
+	.uleb128 .Ltmp2858-.Lfunc_begin97       # >> Call Site 9 <<
+	.uleb128 .Ltmp2866-.Ltmp2858            #   Call between .Ltmp2858 and .Ltmp2866
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2873-.Lfunc_begin97       # >> Call Site 35 <<
-	.uleb128 .Ltmp2874-.Ltmp2873            #   Call between .Ltmp2873 and .Ltmp2874
-	.uleb128 .Ltmp2875-.Lfunc_begin97       #     jumps to .Ltmp2875
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2874-.Lfunc_begin97       # >> Call Site 36 <<
-	.uleb128 .Ltmp2896-.Ltmp2874            #   Call between .Ltmp2874 and .Ltmp2896
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2896-.Lfunc_begin97       # >> Call Site 37 <<
-	.uleb128 .Ltmp2897-.Ltmp2896            #   Call between .Ltmp2896 and .Ltmp2897
-	.uleb128 .Ltmp2898-.Lfunc_begin97       #     jumps to .Ltmp2898
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2897-.Lfunc_begin97       # >> Call Site 38 <<
-	.uleb128 .Ltmp3001-.Ltmp2897            #   Call between .Ltmp2897 and .Ltmp3001
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3001-.Lfunc_begin97       # >> Call Site 39 <<
-	.uleb128 .Ltmp3002-.Ltmp3001            #   Call between .Ltmp3001 and .Ltmp3002
-	.uleb128 .Ltmp3003-.Lfunc_begin97       #     jumps to .Ltmp3003
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3002-.Lfunc_begin97       # >> Call Site 40 <<
-	.uleb128 .Ltmp2992-.Ltmp3002            #   Call between .Ltmp3002 and .Ltmp2992
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2992-.Lfunc_begin97       # >> Call Site 41 <<
-	.uleb128 .Ltmp2993-.Ltmp2992            #   Call between .Ltmp2992 and .Ltmp2993
-	.uleb128 .Ltmp2994-.Lfunc_begin97       #     jumps to .Ltmp2994
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2995-.Lfunc_begin97       # >> Call Site 42 <<
-	.uleb128 .Ltmp2996-.Ltmp2995            #   Call between .Ltmp2995 and .Ltmp2996
-	.uleb128 .Ltmp2997-.Lfunc_begin97       #     jumps to .Ltmp2997
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2996-.Lfunc_begin97       # >> Call Site 43 <<
-	.uleb128 .Ltmp2977-.Ltmp2996            #   Call between .Ltmp2996 and .Ltmp2977
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2977-.Lfunc_begin97       # >> Call Site 44 <<
-	.uleb128 .Ltmp2978-.Ltmp2977            #   Call between .Ltmp2977 and .Ltmp2978
-	.uleb128 .Ltmp2979-.Lfunc_begin97       #     jumps to .Ltmp2979
+	.uleb128 .Ltmp2866-.Lfunc_begin97       # >> Call Site 10 <<
+	.uleb128 .Ltmp2867-.Ltmp2866            #   Call between .Ltmp2866 and .Ltmp2867
+	.uleb128 .Ltmp2868-.Lfunc_begin97       #     jumps to .Ltmp2868
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2980-.Lfunc_begin97       # >> Call Site 45 <<
-	.uleb128 .Ltmp2981-.Ltmp2980            #   Call between .Ltmp2980 and .Ltmp2981
-	.uleb128 .Ltmp2982-.Lfunc_begin97       #     jumps to .Ltmp2982
+	.uleb128 .Ltmp2860-.Lfunc_begin97       # >> Call Site 11 <<
+	.uleb128 .Ltmp2861-.Ltmp2860            #   Call between .Ltmp2860 and .Ltmp2861
+	.uleb128 .Ltmp2862-.Lfunc_begin97       #     jumps to .Ltmp2862
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2933-.Lfunc_begin97       # >> Call Site 46 <<
-	.uleb128 .Ltmp2934-.Ltmp2933            #   Call between .Ltmp2933 and .Ltmp2934
-	.uleb128 .Ltmp2935-.Lfunc_begin97       #     jumps to .Ltmp2935
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2913-.Lfunc_begin97       # >> Call Site 47 <<
-	.uleb128 .Ltmp2914-.Ltmp2913            #   Call between .Ltmp2913 and .Ltmp2914
-	.uleb128 .Ltmp2915-.Lfunc_begin97       #     jumps to .Ltmp2915
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2884-.Lfunc_begin97       # >> Call Site 48 <<
-	.uleb128 .Ltmp2885-.Ltmp2884            #   Call between .Ltmp2884 and .Ltmp2885
-	.uleb128 .Ltmp2886-.Lfunc_begin97       #     jumps to .Ltmp2886
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2887-.Lfunc_begin97       # >> Call Site 49 <<
-	.uleb128 .Ltmp2888-.Ltmp2887            #   Call between .Ltmp2887 and .Ltmp2888
-	.uleb128 .Ltmp2889-.Lfunc_begin97       #     jumps to .Ltmp2889
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2888-.Lfunc_begin97       # >> Call Site 50 <<
-	.uleb128 .Ltmp2861-.Ltmp2888            #   Call between .Ltmp2888 and .Ltmp2861
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp2861-.Lfunc_begin97       # >> Call Site 51 <<
-	.uleb128 .Ltmp2862-.Ltmp2861            #   Call between .Ltmp2861 and .Ltmp2862
-	.uleb128 .Ltmp2863-.Lfunc_begin97       #     jumps to .Ltmp2863
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2936-.Lfunc_begin97       # >> Call Site 52 <<
-	.uleb128 .Ltmp2937-.Ltmp2936            #   Call between .Ltmp2936 and .Ltmp2937
-	.uleb128 .Ltmp2938-.Lfunc_begin97       #     jumps to .Ltmp2938
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2916-.Lfunc_begin97       # >> Call Site 53 <<
-	.uleb128 .Ltmp2917-.Ltmp2916            #   Call between .Ltmp2916 and .Ltmp2917
-	.uleb128 .Ltmp2918-.Lfunc_begin97       #     jumps to .Ltmp2918
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2864-.Lfunc_begin97       # >> Call Site 54 <<
-	.uleb128 .Ltmp2865-.Ltmp2864            #   Call between .Ltmp2864 and .Ltmp2865
-	.uleb128 .Ltmp2866-.Lfunc_begin97       #     jumps to .Ltmp2866
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2957-.Lfunc_begin97       # >> Call Site 55 <<
-	.uleb128 .Ltmp2958-.Ltmp2957            #   Call between .Ltmp2957 and .Ltmp2958
-	.uleb128 .Ltmp2959-.Lfunc_begin97       #     jumps to .Ltmp2959
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2960-.Lfunc_begin97       # >> Call Site 56 <<
-	.uleb128 .Ltmp2961-.Ltmp2960            #   Call between .Ltmp2960 and .Ltmp2961
-	.uleb128 .Ltmp2962-.Lfunc_begin97       #     jumps to .Ltmp2962
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2998-.Lfunc_begin97       # >> Call Site 57 <<
-	.uleb128 .Ltmp2999-.Ltmp2998            #   Call between .Ltmp2998 and .Ltmp2999
-	.uleb128 .Ltmp3000-.Lfunc_begin97       #     jumps to .Ltmp3000
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp2999-.Lfunc_begin97       # >> Call Site 58 <<
-	.uleb128 .Lfunc_end176-.Ltmp2999        #   Call between .Ltmp2999 and .Lfunc_end176
+	.uleb128 .Ltmp2861-.Lfunc_begin97       # >> Call Site 12 <<
+	.uleb128 .Lfunc_end176-.Ltmp2861        #   Call between .Ltmp2861 and .Lfunc_end176
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
 .Lcst_end97:
@@ -44204,132 +43346,274 @@ GCC_except_table176:
 .Lttbase67:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,"axG",@progbits,_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,comdat
-	.hidden	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_ # -- Begin function _ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
-	.weak	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
+	.section	.text._ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"axG",@progbits,_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
+	.hidden	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE # -- Begin function _ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+	.weak	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
 	.p2align	4, 0x90
-	.type	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,@function
-_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_: # @_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
+	.type	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,@function
+_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE: # @_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
 .Lfunc_begin98:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
 	.cfi_lsda 27, .Lexception98
 # %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
 	pushq	%r14
-	.cfi_def_cfa_offset 16
+	.cfi_def_cfa_offset 24
 	pushq	%rbx
-	.cfi_def_cfa_offset 24
-	pushq	%rax
 	.cfi_def_cfa_offset 32
-	.cfi_offset %rbx, -24
-	.cfi_offset %r14, -16
-	movq	%rsi, %r14
-	movq	%rdi, %rbx
-	callq	PyGILState_Check@PLT
-	testl	%eax, %eax
-	je	.LBB177_18
-# %bb.1:
-	xorl	%edi, %edi
-	callq	PyTuple_New@PLT
-	movq	%rax, (%rsp)
-	testq	%rax, %rax
-	je	.LBB177_2
-# %bb.6:                                # %_ZN8pybind116detail17collect_argumentsILNS_19return_value_policyE1EJEvEENS0_16simple_collectorIXT_EEEDpOT0_.exit
-.Ltmp3004:
-	movq	%r14, %rdi
-	callq	_ZNK8pybind116detail8accessorINS0_17accessor_policies8str_attrEE9get_cacheEv
-.Ltmp3005:
-# %bb.7:
-	movq	(%rax), %rdi
-	movq	(%rsp), %rsi
-.Ltmp3006:
-	callq	PyObject_CallObject@PLT
-.Ltmp3007:
-# %bb.8:                                # %.noexc
-	testq	%rax, %rax
-	je	.LBB177_9
-# %bb.14:
-	movq	%rax, (%rbx)
-.Ltmp3008:
-	movq	%rsp, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3009:
-# %bb.15:                               # %_ZN8pybind116detail16simple_collectorILNS_19return_value_policyE1EED2Ev.exit
-	movq	%rbx, %rax
-	addq	$8, %rsp
-	.cfi_def_cfa_offset 24
+	subq	$208, %rsp
+	.cfi_def_cfa_offset 240
+	.cfi_offset %rbx, -32
+	.cfi_offset %r14, -24
+	.cfi_offset %rbp, -16
+	movq	%rdi, %r14
+	movq	(%rdi), %rax
+	cmpq	$2, (%rax)
+	jge	.LBB177_1
+# %bb.35:
+	leaq	16(%rsp), %rdi
+	movq	%r14, %rsi
+	callq	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
+	movzbl	16(%rsp), %eax
+	andb	$1, %al
+	addq	$208, %rsp
+	.cfi_def_cfa_offset 32
 	popq	%rbx
-	.cfi_def_cfa_offset 16
+	.cfi_def_cfa_offset 24
 	popq	%r14
+	.cfi_def_cfa_offset 16
+	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB177_18:
-	.cfi_def_cfa_offset 32
-	leaq	.L.str.154(%rip), %rdi
-	callq	_ZN8pybind1113pybind11_failEPKc
-.LBB177_2:
-.Ltmp3020:
-	leaq	.L.str.148(%rip), %rdi
-	callq	_ZN8pybind1113pybind11_failEPKc
-.Ltmp3021:
-# %bb.3:
-.LBB177_9:
-	movl	$24, %edi
+.LBB177_1:
+	.cfi_def_cfa_offset 240
+	movl	$16, %edi
 	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %r14
-.Ltmp3011:
-	movq	%rax, %rdi
-	callq	_ZN8pybind1117error_already_setC2Ev
-.Ltmp3012:
-# %bb.10:
-.Ltmp3014:
-	leaq	_ZTIN8pybind1117error_already_setE(%rip), %rsi
-	leaq	_ZN8pybind1117error_already_setD2Ev(%rip), %rdx
-	movq	%r14, %rdi
-	callq	__cxa_throw@PLT
-.Ltmp3015:
-# %bb.11:                               # %.noexc2
-.LBB177_12:
-.Ltmp3013:
 	movq	%rax, %rbx
-	movq	%r14, %rdi
-	callq	__cxa_free_exception@PLT
-	jmp	.LBB177_17
-.LBB177_13:
-.Ltmp3010:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB177_4:
-.Ltmp3022:
-	movq	%rax, %rbx
-.Ltmp3023:
-	movq	%rsp, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3024:
-	jmp	.LBB177_5
-.LBB177_19:
-.Ltmp3025:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB177_16:
-.Ltmp3016:
-	movq	%rax, %rbx
-.LBB177_17:                             # %.body
-.Ltmp3017:
-	movq	%rsp, %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3018:
-.LBB177_5:                              # %common.resume
+	movq	(%r14), %rax
+	movq	8(%rax), %rsi
+.Ltmp2869:
+	leaq	8(%rsp), %rdi
+	callq	_ZN8pybind113strC2ENS_6handleE
+.Ltmp2870:
+# %bb.2:
+.Ltmp2872:
+	leaq	80(%rsp), %rdi
+	leaq	8(%rsp), %rsi
+	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
+.Ltmp2873:
+# %bb.3:
+.Ltmp2875:
+	leaq	.L.str.48(%rip), %rsi
+	leaq	112(%rsp), %rdi
+	leaq	80(%rsp), %rdx
+	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
+.Ltmp2876:
+# %bb.4:
+.Ltmp2878:
+	leaq	.L.str.49(%rip), %rdx
+	leaq	144(%rsp), %rdi
+	leaq	112(%rsp), %rsi
+	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
+.Ltmp2879:
+# %bb.5:
+	movq	_ZTIb@GOTPCREL(%rip), %rax
+	movq	8(%rax), %rax
+	xorl	%esi, %esi
+	cmpb	$42, (%rax)
+	sete	%sil
+	addq	%rax, %rsi
+.Ltmp2881:
+	leaq	48(%rsp), %rdi
+	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
+.Ltmp2882:
+# %bb.6:                                # %_ZN8pybind11L7type_idIbEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
+.Ltmp2884:
+	leaq	176(%rsp), %rdi
+	leaq	144(%rsp), %rsi
+	leaq	48(%rsp), %rdx
+	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
+.Ltmp2885:
+# %bb.7:
+.Ltmp2887:
+	leaq	.L.str.50(%rip), %rdx
+	leaq	16(%rsp), %rdi
+	leaq	176(%rsp), %rsi
+	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
+.Ltmp2888:
+# %bb.8:
+	movb	$1, %bpl
+.Ltmp2890:
+	leaq	16(%rsp), %rsi
 	movq	%rbx, %rdi
-	callq	_Unwind_Resume@PLT
-.LBB177_20:
-.Ltmp3019:
+	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
+.Ltmp2891:
+# %bb.9:
+	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
+	movq	%rax, (%rbx)
+	xorl	%ebp, %ebp
+.Ltmp2892:
+	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
+	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
+	movq	%rbx, %rdi
+	callq	__cxa_throw@PLT
+.Ltmp2893:
+# %bb.33:
+.LBB177_17:
+.Ltmp2894:
+	movq	%rax, %r14
+	movq	16(%rsp), %rdi
+	leaq	32(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_18
+# %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
+	movq	176(%rsp), %rdi
+	leaq	192(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_20
+.LBB177_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_22
+.LBB177_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
+	movq	144(%rsp), %rdi
+	leaq	160(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_24
+.LBB177_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	movq	112(%rsp), %rdi
+	leaq	128(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_26
+.LBB177_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	movq	80(%rsp), %rdi
+	leaq	96(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_28
+	jmp	.LBB177_29
+.LBB177_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
+	movq	32(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	movq	176(%rsp), %rdi
+	leaq	192(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_21
+	jmp	.LBB177_20
+.LBB177_16:
+.Ltmp2889:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	176(%rsp), %rdi
+	leaq	192(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_21
+.LBB177_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	movq	192(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_23
+	jmp	.LBB177_22
+.LBB177_15:
+.Ltmp2886:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_23
+.LBB177_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	movq	64(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	movq	144(%rsp), %rdi
+	leaq	160(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_25
+	jmp	.LBB177_24
+.LBB177_14:
+.Ltmp2883:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	144(%rsp), %rdi
+	leaq	160(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_25
+.LBB177_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	movq	160(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	movq	112(%rsp), %rdi
+	leaq	128(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_27
+	jmp	.LBB177_26
+.LBB177_13:
+.Ltmp2880:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	112(%rsp), %rdi
+	leaq	128(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_27
+.LBB177_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	movq	128(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	movq	80(%rsp), %rdi
+	leaq	96(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB177_28
+	jmp	.LBB177_29
+.LBB177_12:
+.Ltmp2877:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	80(%rsp), %rdi
+	leaq	96(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB177_29
+.LBB177_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	movq	96(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	jmp	.LBB177_29
+.LBB177_11:
+.Ltmp2874:
+	movq	%rax, %r14
+	movb	$1, %bpl
+.LBB177_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp2895:
+	leaq	8(%rsp), %rdi
+	callq	_ZNKR8pybind116handle7dec_refEv
+.Ltmp2896:
+# %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
+	testb	%bpl, %bpl
+	jne	.LBB177_31
+	jmp	.LBB177_32
+.LBB177_34:
+.Ltmp2897:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
+.LBB177_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp2871:
+	movq	%rax, %r14
+.LBB177_31:
+	movq	%rbx, %rdi
+	callq	__cxa_free_exception@PLT
+.LBB177_32:
+	movq	%r14, %rdi
+	callq	_Unwind_Resume@PLT
 .Lfunc_end177:
-	.size	_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_, .Lfunc_end177-_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_
+	.size	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end177-_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
 	.cfi_endproc
-	.section	.gcc_except_table._ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,"aG",@progbits,_ZNK8pybind116detail10object_apiINS0_8accessorINS0_17accessor_policies8str_attrEEEEclILNS_19return_value_policyE1EJEEENS_6objectEDpOT0_,comdat
+	.section	.gcc_except_table._ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"aG",@progbits,_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
 	.p2align	2, 0x0
 GCC_except_table177:
 .Lexception98:
@@ -44341,51 +43625,47 @@ GCC_except_table177:
 	.uleb128 .Lcst_end98-.Lcst_begin98
 .Lcst_begin98:
 	.uleb128 .Lfunc_begin98-.Lfunc_begin98  # >> Call Site 1 <<
-	.uleb128 .Ltmp3004-.Lfunc_begin98       #   Call between .Lfunc_begin98 and .Ltmp3004
+	.uleb128 .Ltmp2869-.Lfunc_begin98       #   Call between .Lfunc_begin98 and .Ltmp2869
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3004-.Lfunc_begin98       # >> Call Site 2 <<
-	.uleb128 .Ltmp3007-.Ltmp3004            #   Call between .Ltmp3004 and .Ltmp3007
-	.uleb128 .Ltmp3016-.Lfunc_begin98       #     jumps to .Ltmp3016
+	.uleb128 .Ltmp2869-.Lfunc_begin98       # >> Call Site 2 <<
+	.uleb128 .Ltmp2870-.Ltmp2869            #   Call between .Ltmp2869 and .Ltmp2870
+	.uleb128 .Ltmp2871-.Lfunc_begin98       #     jumps to .Ltmp2871
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3008-.Lfunc_begin98       # >> Call Site 3 <<
-	.uleb128 .Ltmp3009-.Ltmp3008            #   Call between .Ltmp3008 and .Ltmp3009
-	.uleb128 .Ltmp3010-.Lfunc_begin98       #     jumps to .Ltmp3010
+	.uleb128 .Ltmp2872-.Lfunc_begin98       # >> Call Site 3 <<
+	.uleb128 .Ltmp2873-.Ltmp2872            #   Call between .Ltmp2872 and .Ltmp2873
+	.uleb128 .Ltmp2874-.Lfunc_begin98       #     jumps to .Ltmp2874
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2875-.Lfunc_begin98       # >> Call Site 4 <<
+	.uleb128 .Ltmp2876-.Ltmp2875            #   Call between .Ltmp2875 and .Ltmp2876
+	.uleb128 .Ltmp2877-.Lfunc_begin98       #     jumps to .Ltmp2877
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2878-.Lfunc_begin98       # >> Call Site 5 <<
+	.uleb128 .Ltmp2879-.Ltmp2878            #   Call between .Ltmp2878 and .Ltmp2879
+	.uleb128 .Ltmp2880-.Lfunc_begin98       #     jumps to .Ltmp2880
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2881-.Lfunc_begin98       # >> Call Site 6 <<
+	.uleb128 .Ltmp2882-.Ltmp2881            #   Call between .Ltmp2881 and .Ltmp2882
+	.uleb128 .Ltmp2883-.Lfunc_begin98       #     jumps to .Ltmp2883
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2884-.Lfunc_begin98       # >> Call Site 7 <<
+	.uleb128 .Ltmp2885-.Ltmp2884            #   Call between .Ltmp2884 and .Ltmp2885
+	.uleb128 .Ltmp2886-.Lfunc_begin98       #     jumps to .Ltmp2886
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2887-.Lfunc_begin98       # >> Call Site 8 <<
+	.uleb128 .Ltmp2888-.Ltmp2887            #   Call between .Ltmp2887 and .Ltmp2888
+	.uleb128 .Ltmp2889-.Lfunc_begin98       #     jumps to .Ltmp2889
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2890-.Lfunc_begin98       # >> Call Site 9 <<
+	.uleb128 .Ltmp2893-.Ltmp2890            #   Call between .Ltmp2890 and .Ltmp2893
+	.uleb128 .Ltmp2894-.Lfunc_begin98       #     jumps to .Ltmp2894
+	.byte	0                               #   On action: cleanup
+	.uleb128 .Ltmp2895-.Lfunc_begin98       # >> Call Site 10 <<
+	.uleb128 .Ltmp2896-.Ltmp2895            #   Call between .Ltmp2895 and .Ltmp2896
+	.uleb128 .Ltmp2897-.Lfunc_begin98       #     jumps to .Ltmp2897
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3009-.Lfunc_begin98       # >> Call Site 4 <<
-	.uleb128 .Ltmp3020-.Ltmp3009            #   Call between .Ltmp3009 and .Ltmp3020
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3020-.Lfunc_begin98       # >> Call Site 5 <<
-	.uleb128 .Ltmp3021-.Ltmp3020            #   Call between .Ltmp3020 and .Ltmp3021
-	.uleb128 .Ltmp3022-.Lfunc_begin98       #     jumps to .Ltmp3022
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3021-.Lfunc_begin98       # >> Call Site 6 <<
-	.uleb128 .Ltmp3011-.Ltmp3021            #   Call between .Ltmp3021 and .Ltmp3011
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3011-.Lfunc_begin98       # >> Call Site 7 <<
-	.uleb128 .Ltmp3012-.Ltmp3011            #   Call between .Ltmp3011 and .Ltmp3012
-	.uleb128 .Ltmp3013-.Lfunc_begin98       #     jumps to .Ltmp3013
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3014-.Lfunc_begin98       # >> Call Site 8 <<
-	.uleb128 .Ltmp3015-.Ltmp3014            #   Call between .Ltmp3014 and .Ltmp3015
-	.uleb128 .Ltmp3016-.Lfunc_begin98       #     jumps to .Ltmp3016
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3015-.Lfunc_begin98       # >> Call Site 9 <<
-	.uleb128 .Ltmp3023-.Ltmp3015            #   Call between .Ltmp3015 and .Ltmp3023
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3023-.Lfunc_begin98       # >> Call Site 10 <<
-	.uleb128 .Ltmp3024-.Ltmp3023            #   Call between .Ltmp3023 and .Ltmp3024
-	.uleb128 .Ltmp3025-.Lfunc_begin98       #     jumps to .Ltmp3025
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3017-.Lfunc_begin98       # >> Call Site 11 <<
-	.uleb128 .Ltmp3018-.Ltmp3017            #   Call between .Ltmp3017 and .Ltmp3018
-	.uleb128 .Ltmp3019-.Lfunc_begin98       #     jumps to .Ltmp3019
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3018-.Lfunc_begin98       # >> Call Site 12 <<
-	.uleb128 .Lfunc_end177-.Ltmp3018        #   Call between .Ltmp3018 and .Lfunc_end177
+	.uleb128 .Ltmp2896-.Lfunc_begin98       # >> Call Site 11 <<
+	.uleb128 .Lfunc_end177-.Ltmp2896        #   Call between .Ltmp2896 and .Lfunc_end177
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
 .Lcst_end98:
@@ -44398,12 +43678,12 @@ GCC_except_table177:
 .Lttbase68:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"axG",@progbits,_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
-	.hidden	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE # -- Begin function _ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-	.weak	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+	.section	.text._ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"axG",@progbits,_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
+	.hidden	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE # -- Begin function _ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
+	.weak	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
 	.p2align	4, 0x90
-	.type	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,@function
-_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE: # @_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+	.type	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,@function
+_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # @_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
 .Lfunc_begin99:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -44420,16 +43700,45 @@ _ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	.cfi_offset %rbx, -32
 	.cfi_offset %r14, -24
 	.cfi_offset %rbp, -16
+	movq	(%rsi), %rax
+	testq	%rax, %rax
+	je	.LBB178_10
+# %bb.1:
+	cmpq	_Py_TrueStruct@GOTPCREL(%rip), %rax
+	je	.LBB178_2
+# %bb.4:
+	cmpq	_Py_FalseStruct@GOTPCREL(%rip), %rax
+	sete	%cl
+	cmpq	_Py_NoneStruct@GOTPCREL(%rip), %rax
+	sete	%dl
+	orb	%cl, %dl
+	je	.LBB178_6
+# %bb.5:
+	xorl	%eax, %eax
+	jmp	.LBB178_3
+.LBB178_2:
+	movb	$1, %al
+	jmp	.LBB178_3
+.LBB178_6:
+	movq	%rsi, %rbx
+	movq	8(%rax), %rcx
+	movq	96(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB178_9
+# %bb.7:
+	movq	72(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB178_9
+# %bb.8:
 	movq	%rdi, %r14
-	movq	(%rdi), %rax
-	cmpq	$2, (%rax)
-	jge	.LBB178_1
-# %bb.35:
-	leaq	16(%rsp), %rdi
-	movq	%r14, %rsi
-	callq	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-	movzbl	16(%rsp), %eax
-	andb	$1, %al
+	movq	%rax, %rdi
+	callq	*%rcx
+	movq	%r14, %rdi
+	cmpl	$2, %eax
+	jae	.LBB178_9
+.LBB178_3:                              # %.thread25.i
+	movb	%al, (%rdi)
+	movq	%rdi, %rax
 	addq	$208, %rsp
 	.cfi_def_cfa_offset 32
 	popq	%rbx
@@ -44439,233 +43748,237 @@ _ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB178_1:
+.LBB178_9:                              # %.thread30.i
 	.cfi_def_cfa_offset 240
+	callq	PyErr_Clear@PLT
+	movq	%rbx, %rsi
+.LBB178_10:
 	movl	$16, %edi
+	movq	%rsi, %r14
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %rbx
 	movq	(%r14), %rax
 	movq	8(%rax), %rsi
-.Ltmp3026:
+.Ltmp2898:
 	leaq	8(%rsp), %rdi
 	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3027:
-# %bb.2:
-.Ltmp3029:
-	leaq	80(%rsp), %rdi
+.Ltmp2899:
+# %bb.11:
+.Ltmp2901:
+	leaq	48(%rsp), %rdi
 	leaq	8(%rsp), %rsi
 	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3030:
-# %bb.3:
-.Ltmp3032:
-	leaq	.L.str.48(%rip), %rsi
-	leaq	112(%rsp), %rdi
-	leaq	80(%rsp), %rdx
+.Ltmp2902:
+# %bb.12:
+.Ltmp2904:
+	leaq	.L.str.42(%rip), %rsi
+	leaq	80(%rsp), %rdi
+	leaq	48(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3033:
-# %bb.4:
-.Ltmp3035:
-	leaq	.L.str.49(%rip), %rdx
-	leaq	144(%rsp), %rdi
-	leaq	112(%rsp), %rsi
+.Ltmp2905:
+# %bb.13:
+.Ltmp2907:
+	leaq	.L.str.43(%rip), %rdx
+	leaq	112(%rsp), %rdi
+	leaq	80(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3036:
-# %bb.5:
+.Ltmp2908:
+# %bb.14:
 	movq	_ZTIb@GOTPCREL(%rip), %rax
 	movq	8(%rax), %rax
 	xorl	%esi, %esi
 	cmpb	$42, (%rax)
 	sete	%sil
 	addq	%rax, %rsi
-.Ltmp3038:
-	leaq	48(%rsp), %rdi
+.Ltmp2910:
+	leaq	16(%rsp), %rdi
 	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3039:
-# %bb.6:                                # %_ZN8pybind11L7type_idIbEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3041:
+.Ltmp2911:
+# %bb.15:                               # %_ZN8pybind11L7type_idIbEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
+.Ltmp2913:
+	leaq	144(%rsp), %rdi
+	leaq	112(%rsp), %rsi
+	leaq	16(%rsp), %rdx
+	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
+.Ltmp2914:
+# %bb.16:
+.Ltmp2916:
+	leaq	.L.str.44(%rip), %rdx
 	leaq	176(%rsp), %rdi
 	leaq	144(%rsp), %rsi
-	leaq	48(%rsp), %rdx
-	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3042:
-# %bb.7:
-.Ltmp3044:
-	leaq	.L.str.50(%rip), %rdx
-	leaq	16(%rsp), %rdi
-	leaq	176(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3045:
-# %bb.8:
+.Ltmp2917:
+# %bb.17:
 	movb	$1, %bpl
-.Ltmp3047:
-	leaq	16(%rsp), %rsi
+.Ltmp2919:
+	leaq	176(%rsp), %rsi
 	movq	%rbx, %rdi
 	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3048:
-# %bb.9:
+.Ltmp2920:
+# %bb.18:
 	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
 	movq	%rax, (%rbx)
 	xorl	%ebp, %ebp
-.Ltmp3049:
+.Ltmp2921:
 	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
 	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
 	movq	%rbx, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3050:
-# %bb.33:
-.LBB178_17:
-.Ltmp3051:
+.Ltmp2922:
+# %bb.42:
+.LBB178_26:
+.Ltmp2923:
 	movq	%rax, %r14
+	movq	176(%rsp), %rdi
+	leaq	192(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB178_27
+# %bb.28:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
+	movq	144(%rsp), %rdi
+	leaq	160(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB178_29
+.LBB178_30:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB178_18
-# %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
-	movq	176(%rsp), %rdi
-	leaq	192(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB178_20
-.LBB178_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB178_22
-.LBB178_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
-	movq	144(%rsp), %rdi
-	leaq	160(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB178_24
-.LBB178_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	jne	.LBB178_31
+.LBB178_32:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB178_26
-.LBB178_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	jne	.LBB178_33
+.LBB178_34:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB178_28
-	jmp	.LBB178_29
-.LBB178_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
-	movq	32(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	176(%rsp), %rdi
-	leaq	192(%rsp), %rax
+	jne	.LBB178_35
+.LBB178_36:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_21
-	jmp	.LBB178_20
-.LBB178_16:
-.Ltmp3046:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	176(%rsp), %rdi
-	leaq	192(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB178_21
-.LBB178_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	jne	.LBB178_37
+	jmp	.LBB178_38
+.LBB178_27:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
 	movq	192(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB178_23
-	jmp	.LBB178_22
-.LBB178_15:
-.Ltmp3043:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB178_23
-.LBB178_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
-	movq	64(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_25
-	jmp	.LBB178_24
-.LBB178_14:
-.Ltmp3040:
+	je	.LBB178_30
+	jmp	.LBB178_29
+.LBB178_25:
+.Ltmp2918:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_25
-.LBB178_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	je	.LBB178_30
+.LBB178_29:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
 	movq	160(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
+	movq	16(%rsp), %rdi
+	leaq	32(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB178_32
+	jmp	.LBB178_31
+.LBB178_24:
+.Ltmp2915:
+	movq	%rax, %r14
+	movb	$1, %bpl
+	movq	16(%rsp), %rdi
+	leaq	32(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB178_32
+.LBB178_31:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	movq	32(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_27
-	jmp	.LBB178_26
-.LBB178_13:
-.Ltmp3037:
+	je	.LBB178_34
+	jmp	.LBB178_33
+.LBB178_23:
+.Ltmp2912:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_27
-.LBB178_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	je	.LBB178_34
+.LBB178_33:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
 	movq	128(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB178_28
-	jmp	.LBB178_29
-.LBB178_12:
-.Ltmp3034:
+	je	.LBB178_36
+	jmp	.LBB178_35
+.LBB178_22:
+.Ltmp2909:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB178_29
-.LBB178_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	je	.LBB178_36
+.LBB178_35:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
 	movq	96(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	jmp	.LBB178_29
-.LBB178_11:
-.Ltmp3031:
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
+	cmpq	%rax, %rdi
+	jne	.LBB178_37
+	jmp	.LBB178_38
+.LBB178_21:
+.Ltmp2906:
 	movq	%rax, %r14
 	movb	$1, %bpl
-.LBB178_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3052:
+	movq	48(%rsp), %rdi
+	leaq	64(%rsp), %rax
+	cmpq	%rax, %rdi
+	je	.LBB178_38
+.LBB178_37:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	movq	64(%rsp), %rsi
+	incq	%rsi
+	callq	_ZdlPvm@PLT
+	jmp	.LBB178_38
+.LBB178_20:
+.Ltmp2903:
+	movq	%rax, %r14
+	movb	$1, %bpl
+.LBB178_38:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp2924:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3053:
-# %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
+.Ltmp2925:
+# %bb.39:                               # %_ZN8pybind116objectD2Ev.exit
 	testb	%bpl, %bpl
-	jne	.LBB178_31
-	jmp	.LBB178_32
-.LBB178_34:
-.Ltmp3054:
+	jne	.LBB178_40
+	jmp	.LBB178_41
+.LBB178_43:
+.Ltmp2926:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB178_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3028:
+.LBB178_19:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp2900:
 	movq	%rax, %r14
-.LBB178_31:
+.LBB178_40:
 	movq	%rbx, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB178_32:
+.LBB178_41:
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end178:
-	.size	_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end178-_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+	.size	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end178-_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
 	.cfi_endproc
-	.section	.gcc_except_table._ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"aG",@progbits,_ZN8pybind114moveIbEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
+	.section	.gcc_except_table._ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"aG",@progbits,_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
 	.p2align	2, 0x0
 GCC_except_table178:
 .Lexception99:
@@ -44677,47 +43990,47 @@ GCC_except_table178:
 	.uleb128 .Lcst_end99-.Lcst_begin99
 .Lcst_begin99:
 	.uleb128 .Lfunc_begin99-.Lfunc_begin99  # >> Call Site 1 <<
-	.uleb128 .Ltmp3026-.Lfunc_begin99       #   Call between .Lfunc_begin99 and .Ltmp3026
+	.uleb128 .Ltmp2898-.Lfunc_begin99       #   Call between .Lfunc_begin99 and .Ltmp2898
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3026-.Lfunc_begin99       # >> Call Site 2 <<
-	.uleb128 .Ltmp3027-.Ltmp3026            #   Call between .Ltmp3026 and .Ltmp3027
-	.uleb128 .Ltmp3028-.Lfunc_begin99       #     jumps to .Ltmp3028
+	.uleb128 .Ltmp2898-.Lfunc_begin99       # >> Call Site 2 <<
+	.uleb128 .Ltmp2899-.Ltmp2898            #   Call between .Ltmp2898 and .Ltmp2899
+	.uleb128 .Ltmp2900-.Lfunc_begin99       #     jumps to .Ltmp2900
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3029-.Lfunc_begin99       # >> Call Site 3 <<
-	.uleb128 .Ltmp3030-.Ltmp3029            #   Call between .Ltmp3029 and .Ltmp3030
-	.uleb128 .Ltmp3031-.Lfunc_begin99       #     jumps to .Ltmp3031
+	.uleb128 .Ltmp2901-.Lfunc_begin99       # >> Call Site 3 <<
+	.uleb128 .Ltmp2902-.Ltmp2901            #   Call between .Ltmp2901 and .Ltmp2902
+	.uleb128 .Ltmp2903-.Lfunc_begin99       #     jumps to .Ltmp2903
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3032-.Lfunc_begin99       # >> Call Site 4 <<
-	.uleb128 .Ltmp3033-.Ltmp3032            #   Call between .Ltmp3032 and .Ltmp3033
-	.uleb128 .Ltmp3034-.Lfunc_begin99       #     jumps to .Ltmp3034
+	.uleb128 .Ltmp2904-.Lfunc_begin99       # >> Call Site 4 <<
+	.uleb128 .Ltmp2905-.Ltmp2904            #   Call between .Ltmp2904 and .Ltmp2905
+	.uleb128 .Ltmp2906-.Lfunc_begin99       #     jumps to .Ltmp2906
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3035-.Lfunc_begin99       # >> Call Site 5 <<
-	.uleb128 .Ltmp3036-.Ltmp3035            #   Call between .Ltmp3035 and .Ltmp3036
-	.uleb128 .Ltmp3037-.Lfunc_begin99       #     jumps to .Ltmp3037
+	.uleb128 .Ltmp2907-.Lfunc_begin99       # >> Call Site 5 <<
+	.uleb128 .Ltmp2908-.Ltmp2907            #   Call between .Ltmp2907 and .Ltmp2908
+	.uleb128 .Ltmp2909-.Lfunc_begin99       #     jumps to .Ltmp2909
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3038-.Lfunc_begin99       # >> Call Site 6 <<
-	.uleb128 .Ltmp3039-.Ltmp3038            #   Call between .Ltmp3038 and .Ltmp3039
-	.uleb128 .Ltmp3040-.Lfunc_begin99       #     jumps to .Ltmp3040
+	.uleb128 .Ltmp2910-.Lfunc_begin99       # >> Call Site 6 <<
+	.uleb128 .Ltmp2911-.Ltmp2910            #   Call between .Ltmp2910 and .Ltmp2911
+	.uleb128 .Ltmp2912-.Lfunc_begin99       #     jumps to .Ltmp2912
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3041-.Lfunc_begin99       # >> Call Site 7 <<
-	.uleb128 .Ltmp3042-.Ltmp3041            #   Call between .Ltmp3041 and .Ltmp3042
-	.uleb128 .Ltmp3043-.Lfunc_begin99       #     jumps to .Ltmp3043
+	.uleb128 .Ltmp2913-.Lfunc_begin99       # >> Call Site 7 <<
+	.uleb128 .Ltmp2914-.Ltmp2913            #   Call between .Ltmp2913 and .Ltmp2914
+	.uleb128 .Ltmp2915-.Lfunc_begin99       #     jumps to .Ltmp2915
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3044-.Lfunc_begin99       # >> Call Site 8 <<
-	.uleb128 .Ltmp3045-.Ltmp3044            #   Call between .Ltmp3044 and .Ltmp3045
-	.uleb128 .Ltmp3046-.Lfunc_begin99       #     jumps to .Ltmp3046
+	.uleb128 .Ltmp2916-.Lfunc_begin99       # >> Call Site 8 <<
+	.uleb128 .Ltmp2917-.Ltmp2916            #   Call between .Ltmp2916 and .Ltmp2917
+	.uleb128 .Ltmp2918-.Lfunc_begin99       #     jumps to .Ltmp2918
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3047-.Lfunc_begin99       # >> Call Site 9 <<
-	.uleb128 .Ltmp3050-.Ltmp3047            #   Call between .Ltmp3047 and .Ltmp3050
-	.uleb128 .Ltmp3051-.Lfunc_begin99       #     jumps to .Ltmp3051
+	.uleb128 .Ltmp2919-.Lfunc_begin99       # >> Call Site 9 <<
+	.uleb128 .Ltmp2922-.Ltmp2919            #   Call between .Ltmp2919 and .Ltmp2922
+	.uleb128 .Ltmp2923-.Lfunc_begin99       #     jumps to .Ltmp2923
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3052-.Lfunc_begin99       # >> Call Site 10 <<
-	.uleb128 .Ltmp3053-.Ltmp3052            #   Call between .Ltmp3052 and .Ltmp3053
-	.uleb128 .Ltmp3054-.Lfunc_begin99       #     jumps to .Ltmp3054
+	.uleb128 .Ltmp2924-.Lfunc_begin99       # >> Call Site 10 <<
+	.uleb128 .Ltmp2925-.Ltmp2924            #   Call between .Ltmp2924 and .Ltmp2925
+	.uleb128 .Ltmp2926-.Lfunc_begin99       #     jumps to .Ltmp2926
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3053-.Lfunc_begin99       # >> Call Site 11 <<
-	.uleb128 .Lfunc_end178-.Ltmp3053        #   Call between .Ltmp3053 and .Lfunc_end178
+	.uleb128 .Ltmp2925-.Lfunc_begin99       # >> Call Site 11 <<
+	.uleb128 .Lfunc_end178-.Ltmp2925        #   Call between .Ltmp2925 and .Lfunc_end178
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
 .Lcst_end99:
@@ -44730,381 +44043,16 @@ GCC_except_table178:
 .Lttbase69:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"axG",@progbits,_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
-	.hidden	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE # -- Begin function _ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-	.weak	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-	.p2align	4, 0x90
-	.type	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,@function
-_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # @_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Lfunc_begin100:
-	.cfi_startproc
-	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception100
-# %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	pushq	%r14
-	.cfi_def_cfa_offset 24
-	pushq	%rbx
-	.cfi_def_cfa_offset 32
-	subq	$208, %rsp
-	.cfi_def_cfa_offset 240
-	.cfi_offset %rbx, -32
-	.cfi_offset %r14, -24
-	.cfi_offset %rbp, -16
-	movq	(%rsi), %rax
-	testq	%rax, %rax
-	je	.LBB179_10
-# %bb.1:
-	cmpq	_Py_TrueStruct@GOTPCREL(%rip), %rax
-	je	.LBB179_2
-# %bb.4:
-	cmpq	_Py_FalseStruct@GOTPCREL(%rip), %rax
-	sete	%cl
-	cmpq	_Py_NoneStruct@GOTPCREL(%rip), %rax
-	sete	%dl
-	orb	%cl, %dl
-	je	.LBB179_6
-# %bb.5:
-	xorl	%eax, %eax
-	jmp	.LBB179_3
-.LBB179_2:
-	movb	$1, %al
-	jmp	.LBB179_3
-.LBB179_6:
-	movq	%rsi, %rbx
-	movq	8(%rax), %rcx
-	movq	96(%rcx), %rcx
-	testq	%rcx, %rcx
-	je	.LBB179_9
-# %bb.7:
-	movq	72(%rcx), %rcx
-	testq	%rcx, %rcx
-	je	.LBB179_9
-# %bb.8:
-	movq	%rdi, %r14
-	movq	%rax, %rdi
-	callq	*%rcx
-	movq	%r14, %rdi
-	cmpl	$2, %eax
-	jae	.LBB179_9
-.LBB179_3:                              # %.thread25.i
-	movb	%al, (%rdi)
-	movq	%rdi, %rax
-	addq	$208, %rsp
-	.cfi_def_cfa_offset 32
-	popq	%rbx
-	.cfi_def_cfa_offset 24
-	popq	%r14
-	.cfi_def_cfa_offset 16
-	popq	%rbp
-	.cfi_def_cfa_offset 8
-	retq
-.LBB179_9:                              # %.thread30.i
-	.cfi_def_cfa_offset 240
-	callq	PyErr_Clear@PLT
-	movq	%rbx, %rsi
-.LBB179_10:
-	movl	$16, %edi
-	movq	%rsi, %r14
-	callq	__cxa_allocate_exception@PLT
-	movq	%rax, %rbx
-	movq	(%r14), %rax
-	movq	8(%rax), %rsi
-.Ltmp3055:
-	leaq	8(%rsp), %rdi
-	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3056:
-# %bb.11:
-.Ltmp3058:
-	leaq	48(%rsp), %rdi
-	leaq	8(%rsp), %rsi
-	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3059:
-# %bb.12:
-.Ltmp3061:
-	leaq	.L.str.42(%rip), %rsi
-	leaq	80(%rsp), %rdi
-	leaq	48(%rsp), %rdx
-	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3062:
-# %bb.13:
-.Ltmp3064:
-	leaq	.L.str.43(%rip), %rdx
-	leaq	112(%rsp), %rdi
-	leaq	80(%rsp), %rsi
-	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3065:
-# %bb.14:
-	movq	_ZTIb@GOTPCREL(%rip), %rax
-	movq	8(%rax), %rax
-	xorl	%esi, %esi
-	cmpb	$42, (%rax)
-	sete	%sil
-	addq	%rax, %rsi
-.Ltmp3067:
-	leaq	16(%rsp), %rdi
-	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3068:
-# %bb.15:                               # %_ZN8pybind11L7type_idIbEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3070:
-	leaq	144(%rsp), %rdi
-	leaq	112(%rsp), %rsi
-	leaq	16(%rsp), %rdx
-	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3071:
-# %bb.16:
-.Ltmp3073:
-	leaq	.L.str.44(%rip), %rdx
-	leaq	176(%rsp), %rdi
-	leaq	144(%rsp), %rsi
-	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3074:
-# %bb.17:
-	movb	$1, %bpl
-.Ltmp3076:
-	leaq	176(%rsp), %rsi
-	movq	%rbx, %rdi
-	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3077:
-# %bb.18:
-	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
-	movq	%rax, (%rbx)
-	xorl	%ebp, %ebp
-.Ltmp3078:
-	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
-	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
-	movq	%rbx, %rdi
-	callq	__cxa_throw@PLT
-.Ltmp3079:
-# %bb.42:
-.LBB179_26:
-.Ltmp3080:
-	movq	%rax, %r14
-	movq	176(%rsp), %rdi
-	leaq	192(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_27
-# %bb.28:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
-	movq	144(%rsp), %rdi
-	leaq	160(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_29
-.LBB179_30:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
-	movq	16(%rsp), %rdi
-	leaq	32(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_31
-.LBB179_32:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
-	movq	112(%rsp), %rdi
-	leaq	128(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_33
-.LBB179_34:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
-	movq	80(%rsp), %rdi
-	leaq	96(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_35
-.LBB179_36:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_37
-	jmp	.LBB179_38
-.LBB179_27:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
-	movq	192(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	144(%rsp), %rdi
-	leaq	160(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_30
-	jmp	.LBB179_29
-.LBB179_25:
-.Ltmp3075:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	144(%rsp), %rdi
-	leaq	160(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_30
-.LBB179_29:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
-	movq	160(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	16(%rsp), %rdi
-	leaq	32(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_32
-	jmp	.LBB179_31
-.LBB179_24:
-.Ltmp3072:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	16(%rsp), %rdi
-	leaq	32(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_32
-.LBB179_31:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
-	movq	32(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	112(%rsp), %rdi
-	leaq	128(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_34
-	jmp	.LBB179_33
-.LBB179_23:
-.Ltmp3069:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	112(%rsp), %rdi
-	leaq	128(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_34
-.LBB179_33:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
-	movq	128(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	80(%rsp), %rdi
-	leaq	96(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_36
-	jmp	.LBB179_35
-.LBB179_22:
-.Ltmp3066:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	80(%rsp), %rdi
-	leaq	96(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_36
-.LBB179_35:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
-	movq	96(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	jne	.LBB179_37
-	jmp	.LBB179_38
-.LBB179_21:
-.Ltmp3063:
-	movq	%rax, %r14
-	movb	$1, %bpl
-	movq	48(%rsp), %rdi
-	leaq	64(%rsp), %rax
-	cmpq	%rax, %rdi
-	je	.LBB179_38
-.LBB179_37:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
-	movq	64(%rsp), %rsi
-	incq	%rsi
-	callq	_ZdlPvm@PLT
-	jmp	.LBB179_38
-.LBB179_20:
-.Ltmp3060:
-	movq	%rax, %r14
-	movb	$1, %bpl
-.LBB179_38:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3081:
-	leaq	8(%rsp), %rdi
-	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3082:
-# %bb.39:                               # %_ZN8pybind116objectD2Ev.exit
-	testb	%bpl, %bpl
-	jne	.LBB179_40
-	jmp	.LBB179_41
-.LBB179_43:
-.Ltmp3083:
-	movq	%rax, %rdi
-	callq	__clang_call_terminate
-.LBB179_19:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3057:
-	movq	%rax, %r14
-.LBB179_40:
-	movq	%rbx, %rdi
-	callq	__cxa_free_exception@PLT
-.LBB179_41:
-	movq	%r14, %rdi
-	callq	_Unwind_Resume@PLT
-.Lfunc_end179:
-	.size	_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end179-_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-	.cfi_endproc
-	.section	.gcc_except_table._ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"aG",@progbits,_ZN8pybind116detail9load_typeIbvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
-	.p2align	2, 0x0
-GCC_except_table179:
-.Lexception100:
-	.byte	255                             # @LPStart Encoding = omit
-	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase70-.Lttbaseref70
-.Lttbaseref70:
-	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end100-.Lcst_begin100
-.Lcst_begin100:
-	.uleb128 .Lfunc_begin100-.Lfunc_begin100 # >> Call Site 1 <<
-	.uleb128 .Ltmp3055-.Lfunc_begin100      #   Call between .Lfunc_begin100 and .Ltmp3055
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3055-.Lfunc_begin100      # >> Call Site 2 <<
-	.uleb128 .Ltmp3056-.Ltmp3055            #   Call between .Ltmp3055 and .Ltmp3056
-	.uleb128 .Ltmp3057-.Lfunc_begin100      #     jumps to .Ltmp3057
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3058-.Lfunc_begin100      # >> Call Site 3 <<
-	.uleb128 .Ltmp3059-.Ltmp3058            #   Call between .Ltmp3058 and .Ltmp3059
-	.uleb128 .Ltmp3060-.Lfunc_begin100      #     jumps to .Ltmp3060
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3061-.Lfunc_begin100      # >> Call Site 4 <<
-	.uleb128 .Ltmp3062-.Ltmp3061            #   Call between .Ltmp3061 and .Ltmp3062
-	.uleb128 .Ltmp3063-.Lfunc_begin100      #     jumps to .Ltmp3063
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3064-.Lfunc_begin100      # >> Call Site 5 <<
-	.uleb128 .Ltmp3065-.Ltmp3064            #   Call between .Ltmp3064 and .Ltmp3065
-	.uleb128 .Ltmp3066-.Lfunc_begin100      #     jumps to .Ltmp3066
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3067-.Lfunc_begin100      # >> Call Site 6 <<
-	.uleb128 .Ltmp3068-.Ltmp3067            #   Call between .Ltmp3067 and .Ltmp3068
-	.uleb128 .Ltmp3069-.Lfunc_begin100      #     jumps to .Ltmp3069
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3070-.Lfunc_begin100      # >> Call Site 7 <<
-	.uleb128 .Ltmp3071-.Ltmp3070            #   Call between .Ltmp3070 and .Ltmp3071
-	.uleb128 .Ltmp3072-.Lfunc_begin100      #     jumps to .Ltmp3072
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3073-.Lfunc_begin100      # >> Call Site 8 <<
-	.uleb128 .Ltmp3074-.Ltmp3073            #   Call between .Ltmp3073 and .Ltmp3074
-	.uleb128 .Ltmp3075-.Lfunc_begin100      #     jumps to .Ltmp3075
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3076-.Lfunc_begin100      # >> Call Site 9 <<
-	.uleb128 .Ltmp3079-.Ltmp3076            #   Call between .Ltmp3076 and .Ltmp3079
-	.uleb128 .Ltmp3080-.Lfunc_begin100      #     jumps to .Ltmp3080
-	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3081-.Lfunc_begin100      # >> Call Site 10 <<
-	.uleb128 .Ltmp3082-.Ltmp3081            #   Call between .Ltmp3081 and .Ltmp3082
-	.uleb128 .Ltmp3083-.Lfunc_begin100      #     jumps to .Ltmp3083
-	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3082-.Lfunc_begin100      # >> Call Site 11 <<
-	.uleb128 .Lfunc_end179-.Ltmp3082        #   Call between .Ltmp3082 and .Lfunc_end179
-	.byte	0                               #     has no landing pad
-	.byte	0                               #   On action: cleanup
-.Lcst_end100:
-	.byte	1                               # >> Action Record 1 <<
-                                        #   Catch TypeInfo 1
-	.byte	0                               #   No further actions
-	.p2align	2, 0x0
-                                        # >> Catch TypeInfos <<
-	.long	0                               # TypeInfo 1
-.Lttbase70:
-	.p2align	2, 0x0
-                                        # -- End function
 	.section	.text._ZN8pybind115tupleC2EONS_6objectE,"axG",@progbits,_ZN8pybind115tupleC2EONS_6objectE,comdat
 	.hidden	_ZN8pybind115tupleC2EONS_6objectE # -- Begin function _ZN8pybind115tupleC2EONS_6objectE
 	.weak	_ZN8pybind115tupleC2EONS_6objectE
 	.p2align	4, 0x90
 	.type	_ZN8pybind115tupleC2EONS_6objectE,@function
 _ZN8pybind115tupleC2EONS_6objectE:      # @_ZN8pybind115tupleC2EONS_6objectE
-.Lfunc_begin101:
+.Lfunc_begin100:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception101
+	.cfi_lsda 27, .Lexception100
 # %bb.0:
 	pushq	%r15
 	.cfi_def_cfa_offset 16
@@ -45118,16 +44066,16 @@ _ZN8pybind115tupleC2EONS_6objectE:      # @_ZN8pybind115tupleC2EONS_6objectE
 	movq	%rdi, %rbx
 	movq	(%rsi), %rdi
 	testq	%rdi, %rdi
-	je	.LBB180_4
+	je	.LBB179_4
 # %bb.1:                                # %_ZN8pybind115tuple6check_ENS_6handleE.exit
 	movq	8(%rdi), %rax
 	testb	$4, 171(%rax)
-	jne	.LBB180_2
-.LBB180_4:                              # %_ZN8pybind115tuple6check_ENS_6handleE.exit.thread
+	jne	.LBB179_2
+.LBB179_4:                              # %_ZN8pybind115tuple6check_ENS_6handleE.exit.thread
 	callq	PySequence_Tuple@PLT
 	movq	%rax, (%rbx)
 	testq	%rax, %rax
-	je	.LBB180_5
+	je	.LBB179_5
 # %bb.3:
 	popq	%rbx
 	.cfi_def_cfa_offset 24
@@ -45136,7 +44084,7 @@ _ZN8pybind115tupleC2EONS_6objectE:      # @_ZN8pybind115tupleC2EONS_6objectE
 	popq	%r15
 	.cfi_def_cfa_offset 8
 	retq
-.LBB180_2:                              # %.thread
+.LBB179_2:                              # %.thread
 	.cfi_def_cfa_offset 32
 	movq	$0, (%rsi)
 	movq	%rdi, (%rbx)
@@ -45147,90 +44095,90 @@ _ZN8pybind115tupleC2EONS_6objectE:      # @_ZN8pybind115tupleC2EONS_6objectE
 	popq	%r15
 	.cfi_def_cfa_offset 8
 	retq
-.LBB180_5:
+.LBB179_5:
 	.cfi_def_cfa_offset 32
 	movl	$24, %edi
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %r15
-.Ltmp3084:
+.Ltmp2927:
 	movq	%rax, %rdi
 	callq	_ZN8pybind1117error_already_setC2Ev
-.Ltmp3085:
+.Ltmp2928:
 # %bb.6:
-.Ltmp3087:
+.Ltmp2930:
 	leaq	_ZTIN8pybind1117error_already_setE(%rip), %rsi
 	leaq	_ZN8pybind1117error_already_setD2Ev(%rip), %rdx
 	movq	%r15, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3088:
+.Ltmp2931:
 # %bb.11:
-.LBB180_7:
-.Ltmp3089:
+.LBB179_7:
+.Ltmp2932:
 	movq	%rax, %r14
-	jmp	.LBB180_9
-.LBB180_8:
-.Ltmp3086:
+	jmp	.LBB179_9
+.LBB179_8:
+.Ltmp2929:
 	movq	%rax, %r14
 	movq	%r15, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB180_9:
-.Ltmp3090:
+.LBB179_9:
+.Ltmp2933:
 	movq	%rbx, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3091:
+.Ltmp2934:
 # %bb.10:                               # %_ZN8pybind116objectD2Ev.exit
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
-.LBB180_12:
-.Ltmp3092:
+.LBB179_12:
+.Ltmp2935:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.Lfunc_end180:
-	.size	_ZN8pybind115tupleC2EONS_6objectE, .Lfunc_end180-_ZN8pybind115tupleC2EONS_6objectE
+.Lfunc_end179:
+	.size	_ZN8pybind115tupleC2EONS_6objectE, .Lfunc_end179-_ZN8pybind115tupleC2EONS_6objectE
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind115tupleC2EONS_6objectE,"aG",@progbits,_ZN8pybind115tupleC2EONS_6objectE,comdat
 	.p2align	2, 0x0
-GCC_except_table180:
-.Lexception101:
+GCC_except_table179:
+.Lexception100:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase71-.Lttbaseref71
-.Lttbaseref71:
+	.uleb128 .Lttbase70-.Lttbaseref70
+.Lttbaseref70:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end101-.Lcst_begin101
-.Lcst_begin101:
-	.uleb128 .Lfunc_begin101-.Lfunc_begin101 # >> Call Site 1 <<
-	.uleb128 .Ltmp3084-.Lfunc_begin101      #   Call between .Lfunc_begin101 and .Ltmp3084
+	.uleb128 .Lcst_end100-.Lcst_begin100
+.Lcst_begin100:
+	.uleb128 .Lfunc_begin100-.Lfunc_begin100 # >> Call Site 1 <<
+	.uleb128 .Ltmp2927-.Lfunc_begin100      #   Call between .Lfunc_begin100 and .Ltmp2927
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3084-.Lfunc_begin101      # >> Call Site 2 <<
-	.uleb128 .Ltmp3085-.Ltmp3084            #   Call between .Ltmp3084 and .Ltmp3085
-	.uleb128 .Ltmp3086-.Lfunc_begin101      #     jumps to .Ltmp3086
+	.uleb128 .Ltmp2927-.Lfunc_begin100      # >> Call Site 2 <<
+	.uleb128 .Ltmp2928-.Ltmp2927            #   Call between .Ltmp2927 and .Ltmp2928
+	.uleb128 .Ltmp2929-.Lfunc_begin100      #     jumps to .Ltmp2929
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3087-.Lfunc_begin101      # >> Call Site 3 <<
-	.uleb128 .Ltmp3088-.Ltmp3087            #   Call between .Ltmp3087 and .Ltmp3088
-	.uleb128 .Ltmp3089-.Lfunc_begin101      #     jumps to .Ltmp3089
+	.uleb128 .Ltmp2930-.Lfunc_begin100      # >> Call Site 3 <<
+	.uleb128 .Ltmp2931-.Ltmp2930            #   Call between .Ltmp2930 and .Ltmp2931
+	.uleb128 .Ltmp2932-.Lfunc_begin100      #     jumps to .Ltmp2932
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3088-.Lfunc_begin101      # >> Call Site 4 <<
-	.uleb128 .Ltmp3090-.Ltmp3088            #   Call between .Ltmp3088 and .Ltmp3090
+	.uleb128 .Ltmp2931-.Lfunc_begin100      # >> Call Site 4 <<
+	.uleb128 .Ltmp2933-.Ltmp2931            #   Call between .Ltmp2931 and .Ltmp2933
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3090-.Lfunc_begin101      # >> Call Site 5 <<
-	.uleb128 .Ltmp3091-.Ltmp3090            #   Call between .Ltmp3090 and .Ltmp3091
-	.uleb128 .Ltmp3092-.Lfunc_begin101      #     jumps to .Ltmp3092
+	.uleb128 .Ltmp2933-.Lfunc_begin100      # >> Call Site 5 <<
+	.uleb128 .Ltmp2934-.Ltmp2933            #   Call between .Ltmp2933 and .Ltmp2934
+	.uleb128 .Ltmp2935-.Lfunc_begin100      #     jumps to .Ltmp2935
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3091-.Lfunc_begin101      # >> Call Site 6 <<
-	.uleb128 .Lfunc_end180-.Ltmp3091        #   Call between .Ltmp3091 and .Lfunc_end180
+	.uleb128 .Ltmp2934-.Lfunc_begin100      # >> Call Site 6 <<
+	.uleb128 .Lfunc_end179-.Ltmp2934        #   Call between .Ltmp2934 and .Lfunc_end179
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end101:
+.Lcst_end100:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase71:
+.Lttbase70:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"axG",@progbits,_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
@@ -45239,10 +44187,10 @@ GCC_except_table180:
 	.p2align	4, 0x90
 	.type	_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,@function
 _ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE: # @_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-.Lfunc_begin102:
+.Lfunc_begin101:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception102
+	.cfi_lsda 27, .Lexception101
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -45258,7 +44206,7 @@ _ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	movq	%rdi, %r14
 	movq	(%rdi), %rax
 	cmpq	$2, (%rax)
-	jge	.LBB181_1
+	jge	.LBB180_1
 # %bb.35:
 	leaq	16(%rsp), %rdi
 	movq	%r14, %rsi
@@ -45273,37 +44221,37 @@ _ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB181_1:
+.LBB180_1:
 	.cfi_def_cfa_offset 240
 	movl	$16, %edi
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %rbx
 	movq	(%r14), %rax
 	movq	8(%rax), %rsi
-.Ltmp3093:
+.Ltmp2936:
 	leaq	8(%rsp), %rdi
 	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3094:
+.Ltmp2937:
 # %bb.2:
-.Ltmp3096:
+.Ltmp2939:
 	leaq	80(%rsp), %rdi
 	leaq	8(%rsp), %rsi
 	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3097:
+.Ltmp2940:
 # %bb.3:
-.Ltmp3099:
+.Ltmp2942:
 	leaq	.L.str.48(%rip), %rsi
 	leaq	112(%rsp), %rdi
 	leaq	80(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3100:
+.Ltmp2943:
 # %bb.4:
-.Ltmp3102:
+.Ltmp2945:
 	leaq	.L.str.49(%rip), %rdx
 	leaq	144(%rsp), %rdi
 	leaq	112(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3103:
+.Ltmp2946:
 # %bb.5:
 	movq	_ZTIi@GOTPCREL(%rip), %rax
 	movq	8(%rax), %rax
@@ -45311,257 +44259,257 @@ _ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	cmpb	$42, (%rax)
 	sete	%sil
 	addq	%rax, %rsi
-.Ltmp3105:
+.Ltmp2948:
 	leaq	48(%rsp), %rdi
 	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3106:
+.Ltmp2949:
 # %bb.6:                                # %_ZN8pybind11L7type_idIiEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3108:
+.Ltmp2951:
 	leaq	176(%rsp), %rdi
 	leaq	144(%rsp), %rsi
 	leaq	48(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3109:
+.Ltmp2952:
 # %bb.7:
-.Ltmp3111:
+.Ltmp2954:
 	leaq	.L.str.50(%rip), %rdx
 	leaq	16(%rsp), %rdi
 	leaq	176(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3112:
+.Ltmp2955:
 # %bb.8:
 	movb	$1, %bpl
-.Ltmp3114:
+.Ltmp2957:
 	leaq	16(%rsp), %rsi
 	movq	%rbx, %rdi
 	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3115:
+.Ltmp2958:
 # %bb.9:
 	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
 	movq	%rax, (%rbx)
 	xorl	%ebp, %ebp
-.Ltmp3116:
+.Ltmp2959:
 	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
 	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
 	movq	%rbx, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3117:
+.Ltmp2960:
 # %bb.33:
-.LBB181_17:
-.Ltmp3118:
+.LBB180_17:
+.Ltmp2961:
 	movq	%rax, %r14
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_18
+	jne	.LBB180_18
 # %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_20
-.LBB181_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
+	jne	.LBB180_20
+.LBB180_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_22
-.LBB181_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
+	jne	.LBB180_22
+.LBB180_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_24
-.LBB181_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	jne	.LBB180_24
+.LBB180_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_26
-.LBB181_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	jne	.LBB180_26
+.LBB180_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_28
-	jmp	.LBB181_29
-.LBB181_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
+	jne	.LBB180_28
+	jmp	.LBB180_29
+.LBB180_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
 	movq	32(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_21
-	jmp	.LBB181_20
-.LBB181_16:
-.Ltmp3113:
+	je	.LBB180_21
+	jmp	.LBB180_20
+.LBB180_16:
+.Ltmp2956:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_21
-.LBB181_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	je	.LBB180_21
+.LBB180_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
 	movq	192(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_23
-	jmp	.LBB181_22
-.LBB181_15:
-.Ltmp3110:
+	je	.LBB180_23
+	jmp	.LBB180_22
+.LBB180_15:
+.Ltmp2953:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_23
-.LBB181_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	je	.LBB180_23
+.LBB180_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
 	movq	64(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_25
-	jmp	.LBB181_24
-.LBB181_14:
-.Ltmp3107:
+	je	.LBB180_25
+	jmp	.LBB180_24
+.LBB180_14:
+.Ltmp2950:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_25
-.LBB181_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	je	.LBB180_25
+.LBB180_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
 	movq	160(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_27
-	jmp	.LBB181_26
-.LBB181_13:
-.Ltmp3104:
+	je	.LBB180_27
+	jmp	.LBB180_26
+.LBB180_13:
+.Ltmp2947:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_27
-.LBB181_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	je	.LBB180_27
+.LBB180_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
 	movq	128(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB181_28
-	jmp	.LBB181_29
-.LBB181_12:
-.Ltmp3101:
+	jne	.LBB180_28
+	jmp	.LBB180_29
+.LBB180_12:
+.Ltmp2944:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB181_29
-.LBB181_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	je	.LBB180_29
+.LBB180_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
 	movq	96(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	jmp	.LBB181_29
-.LBB181_11:
-.Ltmp3098:
+	jmp	.LBB180_29
+.LBB180_11:
+.Ltmp2941:
 	movq	%rax, %r14
 	movb	$1, %bpl
-.LBB181_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3119:
+.LBB180_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp2962:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3120:
+.Ltmp2963:
 # %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
 	testb	%bpl, %bpl
-	jne	.LBB181_31
-	jmp	.LBB181_32
-.LBB181_34:
-.Ltmp3121:
+	jne	.LBB180_31
+	jmp	.LBB180_32
+.LBB180_34:
+.Ltmp2964:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB181_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3095:
+.LBB180_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp2938:
 	movq	%rax, %r14
-.LBB181_31:
+.LBB180_31:
 	movq	%rbx, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB181_32:
+.LBB180_32:
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
-.Lfunc_end181:
-	.size	_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end181-_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+.Lfunc_end180:
+	.size	_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end180-_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"aG",@progbits,_ZN8pybind114moveIiEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
 	.p2align	2, 0x0
-GCC_except_table181:
-.Lexception102:
+GCC_except_table180:
+.Lexception101:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase72-.Lttbaseref72
-.Lttbaseref72:
+	.uleb128 .Lttbase71-.Lttbaseref71
+.Lttbaseref71:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end102-.Lcst_begin102
-.Lcst_begin102:
-	.uleb128 .Lfunc_begin102-.Lfunc_begin102 # >> Call Site 1 <<
-	.uleb128 .Ltmp3093-.Lfunc_begin102      #   Call between .Lfunc_begin102 and .Ltmp3093
+	.uleb128 .Lcst_end101-.Lcst_begin101
+.Lcst_begin101:
+	.uleb128 .Lfunc_begin101-.Lfunc_begin101 # >> Call Site 1 <<
+	.uleb128 .Ltmp2936-.Lfunc_begin101      #   Call between .Lfunc_begin101 and .Ltmp2936
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3093-.Lfunc_begin102      # >> Call Site 2 <<
-	.uleb128 .Ltmp3094-.Ltmp3093            #   Call between .Ltmp3093 and .Ltmp3094
-	.uleb128 .Ltmp3095-.Lfunc_begin102      #     jumps to .Ltmp3095
+	.uleb128 .Ltmp2936-.Lfunc_begin101      # >> Call Site 2 <<
+	.uleb128 .Ltmp2937-.Ltmp2936            #   Call between .Ltmp2936 and .Ltmp2937
+	.uleb128 .Ltmp2938-.Lfunc_begin101      #     jumps to .Ltmp2938
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3096-.Lfunc_begin102      # >> Call Site 3 <<
-	.uleb128 .Ltmp3097-.Ltmp3096            #   Call between .Ltmp3096 and .Ltmp3097
-	.uleb128 .Ltmp3098-.Lfunc_begin102      #     jumps to .Ltmp3098
+	.uleb128 .Ltmp2939-.Lfunc_begin101      # >> Call Site 3 <<
+	.uleb128 .Ltmp2940-.Ltmp2939            #   Call between .Ltmp2939 and .Ltmp2940
+	.uleb128 .Ltmp2941-.Lfunc_begin101      #     jumps to .Ltmp2941
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3099-.Lfunc_begin102      # >> Call Site 4 <<
-	.uleb128 .Ltmp3100-.Ltmp3099            #   Call between .Ltmp3099 and .Ltmp3100
-	.uleb128 .Ltmp3101-.Lfunc_begin102      #     jumps to .Ltmp3101
+	.uleb128 .Ltmp2942-.Lfunc_begin101      # >> Call Site 4 <<
+	.uleb128 .Ltmp2943-.Ltmp2942            #   Call between .Ltmp2942 and .Ltmp2943
+	.uleb128 .Ltmp2944-.Lfunc_begin101      #     jumps to .Ltmp2944
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3102-.Lfunc_begin102      # >> Call Site 5 <<
-	.uleb128 .Ltmp3103-.Ltmp3102            #   Call between .Ltmp3102 and .Ltmp3103
-	.uleb128 .Ltmp3104-.Lfunc_begin102      #     jumps to .Ltmp3104
+	.uleb128 .Ltmp2945-.Lfunc_begin101      # >> Call Site 5 <<
+	.uleb128 .Ltmp2946-.Ltmp2945            #   Call between .Ltmp2945 and .Ltmp2946
+	.uleb128 .Ltmp2947-.Lfunc_begin101      #     jumps to .Ltmp2947
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3105-.Lfunc_begin102      # >> Call Site 6 <<
-	.uleb128 .Ltmp3106-.Ltmp3105            #   Call between .Ltmp3105 and .Ltmp3106
-	.uleb128 .Ltmp3107-.Lfunc_begin102      #     jumps to .Ltmp3107
+	.uleb128 .Ltmp2948-.Lfunc_begin101      # >> Call Site 6 <<
+	.uleb128 .Ltmp2949-.Ltmp2948            #   Call between .Ltmp2948 and .Ltmp2949
+	.uleb128 .Ltmp2950-.Lfunc_begin101      #     jumps to .Ltmp2950
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3108-.Lfunc_begin102      # >> Call Site 7 <<
-	.uleb128 .Ltmp3109-.Ltmp3108            #   Call between .Ltmp3108 and .Ltmp3109
-	.uleb128 .Ltmp3110-.Lfunc_begin102      #     jumps to .Ltmp3110
+	.uleb128 .Ltmp2951-.Lfunc_begin101      # >> Call Site 7 <<
+	.uleb128 .Ltmp2952-.Ltmp2951            #   Call between .Ltmp2951 and .Ltmp2952
+	.uleb128 .Ltmp2953-.Lfunc_begin101      #     jumps to .Ltmp2953
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3111-.Lfunc_begin102      # >> Call Site 8 <<
-	.uleb128 .Ltmp3112-.Ltmp3111            #   Call between .Ltmp3111 and .Ltmp3112
-	.uleb128 .Ltmp3113-.Lfunc_begin102      #     jumps to .Ltmp3113
+	.uleb128 .Ltmp2954-.Lfunc_begin101      # >> Call Site 8 <<
+	.uleb128 .Ltmp2955-.Ltmp2954            #   Call between .Ltmp2954 and .Ltmp2955
+	.uleb128 .Ltmp2956-.Lfunc_begin101      #     jumps to .Ltmp2956
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3114-.Lfunc_begin102      # >> Call Site 9 <<
-	.uleb128 .Ltmp3117-.Ltmp3114            #   Call between .Ltmp3114 and .Ltmp3117
-	.uleb128 .Ltmp3118-.Lfunc_begin102      #     jumps to .Ltmp3118
+	.uleb128 .Ltmp2957-.Lfunc_begin101      # >> Call Site 9 <<
+	.uleb128 .Ltmp2960-.Ltmp2957            #   Call between .Ltmp2957 and .Ltmp2960
+	.uleb128 .Ltmp2961-.Lfunc_begin101      #     jumps to .Ltmp2961
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3119-.Lfunc_begin102      # >> Call Site 10 <<
-	.uleb128 .Ltmp3120-.Ltmp3119            #   Call between .Ltmp3119 and .Ltmp3120
-	.uleb128 .Ltmp3121-.Lfunc_begin102      #     jumps to .Ltmp3121
+	.uleb128 .Ltmp2962-.Lfunc_begin101      # >> Call Site 10 <<
+	.uleb128 .Ltmp2963-.Ltmp2962            #   Call between .Ltmp2962 and .Ltmp2963
+	.uleb128 .Ltmp2964-.Lfunc_begin101      #     jumps to .Ltmp2964
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3120-.Lfunc_begin102      # >> Call Site 11 <<
-	.uleb128 .Lfunc_end181-.Ltmp3120        #   Call between .Ltmp3120 and .Lfunc_end181
+	.uleb128 .Ltmp2963-.Lfunc_begin101      # >> Call Site 11 <<
+	.uleb128 .Lfunc_end180-.Ltmp2963        #   Call between .Ltmp2963 and .Lfunc_end180
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end102:
+.Lcst_end101:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase72:
+.Lttbase71:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"axG",@progbits,_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
@@ -45570,10 +44518,10 @@ GCC_except_table181:
 	.p2align	4, 0x90
 	.type	_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,@function
 _ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # @_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Lfunc_begin103:
+.Lfunc_begin102:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception103
+	.cfi_lsda 27, .Lexception102
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -45592,7 +44540,7 @@ _ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	movl	$1, %edx
 	callq	_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb
 	testb	%al, %al
-	je	.LBB182_1
+	je	.LBB181_1
 # %bb.35:
 	movq	%rbx, %rax
 	addq	$208, %rsp
@@ -45604,37 +44552,37 @@ _ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB182_1:
+.LBB181_1:
 	.cfi_def_cfa_offset 240
 	movl	$16, %edi
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %rbx
 	movq	(%r14), %rax
 	movq	8(%rax), %rsi
-.Ltmp3122:
+.Ltmp2965:
 	leaq	8(%rsp), %rdi
 	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3123:
+.Ltmp2966:
 # %bb.2:
-.Ltmp3125:
+.Ltmp2968:
 	leaq	48(%rsp), %rdi
 	leaq	8(%rsp), %rsi
 	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3126:
+.Ltmp2969:
 # %bb.3:
-.Ltmp3128:
+.Ltmp2971:
 	leaq	.L.str.42(%rip), %rsi
 	leaq	80(%rsp), %rdi
 	leaq	48(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3129:
+.Ltmp2972:
 # %bb.4:
-.Ltmp3131:
+.Ltmp2974:
 	leaq	.L.str.43(%rip), %rdx
 	leaq	112(%rsp), %rdi
 	leaq	80(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3132:
+.Ltmp2975:
 # %bb.5:
 	movq	_ZTIi@GOTPCREL(%rip), %rax
 	movq	8(%rax), %rax
@@ -45642,257 +44590,257 @@ _ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	cmpb	$42, (%rax)
 	sete	%sil
 	addq	%rax, %rsi
-.Ltmp3134:
+.Ltmp2977:
 	leaq	16(%rsp), %rdi
 	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3135:
+.Ltmp2978:
 # %bb.6:                                # %_ZN8pybind11L7type_idIiEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3137:
+.Ltmp2980:
 	leaq	144(%rsp), %rdi
 	leaq	112(%rsp), %rsi
 	leaq	16(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3138:
+.Ltmp2981:
 # %bb.7:
-.Ltmp3140:
+.Ltmp2983:
 	leaq	.L.str.44(%rip), %rdx
 	leaq	176(%rsp), %rdi
 	leaq	144(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3141:
+.Ltmp2984:
 # %bb.8:
 	movb	$1, %bpl
-.Ltmp3143:
+.Ltmp2986:
 	leaq	176(%rsp), %rsi
 	movq	%rbx, %rdi
 	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3144:
+.Ltmp2987:
 # %bb.9:
 	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
 	movq	%rax, (%rbx)
 	xorl	%ebp, %ebp
-.Ltmp3145:
+.Ltmp2988:
 	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
 	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
 	movq	%rbx, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3146:
+.Ltmp2989:
 # %bb.33:
-.LBB182_17:
-.Ltmp3147:
+.LBB181_17:
+.Ltmp2990:
 	movq	%rax, %r14
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_18
+	jne	.LBB181_18
 # %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_20
-.LBB182_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
+	jne	.LBB181_20
+.LBB181_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_22
-.LBB182_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
+	jne	.LBB181_22
+.LBB181_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_24
-.LBB182_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	jne	.LBB181_24
+.LBB181_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_26
-.LBB182_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	jne	.LBB181_26
+.LBB181_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_28
-	jmp	.LBB182_29
-.LBB182_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
+	jne	.LBB181_28
+	jmp	.LBB181_29
+.LBB181_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
 	movq	192(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_21
-	jmp	.LBB182_20
-.LBB182_16:
-.Ltmp3142:
+	je	.LBB181_21
+	jmp	.LBB181_20
+.LBB181_16:
+.Ltmp2985:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_21
-.LBB182_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	je	.LBB181_21
+.LBB181_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
 	movq	160(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_23
-	jmp	.LBB182_22
-.LBB182_15:
-.Ltmp3139:
+	je	.LBB181_23
+	jmp	.LBB181_22
+.LBB181_15:
+.Ltmp2982:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_23
-.LBB182_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	je	.LBB181_23
+.LBB181_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
 	movq	32(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_25
-	jmp	.LBB182_24
-.LBB182_14:
-.Ltmp3136:
+	je	.LBB181_25
+	jmp	.LBB181_24
+.LBB181_14:
+.Ltmp2979:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_25
-.LBB182_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	je	.LBB181_25
+.LBB181_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
 	movq	128(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_27
-	jmp	.LBB182_26
-.LBB182_13:
-.Ltmp3133:
+	je	.LBB181_27
+	jmp	.LBB181_26
+.LBB181_13:
+.Ltmp2976:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_27
-.LBB182_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	je	.LBB181_27
+.LBB181_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
 	movq	96(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB182_28
-	jmp	.LBB182_29
-.LBB182_12:
-.Ltmp3130:
+	jne	.LBB181_28
+	jmp	.LBB181_29
+.LBB181_12:
+.Ltmp2973:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB182_29
-.LBB182_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	je	.LBB181_29
+.LBB181_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
 	movq	64(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	jmp	.LBB182_29
-.LBB182_11:
-.Ltmp3127:
+	jmp	.LBB181_29
+.LBB181_11:
+.Ltmp2970:
 	movq	%rax, %r14
 	movb	$1, %bpl
-.LBB182_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3148:
+.LBB181_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp2991:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3149:
+.Ltmp2992:
 # %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
 	testb	%bpl, %bpl
-	jne	.LBB182_31
-	jmp	.LBB182_32
-.LBB182_34:
-.Ltmp3150:
+	jne	.LBB181_31
+	jmp	.LBB181_32
+.LBB181_34:
+.Ltmp2993:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB182_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3124:
+.LBB181_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp2967:
 	movq	%rax, %r14
-.LBB182_31:
+.LBB181_31:
 	movq	%rbx, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB182_32:
+.LBB181_32:
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
-.Lfunc_end182:
-	.size	_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end182-_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
+.Lfunc_end181:
+	.size	_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end181-_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"aG",@progbits,_ZN8pybind116detail9load_typeIivEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
 	.p2align	2, 0x0
-GCC_except_table182:
-.Lexception103:
+GCC_except_table181:
+.Lexception102:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase73-.Lttbaseref73
-.Lttbaseref73:
+	.uleb128 .Lttbase72-.Lttbaseref72
+.Lttbaseref72:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end103-.Lcst_begin103
-.Lcst_begin103:
-	.uleb128 .Lfunc_begin103-.Lfunc_begin103 # >> Call Site 1 <<
-	.uleb128 .Ltmp3122-.Lfunc_begin103      #   Call between .Lfunc_begin103 and .Ltmp3122
+	.uleb128 .Lcst_end102-.Lcst_begin102
+.Lcst_begin102:
+	.uleb128 .Lfunc_begin102-.Lfunc_begin102 # >> Call Site 1 <<
+	.uleb128 .Ltmp2965-.Lfunc_begin102      #   Call between .Lfunc_begin102 and .Ltmp2965
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3122-.Lfunc_begin103      # >> Call Site 2 <<
-	.uleb128 .Ltmp3123-.Ltmp3122            #   Call between .Ltmp3122 and .Ltmp3123
-	.uleb128 .Ltmp3124-.Lfunc_begin103      #     jumps to .Ltmp3124
+	.uleb128 .Ltmp2965-.Lfunc_begin102      # >> Call Site 2 <<
+	.uleb128 .Ltmp2966-.Ltmp2965            #   Call between .Ltmp2965 and .Ltmp2966
+	.uleb128 .Ltmp2967-.Lfunc_begin102      #     jumps to .Ltmp2967
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3125-.Lfunc_begin103      # >> Call Site 3 <<
-	.uleb128 .Ltmp3126-.Ltmp3125            #   Call between .Ltmp3125 and .Ltmp3126
-	.uleb128 .Ltmp3127-.Lfunc_begin103      #     jumps to .Ltmp3127
+	.uleb128 .Ltmp2968-.Lfunc_begin102      # >> Call Site 3 <<
+	.uleb128 .Ltmp2969-.Ltmp2968            #   Call between .Ltmp2968 and .Ltmp2969
+	.uleb128 .Ltmp2970-.Lfunc_begin102      #     jumps to .Ltmp2970
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3128-.Lfunc_begin103      # >> Call Site 4 <<
-	.uleb128 .Ltmp3129-.Ltmp3128            #   Call between .Ltmp3128 and .Ltmp3129
-	.uleb128 .Ltmp3130-.Lfunc_begin103      #     jumps to .Ltmp3130
+	.uleb128 .Ltmp2971-.Lfunc_begin102      # >> Call Site 4 <<
+	.uleb128 .Ltmp2972-.Ltmp2971            #   Call between .Ltmp2971 and .Ltmp2972
+	.uleb128 .Ltmp2973-.Lfunc_begin102      #     jumps to .Ltmp2973
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3131-.Lfunc_begin103      # >> Call Site 5 <<
-	.uleb128 .Ltmp3132-.Ltmp3131            #   Call between .Ltmp3131 and .Ltmp3132
-	.uleb128 .Ltmp3133-.Lfunc_begin103      #     jumps to .Ltmp3133
+	.uleb128 .Ltmp2974-.Lfunc_begin102      # >> Call Site 5 <<
+	.uleb128 .Ltmp2975-.Ltmp2974            #   Call between .Ltmp2974 and .Ltmp2975
+	.uleb128 .Ltmp2976-.Lfunc_begin102      #     jumps to .Ltmp2976
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3134-.Lfunc_begin103      # >> Call Site 6 <<
-	.uleb128 .Ltmp3135-.Ltmp3134            #   Call between .Ltmp3134 and .Ltmp3135
-	.uleb128 .Ltmp3136-.Lfunc_begin103      #     jumps to .Ltmp3136
+	.uleb128 .Ltmp2977-.Lfunc_begin102      # >> Call Site 6 <<
+	.uleb128 .Ltmp2978-.Ltmp2977            #   Call between .Ltmp2977 and .Ltmp2978
+	.uleb128 .Ltmp2979-.Lfunc_begin102      #     jumps to .Ltmp2979
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3137-.Lfunc_begin103      # >> Call Site 7 <<
-	.uleb128 .Ltmp3138-.Ltmp3137            #   Call between .Ltmp3137 and .Ltmp3138
-	.uleb128 .Ltmp3139-.Lfunc_begin103      #     jumps to .Ltmp3139
+	.uleb128 .Ltmp2980-.Lfunc_begin102      # >> Call Site 7 <<
+	.uleb128 .Ltmp2981-.Ltmp2980            #   Call between .Ltmp2980 and .Ltmp2981
+	.uleb128 .Ltmp2982-.Lfunc_begin102      #     jumps to .Ltmp2982
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3140-.Lfunc_begin103      # >> Call Site 8 <<
-	.uleb128 .Ltmp3141-.Ltmp3140            #   Call between .Ltmp3140 and .Ltmp3141
-	.uleb128 .Ltmp3142-.Lfunc_begin103      #     jumps to .Ltmp3142
+	.uleb128 .Ltmp2983-.Lfunc_begin102      # >> Call Site 8 <<
+	.uleb128 .Ltmp2984-.Ltmp2983            #   Call between .Ltmp2983 and .Ltmp2984
+	.uleb128 .Ltmp2985-.Lfunc_begin102      #     jumps to .Ltmp2985
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3143-.Lfunc_begin103      # >> Call Site 9 <<
-	.uleb128 .Ltmp3146-.Ltmp3143            #   Call between .Ltmp3143 and .Ltmp3146
-	.uleb128 .Ltmp3147-.Lfunc_begin103      #     jumps to .Ltmp3147
+	.uleb128 .Ltmp2986-.Lfunc_begin102      # >> Call Site 9 <<
+	.uleb128 .Ltmp2989-.Ltmp2986            #   Call between .Ltmp2986 and .Ltmp2989
+	.uleb128 .Ltmp2990-.Lfunc_begin102      #     jumps to .Ltmp2990
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3148-.Lfunc_begin103      # >> Call Site 10 <<
-	.uleb128 .Ltmp3149-.Ltmp3148            #   Call between .Ltmp3148 and .Ltmp3149
-	.uleb128 .Ltmp3150-.Lfunc_begin103      #     jumps to .Ltmp3150
+	.uleb128 .Ltmp2991-.Lfunc_begin102      # >> Call Site 10 <<
+	.uleb128 .Ltmp2992-.Ltmp2991            #   Call between .Ltmp2991 and .Ltmp2992
+	.uleb128 .Ltmp2993-.Lfunc_begin102      #     jumps to .Ltmp2993
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3149-.Lfunc_begin103      # >> Call Site 11 <<
-	.uleb128 .Lfunc_end182-.Ltmp3149        #   Call between .Ltmp3149 and .Lfunc_end182
+	.uleb128 .Ltmp2992-.Lfunc_begin102      # >> Call Site 11 <<
+	.uleb128 .Lfunc_end181-.Ltmp2992        #   Call between .Ltmp2992 and .Lfunc_end181
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end103:
+.Lcst_end102:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase73:
+.Lttbase72:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind116detail11type_casterIivE4loadENS_6handleEb,"axG",@progbits,_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb,comdat
@@ -45901,10 +44849,10 @@ GCC_except_table182:
 	.p2align	4, 0x90
 	.type	_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb,@function
 _ZN8pybind116detail11type_casterIivE4loadENS_6handleEb: # @_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb
-.Lfunc_begin104:
+.Lfunc_begin103:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception104
+	.cfi_lsda 27, .Lexception103
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -45924,12 +44872,12 @@ _ZN8pybind116detail11type_casterIivE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	.cfi_offset %r15, -24
 	.cfi_offset %rbp, -16
 	testq	%rsi, %rsi
-	je	.LBB183_20
+	je	.LBB182_20
 # %bb.1:
 	movq	%rsi, %r14
 	movq	8(%rsi), %rax
 	cmpq	PyFloat_Type@GOTPCREL(%rip), %rax
-	je	.LBB183_20
+	je	.LBB182_20
 # %bb.2:                                # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit
 	movl	%edx, %ebp
 	movq	%rdi, %rbx
@@ -45937,10 +44885,10 @@ _ZN8pybind116detail11type_casterIivE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	movq	%rax, %rdi
 	callq	PyType_IsSubtype@PLT
 	testl	%eax, %eax
-	je	.LBB183_6
-.LBB183_20:
+	je	.LBB182_6
+.LBB182_20:
 	xorl	%ebx, %ebx
-.LBB183_21:                             # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit.thread
+.LBB182_21:                             # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit.thread
 	movl	%ebx, %eax
 	addq	$16, %rsp
 	.cfi_def_cfa_offset 48
@@ -45955,132 +44903,132 @@ _ZN8pybind116detail11type_casterIivE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB183_6:
+.LBB182_6:
 	.cfi_def_cfa_offset 64
 	testb	%bpl, %bpl
-	jne	.LBB183_9
+	jne	.LBB182_9
 # %bb.7:
 	movq	8(%r14), %rax
 	testb	$1, 171(%rax)
-	jne	.LBB183_9
+	jne	.LBB182_9
 # %bb.8:
 	movq	%r14, %rdi
 	callq	PyIndex_Check@PLT
 	testl	%eax, %eax
-	je	.LBB183_20
-.LBB183_9:
+	je	.LBB182_20
+.LBB182_9:
 	movq	%r14, %rdi
 	callq	PyLong_AsLong@PLT
 	movq	%rax, %r15
 	movb	$1, %r12b
 	cmpq	$-1, %rax
-	jne	.LBB183_11
+	jne	.LBB182_11
 # %bb.10:
 	callq	PyErr_Occurred@PLT
 	testq	%rax, %rax
 	sete	%r12b
-.LBB183_11:
+.LBB182_11:
 	movslq	%r15d, %rax
 	cmpq	%r15, %rax
 	sete	%al
 	testb	%r12b, %al
-	je	.LBB183_13
+	je	.LBB182_13
 # %bb.12:
 	movl	%r15d, (%rbx)
 	movb	$1, %bl
-	jmp	.LBB183_21
-.LBB183_13:
+	jmp	.LBB182_21
+.LBB182_13:
 	callq	PyErr_Clear@PLT
 	xorb	$1, %bpl
 	orb	%bpl, %r12b
-	jne	.LBB183_20
+	jne	.LBB182_20
 # %bb.15:
 	movq	%r14, %rdi
 	callq	PyNumber_Check@PLT
 	testl	%eax, %eax
-	je	.LBB183_20
+	je	.LBB182_20
 # %bb.16:
 	movq	%r14, %rdi
 	callq	PyNumber_Long@PLT
 	movq	%rax, %r14
 	movq	%rax, 8(%rsp)
-.Ltmp3151:
+.Ltmp2994:
 	callq	PyErr_Clear@PLT
-.Ltmp3152:
+.Ltmp2995:
 # %bb.17:
-.Ltmp3153:
+.Ltmp2996:
 	movq	%rbx, %rdi
 	movq	%r14, %rsi
 	xorl	%edx, %edx
 	callq	_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb
-.Ltmp3154:
+.Ltmp2997:
 # %bb.18:
-.Ltmp3159:
+.Ltmp3002:
 	movl	%eax, %ebx
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3160:
-	jmp	.LBB183_21
-.LBB183_22:
-.Ltmp3161:
+.Ltmp3003:
+	jmp	.LBB182_21
+.LBB182_22:
+.Ltmp3004:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB183_23:
-.Ltmp3155:
+.LBB182_23:
+.Ltmp2998:
 	movq	%rax, %rbx
-.Ltmp3156:
+.Ltmp2999:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3157:
+.Ltmp3000:
 # %bb.24:                               # %_ZN8pybind116objectD2Ev.exit20
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
-.LBB183_25:
-.Ltmp3158:
+.LBB182_25:
+.Ltmp3001:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.Lfunc_end183:
-	.size	_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb, .Lfunc_end183-_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb
+.Lfunc_end182:
+	.size	_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb, .Lfunc_end182-_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind116detail11type_casterIivE4loadENS_6handleEb,"aG",@progbits,_ZN8pybind116detail11type_casterIivE4loadENS_6handleEb,comdat
 	.p2align	2, 0x0
-GCC_except_table183:
-.Lexception104:
+GCC_except_table182:
+.Lexception103:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase74-.Lttbaseref74
-.Lttbaseref74:
+	.uleb128 .Lttbase73-.Lttbaseref73
+.Lttbaseref73:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end104-.Lcst_begin104
-.Lcst_begin104:
-	.uleb128 .Lfunc_begin104-.Lfunc_begin104 # >> Call Site 1 <<
-	.uleb128 .Ltmp3151-.Lfunc_begin104      #   Call between .Lfunc_begin104 and .Ltmp3151
+	.uleb128 .Lcst_end103-.Lcst_begin103
+.Lcst_begin103:
+	.uleb128 .Lfunc_begin103-.Lfunc_begin103 # >> Call Site 1 <<
+	.uleb128 .Ltmp2994-.Lfunc_begin103      #   Call between .Lfunc_begin103 and .Ltmp2994
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3151-.Lfunc_begin104      # >> Call Site 2 <<
-	.uleb128 .Ltmp3154-.Ltmp3151            #   Call between .Ltmp3151 and .Ltmp3154
-	.uleb128 .Ltmp3155-.Lfunc_begin104      #     jumps to .Ltmp3155
+	.uleb128 .Ltmp2994-.Lfunc_begin103      # >> Call Site 2 <<
+	.uleb128 .Ltmp2997-.Ltmp2994            #   Call between .Ltmp2994 and .Ltmp2997
+	.uleb128 .Ltmp2998-.Lfunc_begin103      #     jumps to .Ltmp2998
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3159-.Lfunc_begin104      # >> Call Site 3 <<
-	.uleb128 .Ltmp3160-.Ltmp3159            #   Call between .Ltmp3159 and .Ltmp3160
-	.uleb128 .Ltmp3161-.Lfunc_begin104      #     jumps to .Ltmp3161
+	.uleb128 .Ltmp3002-.Lfunc_begin103      # >> Call Site 3 <<
+	.uleb128 .Ltmp3003-.Ltmp3002            #   Call between .Ltmp3002 and .Ltmp3003
+	.uleb128 .Ltmp3004-.Lfunc_begin103      #     jumps to .Ltmp3004
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3156-.Lfunc_begin104      # >> Call Site 4 <<
-	.uleb128 .Ltmp3157-.Ltmp3156            #   Call between .Ltmp3156 and .Ltmp3157
-	.uleb128 .Ltmp3158-.Lfunc_begin104      #     jumps to .Ltmp3158
+	.uleb128 .Ltmp2999-.Lfunc_begin103      # >> Call Site 4 <<
+	.uleb128 .Ltmp3000-.Ltmp2999            #   Call between .Ltmp2999 and .Ltmp3000
+	.uleb128 .Ltmp3001-.Lfunc_begin103      #     jumps to .Ltmp3001
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3157-.Lfunc_begin104      # >> Call Site 5 <<
-	.uleb128 .Lfunc_end183-.Ltmp3157        #   Call between .Ltmp3157 and .Lfunc_end183
+	.uleb128 .Ltmp3000-.Lfunc_begin103      # >> Call Site 5 <<
+	.uleb128 .Lfunc_end182-.Ltmp3000        #   Call between .Ltmp3000 and .Lfunc_end182
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end104:
+.Lcst_end103:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase74:
+.Lttbase73:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"axG",@progbits,_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
@@ -46089,10 +45037,10 @@ GCC_except_table183:
 	.p2align	4, 0x90
 	.type	_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,@function
 _ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE: # @_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
-.Lfunc_begin105:
+.Lfunc_begin104:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception105
+	.cfi_lsda 27, .Lexception104
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -46108,7 +45056,7 @@ _ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	movq	%rdi, %r14
 	movq	(%rdi), %rax
 	cmpq	$2, (%rax)
-	jge	.LBB184_1
+	jge	.LBB183_1
 # %bb.35:
 	leaq	16(%rsp), %rdi
 	movq	%r14, %rsi
@@ -46123,37 +45071,37 @@ _ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB184_1:
+.LBB183_1:
 	.cfi_def_cfa_offset 240
 	movl	$16, %edi
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %rbx
 	movq	(%r14), %rax
 	movq	8(%rax), %rsi
-.Ltmp3162:
+.Ltmp3005:
 	leaq	8(%rsp), %rdi
 	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3163:
+.Ltmp3006:
 # %bb.2:
-.Ltmp3165:
+.Ltmp3008:
 	leaq	80(%rsp), %rdi
 	leaq	8(%rsp), %rsi
 	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3166:
+.Ltmp3009:
 # %bb.3:
-.Ltmp3168:
+.Ltmp3011:
 	leaq	.L.str.48(%rip), %rsi
 	leaq	112(%rsp), %rdi
 	leaq	80(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3169:
+.Ltmp3012:
 # %bb.4:
-.Ltmp3171:
+.Ltmp3014:
 	leaq	.L.str.49(%rip), %rdx
 	leaq	144(%rsp), %rdi
 	leaq	112(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3172:
+.Ltmp3015:
 # %bb.5:
 	movq	_ZTIm@GOTPCREL(%rip), %rax
 	movq	8(%rax), %rax
@@ -46161,257 +45109,257 @@ _ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4type
 	cmpb	$42, (%rax)
 	sete	%sil
 	addq	%rax, %rsi
-.Ltmp3174:
+.Ltmp3017:
 	leaq	48(%rsp), %rdi
 	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3175:
+.Ltmp3018:
 # %bb.6:                                # %_ZN8pybind11L7type_idImEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3177:
+.Ltmp3020:
 	leaq	176(%rsp), %rdi
 	leaq	144(%rsp), %rsi
 	leaq	48(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3178:
+.Ltmp3021:
 # %bb.7:
-.Ltmp3180:
+.Ltmp3023:
 	leaq	.L.str.50(%rip), %rdx
 	leaq	16(%rsp), %rdi
 	leaq	176(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3181:
+.Ltmp3024:
 # %bb.8:
 	movb	$1, %bpl
-.Ltmp3183:
+.Ltmp3026:
 	leaq	16(%rsp), %rsi
 	movq	%rbx, %rdi
 	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3184:
+.Ltmp3027:
 # %bb.9:
 	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
 	movq	%rax, (%rbx)
 	xorl	%ebp, %ebp
-.Ltmp3185:
+.Ltmp3028:
 	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
 	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
 	movq	%rbx, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3186:
+.Ltmp3029:
 # %bb.33:
-.LBB184_17:
-.Ltmp3187:
+.LBB183_17:
+.Ltmp3030:
 	movq	%rax, %r14
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_18
+	jne	.LBB183_18
 # %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_20
-.LBB184_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
+	jne	.LBB183_20
+.LBB183_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_22
-.LBB184_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
+	jne	.LBB183_22
+.LBB183_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_24
-.LBB184_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	jne	.LBB183_24
+.LBB183_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_26
-.LBB184_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	jne	.LBB183_26
+.LBB183_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_28
-	jmp	.LBB184_29
-.LBB184_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
+	jne	.LBB183_28
+	jmp	.LBB183_29
+.LBB183_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
 	movq	32(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_21
-	jmp	.LBB184_20
-.LBB184_16:
-.Ltmp3182:
+	je	.LBB183_21
+	jmp	.LBB183_20
+.LBB183_16:
+.Ltmp3025:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_21
-.LBB184_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	je	.LBB183_21
+.LBB183_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
 	movq	192(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_23
-	jmp	.LBB184_22
-.LBB184_15:
-.Ltmp3179:
+	je	.LBB183_23
+	jmp	.LBB183_22
+.LBB183_15:
+.Ltmp3022:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_23
-.LBB184_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	je	.LBB183_23
+.LBB183_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
 	movq	64(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_25
-	jmp	.LBB184_24
-.LBB184_14:
-.Ltmp3176:
+	je	.LBB183_25
+	jmp	.LBB183_24
+.LBB183_14:
+.Ltmp3019:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_25
-.LBB184_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	je	.LBB183_25
+.LBB183_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
 	movq	160(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_27
-	jmp	.LBB184_26
-.LBB184_13:
-.Ltmp3173:
+	je	.LBB183_27
+	jmp	.LBB183_26
+.LBB183_13:
+.Ltmp3016:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_27
-.LBB184_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	je	.LBB183_27
+.LBB183_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
 	movq	128(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB184_28
-	jmp	.LBB184_29
-.LBB184_12:
-.Ltmp3170:
+	jne	.LBB183_28
+	jmp	.LBB183_29
+.LBB183_12:
+.Ltmp3013:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB184_29
-.LBB184_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	je	.LBB183_29
+.LBB183_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
 	movq	96(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	jmp	.LBB184_29
-.LBB184_11:
-.Ltmp3167:
+	jmp	.LBB183_29
+.LBB183_11:
+.Ltmp3010:
 	movq	%rax, %r14
 	movb	$1, %bpl
-.LBB184_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3188:
+.LBB183_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp3031:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3189:
+.Ltmp3032:
 # %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
 	testb	%bpl, %bpl
-	jne	.LBB184_31
-	jmp	.LBB184_32
-.LBB184_34:
-.Ltmp3190:
+	jne	.LBB183_31
+	jmp	.LBB183_32
+.LBB183_34:
+.Ltmp3033:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB184_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3164:
+.LBB183_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp3007:
 	movq	%rax, %r14
-.LBB184_31:
+.LBB183_31:
 	movq	%rbx, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB184_32:
+.LBB183_32:
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
-.Lfunc_end184:
-	.size	_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end184-_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
+.Lfunc_end183:
+	.size	_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE, .Lfunc_end183-_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,"aG",@progbits,_ZN8pybind114moveImEENSt9enable_ifIXntsr6detail10move_neverIT_EE5valueES2_E4typeEONS_6objectE,comdat
 	.p2align	2, 0x0
-GCC_except_table184:
-.Lexception105:
+GCC_except_table183:
+.Lexception104:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase75-.Lttbaseref75
-.Lttbaseref75:
+	.uleb128 .Lttbase74-.Lttbaseref74
+.Lttbaseref74:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end105-.Lcst_begin105
-.Lcst_begin105:
-	.uleb128 .Lfunc_begin105-.Lfunc_begin105 # >> Call Site 1 <<
-	.uleb128 .Ltmp3162-.Lfunc_begin105      #   Call between .Lfunc_begin105 and .Ltmp3162
+	.uleb128 .Lcst_end104-.Lcst_begin104
+.Lcst_begin104:
+	.uleb128 .Lfunc_begin104-.Lfunc_begin104 # >> Call Site 1 <<
+	.uleb128 .Ltmp3005-.Lfunc_begin104      #   Call between .Lfunc_begin104 and .Ltmp3005
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3162-.Lfunc_begin105      # >> Call Site 2 <<
-	.uleb128 .Ltmp3163-.Ltmp3162            #   Call between .Ltmp3162 and .Ltmp3163
-	.uleb128 .Ltmp3164-.Lfunc_begin105      #     jumps to .Ltmp3164
+	.uleb128 .Ltmp3005-.Lfunc_begin104      # >> Call Site 2 <<
+	.uleb128 .Ltmp3006-.Ltmp3005            #   Call between .Ltmp3005 and .Ltmp3006
+	.uleb128 .Ltmp3007-.Lfunc_begin104      #     jumps to .Ltmp3007
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3165-.Lfunc_begin105      # >> Call Site 3 <<
-	.uleb128 .Ltmp3166-.Ltmp3165            #   Call between .Ltmp3165 and .Ltmp3166
-	.uleb128 .Ltmp3167-.Lfunc_begin105      #     jumps to .Ltmp3167
+	.uleb128 .Ltmp3008-.Lfunc_begin104      # >> Call Site 3 <<
+	.uleb128 .Ltmp3009-.Ltmp3008            #   Call between .Ltmp3008 and .Ltmp3009
+	.uleb128 .Ltmp3010-.Lfunc_begin104      #     jumps to .Ltmp3010
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3168-.Lfunc_begin105      # >> Call Site 4 <<
-	.uleb128 .Ltmp3169-.Ltmp3168            #   Call between .Ltmp3168 and .Ltmp3169
-	.uleb128 .Ltmp3170-.Lfunc_begin105      #     jumps to .Ltmp3170
+	.uleb128 .Ltmp3011-.Lfunc_begin104      # >> Call Site 4 <<
+	.uleb128 .Ltmp3012-.Ltmp3011            #   Call between .Ltmp3011 and .Ltmp3012
+	.uleb128 .Ltmp3013-.Lfunc_begin104      #     jumps to .Ltmp3013
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3171-.Lfunc_begin105      # >> Call Site 5 <<
-	.uleb128 .Ltmp3172-.Ltmp3171            #   Call between .Ltmp3171 and .Ltmp3172
-	.uleb128 .Ltmp3173-.Lfunc_begin105      #     jumps to .Ltmp3173
+	.uleb128 .Ltmp3014-.Lfunc_begin104      # >> Call Site 5 <<
+	.uleb128 .Ltmp3015-.Ltmp3014            #   Call between .Ltmp3014 and .Ltmp3015
+	.uleb128 .Ltmp3016-.Lfunc_begin104      #     jumps to .Ltmp3016
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3174-.Lfunc_begin105      # >> Call Site 6 <<
-	.uleb128 .Ltmp3175-.Ltmp3174            #   Call between .Ltmp3174 and .Ltmp3175
-	.uleb128 .Ltmp3176-.Lfunc_begin105      #     jumps to .Ltmp3176
+	.uleb128 .Ltmp3017-.Lfunc_begin104      # >> Call Site 6 <<
+	.uleb128 .Ltmp3018-.Ltmp3017            #   Call between .Ltmp3017 and .Ltmp3018
+	.uleb128 .Ltmp3019-.Lfunc_begin104      #     jumps to .Ltmp3019
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3177-.Lfunc_begin105      # >> Call Site 7 <<
-	.uleb128 .Ltmp3178-.Ltmp3177            #   Call between .Ltmp3177 and .Ltmp3178
-	.uleb128 .Ltmp3179-.Lfunc_begin105      #     jumps to .Ltmp3179
+	.uleb128 .Ltmp3020-.Lfunc_begin104      # >> Call Site 7 <<
+	.uleb128 .Ltmp3021-.Ltmp3020            #   Call between .Ltmp3020 and .Ltmp3021
+	.uleb128 .Ltmp3022-.Lfunc_begin104      #     jumps to .Ltmp3022
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3180-.Lfunc_begin105      # >> Call Site 8 <<
-	.uleb128 .Ltmp3181-.Ltmp3180            #   Call between .Ltmp3180 and .Ltmp3181
-	.uleb128 .Ltmp3182-.Lfunc_begin105      #     jumps to .Ltmp3182
+	.uleb128 .Ltmp3023-.Lfunc_begin104      # >> Call Site 8 <<
+	.uleb128 .Ltmp3024-.Ltmp3023            #   Call between .Ltmp3023 and .Ltmp3024
+	.uleb128 .Ltmp3025-.Lfunc_begin104      #     jumps to .Ltmp3025
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3183-.Lfunc_begin105      # >> Call Site 9 <<
-	.uleb128 .Ltmp3186-.Ltmp3183            #   Call between .Ltmp3183 and .Ltmp3186
-	.uleb128 .Ltmp3187-.Lfunc_begin105      #     jumps to .Ltmp3187
+	.uleb128 .Ltmp3026-.Lfunc_begin104      # >> Call Site 9 <<
+	.uleb128 .Ltmp3029-.Ltmp3026            #   Call between .Ltmp3026 and .Ltmp3029
+	.uleb128 .Ltmp3030-.Lfunc_begin104      #     jumps to .Ltmp3030
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3188-.Lfunc_begin105      # >> Call Site 10 <<
-	.uleb128 .Ltmp3189-.Ltmp3188            #   Call between .Ltmp3188 and .Ltmp3189
-	.uleb128 .Ltmp3190-.Lfunc_begin105      #     jumps to .Ltmp3190
+	.uleb128 .Ltmp3031-.Lfunc_begin104      # >> Call Site 10 <<
+	.uleb128 .Ltmp3032-.Ltmp3031            #   Call between .Ltmp3031 and .Ltmp3032
+	.uleb128 .Ltmp3033-.Lfunc_begin104      #     jumps to .Ltmp3033
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3189-.Lfunc_begin105      # >> Call Site 11 <<
-	.uleb128 .Lfunc_end184-.Ltmp3189        #   Call between .Ltmp3189 and .Lfunc_end184
+	.uleb128 .Ltmp3032-.Lfunc_begin104      # >> Call Site 11 <<
+	.uleb128 .Lfunc_end183-.Ltmp3032        #   Call between .Ltmp3032 and .Lfunc_end183
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end105:
+.Lcst_end104:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase75:
+.Lttbase74:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"axG",@progbits,_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
@@ -46420,10 +45368,10 @@ GCC_except_table184:
 	.p2align	4, 0x90
 	.type	_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,@function
 _ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # @_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
-.Lfunc_begin106:
+.Lfunc_begin105:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception106
+	.cfi_lsda 27, .Lexception105
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -46442,7 +45390,7 @@ _ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	movl	$1, %edx
 	callq	_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb
 	testb	%al, %al
-	je	.LBB185_1
+	je	.LBB184_1
 # %bb.35:
 	movq	%rbx, %rax
 	addq	$208, %rsp
@@ -46454,37 +45402,37 @@ _ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB185_1:
+.LBB184_1:
 	.cfi_def_cfa_offset 240
 	movl	$16, %edi
 	callq	__cxa_allocate_exception@PLT
 	movq	%rax, %rbx
 	movq	(%r14), %rax
 	movq	8(%rax), %rsi
-.Ltmp3191:
+.Ltmp3034:
 	leaq	8(%rsp), %rdi
 	callq	_ZN8pybind113strC2ENS_6handleE
-.Ltmp3192:
+.Ltmp3035:
 # %bb.2:
-.Ltmp3194:
+.Ltmp3037:
 	leaq	48(%rsp), %rdi
 	leaq	8(%rsp), %rsi
 	callq	_ZNO8pybind116object4castINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEET_v
-.Ltmp3195:
+.Ltmp3038:
 # %bb.3:
-.Ltmp3197:
+.Ltmp3040:
 	leaq	.L.str.42(%rip), %rsi
 	leaq	80(%rsp), %rdi
 	leaq	48(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_OS8_@PLT
-.Ltmp3198:
+.Ltmp3041:
 # %bb.4:
-.Ltmp3200:
+.Ltmp3043:
 	leaq	.L.str.43(%rip), %rdx
 	leaq	112(%rsp), %rdi
 	leaq	80(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3201:
+.Ltmp3044:
 # %bb.5:
 	movq	_ZTIm@GOTPCREL(%rip), %rax
 	movq	8(%rax), %rax
@@ -46492,257 +45440,257 @@ _ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE: # 
 	cmpb	$42, (%rax)
 	sete	%sil
 	addq	%rax, %rsi
-.Ltmp3203:
+.Ltmp3046:
 	leaq	16(%rsp), %rdi
 	callq	_ZN8pybind116detail13clean_type_idB5cxx11EPKc
-.Ltmp3204:
+.Ltmp3047:
 # %bb.6:                                # %_ZN8pybind11L7type_idImEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEv.exit
-.Ltmp3206:
+.Ltmp3049:
 	leaq	144(%rsp), %rdi
 	leaq	112(%rsp), %rsi
 	leaq	16(%rsp), %rdx
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_S9_@PLT
-.Ltmp3207:
+.Ltmp3050:
 # %bb.7:
-.Ltmp3209:
+.Ltmp3052:
 	leaq	.L.str.44(%rip), %rdx
 	leaq	176(%rsp), %rdi
 	leaq	144(%rsp), %rsi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_@PLT
-.Ltmp3210:
+.Ltmp3053:
 # %bb.8:
 	movb	$1, %bpl
-.Ltmp3212:
+.Ltmp3055:
 	leaq	176(%rsp), %rsi
 	movq	%rbx, %rdi
 	callq	_ZNSt13runtime_errorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE@PLT
-.Ltmp3213:
+.Ltmp3056:
 # %bb.9:
 	leaq	_ZTVN8pybind1110cast_errorE+16(%rip), %rax
 	movq	%rax, (%rbx)
 	xorl	%ebp, %ebp
-.Ltmp3214:
+.Ltmp3057:
 	leaq	_ZTIN8pybind1110cast_errorE(%rip), %rsi
 	movq	_ZNSt13runtime_errorD2Ev@GOTPCREL(%rip), %rdx
 	movq	%rbx, %rdi
 	callq	__cxa_throw@PLT
-.Ltmp3215:
+.Ltmp3058:
 # %bb.33:
-.LBB185_17:
-.Ltmp3216:
+.LBB184_17:
+.Ltmp3059:
 	movq	%rax, %r14
 	movq	176(%rsp), %rdi
 	leaq	192(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_18
+	jne	.LBB184_18
 # %bb.19:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_20
-.LBB185_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
+	jne	.LBB184_20
+.LBB184_21:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit31
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_22
-.LBB185_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
+	jne	.LBB184_22
+.LBB184_23:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit34
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_24
-.LBB185_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
+	jne	.LBB184_24
+.LBB184_25:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit37
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_26
-.LBB185_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
+	jne	.LBB184_26
+.LBB184_27:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_28
-	jmp	.LBB185_29
-.LBB185_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
+	jne	.LBB184_28
+	jmp	.LBB184_29
+.LBB184_18:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i
 	movq	192(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_21
-	jmp	.LBB185_20
-.LBB185_16:
-.Ltmp3211:
+	je	.LBB184_21
+	jmp	.LBB184_20
+.LBB184_16:
+.Ltmp3054:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	144(%rsp), %rdi
 	leaq	160(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_21
-.LBB185_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
+	je	.LBB184_21
+.LBB184_20:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i29
 	movq	160(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_23
-	jmp	.LBB185_22
-.LBB185_15:
-.Ltmp3208:
+	je	.LBB184_23
+	jmp	.LBB184_22
+.LBB184_15:
+.Ltmp3051:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	16(%rsp), %rdi
 	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_23
-.LBB185_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
+	je	.LBB184_23
+.LBB184_22:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i32
 	movq	32(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_25
-	jmp	.LBB185_24
-.LBB185_14:
-.Ltmp3205:
+	je	.LBB184_25
+	jmp	.LBB184_24
+.LBB184_14:
+.Ltmp3048:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	112(%rsp), %rdi
 	leaq	128(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_25
-.LBB185_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
+	je	.LBB184_25
+.LBB184_24:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i35
 	movq	128(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_27
-	jmp	.LBB185_26
-.LBB185_13:
-.Ltmp3202:
+	je	.LBB184_27
+	jmp	.LBB184_26
+.LBB184_13:
+.Ltmp3045:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	80(%rsp), %rdi
 	leaq	96(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_27
-.LBB185_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
+	je	.LBB184_27
+.LBB184_26:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i38
 	movq	96(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	jne	.LBB185_28
-	jmp	.LBB185_29
-.LBB185_12:
-.Ltmp3199:
+	jne	.LBB184_28
+	jmp	.LBB184_29
+.LBB184_12:
+.Ltmp3042:
 	movq	%rax, %r14
 	movb	$1, %bpl
 	movq	48(%rsp), %rdi
 	leaq	64(%rsp), %rax
 	cmpq	%rax, %rdi
-	je	.LBB185_29
-.LBB185_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
+	je	.LBB184_29
+.LBB184_28:                             # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE11_M_is_localEv.exit.i.i41
 	movq	64(%rsp), %rsi
 	incq	%rsi
 	callq	_ZdlPvm@PLT
-	jmp	.LBB185_29
-.LBB185_11:
-.Ltmp3196:
+	jmp	.LBB184_29
+.LBB184_11:
+.Ltmp3039:
 	movq	%rax, %r14
 	movb	$1, %bpl
-.LBB185_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
-.Ltmp3217:
+.LBB184_29:                             # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit43
+.Ltmp3060:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3218:
+.Ltmp3061:
 # %bb.30:                               # %_ZN8pybind116objectD2Ev.exit
 	testb	%bpl, %bpl
-	jne	.LBB185_31
-	jmp	.LBB185_32
-.LBB185_34:
-.Ltmp3219:
+	jne	.LBB184_31
+	jmp	.LBB184_32
+.LBB184_34:
+.Ltmp3062:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB185_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
-.Ltmp3193:
+.LBB184_10:                             # %_ZN8pybind116objectD2Ev.exit.thread
+.Ltmp3036:
 	movq	%rax, %r14
-.LBB185_31:
+.LBB184_31:
 	movq	%rbx, %rdi
 	callq	__cxa_free_exception@PLT
-.LBB185_32:
+.LBB184_32:
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
-.Lfunc_end185:
-	.size	_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end185-_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
+.Lfunc_end184:
+	.size	_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE, .Lfunc_end184-_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,"aG",@progbits,_ZN8pybind116detail9load_typeImvEERNS0_11type_casterIT_T0_EES6_RKNS_6handleE,comdat
 	.p2align	2, 0x0
-GCC_except_table185:
-.Lexception106:
+GCC_except_table184:
+.Lexception105:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase76-.Lttbaseref76
-.Lttbaseref76:
+	.uleb128 .Lttbase75-.Lttbaseref75
+.Lttbaseref75:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end106-.Lcst_begin106
-.Lcst_begin106:
-	.uleb128 .Lfunc_begin106-.Lfunc_begin106 # >> Call Site 1 <<
-	.uleb128 .Ltmp3191-.Lfunc_begin106      #   Call between .Lfunc_begin106 and .Ltmp3191
+	.uleb128 .Lcst_end105-.Lcst_begin105
+.Lcst_begin105:
+	.uleb128 .Lfunc_begin105-.Lfunc_begin105 # >> Call Site 1 <<
+	.uleb128 .Ltmp3034-.Lfunc_begin105      #   Call between .Lfunc_begin105 and .Ltmp3034
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3191-.Lfunc_begin106      # >> Call Site 2 <<
-	.uleb128 .Ltmp3192-.Ltmp3191            #   Call between .Ltmp3191 and .Ltmp3192
-	.uleb128 .Ltmp3193-.Lfunc_begin106      #     jumps to .Ltmp3193
+	.uleb128 .Ltmp3034-.Lfunc_begin105      # >> Call Site 2 <<
+	.uleb128 .Ltmp3035-.Ltmp3034            #   Call between .Ltmp3034 and .Ltmp3035
+	.uleb128 .Ltmp3036-.Lfunc_begin105      #     jumps to .Ltmp3036
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3194-.Lfunc_begin106      # >> Call Site 3 <<
-	.uleb128 .Ltmp3195-.Ltmp3194            #   Call between .Ltmp3194 and .Ltmp3195
-	.uleb128 .Ltmp3196-.Lfunc_begin106      #     jumps to .Ltmp3196
+	.uleb128 .Ltmp3037-.Lfunc_begin105      # >> Call Site 3 <<
+	.uleb128 .Ltmp3038-.Ltmp3037            #   Call between .Ltmp3037 and .Ltmp3038
+	.uleb128 .Ltmp3039-.Lfunc_begin105      #     jumps to .Ltmp3039
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3197-.Lfunc_begin106      # >> Call Site 4 <<
-	.uleb128 .Ltmp3198-.Ltmp3197            #   Call between .Ltmp3197 and .Ltmp3198
-	.uleb128 .Ltmp3199-.Lfunc_begin106      #     jumps to .Ltmp3199
+	.uleb128 .Ltmp3040-.Lfunc_begin105      # >> Call Site 4 <<
+	.uleb128 .Ltmp3041-.Ltmp3040            #   Call between .Ltmp3040 and .Ltmp3041
+	.uleb128 .Ltmp3042-.Lfunc_begin105      #     jumps to .Ltmp3042
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3200-.Lfunc_begin106      # >> Call Site 5 <<
-	.uleb128 .Ltmp3201-.Ltmp3200            #   Call between .Ltmp3200 and .Ltmp3201
-	.uleb128 .Ltmp3202-.Lfunc_begin106      #     jumps to .Ltmp3202
+	.uleb128 .Ltmp3043-.Lfunc_begin105      # >> Call Site 5 <<
+	.uleb128 .Ltmp3044-.Ltmp3043            #   Call between .Ltmp3043 and .Ltmp3044
+	.uleb128 .Ltmp3045-.Lfunc_begin105      #     jumps to .Ltmp3045
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3203-.Lfunc_begin106      # >> Call Site 6 <<
-	.uleb128 .Ltmp3204-.Ltmp3203            #   Call between .Ltmp3203 and .Ltmp3204
-	.uleb128 .Ltmp3205-.Lfunc_begin106      #     jumps to .Ltmp3205
+	.uleb128 .Ltmp3046-.Lfunc_begin105      # >> Call Site 6 <<
+	.uleb128 .Ltmp3047-.Ltmp3046            #   Call between .Ltmp3046 and .Ltmp3047
+	.uleb128 .Ltmp3048-.Lfunc_begin105      #     jumps to .Ltmp3048
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3206-.Lfunc_begin106      # >> Call Site 7 <<
-	.uleb128 .Ltmp3207-.Ltmp3206            #   Call between .Ltmp3206 and .Ltmp3207
-	.uleb128 .Ltmp3208-.Lfunc_begin106      #     jumps to .Ltmp3208
+	.uleb128 .Ltmp3049-.Lfunc_begin105      # >> Call Site 7 <<
+	.uleb128 .Ltmp3050-.Ltmp3049            #   Call between .Ltmp3049 and .Ltmp3050
+	.uleb128 .Ltmp3051-.Lfunc_begin105      #     jumps to .Ltmp3051
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3209-.Lfunc_begin106      # >> Call Site 8 <<
-	.uleb128 .Ltmp3210-.Ltmp3209            #   Call between .Ltmp3209 and .Ltmp3210
-	.uleb128 .Ltmp3211-.Lfunc_begin106      #     jumps to .Ltmp3211
+	.uleb128 .Ltmp3052-.Lfunc_begin105      # >> Call Site 8 <<
+	.uleb128 .Ltmp3053-.Ltmp3052            #   Call between .Ltmp3052 and .Ltmp3053
+	.uleb128 .Ltmp3054-.Lfunc_begin105      #     jumps to .Ltmp3054
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3212-.Lfunc_begin106      # >> Call Site 9 <<
-	.uleb128 .Ltmp3215-.Ltmp3212            #   Call between .Ltmp3212 and .Ltmp3215
-	.uleb128 .Ltmp3216-.Lfunc_begin106      #     jumps to .Ltmp3216
+	.uleb128 .Ltmp3055-.Lfunc_begin105      # >> Call Site 9 <<
+	.uleb128 .Ltmp3058-.Ltmp3055            #   Call between .Ltmp3055 and .Ltmp3058
+	.uleb128 .Ltmp3059-.Lfunc_begin105      #     jumps to .Ltmp3059
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3217-.Lfunc_begin106      # >> Call Site 10 <<
-	.uleb128 .Ltmp3218-.Ltmp3217            #   Call between .Ltmp3217 and .Ltmp3218
-	.uleb128 .Ltmp3219-.Lfunc_begin106      #     jumps to .Ltmp3219
+	.uleb128 .Ltmp3060-.Lfunc_begin105      # >> Call Site 10 <<
+	.uleb128 .Ltmp3061-.Ltmp3060            #   Call between .Ltmp3060 and .Ltmp3061
+	.uleb128 .Ltmp3062-.Lfunc_begin105      #     jumps to .Ltmp3062
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3218-.Lfunc_begin106      # >> Call Site 11 <<
-	.uleb128 .Lfunc_end185-.Ltmp3218        #   Call between .Ltmp3218 and .Lfunc_end185
+	.uleb128 .Ltmp3061-.Lfunc_begin105      # >> Call Site 11 <<
+	.uleb128 .Lfunc_end184-.Ltmp3061        #   Call between .Ltmp3061 and .Lfunc_end184
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end106:
+.Lcst_end105:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase76:
+.Lttbase75:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZN8pybind116detail11type_casterImvE4loadENS_6handleEb,"axG",@progbits,_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb,comdat
@@ -46751,10 +45699,10 @@ GCC_except_table185:
 	.p2align	4, 0x90
 	.type	_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb,@function
 _ZN8pybind116detail11type_casterImvE4loadENS_6handleEb: # @_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb
-.Lfunc_begin107:
+.Lfunc_begin106:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception107
+	.cfi_lsda 27, .Lexception106
 # %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -46771,12 +45719,12 @@ _ZN8pybind116detail11type_casterImvE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	.cfi_offset %r15, -24
 	.cfi_offset %rbp, -16
 	testq	%rsi, %rsi
-	je	.LBB186_4
+	je	.LBB185_4
 # %bb.1:
 	movq	%rsi, %r14
 	movq	8(%rsi), %rax
 	cmpq	PyFloat_Type@GOTPCREL(%rip), %rax
-	je	.LBB186_4
+	je	.LBB185_4
 # %bb.2:                                # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit
 	movl	%edx, %ebp
 	movq	%rdi, %rbx
@@ -46784,10 +45732,10 @@ _ZN8pybind116detail11type_casterImvE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	movq	%rax, %rdi
 	callq	PyType_IsSubtype@PLT
 	testl	%eax, %eax
-	je	.LBB186_6
-.LBB186_4:
+	je	.LBB185_6
+.LBB185_4:
 	xorl	%ebx, %ebx
-.LBB186_11:                             # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit.thread
+.LBB185_11:                             # %_ZL18PyObject_TypeCheckP7_objectP11_typeobject.exit.thread
 	movl	%ebx, %eax
 	addq	$8, %rsp
 	.cfi_def_cfa_offset 40
@@ -46800,135 +45748,135 @@ _ZN8pybind116detail11type_casterImvE4loadENS_6handleEb: # @_ZN8pybind116detail11
 	popq	%rbp
 	.cfi_def_cfa_offset 8
 	retq
-.LBB186_6:
+.LBB185_6:
 	.cfi_def_cfa_offset 48
 	testb	%bpl, %bpl
-	jne	.LBB186_9
+	jne	.LBB185_9
 # %bb.7:
 	movq	8(%r14), %rax
 	testb	$1, 171(%rax)
-	jne	.LBB186_9
+	jne	.LBB185_9
 # %bb.8:
 	movq	%r14, %rdi
 	callq	PyIndex_Check@PLT
 	testl	%eax, %eax
-	je	.LBB186_4
-.LBB186_9:
+	je	.LBB185_4
+.LBB185_9:
 	movq	%r14, %rdi
 	callq	PyLong_AsUnsignedLong@PLT
 	movq	%rax, %r15
 	cmpq	$-1, %rax
-	je	.LBB186_12
-.LBB186_10:                             # %.critedge
+	je	.LBB185_12
+.LBB185_10:                             # %.critedge
 	movq	%r15, (%rbx)
 	movb	$1, %bl
-	jmp	.LBB186_11
-.LBB186_12:
+	jmp	.LBB185_11
+.LBB185_12:
 	callq	PyErr_Occurred@PLT
 	callq	PyErr_Occurred@PLT
 	testq	%rax, %rax
-	je	.LBB186_10
+	je	.LBB185_10
 # %bb.13:
 	callq	PyErr_Clear@PLT
 	testb	%bpl, %bpl
-	je	.LBB186_4
+	je	.LBB185_4
 # %bb.14:
 	movq	%r14, %rdi
 	callq	PyNumber_Check@PLT
 	testl	%eax, %eax
-	je	.LBB186_4
+	je	.LBB185_4
 # %bb.15:
 	movq	%r14, %rdi
 	callq	PyNumber_Long@PLT
 	movq	%rax, %r14
 	movq	%rax, (%rsp)
-.Ltmp3220:
+.Ltmp3063:
 	callq	PyErr_Clear@PLT
-.Ltmp3221:
+.Ltmp3064:
 # %bb.16:
-.Ltmp3222:
+.Ltmp3065:
 	movq	%rbx, %rdi
 	movq	%r14, %rsi
 	xorl	%edx, %edx
 	callq	_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb
-.Ltmp3223:
+.Ltmp3066:
 # %bb.17:
-.Ltmp3228:
+.Ltmp3071:
 	movl	%eax, %ebx
 	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3229:
-	jmp	.LBB186_11
-.LBB186_21:
-.Ltmp3230:
+.Ltmp3072:
+	jmp	.LBB185_11
+.LBB185_21:
+.Ltmp3073:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB186_22:
-.Ltmp3224:
+.LBB185_22:
+.Ltmp3067:
 	movq	%rax, %rbx
-.Ltmp3225:
+.Ltmp3068:
 	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3226:
+.Ltmp3069:
 # %bb.23:                               # %_ZN8pybind116objectD2Ev.exit15
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
-.LBB186_24:
-.Ltmp3227:
+.LBB185_24:
+.Ltmp3070:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.Lfunc_end186:
-	.size	_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb, .Lfunc_end186-_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb
+.Lfunc_end185:
+	.size	_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb, .Lfunc_end185-_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb
 	.cfi_endproc
 	.section	.gcc_except_table._ZN8pybind116detail11type_casterImvE4loadENS_6handleEb,"aG",@progbits,_ZN8pybind116detail11type_casterImvE4loadENS_6handleEb,comdat
 	.p2align	2, 0x0
-GCC_except_table186:
-.Lexception107:
+GCC_except_table185:
+.Lexception106:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase77-.Lttbaseref77
-.Lttbaseref77:
+	.uleb128 .Lttbase76-.Lttbaseref76
+.Lttbaseref76:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end107-.Lcst_begin107
-.Lcst_begin107:
-	.uleb128 .Lfunc_begin107-.Lfunc_begin107 # >> Call Site 1 <<
-	.uleb128 .Ltmp3220-.Lfunc_begin107      #   Call between .Lfunc_begin107 and .Ltmp3220
+	.uleb128 .Lcst_end106-.Lcst_begin106
+.Lcst_begin106:
+	.uleb128 .Lfunc_begin106-.Lfunc_begin106 # >> Call Site 1 <<
+	.uleb128 .Ltmp3063-.Lfunc_begin106      #   Call between .Lfunc_begin106 and .Ltmp3063
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3220-.Lfunc_begin107      # >> Call Site 2 <<
-	.uleb128 .Ltmp3223-.Ltmp3220            #   Call between .Ltmp3220 and .Ltmp3223
-	.uleb128 .Ltmp3224-.Lfunc_begin107      #     jumps to .Ltmp3224
+	.uleb128 .Ltmp3063-.Lfunc_begin106      # >> Call Site 2 <<
+	.uleb128 .Ltmp3066-.Ltmp3063            #   Call between .Ltmp3063 and .Ltmp3066
+	.uleb128 .Ltmp3067-.Lfunc_begin106      #     jumps to .Ltmp3067
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3228-.Lfunc_begin107      # >> Call Site 3 <<
-	.uleb128 .Ltmp3229-.Ltmp3228            #   Call between .Ltmp3228 and .Ltmp3229
-	.uleb128 .Ltmp3230-.Lfunc_begin107      #     jumps to .Ltmp3230
+	.uleb128 .Ltmp3071-.Lfunc_begin106      # >> Call Site 3 <<
+	.uleb128 .Ltmp3072-.Ltmp3071            #   Call between .Ltmp3071 and .Ltmp3072
+	.uleb128 .Ltmp3073-.Lfunc_begin106      #     jumps to .Ltmp3073
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3225-.Lfunc_begin107      # >> Call Site 4 <<
-	.uleb128 .Ltmp3226-.Ltmp3225            #   Call between .Ltmp3225 and .Ltmp3226
-	.uleb128 .Ltmp3227-.Lfunc_begin107      #     jumps to .Ltmp3227
+	.uleb128 .Ltmp3068-.Lfunc_begin106      # >> Call Site 4 <<
+	.uleb128 .Ltmp3069-.Ltmp3068            #   Call between .Ltmp3068 and .Ltmp3069
+	.uleb128 .Ltmp3070-.Lfunc_begin106      #     jumps to .Ltmp3070
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3226-.Lfunc_begin107      # >> Call Site 5 <<
-	.uleb128 .Lfunc_end186-.Ltmp3226        #   Call between .Ltmp3226 and .Lfunc_end186
+	.uleb128 .Ltmp3069-.Lfunc_begin106      # >> Call Site 5 <<
+	.uleb128 .Lfunc_end185-.Ltmp3069        #   Call between .Ltmp3069 and .Lfunc_end185
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end107:
+.Lcst_end106:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase77:
+.Lttbase76:
 	.p2align	2, 0x0
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_,@function
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_: # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
-.Lfunc_begin108:
+	.p2align	4, 0x90                         # -- Begin function _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_,@function
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_: # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
+.Lfunc_begin107:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception108
+	.cfi_lsda 27, .Lexception107
 # %bb.0:
 	pushq	%r14
 	.cfi_def_cfa_offset 16
@@ -46942,74 +45890,74 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z
 	xorps	%xmm0, %xmm0
 	movaps	%xmm0, 16(%rsp)
 	movq	$0, 32(%rsp)
-.Ltmp3231:
+.Ltmp3074:
 	leaq	16(%rsp), %rdi
 	movq	%r14, %rsi
 	callq	_ZN8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE18load_impl_sequenceIJLm0ELm1ELm2EEEEbRNS0_13function_callESt16integer_sequenceImJXspT_EEE
-.Ltmp3232:
+.Ltmp3075:
 # %bb.1:                                # %_ZN8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE9load_argsERNS0_13function_callE.exit.i
 	movl	$1, %ebx
 	testb	%al, %al
-	je	.LBB187_11
+	je	.LBB186_11
 # %bb.2:
 	movq	(%r14), %rax
 	testb	$32, 89(%rax)
-	jne	.LBB187_3
+	jne	.LBB186_3
 # %bb.8:
-.Ltmp3243:
+.Ltmp3086:
 	leaq	16(%rsp), %rdi
-	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
-.Ltmp3244:
+	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
+.Ltmp3087:
 # %bb.9:
 	movq	_Py_NoneStruct@GOTPCREL(%rip), %rax
 	movq	%rax, 8(%rsp)
-.Ltmp3245:
+.Ltmp3088:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp3246:
+.Ltmp3089:
 # %bb.10:                               # %.noexc.i
 	movq	8(%rsp), %rbx
 	movq	$0, 8(%rsp)
-.Ltmp3248:
+.Ltmp3091:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3249:
-	jmp	.LBB187_11
-.LBB187_3:
-.Ltmp3234:
+.Ltmp3092:
+	jmp	.LBB186_11
+.LBB186_3:
+.Ltmp3077:
 	leaq	16(%rsp), %rdi
-	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
-.Ltmp3235:
+	callq	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
+.Ltmp3078:
 # %bb.4:
 	movq	_Py_NoneStruct@GOTPCREL(%rip), %rax
 	movq	%rax, 8(%rsp)
-.Ltmp3237:
+.Ltmp3080:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp3238:
+.Ltmp3081:
 # %bb.5:
 	movq	8(%rsp), %rbx
 	movq	$0, 8(%rsp)
-.Ltmp3240:
+.Ltmp3083:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3241:
-.LBB187_11:
+.Ltmp3084:
+.LBB186_11:
 	leaq	32(%rsp), %rdi
-.Ltmp3251:
+.Ltmp3094:
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3252:
+.Ltmp3095:
 # %bb.12:                               # %_ZNSt10_Head_baseILm0EN8pybind116detail11type_casterINS0_6objectEvEELb0EED2Ev.exit.i.i.i
 	leaq	24(%rsp), %rdi
-.Ltmp3254:
+.Ltmp3097:
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3255:
+.Ltmp3098:
 # %bb.13:                               # %_ZNSt10_Head_baseILm1EN8pybind116detail11type_casterINS0_6objectEvEELb0EED2Ev.exit.i.i.i.i
-.Ltmp3257:
+.Ltmp3100:
 	leaq	16(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3258:
-# %bb.14:                               # %_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENKUlRNS_6detail13function_callEE_clES10_.exit
+.Ltmp3101:
+# %bb.14:                               # %_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENKUlRNS_6detail13function_callEE_clESZ_.exit
 	movq	%rbx, %rax
 	addq	$40, %rsp
 	.cfi_def_cfa_offset 24
@@ -47018,116 +45966,116 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z
 	popq	%r14
 	.cfi_def_cfa_offset 8
 	retq
-.LBB187_18:
+.LBB186_18:
 	.cfi_def_cfa_offset 64
-.Ltmp3242:
+.Ltmp3085:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB187_19:
-.Ltmp3250:
+.LBB186_19:
+.Ltmp3093:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB187_7:
-.Ltmp3239:
-	jmp	.LBB187_17
-.LBB187_6:
-.Ltmp3236:
-	jmp	.LBB187_17
-.LBB187_20:
-.Ltmp3247:
-	jmp	.LBB187_17
-.LBB187_15:
-.Ltmp3259:
+.LBB186_7:
+.Ltmp3082:
+	jmp	.LBB186_17
+.LBB186_6:
+.Ltmp3079:
+	jmp	.LBB186_17
+.LBB186_20:
+.Ltmp3090:
+	jmp	.LBB186_17
+.LBB186_15:
+.Ltmp3102:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB187_22:
-.Ltmp3256:
+.LBB186_22:
+.Ltmp3099:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB187_21:
-.Ltmp3253:
+.LBB186_21:
+.Ltmp3096:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB187_16:
-.Ltmp3233:
-.LBB187_17:
+.LBB186_16:
+.Ltmp3076:
+.LBB186_17:
 	movq	%rax, %rbx
 	leaq	16(%rsp), %rdi
 	callq	_ZN8pybind116detail15argument_loaderIJNS_6objectES2_S2_EED2Ev
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
-.Lfunc_end187:
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_, .Lfunc_end187-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
+.Lfunc_end186:
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_, .Lfunc_end186-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
 	.cfi_endproc
 	.section	.gcc_except_table,"a",@progbits
 	.p2align	2, 0x0
-GCC_except_table187:
-.Lexception108:
+GCC_except_table186:
+.Lexception107:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase78-.Lttbaseref78
-.Lttbaseref78:
+	.uleb128 .Lttbase77-.Lttbaseref77
+.Lttbaseref77:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end108-.Lcst_begin108
-.Lcst_begin108:
-	.uleb128 .Ltmp3231-.Lfunc_begin108      # >> Call Site 1 <<
-	.uleb128 .Ltmp3232-.Ltmp3231            #   Call between .Ltmp3231 and .Ltmp3232
-	.uleb128 .Ltmp3233-.Lfunc_begin108      #     jumps to .Ltmp3233
+	.uleb128 .Lcst_end107-.Lcst_begin107
+.Lcst_begin107:
+	.uleb128 .Ltmp3074-.Lfunc_begin107      # >> Call Site 1 <<
+	.uleb128 .Ltmp3075-.Ltmp3074            #   Call between .Ltmp3074 and .Ltmp3075
+	.uleb128 .Ltmp3076-.Lfunc_begin107      #     jumps to .Ltmp3076
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3243-.Lfunc_begin108      # >> Call Site 2 <<
-	.uleb128 .Ltmp3246-.Ltmp3243            #   Call between .Ltmp3243 and .Ltmp3246
-	.uleb128 .Ltmp3247-.Lfunc_begin108      #     jumps to .Ltmp3247
+	.uleb128 .Ltmp3086-.Lfunc_begin107      # >> Call Site 2 <<
+	.uleb128 .Ltmp3089-.Ltmp3086            #   Call between .Ltmp3086 and .Ltmp3089
+	.uleb128 .Ltmp3090-.Lfunc_begin107      #     jumps to .Ltmp3090
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3248-.Lfunc_begin108      # >> Call Site 3 <<
-	.uleb128 .Ltmp3249-.Ltmp3248            #   Call between .Ltmp3248 and .Ltmp3249
-	.uleb128 .Ltmp3250-.Lfunc_begin108      #     jumps to .Ltmp3250
+	.uleb128 .Ltmp3091-.Lfunc_begin107      # >> Call Site 3 <<
+	.uleb128 .Ltmp3092-.Ltmp3091            #   Call between .Ltmp3091 and .Ltmp3092
+	.uleb128 .Ltmp3093-.Lfunc_begin107      #     jumps to .Ltmp3093
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3234-.Lfunc_begin108      # >> Call Site 4 <<
-	.uleb128 .Ltmp3235-.Ltmp3234            #   Call between .Ltmp3234 and .Ltmp3235
-	.uleb128 .Ltmp3236-.Lfunc_begin108      #     jumps to .Ltmp3236
+	.uleb128 .Ltmp3077-.Lfunc_begin107      # >> Call Site 4 <<
+	.uleb128 .Ltmp3078-.Ltmp3077            #   Call between .Ltmp3077 and .Ltmp3078
+	.uleb128 .Ltmp3079-.Lfunc_begin107      #     jumps to .Ltmp3079
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3237-.Lfunc_begin108      # >> Call Site 5 <<
-	.uleb128 .Ltmp3238-.Ltmp3237            #   Call between .Ltmp3237 and .Ltmp3238
-	.uleb128 .Ltmp3239-.Lfunc_begin108      #     jumps to .Ltmp3239
+	.uleb128 .Ltmp3080-.Lfunc_begin107      # >> Call Site 5 <<
+	.uleb128 .Ltmp3081-.Ltmp3080            #   Call between .Ltmp3080 and .Ltmp3081
+	.uleb128 .Ltmp3082-.Lfunc_begin107      #     jumps to .Ltmp3082
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3240-.Lfunc_begin108      # >> Call Site 6 <<
-	.uleb128 .Ltmp3241-.Ltmp3240            #   Call between .Ltmp3240 and .Ltmp3241
-	.uleb128 .Ltmp3242-.Lfunc_begin108      #     jumps to .Ltmp3242
+	.uleb128 .Ltmp3083-.Lfunc_begin107      # >> Call Site 6 <<
+	.uleb128 .Ltmp3084-.Ltmp3083            #   Call between .Ltmp3083 and .Ltmp3084
+	.uleb128 .Ltmp3085-.Lfunc_begin107      #     jumps to .Ltmp3085
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3251-.Lfunc_begin108      # >> Call Site 7 <<
-	.uleb128 .Ltmp3252-.Ltmp3251            #   Call between .Ltmp3251 and .Ltmp3252
-	.uleb128 .Ltmp3253-.Lfunc_begin108      #     jumps to .Ltmp3253
+	.uleb128 .Ltmp3094-.Lfunc_begin107      # >> Call Site 7 <<
+	.uleb128 .Ltmp3095-.Ltmp3094            #   Call between .Ltmp3094 and .Ltmp3095
+	.uleb128 .Ltmp3096-.Lfunc_begin107      #     jumps to .Ltmp3096
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3254-.Lfunc_begin108      # >> Call Site 8 <<
-	.uleb128 .Ltmp3255-.Ltmp3254            #   Call between .Ltmp3254 and .Ltmp3255
-	.uleb128 .Ltmp3256-.Lfunc_begin108      #     jumps to .Ltmp3256
+	.uleb128 .Ltmp3097-.Lfunc_begin107      # >> Call Site 8 <<
+	.uleb128 .Ltmp3098-.Ltmp3097            #   Call between .Ltmp3097 and .Ltmp3098
+	.uleb128 .Ltmp3099-.Lfunc_begin107      #     jumps to .Ltmp3099
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3257-.Lfunc_begin108      # >> Call Site 9 <<
-	.uleb128 .Ltmp3258-.Ltmp3257            #   Call between .Ltmp3257 and .Ltmp3258
-	.uleb128 .Ltmp3259-.Lfunc_begin108      #     jumps to .Ltmp3259
+	.uleb128 .Ltmp3100-.Lfunc_begin107      # >> Call Site 9 <<
+	.uleb128 .Ltmp3101-.Ltmp3100            #   Call between .Ltmp3100 and .Ltmp3101
+	.uleb128 .Ltmp3102-.Lfunc_begin107      #     jumps to .Ltmp3102
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3258-.Lfunc_begin108      # >> Call Site 10 <<
-	.uleb128 .Lfunc_end187-.Ltmp3258        #   Call between .Ltmp3258 and .Lfunc_end187
+	.uleb128 .Ltmp3101-.Lfunc_begin107      # >> Call Site 10 <<
+	.uleb128 .Lfunc_end186-.Ltmp3101        #   Call between .Ltmp3101 and .Lfunc_end186
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end108:
+.Lcst_end107:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase78:
+.Lttbase77:
 	.p2align	2, 0x0
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
-	.type	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_,@function
-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_: # @_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
-.Lfunc_begin109:
+	.p2align	4, 0x90                         # -- Begin function _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
+	.type	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_,@function
+_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_: # @_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
+.Lfunc_begin108:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
-	.cfi_lsda 27, .Lexception109
+	.cfi_lsda 27, .Lexception108
 # %bb.0:
 	pushq	%rbx
 	.cfi_def_cfa_offset 16
@@ -47144,57 +46092,57 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 	movq	%rcx, 24(%rsp)
 	movq	$0, (%rdi)
 	movq	%rax, 16(%rsp)
-.Ltmp3260:
+.Ltmp3103:
 	leaq	16(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp3261:
+.Ltmp3104:
 # %bb.1:                                # %.noexc.i
-.Ltmp3262:
+.Ltmp3105:
 	leaq	48(%rsp), %rdi
 	leaq	16(%rsp), %rsi
 	callq	_ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
-.Ltmp3263:
+.Ltmp3106:
 # %bb.2:
 	movq	32(%rsp), %rax
 	movq	%rax, 8(%rsp)
-.Ltmp3264:
+.Ltmp3107:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp3265:
+.Ltmp3108:
 # %bb.3:                                # %_ZN8pybind116objectC2ERKS0_.exit.i.i
 	leaq	96(%rsp), %rdi
-.Ltmp3267:
+.Ltmp3110:
 	leaq	8(%rsp), %rsi
 	callq	_ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
-.Ltmp3268:
+.Ltmp3111:
 # %bb.4:
 	movq	24(%rsp), %rax
 	movq	%rax, (%rsp)
-.Ltmp3269:
+.Ltmp3112:
 	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7inc_refEv
-.Ltmp3270:
+.Ltmp3113:
 # %bb.5:                                # %_ZN8pybind116objectC2ERKS0_.exit6.i.i
 	leaq	144(%rsp), %rdi
-.Ltmp3272:
+.Ltmp3115:
 	movq	%rsp, %rsi
-	callq	_ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
-.Ltmp3273:
+	callq	_ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE@PLT
+.Ltmp3116:
 # %bb.6:
-.Ltmp3284:
+.Ltmp3127:
 	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3285:
+.Ltmp3128:
 # %bb.7:                                # %_ZN8pybind116objectD2Ev.exit.i.i
-.Ltmp3287:
+.Ltmp3130:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3288:
+.Ltmp3131:
 # %bb.8:                                # %_ZN8pybind116objectD2Ev.exit7.i.i
-.Ltmp3290:
+.Ltmp3133:
 	leaq	16(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3291:
+.Ltmp3134:
 # %bb.9:                                # %_ZN8pybind116objectD2Ev.exit8.i.i
 	movq	48(%rsp), %rax
 	movq	%rax, 192(%rsp)
@@ -47214,221 +46162,221 @@ _ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeE
 	movups	%xmm0, 296(%rsp)
 	movups	168(%rsp), %xmm0
 	movups	%xmm0, 312(%rsp)
-.Ltmp3293:
+.Ltmp3136:
 	leaq	192(%rsp), %rdi
 	callq	_Z14dispatch_micro13micro_globals@PLT
-.Ltmp3294:
+.Ltmp3137:
 # %bb.10:
-.Ltmp3305:
+.Ltmp3148:
 	leaq	24(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3306:
+.Ltmp3149:
 # %bb.11:                               # %_ZN8pybind116objectD2Ev.exit.i
-.Ltmp3308:
+.Ltmp3151:
 	leaq	32(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3309:
+.Ltmp3152:
 # %bb.12:                               # %_ZN8pybind116objectD2Ev.exit8.i
-.Ltmp3311:
+.Ltmp3154:
 	leaq	40(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3312:
-# %bb.13:                               # %_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE9call_implIvRZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES8_NS_7module_EPKcJNS5_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESE_NSC_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_JLm0ELm1ELm2EENS0_9void_typeEEET_OSI_St16integer_sequenceImJXspT1_EEEOSH_.exit
+.Ltmp3155:
+# %bb.13:                               # %_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE9call_implIvRZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES8_NS_7module_EPKcJNS5_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESE_SE_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_JLm0ELm1ELm2EENS0_9void_typeEEET_OSH_St16integer_sequenceImJXspT1_EEEOSG_.exit
 	addq	$336, %rsp                      # imm = 0x150
 	.cfi_def_cfa_offset 16
 	popq	%rbx
 	.cfi_def_cfa_offset 8
 	retq
-.LBB188_23:
+.LBB187_23:
 	.cfi_def_cfa_offset 352
-.Ltmp3313:
+.Ltmp3156:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_22:
-.Ltmp3310:
+.LBB187_22:
+.Ltmp3153:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_21:
-.Ltmp3307:
+.LBB187_21:
+.Ltmp3150:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_31:
-.Ltmp3292:
+.LBB187_31:
+.Ltmp3135:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_30:
-.Ltmp3289:
+.LBB187_30:
+.Ltmp3132:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_29:
-.Ltmp3286:
+.LBB187_29:
+.Ltmp3129:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_14:
-.Ltmp3274:
+.LBB187_14:
+.Ltmp3117:
 	movq	%rax, %rbx
-.Ltmp3275:
+.Ltmp3118:
 	movq	%rsp, %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3276:
-	jmp	.LBB188_17
-.LBB188_15:
-.Ltmp3277:
+.Ltmp3119:
+	jmp	.LBB187_17
+.LBB187_15:
+.Ltmp3120:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_24:
-.Ltmp3295:
+.LBB187_24:
+.Ltmp3138:
 	movq	%rax, %rbx
-	jmp	.LBB188_25
-.LBB188_16:
-.Ltmp3271:
+	jmp	.LBB187_25
+.LBB187_16:
+.Ltmp3114:
 	movq	%rax, %rbx
-.LBB188_17:                             # %_ZN8pybind116objectD2Ev.exit9.i.i
-.Ltmp3278:
+.LBB187_17:                             # %_ZN8pybind116objectD2Ev.exit9.i.i
+.Ltmp3121:
 	leaq	8(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3279:
-	jmp	.LBB188_20
-.LBB188_18:
-.Ltmp3280:
+.Ltmp3122:
+	jmp	.LBB187_20
+.LBB187_18:
+.Ltmp3123:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_19:
-.Ltmp3266:
+.LBB187_19:
+.Ltmp3109:
 	movq	%rax, %rbx
-.LBB188_20:                             # %_ZN8pybind116objectD2Ev.exit10.i.i
-.Ltmp3281:
+.LBB187_20:                             # %_ZN8pybind116objectD2Ev.exit10.i.i
+.Ltmp3124:
 	leaq	16(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3282:
-.LBB188_25:                             # %.body.i
-.Ltmp3296:
+.Ltmp3125:
+.LBB187_25:                             # %.body.i
+.Ltmp3139:
 	leaq	24(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3297:
+.Ltmp3140:
 # %bb.26:                               # %_ZN8pybind116objectD2Ev.exit10.i
-.Ltmp3299:
+.Ltmp3142:
 	leaq	32(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3300:
+.Ltmp3143:
 # %bb.27:                               # %_ZN8pybind116objectD2Ev.exit11.i
-.Ltmp3302:
+.Ltmp3145:
 	leaq	40(%rsp), %rdi
 	callq	_ZNKR8pybind116handle7dec_refEv
-.Ltmp3303:
+.Ltmp3146:
 # %bb.28:                               # %_ZN8pybind116objectD2Ev.exit12.i
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
-.LBB188_35:
-.Ltmp3304:
+.LBB187_35:
+.Ltmp3147:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_34:
-.Ltmp3301:
+.LBB187_34:
+.Ltmp3144:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_32:
-.Ltmp3283:
+.LBB187_32:
+.Ltmp3126:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.LBB188_33:
-.Ltmp3298:
+.LBB187_33:
+.Ltmp3141:
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
-.Lfunc_end188:
-	.size	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_, .Lfunc_end188-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_NSD_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSH_
+.Lfunc_end187:
+	.size	_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_, .Lfunc_end187-_ZNO8pybind116detail15argument_loaderIJNS_6objectES2_S2_EE4callIvNS0_9void_typeERZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES9_NS_7module_EPKcJNS6_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESF_SF_EEEvT1_T2_DpMT0_T3_EUlS2_S2_S2_E_EENSt9enable_ifIXsr3std7is_voidIT_EE5valueES5_E4typeEOSG_
 	.cfi_endproc
 	.section	.gcc_except_table,"a",@progbits
 	.p2align	2, 0x0
-GCC_except_table188:
-.Lexception109:
+GCC_except_table187:
+.Lexception108:
 	.byte	255                             # @LPStart Encoding = omit
 	.byte	155                             # @TType Encoding = indirect pcrel sdata4
-	.uleb128 .Lttbase79-.Lttbaseref79
-.Lttbaseref79:
+	.uleb128 .Lttbase78-.Lttbaseref78
+.Lttbaseref78:
 	.byte	1                               # Call site Encoding = uleb128
-	.uleb128 .Lcst_end109-.Lcst_begin109
-.Lcst_begin109:
-	.uleb128 .Ltmp3260-.Lfunc_begin109      # >> Call Site 1 <<
-	.uleb128 .Ltmp3261-.Ltmp3260            #   Call between .Ltmp3260 and .Ltmp3261
-	.uleb128 .Ltmp3295-.Lfunc_begin109      #     jumps to .Ltmp3295
+	.uleb128 .Lcst_end108-.Lcst_begin108
+.Lcst_begin108:
+	.uleb128 .Ltmp3103-.Lfunc_begin108      # >> Call Site 1 <<
+	.uleb128 .Ltmp3104-.Ltmp3103            #   Call between .Ltmp3103 and .Ltmp3104
+	.uleb128 .Ltmp3138-.Lfunc_begin108      #     jumps to .Ltmp3138
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3262-.Lfunc_begin109      # >> Call Site 2 <<
-	.uleb128 .Ltmp3265-.Ltmp3262            #   Call between .Ltmp3262 and .Ltmp3265
-	.uleb128 .Ltmp3266-.Lfunc_begin109      #     jumps to .Ltmp3266
+	.uleb128 .Ltmp3105-.Lfunc_begin108      # >> Call Site 2 <<
+	.uleb128 .Ltmp3108-.Ltmp3105            #   Call between .Ltmp3105 and .Ltmp3108
+	.uleb128 .Ltmp3109-.Lfunc_begin108      #     jumps to .Ltmp3109
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3267-.Lfunc_begin109      # >> Call Site 3 <<
-	.uleb128 .Ltmp3270-.Ltmp3267            #   Call between .Ltmp3267 and .Ltmp3270
-	.uleb128 .Ltmp3271-.Lfunc_begin109      #     jumps to .Ltmp3271
+	.uleb128 .Ltmp3110-.Lfunc_begin108      # >> Call Site 3 <<
+	.uleb128 .Ltmp3113-.Ltmp3110            #   Call between .Ltmp3110 and .Ltmp3113
+	.uleb128 .Ltmp3114-.Lfunc_begin108      #     jumps to .Ltmp3114
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3272-.Lfunc_begin109      # >> Call Site 4 <<
-	.uleb128 .Ltmp3273-.Ltmp3272            #   Call between .Ltmp3272 and .Ltmp3273
-	.uleb128 .Ltmp3274-.Lfunc_begin109      #     jumps to .Ltmp3274
+	.uleb128 .Ltmp3115-.Lfunc_begin108      # >> Call Site 4 <<
+	.uleb128 .Ltmp3116-.Ltmp3115            #   Call between .Ltmp3115 and .Ltmp3116
+	.uleb128 .Ltmp3117-.Lfunc_begin108      #     jumps to .Ltmp3117
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3284-.Lfunc_begin109      # >> Call Site 5 <<
-	.uleb128 .Ltmp3285-.Ltmp3284            #   Call between .Ltmp3284 and .Ltmp3285
-	.uleb128 .Ltmp3286-.Lfunc_begin109      #     jumps to .Ltmp3286
+	.uleb128 .Ltmp3127-.Lfunc_begin108      # >> Call Site 5 <<
+	.uleb128 .Ltmp3128-.Ltmp3127            #   Call between .Ltmp3127 and .Ltmp3128
+	.uleb128 .Ltmp3129-.Lfunc_begin108      #     jumps to .Ltmp3129
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3287-.Lfunc_begin109      # >> Call Site 6 <<
-	.uleb128 .Ltmp3288-.Ltmp3287            #   Call between .Ltmp3287 and .Ltmp3288
-	.uleb128 .Ltmp3289-.Lfunc_begin109      #     jumps to .Ltmp3289
+	.uleb128 .Ltmp3130-.Lfunc_begin108      # >> Call Site 6 <<
+	.uleb128 .Ltmp3131-.Ltmp3130            #   Call between .Ltmp3130 and .Ltmp3131
+	.uleb128 .Ltmp3132-.Lfunc_begin108      #     jumps to .Ltmp3132
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3290-.Lfunc_begin109      # >> Call Site 7 <<
-	.uleb128 .Ltmp3291-.Ltmp3290            #   Call between .Ltmp3290 and .Ltmp3291
-	.uleb128 .Ltmp3292-.Lfunc_begin109      #     jumps to .Ltmp3292
+	.uleb128 .Ltmp3133-.Lfunc_begin108      # >> Call Site 7 <<
+	.uleb128 .Ltmp3134-.Ltmp3133            #   Call between .Ltmp3133 and .Ltmp3134
+	.uleb128 .Ltmp3135-.Lfunc_begin108      #     jumps to .Ltmp3135
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3293-.Lfunc_begin109      # >> Call Site 8 <<
-	.uleb128 .Ltmp3294-.Ltmp3293            #   Call between .Ltmp3293 and .Ltmp3294
-	.uleb128 .Ltmp3295-.Lfunc_begin109      #     jumps to .Ltmp3295
+	.uleb128 .Ltmp3136-.Lfunc_begin108      # >> Call Site 8 <<
+	.uleb128 .Ltmp3137-.Ltmp3136            #   Call between .Ltmp3136 and .Ltmp3137
+	.uleb128 .Ltmp3138-.Lfunc_begin108      #     jumps to .Ltmp3138
 	.byte	0                               #   On action: cleanup
-	.uleb128 .Ltmp3305-.Lfunc_begin109      # >> Call Site 9 <<
-	.uleb128 .Ltmp3306-.Ltmp3305            #   Call between .Ltmp3305 and .Ltmp3306
-	.uleb128 .Ltmp3307-.Lfunc_begin109      #     jumps to .Ltmp3307
+	.uleb128 .Ltmp3148-.Lfunc_begin108      # >> Call Site 9 <<
+	.uleb128 .Ltmp3149-.Ltmp3148            #   Call between .Ltmp3148 and .Ltmp3149
+	.uleb128 .Ltmp3150-.Lfunc_begin108      #     jumps to .Ltmp3150
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3308-.Lfunc_begin109      # >> Call Site 10 <<
-	.uleb128 .Ltmp3309-.Ltmp3308            #   Call between .Ltmp3308 and .Ltmp3309
-	.uleb128 .Ltmp3310-.Lfunc_begin109      #     jumps to .Ltmp3310
+	.uleb128 .Ltmp3151-.Lfunc_begin108      # >> Call Site 10 <<
+	.uleb128 .Ltmp3152-.Ltmp3151            #   Call between .Ltmp3151 and .Ltmp3152
+	.uleb128 .Ltmp3153-.Lfunc_begin108      #     jumps to .Ltmp3153
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3311-.Lfunc_begin109      # >> Call Site 11 <<
-	.uleb128 .Ltmp3312-.Ltmp3311            #   Call between .Ltmp3311 and .Ltmp3312
-	.uleb128 .Ltmp3313-.Lfunc_begin109      #     jumps to .Ltmp3313
+	.uleb128 .Ltmp3154-.Lfunc_begin108      # >> Call Site 11 <<
+	.uleb128 .Ltmp3155-.Ltmp3154            #   Call between .Ltmp3154 and .Ltmp3155
+	.uleb128 .Ltmp3156-.Lfunc_begin108      #     jumps to .Ltmp3156
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3275-.Lfunc_begin109      # >> Call Site 12 <<
-	.uleb128 .Ltmp3276-.Ltmp3275            #   Call between .Ltmp3275 and .Ltmp3276
-	.uleb128 .Ltmp3277-.Lfunc_begin109      #     jumps to .Ltmp3277
+	.uleb128 .Ltmp3118-.Lfunc_begin108      # >> Call Site 12 <<
+	.uleb128 .Ltmp3119-.Ltmp3118            #   Call between .Ltmp3118 and .Ltmp3119
+	.uleb128 .Ltmp3120-.Lfunc_begin108      #     jumps to .Ltmp3120
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3278-.Lfunc_begin109      # >> Call Site 13 <<
-	.uleb128 .Ltmp3279-.Ltmp3278            #   Call between .Ltmp3278 and .Ltmp3279
-	.uleb128 .Ltmp3280-.Lfunc_begin109      #     jumps to .Ltmp3280
+	.uleb128 .Ltmp3121-.Lfunc_begin108      # >> Call Site 13 <<
+	.uleb128 .Ltmp3122-.Ltmp3121            #   Call between .Ltmp3121 and .Ltmp3122
+	.uleb128 .Ltmp3123-.Lfunc_begin108      #     jumps to .Ltmp3123
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3281-.Lfunc_begin109      # >> Call Site 14 <<
-	.uleb128 .Ltmp3282-.Ltmp3281            #   Call between .Ltmp3281 and .Ltmp3282
-	.uleb128 .Ltmp3283-.Lfunc_begin109      #     jumps to .Ltmp3283
+	.uleb128 .Ltmp3124-.Lfunc_begin108      # >> Call Site 14 <<
+	.uleb128 .Ltmp3125-.Ltmp3124            #   Call between .Ltmp3124 and .Ltmp3125
+	.uleb128 .Ltmp3126-.Lfunc_begin108      #     jumps to .Ltmp3126
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3296-.Lfunc_begin109      # >> Call Site 15 <<
-	.uleb128 .Ltmp3297-.Ltmp3296            #   Call between .Ltmp3296 and .Ltmp3297
-	.uleb128 .Ltmp3298-.Lfunc_begin109      #     jumps to .Ltmp3298
+	.uleb128 .Ltmp3139-.Lfunc_begin108      # >> Call Site 15 <<
+	.uleb128 .Ltmp3140-.Ltmp3139            #   Call between .Ltmp3139 and .Ltmp3140
+	.uleb128 .Ltmp3141-.Lfunc_begin108      #     jumps to .Ltmp3141
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3299-.Lfunc_begin109      # >> Call Site 16 <<
-	.uleb128 .Ltmp3300-.Ltmp3299            #   Call between .Ltmp3299 and .Ltmp3300
-	.uleb128 .Ltmp3301-.Lfunc_begin109      #     jumps to .Ltmp3301
+	.uleb128 .Ltmp3142-.Lfunc_begin108      # >> Call Site 16 <<
+	.uleb128 .Ltmp3143-.Ltmp3142            #   Call between .Ltmp3142 and .Ltmp3143
+	.uleb128 .Ltmp3144-.Lfunc_begin108      #     jumps to .Ltmp3144
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3302-.Lfunc_begin109      # >> Call Site 17 <<
-	.uleb128 .Ltmp3303-.Ltmp3302            #   Call between .Ltmp3302 and .Ltmp3303
-	.uleb128 .Ltmp3304-.Lfunc_begin109      #     jumps to .Ltmp3304
+	.uleb128 .Ltmp3145-.Lfunc_begin108      # >> Call Site 17 <<
+	.uleb128 .Ltmp3146-.Ltmp3145            #   Call between .Ltmp3145 and .Ltmp3146
+	.uleb128 .Ltmp3147-.Lfunc_begin108      #     jumps to .Ltmp3147
 	.byte	1                               #   On action: 1
-	.uleb128 .Ltmp3303-.Lfunc_begin109      # >> Call Site 18 <<
-	.uleb128 .Lfunc_end188-.Ltmp3303        #   Call between .Ltmp3303 and .Lfunc_end188
+	.uleb128 .Ltmp3146-.Lfunc_begin108      # >> Call Site 18 <<
+	.uleb128 .Lfunc_end187-.Ltmp3146        #   Call between .Ltmp3146 and .Lfunc_end187
 	.byte	0                               #     has no landing pad
 	.byte	0                               #   On action: cleanup
-.Lcst_end109:
+.Lcst_end108:
 	.byte	1                               # >> Action Record 1 <<
                                         #   Catch TypeInfo 1
 	.byte	0                               #   No further actions
 	.p2align	2, 0x0
                                         # >> Catch TypeInfos <<
 	.long	0                               # TypeInfo 1
-.Lttbase79:
+.Lttbase78:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.text._ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv,"axG",@progbits,_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv,comdat
@@ -47446,31 +46394,31 @@ _ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_cold
 	callq	*16(%rax)
 	movq	__libc_single_threaded@GOTPCREL(%rip), %rax
 	cmpb	$0, (%rax)
-	je	.LBB189_2
+	je	.LBB188_2
 # %bb.1:
 	movl	12(%rbx), %eax
 	leal	-1(%rax), %ecx
 	movl	%ecx, 12(%rbx)
 	cmpl	$1, %eax
-	jne	.LBB189_4
-.LBB189_5:
+	jne	.LBB188_4
+.LBB188_5:
 	movq	(%rbx), %rax
 	movq	%rbx, %rdi
 	popq	%rbx
 	.cfi_def_cfa_offset 8
 	jmpq	*24(%rax)                       # TAILCALL
-.LBB189_2:
+.LBB188_2:
 	.cfi_def_cfa_offset 16
 	movl	$-1, %eax
 	lock		xaddl	%eax, 12(%rbx)
 	cmpl	$1, %eax
-	je	.LBB189_5
-.LBB189_4:                              # %_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE19_M_release_last_useEv.exit
+	je	.LBB188_5
+.LBB188_4:                              # %_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE19_M_release_last_useEv.exit
 	popq	%rbx
 	.cfi_def_cfa_offset 8
 	retq
-.Lfunc_end189:
-	.size	_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv, .Lfunc_end189-_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv
+.Lfunc_end188:
+	.size	_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv, .Lfunc_end188-_ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE24_M_release_last_use_coldEv
 	.cfi_endproc
                                         # -- End function
 	.text
@@ -47483,13 +46431,13 @@ __hip_module_ctor:                      # @__hip_module_ctor
 	.cfi_def_cfa_offset 48
 	movq	__hip_gpubin_handle_a387003902ba631b(%rip), %rdi
 	testq	%rdi, %rdi
-	jne	.LBB190_2
+	jne	.LBB189_2
 # %bb.1:
 	leaq	__hip_fatbin_wrapper(%rip), %rdi
 	callq	__hipRegisterFatBinary@PLT
 	movq	%rax, %rdi
 	movq	%rax, __hip_gpubin_handle_a387003902ba631b(%rip)
-.LBB190_2:
+.LBB189_2:
 	xorps	%xmm0, %xmm0
 	movups	%xmm0, 16(%rsp)
 	movups	%xmm0, (%rsp)
@@ -47503,8 +46451,8 @@ __hip_module_ctor:                      # @__hip_module_ctor
 	addq	$40, %rsp
 	.cfi_def_cfa_offset 8
 	jmp	atexit@PLT                      # TAILCALL
-.Lfunc_end190:
-	.size	__hip_module_ctor, .Lfunc_end190-__hip_module_ctor
+.Lfunc_end189:
+	.size	__hip_module_ctor, .Lfunc_end189-__hip_module_ctor
 	.cfi_endproc
                                         # -- End function
 	.p2align	4, 0x90                         # -- Begin function __hip_module_dtor
@@ -47514,7 +46462,7 @@ __hip_module_dtor:                      # @__hip_module_dtor
 # %bb.0:
 	movq	__hip_gpubin_handle_a387003902ba631b(%rip), %rdi
 	testq	%rdi, %rdi
-	je	.LBB191_2
+	je	.LBB190_2
 # %bb.1:
 	pushq	%rax
 	.cfi_def_cfa_offset 16
@@ -47522,10 +46470,10 @@ __hip_module_dtor:                      # @__hip_module_dtor
 	movq	$0, __hip_gpubin_handle_a387003902ba631b(%rip)
 	addq	$8, %rsp
 	.cfi_def_cfa_offset 8
-.LBB191_2:
+.LBB190_2:
 	retq
-.Lfunc_end191:
-	.size	__hip_module_dtor, .Lfunc_end191-__hip_module_dtor
+.Lfunc_end190:
+	.size	__hip_module_dtor, .Lfunc_end190-__hip_module_dtor
 	.cfi_endproc
                                         # -- End function
 	.type	_Z8micro_tk13micro_globals,@object # @_Z8micro_tk13micro_globals
@@ -48746,17 +47694,17 @@ _ZZN8pybind117options12global_stateEvE8instance:
 	.asciz	"__doc__"
 	.size	.L.str.177, 8
 
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature
 	.section	.rodata,"a",@progbits
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature:
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature:
 	.asciz	"({object}, {object}, {object}) -> None"
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature, 39
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature, 39
 
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types
 	.p2align	3, 0x0
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types:
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types:
 	.zero	8
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types, 8
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types, 8
 
 	.type	.L.str.178,@object              # @.str.178
 	.section	.rodata.str1.1,"aMS",@progbits,1
@@ -48799,7 +47747,18 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 	.asciz	"Tensor must be on CUDA device"
 	.size	.L.str.185, 30
 
+	.type	.L__const._ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape,@object # @__const._ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	2, 0x0
+.L__const._ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape:
+	.long	1                               # 0x1
+	.long	1                               # 0x1
+	.long	1                               # 0x1
+	.long	1                               # 0x1
+	.size	.L__const._ZN7kittens2py11from_objectINS_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape, 16
+
 	.type	.L.str.186,@object              # @.str.186
+	.section	.rodata.str1.1,"aMS",@progbits,1
 .L.str.186:
 	.asciz	"shape"
 	.size	.L.str.186, 6
@@ -48819,18 +47778,7 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 	.asciz	"Expected a torch.Tensor"
 	.size	.L.str.189, 24
 
-	.type	.L__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape,@object # @__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape
-	.section	.rodata.cst16,"aM",@progbits,16
-	.p2align	2, 0x0
-.L__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape:
-	.long	1                               # 0x1
-	.long	1                               # 0x1
-	.long	1                               # 0x1
-	.long	1                               # 0x1
-	.size	.L__const._ZN7kittens2py11from_objectINS_2glIfLin1ELin1ELin1ELin1EJEEEE4makeEN8pybind116objectE.shape, 16
-
 	.type	.L.str.192,@object              # @.str.192
-	.section	.rodata.str1.1,"aMS",@progbits,1
 .L.str.192:
 	.asciz	"Error during initialization: multiple incompatible definitions with name \""
 	.size	.L.str.192, 75
@@ -48840,17 +47788,17 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8m
 	.asciz	"\""
 	.size	.L.str.193, 2
 
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature
 	.section	.rodata,"a",@progbits
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature:
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature:
 	.asciz	"({object}, {object}, {object}) -> None"
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature, 39
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature, 39
 
-	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types
+	.type	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types,@object # @_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types
 	.p2align	3, 0x0
-_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types:
+_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types:
 	.zero	8
-	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types, 8
+	.size	_ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types, 8
 
 	.type	.L__unnamed_1,@object           # @0
 	.section	.rodata.str1.1,"aMS",@progbits,1
@@ -48862,8 +47810,8 @@ _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z
 	.section	.hip_fatbin,"a",@progbits
 	.p2align	12, 0x0
 .L__unnamed_2:
-	.asciz	"__CLANG_OFFLOAD_BUNDLE__\002\000\000\000\000\000\000\000\000\020\000\000\000\000\000\000\000\000\000\000\000\000\000\000\036\000\000\000\000\000\000\000host-x86_64-unknown-linux-gnu-\000\020\000\000\000\000\000\000\0203\000\000\000\000\000\000\037\000\000\000\000\000\000\000hipv4-amdgcn-amd-amdhsa--gfx942\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\177ELF\002\001\001@\004\000\000\000\000\000\000\000\003\000\340\000\001\000\000\000\000\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\020/\000\000\000\000\000\000L\005\000\000@\0008\000\t\000@\000\020\000\016\000\006\000\000\000\004\000\000\000@\000\000\000\000\000\000\000@\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\370\001\000\000\000\000\000\000\370\001\000\000\000\000\000\000\b\000\000\000\000\000\000\000\001\000\000\000\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\300\005\000\000\000\000\000\000\300\005\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\005\000\000\000\000\006\000\000\000\000\000\000\000\026\000\000\000\000\000\000\000\026\000\000\000\000\000\000\000&\000\000\000\000\000\000\000&\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\006\000\000\000\000,\000\000\000\000\000\000\000L\000\000\000\000\000\000\000L\000\000\000\000\000\000p\000\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\006\000\000\000p,\000\000\000\000\000\000p\\\000\000\000\000\000\000p\\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\020\000\000\000\000\000\000\002\000\000\000\006\000\000\000\000,\000\000\000\000\000\000\000L\000\000\000\000\000\000\000L\000\000\000\000\000\000p\000\000\000\000\000\000\000p\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000R\345td\004\000\000\000\000,\000\000\000\000\000\000\000L\000\000\000\000\000\000\000L\000\000\000\000\000\000p\000\000\000\000\000\000\000\000\004\000\000\000\000\000\000\001\000\000\000\000\000\000\000Q\345td\006\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\004\000\000\000\004\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\000\024\002\000\000\000\000\000\000\024\002\000\000\000\000\000\000\004\000\000\000\000\000\000\000\007\000\000\000\000\002\000\000 \000\000\000AMDGPU\000\000\203\256amdhsa.kernels\221\336\000\022\253.agpr_count\000\245.args\221\203\247.offset\000\245.size\314\220\253.value_kind\250by_value\271.group_segment_fixed_size\000\266.kernarg_segment_align\b\265.kernarg_segment_size\314\220\251.language\250OpenCL C\261.language_version\222\002\000\270.max_flat_workgroup_size\315\002\000\245.name\272_Z8micro_tk13micro_globals\273.private_segment_fixed_size\315\001\\\253.sgpr_count \261.sgpr_spill_count\000\247.symbol\275_Z8micro_tk13micro_globals.kd\270.uniform_work_group_size\001\263.uses_dynamic_stack\302\253.vgpr_count\315\001\000\261.vgpr_spill_count^\257.wavefront_size@\255amdhsa.target\271amdgcn-amd-amdhsa--gfx942\256amdhsa.version\222\001\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\022\003\007\000\000\026\000\000\000\000\000\000\340!\000\000\000\000\000\000\034\000\000\000\021\003\006\000\200\005\000\000\000\000\000\000@\000\000\000\000\000\000\000:\000\000\000\021\000\n\000p\\\000\000\000\000\000\000\001\000\000\000\000\000\000\000\001\000\000\000\001\000\000\000\001\000\000\000\032\000\000\000\002\000\201\000\000\220\020\000\001\000\000\000n\226\363@\354\205\221\322\227lM\005\004\000\000\000\004\000\000\000\002\000\000\000\000\000\000\000\003\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000_Z8micro_tk13micro_globals\000_Z8micro_tk13micro_globals.kd\000__hip_cuid_a387003902ba631b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\\\001\000\000\220\000\000\000\000\000\000\000\200\020\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000?\000\000\000\337\000\257\000\205\001\000\000\b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\200\301\007\277\200\003\006\300\000\000\000\000\000\001\006\300 \000\000\000\200\005\006\3000\000\000\000\200\001\006\300P\000\000\000\000\002\006\300`\000\000\000\200\002\006\300\200\000\000\000\200\200\000\205\000\320\001\206\200\000\231\276\000\217\030\206\001\220\001\201\030\200\022\277\000\001\023\205\023\377\024\201\000\200\000\000\003\210\021\216\024\320\000\206\021\237\020\220\000\220\025\201\177\300\214\277\004\020\000\222\004\021\001\226\001\000\000\201\005\021\001\222\000\001\001\201\004\021\000\222\024\217\030\206\000\201\200\216\016\000\000\200\017\001\001\202\002\210\022\216\022\237\002\220\006\002\002\222\006\022\003\226\003\002\002\201\007\022\003\222\002\003\003\201\006\022\002\222\002\201\202\216\203\000\002$\026\002\016\200\270\002 &\203\000\002 \027\003\017\202\002\002\350\321\001\t@\004\237\004\006\"\004\000\b\322\002\003\001\000\300\002\"(\000\200\\\334\004\000\177\f\004\002\350\321\021\t@\004\237\b\n\"\006\000\b\322\004\003\001\000\000\200\\\334\006\000\177\024\006\000\375\321\004\016\t\004\377\002&(\300\000\000\000\237\f\016\"\n\002\350\321\023\t@\004\b\000\b\322\006\003\001\000\237\024\026\"\000\200\\\334\b\000\177\030\b\000\b\322\n\003\001\000\204\000$$\201 H$\000\200\\\334\b\000\177\034\377$\006&\200\037\000\000\023H\020h\b\007\nh\204\n\016 \210HJ(\377\016\016&x\000\000\000\023J\022h\007\013\n*p\017\214\277\000\000\232\330\005\f\000\000\t\007\nh\204\n\016 \377\016\016&x\000\000\000\007\013\n*\000\000\232\330\005\016\000\000\377\006\n(\000 \000\000\b\013\016h\204\016\026 \377\026\026&x\000\000\000\013\017\016*\000\000\232\330\007\024\000\000\t\013\016h\204\016\026 \377\026\026&x\000\000\000\013\017\016*\000\000\232\330\007\026\000\000\377\006\016(\000@\000\000\b\017\026h\204\026\030 \377\030\030&x\000\000\000\f\027\026*\000\000\232\330\013\030\000\000\t\017\026h\204\026\030 \377\030\030&x\000\000\000\f\027\026*\000\000\232\330\013\032\000\000\377\006\026(\000`\000\000\b\027\020h\204\020\030 \377\030\030&x\000\000\000\f\021\020*\000\000\232\330\b\034\000\000\t\027\020h\204\020\022 \377\022\022&x\000\000\000\t\021\020*\000\000\232\330\b\036\000\000\b\002\350\321\001\r@\004\237\020\022\"\f\000\b\322\b\0039\000\177\300\214\277\000\200\\\334\f\000\177\024\f\002\350\321\021\r@\004\030\200\022\277\237\030\032\"\016\000\b\322\f\0039\000\024\025\005\205\000\200\\\334\016\000\177\030\016\000\375\321\006\016!\004\005H\002h\237\034\036\"\001\007\032h\034\000\b\322\016\0039\000\020\002\350\321\023\r@\004\204\032\036 \237 \"\"\377\036\036&x\000\000\000\000\200\\\334\034\000\177\034 \000\b\322\020\0039\000\005J\022h\017\033\032*\000\200\\\334 \000\177 p\017\214\277\000\000\232\330\r\024\000\000\t\007\032h\204\032\036 \377\036\036&x\000\000\000\017\033\032*\000\000\232\330\r\026\000\000\001\013\032h\204\032\036 \377\036\036&x\000\000\000\017\033\032*\000\000\232\330\r\030\000\000\t\013\032h\204\032\036 \377\036\036&x\000\000\000\017\033\032*\000\000\232\330\r\032\000\000\001\017\032h\204\032\036 \377\036\036&x\000\000\000\017\033\032*\000\000\232\330\r\034\000\000\t\017\032h\204\032\036 \377\036\036&x\000\000\000\017\033\032*\001\027\002h\000\000\232\330\r\036\000\000\204\002\032 \377\032\032&x\000\000\000\r\003\002*\000\000\232\330\001 \000\000\t\027\002h\204\002\022 \377\022\022&x\000\000\000\t\003\002*\000\000\232\330\001\"\000\000\210\000L \200\001\214\276\201L\224}\177\300\214\277\000\000\212\277j \202\276\001\000\210\277\000\000\212\277~\002\376\207\202\000\002 \214\002\022&\207\000\002$\377\002\002&\200g\000\000LAp\334\000\t\177\000\201\022\022$\005\002\002h\001\023\032h\204\032\036 \377\036\036&x\000\000\000\377\000\"&\300\000\000\000\217\0000&@Ap\334\000\000\177\000\017\033\000*\000@p\334\000\000\177\000\201\004\000$\2200\004(\340@p\334\000\000\177\000\201\b\000$\021\005\b(\004\000\375\321\004\017\025\000\344@p\334\000\000\177\000\201\f\000$\004\023\fh\350@p\334\000\000\177\000\201\024\000$\204\f\024 \377\024\024&x\000\000\000\354@p\334\000\000\177\000\n\r\000*\2400\f(\021\r\024(\n\000\375\321\n\017\025\000\n\023\032h\204\032\036 \377\036\036&x\000\000\000\004@p\334\000\000\177\000\017\033\000*\2600\032(\021\033\036(\017\000\375\321\017\017\025\000PAp\334\000\021\177\000\017\023\"h\204\"& \377&&&x\000\000\000\b@p\334\000\000\177\000\023#\000*\206L.$\f@p\334\000\000\177\000\0271\000(\000\000\375\321\000\017M\000\000\023\"h\204\"& \377&&&x\000\000\000\023#\"*\020@p\334\000\021\177\000\002/\"(\021\000\375\321\021\017M\000\021\023&h\204&( \377((&x\000\000\000\024'&*\024@p\334\000\023\177\000\006/&(\023\000\375\321\023\017M\000\023\023(h\204(* \377**&x\000\000\000\025)(*\030@p\334\000\024\177\000\r/((\024\000\375\321\024\017M\000\024\023*h\204*, \377,,&x\000\000\000\026+**\201\020\020$\034@p\334\000\025\177\000TAp\334\000\027\177\000\360@p\334\000\b\177\000\201\030\020$\364@p\334\000\b\177\000\201\034\020$\370@p\334\000\b\177\000\201 \020$\374@p\334\000\b\177\000\240\022\020(\001\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*0@p\334\000\f\177\000\004\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*4@p\334\000\f\177\000\n\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*8@p\334\000\f\177\000\017\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*<@p\334\000\f\177\000\000\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*@@p\334\000\f\177\000\021\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*D@p\334\000\f\177\000\023\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*H@p\334\000\f\177\000\024\021\030h\377.*(\200\000\000\000\030\003,~\204\030\034 DAt\334\000\026\177\000\0251,(\377\034\034&x\000\000\000\026\000\375\321\026\017M\000\016\031\030*L@p\334\000\f\177\000\026\021\030h\204\030\034 \025\005\004(\377\034\034&x\000\000\000\002\000\375\321\002\017M\000\016\031\030*P@p\334\000\f\177\000\002\021\030h\204\030\034 \025\r\f(\377\034\034&x\000\000\000\006\000\375\321\006\017M\000\016\031\030*T@p\334\000\f\177\000\006\021\030h\025\033\032(\204\030\034 \r\000\375\321\r\017M\000\377\034\034&x\000\000\000\016\031\030*\r\021\020hX@p\334\000\f\177\000\204\020\030 \377\030\030&x\000\000\000\f\021\020*\\@p\334\000\b\177\000\300\022\020(\001\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*`@p\334\000\f\177\000\004\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*d@p\334\000\f\177\000\n\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*h@p\334\000\f\177\000\017\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*l@p\334\000\f\177\000\000\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*p@p\334\000\f\177\000\021\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*t@p\334\000\f\177\000\023\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*x@p\334\000\f\177\000\024\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*|@p\334\000\f\177\000\026\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*\200@p\334\000\f\177\000\002\021\030h\204\030\034 \377\034\034&x\000\000\000\016\031\030*\204@p\334\000\f\177\000\006\021\030h\026\023.h\204\030\034 \204.0 \377\034\034&x\000\000\000\37700&x\000\000\000\016\031\030*\r\021\020h\030/.*\210@p\334\000\f\177\000\204\020\030  @p\334\000\027\177\000\002\023.h\377\030\030&x\000\000\000\204.0 \f\021\020*\37700&x\000\000\000\214@p\334\000\b\177\000\377\022\020(`\000\000\000\030/.*\001\021\002h$@p\334\000\027\177\000\006\023.h\r\023*h\204\002\022 \377\022\022&x\000\000\000\t\003\002*\220@p\334\000\001\177\000\004\021\002h\204\002\b \377\b\b&x\000\000\000\004\003\002*\224@p\334\000\001\177\000\n\021\002h\204\002\b \377\b\b&x\000\000\000\004\003\002*\230@p\334\000\001\177\000\017\021\002h\204\002\b \377\b\b&x\000\000\000\004\003\002*\000\021\000h\234@p\334\000\001\177\000\204\000\002 \377\002\002&x\000\000\000\001\001\000*\240@p\334\000\000\177\000\021\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\244@p\334\000\000\177\000\023\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\250@p\334\000\000\177\000\024\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\254@p\334\000\000\177\000\026\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\260@p\334\000\000\177\000\002\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\264@p\334\000\000\177\000\006\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\270@p\334\000\000\177\000\r\021\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\274@p\334\000\000\177\000\377$\000&p\000\000\000\023\000\002h\001\007\004h\204\004\b \377\b\b&x\000\000\000\004\005\004*\000Ap\334\000\002\177\000\210\000\004(\023\004\bh\004\007\fh\204\f\020 \377\020\020&x\000\000\000\b\r\f*\004Ap\334\000\006\177\000\001\013\fh\204\f\020 \377\020\020&x\000\000\000\b\r\f*\bAp\334\000\006\177\000\004\013\fh\204\f\020 \377\020\020&x\000\000\000\b\r\f*\fAp\334\000\006\177\000\001\017\fh\204\f\020 \377\020\020&x\000\000\000\b\r\f*\020Ap\334\000\006\177\000\004\017\fh\204\f\020 \377\020\020&x\000\000\000\b\r\f*\001\027\002h\024Ap\334\000\006\177\000\204\002\f \377\f\f&x\000\000\000\006\003\002*\030Ap\334\000\001\177\000\004\027\002h\204\002\b \377\b\b&x\000\000\000\004\003\002*\005\000\000h\034Ap\334\000\001\177\000\000\007\002h\204\002\b \377\b\b&x\000\000\000\004\003\002* Ap\334\000\001\177\000\005\004\002h\001\007\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*$Ap\334\000\002\177\000\000\013\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*(Ap\334\000\002\177\000\001\013\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*,Ap\334\000\002\177\000\000\017\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*0Ap\334\000\002\177\000\001\017\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\027\000h4Ap\334\000\002\177\000\204\000\004 \204.0 \377\004\004&x\000\000\000\37700&x\000\000\000\002\001\000*\004\211\002\216\006\211\006\216\030/.*8Ap\334\000\000\177\000\001\027\000h\016\377\016\200\200\000\000\000(@p\334\000\027\177\000\204*. \204\000\002 \017\200\017\202\377..&x\000\000\000\377\002\002&x\000\000\000\000\377\023\200\200\000\000\000\200\002\004~\200pp~\027+**\001\001\000*\001\200\024\202\377\000\203\276\000\000\021\000\377\000\225\276\377\377\000\000\002\003\006~\002\003\b~\002\003\n~\002\003\f~\002\003\016~\002\003\020~\002\003\022~\002\003\024~\002\003\026~\002\003\030~\002\003\032~\002\003\034~\002\003\036~\002\003 ~\002\003\"~\002\0034~\002\0036~\002\0038~\002\003:~\002\003L~\002\003N~\002\003P~\002\003R~\002\003d~\002\003f~\002\003h~\002\003j~\002\003|~\002\003~~\002\003\200~\002\003\202~\002\003\204~\002\003\206~\002\003\210~\002\003\212~\002\003\214~\002\003\216~\002\003\220~\002\003\222~\002\003\224~\002\003\226~\002\003\230~\002\003\232~\002\003\234~\002\003\236~\002\003\240~\002\003\242~\002\003\244~\002\003\246~\002\003\250~\002\003\252~\002\003\254~\002\003\256~\002\003\260~\002\003\262~\002\003\264~\002\003\266~\002\003\270~\002\003\272~\002\003\274~\002\003\276~\002\003\300~\002\003\302~\002\003\304~\002\003\306~\002\003\310~\002\003\312~\002\003\314~\002\003\316~\002\003\320~\002\003\322~\002\003\324~\002\003\326~\002\003\330~\002\003\332~\002\003\334~\002\003\336~\002\003\340~\002\003\342~\002\003\344~\002\003\346~\002\003\350~\002\003\352~\002\003\354~\002\003\356~\002\003\360~\002\003\362~\002\003\364~\002\003\366~\002\003\370~\002\003\372~\002\003\374~\002\003\376~\002\003\000\177\002\003\002\177\002\003\004\177\002\003\006\177\002\003\b\177\002\003\n\177\002\003\f\177\002\003\016\177\002\003\020\177\002\003\022\177\002\003\024\177\002\003\026\177\002\003\030\177\002\003\032\177\002\003\034\177\002\003\036\177\002\003 \177\002\003\"\177\002\003$\177\002\003&\177\002\003(\177\002\003*\177\002\003,\177\002\003.\177\002\0030\177\002\0032\177\002\0034\177\002\0036\177\002\0038\177\002\003:\177\002\003<\177\002\003>\177\002\003@\177\002\003B\1778qX~8q@~8q$~8qx~8q`~8qH~,@p\334\000\025\177\000<Ap\334\000\000\177\000\300@|\334\000\020\177\000\320@|\334\000\020\177\000b\000\202\277h\000\312\321\025\320\242\005f\000\312\321\025\314\232\005d\000\312\321\025\310\222\005b\000\312\321\025\304\212\005\352\000\312\321\025\324\253\007\350\000\312\321\025\320\243\007\346\000\312\321\025\314\233\007\344\000\312\321\025\310\223\007\362\000\312\321\025\344\313\007\360\000\312\321\025\340\303\007\356\000\312\321\025\334\273\007\354\000\312\321\025\330\263\007\000\000\212\277\177\300\214\277\001\000\217\277\236\000\341\323h\325\013\004\232\000\341\323h\321\033\004\226\000\341\323h\315+\004\222\000\341\323h\311;\004\216\000\341\323f\325k\004\212\000\341\323f\321\233\004\206\000\341\323f\315\313\004\202\000\341\323f\311\373\004~\000\341\323d\325\013\005z\000\341\323d\321\033\005v\000\341\323d\315+\005r\000\341\323d\311;\005n\000\341\323b\325K\005j\000\341\323b\321[\005f\000\341\323b\315k\005b\000\341\323b\311{\005^\000\341\323\362\325\213\006Z\000\341\323\362\321\233\006V\000\341\323\362\315\253\006R\000\341\323\362\311\273\006N\000\341\323\360\325\313\006J\000\341\323\360\321\333\006F\000\341\323\360\315\353\006B\000\341\323\360\311\373\006>\000\341\323\356\325\013\0072\000\341\323\356\321\033\007&\000\341\323\356\315+\007\032\000\341\323\356\311;\007\016\000\341\323\354\325K\007\n\000\341\323\354\321[\007\006\000\341\323\354\315k\007\002\000\341\323\354\311{\007\000\000\217\277\000\000\212\277\f\377\f\200\200\000\000\000\r\200\r\202\000@\f\261\247\002\205\277\200?\214\261\301\200\204\205\200?\f\261\034\000\205\277\340@P\334\000\000\177\000\023\f\000\200\024\r\001\202p\017\214\277\000\020\\\340\000\022\000\200\000\000\200\277\344@P\334\000\000\177\000q\017\214\277\300@|\334\000\022\177\000q\017\214\277\000\020\\\340\000\036\000\200\000\000\200\277\350@P\334\000\000\177\000p\017\214\277\000\020\\\340\000*\000\200\000\000\200\277\354@P\334\000\000\177\000p\017\214\277\000\020\\\340\0006\000\200\000\000\200\277\000@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\242\004@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\244\b@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\246\f@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\250\020@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\252\024@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\254\030@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\256\034@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\260 @P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\262$@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\264(@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\266,@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\270\242\000\312\321\025D\213\006\244\000\312\321\025H\223\006\246\000\312\321\025L\233\006\250\000\312\321\025P\243\006\252\000\312\321\025T\253\006\254\000\312\321\025X\263\006\256\000\312\321\025\\\273\006\260\000\312\321\025`\303\006\262\000\312\321\025d\313\006\264\000\312\321\025h\323\006\266\000\312\321\025l\333\006\270\000\312\321\025p\343\006\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277\236\000\341\323\252E{\006\232\000\341\323\252Ik\006\226\000\341\323\252M[\006\222\000\341\323\252QK\006\216\000\341\323\254E;\006\212\000\341\323\254I+\006\206\000\341\323\254M\033\006\202\000\341\323\254Q\013\006~\000\341\323\256E\373\005z\000\341\323\256I\353\005v\000\341\323\256M\333\005r\000\341\323\256Q\313\005n\000\341\323\260E\273\005j\000\341\323\260I\253\005f\000\341\323\260M\233\005b\000\341\323\260Q\213\005^\000\341\323\262E{\005Z\000\341\323\262Ik\005V\000\341\323\262M[\005R\000\341\323\262QK\005N\000\341\323\264E;\005J\000\341\323\264I+\005F\000\341\323\264M\033\005B\000\341\323\264Q\013\005>\000\341\323\266E\373\0042\000\341\323\266I\313\004&\000\341\323\266M\233\004\032\000\341\323\266Qk\004\016\000\341\323\270E;\004\n\000\341\323\270I+\004\006\000\341\323\270M\033\004\002\000\341\323\270Q\013\004\000\000\217\277\000\000\212\277\000\000\000\321\200\002\021\000\000\000\315\320\201\000\002\000~\004\352\211\035\000\207\277\360@P\334\000\000\177\000\016\f\004\200\017\r\005\202\003\000\207\276p\017\214\277\000\020\\\340\000\022\001\200\000\000\200\277\364@P\334\000\000\177\000q\017\214\277\320@|\334\000\022\177\000q\017\214\277\000\020\\\340\000\"\001\200\000\000\200\277\370@P\334\000\000\177\000p\017\214\277\000\020\\\340\000.\001\200\000\000\200\277\374@P\334\000\000\177\000p\017\214\277\000\020\\\340\000:\001\200\000\000\200\2770@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\3324@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\3368@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\344<@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\346@@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\242D@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\244H@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\246L@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\250P@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\266T@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\306X@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\326\\@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\350\332\000\312\321\025\264k\007\336\000\312\321\025\274{\007\344\000\312\321\025\310\223\007\346\000\312\321\025\314\233\007\242\000\312\321\025D\213\006\244\000\312\321\025H\223\006\246\000\312\321\025L\233\006\250\000\312\321\025P\243\006\266\000\312\321\025l\333\006\306\000\312\321\025\214\033\007\326\000\312\321\025\254[\007\350\000\312\321\025\320\243\007\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277\236\000\341\323\242\265{\006\232\000\341\323\242\275k\006\226\000\341\323\242\311[\006\222\000\341\323\242\315K\006\216\000\341\323\244\265;\006\212\000\341\323\244\275+\006\206\000\341\323\244\311\033\006\202\000\341\323\244\315\013\006~\000\341\323\246\265\373\005z\000\341\323\246\275\353\005v\000\341\323\246\311\333\005r\000\341\323\246\315\313\005n\000\341\323\250\265\273\005j\000\341\323\250\275\253\005\242\000\341\323\250\311\233\005\246\000\341\323\250\315\213\005\252\000\341\323\266\265{\005\256\000\341\323\266\275k\005\262\000\341\323\266\311[\005\266\000\341\323\266\315K\005\272\000\341\323\306\265;\005\276\000\341\323\306\275+\005\302\000\341\323\306\311\033\005\306\000\341\323\306\315\013\005\312\000\341\323\326\265\373\004\316\000\341\323\326\275\313\004\322\000\341\323\326\311\233\004\326\000\341\323\326\315k\004\332\000\341\323\350\265;\004\336\000\341\323\350\275+\004\374\000\341\323\350\311\033\004\370\000\341\323\350\315\013\004\000\000\217\277\000\000\212\277`@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\342d@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\364h@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\000l@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\366p@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\016t@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000>x@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000N|@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000^\200@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\022\204@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\024\210@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\026\214@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\030\220@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\352\224@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\350\230@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\346\234@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\344\240@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000h\244@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000f\250@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000d\254@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000b\260@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\362\264@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\360\270@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\356\274@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\354\016\000\312\321\025\034:\004>\000\312\321\025|\372\004N\000\312\321\025\234:\005^\000\312\321\025\274z\005\342\000\312\321\025\304\213\007\364\000\312\321\025\350\323\007\000\000\312\321\025\000\002\004\366\000\312\321\025\354\333\007\022\000\312\321\025$J\004\024\000\312\321\025(R\004\026\000\312\321\025,Z\004\030\000\312\321\0250b\004\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277\002\000\341\323\016\305{\006\006\000\341\323\016\351k\006\n\000\341\323\016\001Z\006\016\000\341\323\016\355K\006\032\000\341\323>\305;\006&\000\341\323>\351+\0062\000\341\323>\001\032\006>\000\341\323>\355\013\006B\000\341\323N\305\373\005F\000\341\323N\351\353\005J\000\341\323N\001\332\005N\000\341\323N\355\313\005R\000\341\323^\305\273\005V\000\341\323^\351\253\005Z\000\341\323^\001\212\006^\000\341\323^\355\233\006\242\000\341\323\022\305\253\006\246\000\341\323\022\351\273\006\252\000\341\323\022\001\312\006\256\000\341\323\022\355\333\006\262\000\341\323\024\305\353\006\266\000\341\323\024\351\373\006\272\000\341\323\024\001\n\007\276\000\341\323\024\355\033\007\302\000\341\323\026\305+\007\306\000\341\323\026\351;\007\312\000\341\323\026\001J\007\316\000\341\323\026\355[\007\322\000\341\323\030\305k\007\326\000\341\323\030\351{\007\332\000\341\323\030\001\362\007\336\000\341\323\030\355\343\007\000\000\217\277\000\000\212\277~\000\352\206M\375\207\277p\017\214\277\000AP\334\000\000\177\000\300@\\\334\000\000\177\022p\017\214\277\000\000\232\330\000\022\000\000\004AP\334\000\000\177\000p\017\214\277\000\000\232\330\000\024\000\000\bAP\334\000\000\177\000p\017\214\277\000\000\232\330\000\036\000\000\fAP\334\000\000\177\000p\017\214\277\000\000\232\330\000 \000\000\020AP\334\000\000\177\000p\017\214\277\000\000\232\330\000*\000\000\024AP\334\000\000\177\000p\017\214\277\000\000\232\330\000,\000\000\030AP\334\000\000\177\000p\017\214\277\000\000\232\330\0006\000\000\034AP\334\000\000\177\000p\017\214\277\000\000\232\330\0008\000\000 AP\334\000\000\177\000\320@\\\334\000\000\177\022p\017\214\277\000\000\232\330\000\022\000\000$AP\334\000\000\177\000p\017\214\277\000\000\232\330\000\024\000\000(AP\334\000\000\177\000p\017\214\277\000\000\232\330\000\"\000\000,AP\334\000\000\177\000p\017\214\277\000\000\232\330\000$\000\0000AP\334\000\000\177\000p\017\214\277\000\000\232\330\000.\000\0004AP\334\000\000\177\000p\017\214\277\000\000\232\330\0000\000\0008AP\334\000\000\177\000p\017\214\277\000\000\232\330\000:\000\000<AP\334\000\000\177\000p\017\214\277\000\000\232\330\000<\000\000\367\374\202\277@AP\334\000\000\177\000\000\001\000\260p\017\214\277\000\000\230}j \200\276\001\000\210\277\000\000\212\277~\000\376\207TAP\334\000\000\177\000DAT\334\000\000\177\024LAP\334\000\000\177\243\n\020\002\222r\017\214\277\021\000D)PAP\334\000\000\177\000r\017\214\277\024\003H\177\001\000\205\322\013D\003\000\022\000\350\321\nD\003\002\023\000\377\321\023\005\004\004\022\000\b\322\022\005!\000q\017\214\277\024\000\350\321\243\025\220\006\237(*\"\026\000\217\322\202(\002\000\n((h\237(*\"\036\000\217\322\202(\002\000\n((h\237(*\"\"\000\217\322\202(\002\000\n((h\237(*\"\024\000\217\322\202(\002\000p\017\214\277\022\000\000(\237\000\002\"\000\000\217\322\202\000\002\000\022\000\b\322\022\001\001\004\030\000\b\322\022\001Y\004 \000\b\322\022\001y\004$\000\b\322\022\001\211\004\000\200p\334\030\236\177\000*\000\b\322\022\001Q\004\000\200p\334 \237\177\000\000\200p\334$\240\177\000\000\200p\334*\241\177\000@\200p\334\030\232\177\000@\200p\334 \233\177\000@\200p\334$\234\177\000@\200p\334*\235\177\000\200\200p\334\030\226\177\000\200\200p\334 \227\177\000\200\200p\334$\230\177\000\200\200p\334*\231\177\000\300\200p\334\030\222\177\000\300\200p\334 \223\177\000\300\200p\334$\224\177\000\300\200p\334*\225\177\000\220F1(\030\000\350\321\030\025\220\006\23702\" \000\217\322\2020\002\000\n00h\23702\"*\000\217\322\2020\002\000\n00h\23702\".\000\217\322\2020\002\000\n00h\23702\"\030\000\217\322\2020\002\000$\000\b\322\022\001\201\004,\000\b\322\022\001\251\0040\000\b\322\022\001\271\0046\000\b\322\022\001a\004\000\200p\334$\216\177\000\000\200p\334,\217\177\000\000\200p\3340\220\177\000\000\200p\3346\221\177\000@\200p\334$\212\177\000@\200p\334,\213\177\000@\200p\3340\214\177\000@\200p\3346\215\177\000\200\200p\334$\206\177\000\200\200p\334,\207\177\000\200\200p\3340\210\177\000\200\200p\3346\211\177\000\300\200p\334$\202\177\000\300\200p\334,\203\177\000\300\200p\3340\204\177\000\300\200p\3346\205\177\000\240FI($\000\350\321$\025\220\006\237HJ\",\000\217\322\202H\002\000\nHHh\237HJ\"6\000\217\322\202H\002\000\nHHh\237HJ\":\000\217\322\202H\002\000\nHHh\237HJ\"0\000\b\322\022\001\261\0048\000\b\322\022\001\331\004$\000\217\322\202H\002\000\000\200p\3340~\177\000\000\200p\3348\177\177\000<\000\b\322\022\001\351\004~\000\b\322\022\001\221\004\000\200p\334<\200\177\000\000\200p\334~\201\177\000@\200p\3340z\177\000@\200p\3348{\177\000@\200p\334<|\177\000@\200p\334~}\177\000\200\200p\3340v\177\000\200\200p\3348w\177\000\200\200p\334<x\177\000\200\200p\334~y\177\000\300\200p\3340r\177\000\300\200p\3348s\177\000\300\200p\334<t\177\000\300\200p\334~u\177\000\260Fa(0\000\350\3210\025\220\006\237`b\"8\000\217\322\202`\002\000\n``h\237`b\"r\000\217\322\202`\002\000\n``h<\000\b\322\022\001\341\004t\000\b\322\022\001\311\005\237`b\"\000\200p\334<n\177\000\000\200p\334to\177\000n\000\217\322\202`\002\000\n``h\237`b\"0\000\217\322\202`\002\000v\000\b\322\022\001\271\005\022\000\b\322\022\001\301\004\000\200p\334vp\177\000\000\200p\334\022q\177\000@\200p\334<j\177\000@\200p\334tk\177\000@\200p\334vl\177\000@\200p\334\022m\177\000\200\200p\334<f\177\000\200\200p\334tg\177\000\200\200p\334vh\177\000\200\200p\334\022i\177\000\300\200p\334<b\177\000\300\200p\334tc\177\000\300\200p\334vd\177\000\300\200p\334\022e\177\000\377D%h\200\000\000\000\237$&\"<\000\205\322\n&\002\000=\000\205\322\013$\002\000\022\000\350\321\n$\002\002\023\000\377\321\023y\366\004\022\000\b\322\022\005!\000\000\000\b\322\022\001\001\004\022\000\b\322\000\001Y\004\026\000\b\322\000\001y\004\036\000\b\322\000\001\211\004\024\000\b\322\000\001Q\004\000\200p\334\022^\177\000\000\200p\334\026_\177\000\000\200p\334\036`\177\000\000\200p\334\024a\177\000@\200p\334\022Z\177\000@\200p\334\026[\177\000@\200p\334\036\\\177\000@\200p\334\024]\177\000\200\200p\334\022V\177\000\200\200p\334\026W\177\000\200\200p\334\036X\177\000\200\200p\334\024Y\177\000\300\200p\334\022R\177\000\300\200p\334\026S\177\000\300\200p\334\036T\177\000\300\200p\334\024U\177\000\022\000\b\322\000\001\201\004\024\000\b\322\000\001\251\004\026\000\b\322\000\001\271\004\030\000\b\322\000\001a\004\000\200p\334\022N\177\000\000\200p\334\024O\177\000\000\200p\334\026P\177\000\000\200p\334\030Q\177\000@\200p\334\022J\177\000@\200p\334\024K\177\000@\200p\334\026L\177\000@\200p\334\030M\177\000\200\200p\334\022F\177\000\200\200p\334\024G\177\000\200\200p\334\026H\177\000\200\200p\334\030I\177\000\300\200p\334\022B\177\000\300\200p\334\024C\177\000\300\200p\334\026D\177\000\300\200p\334\030E\177\000\022\000\b\322\000\001\261\004\024\000\b\322\000\001\331\004\026\000\b\322\000\001\351\004\030\000\b\322\000\001\221\004\000\200p\334\022>\177\000\000\200p\334\024?\177\000\000\200p\334\026@\177\000\000\200p\334\030A\177\000@\200p\334\0222\177\000@\200p\334\0243\177\000@\200p\334\0264\177\000@\200p\334\0305\177\000\200\200p\334\022&\177\000\200\200p\334\024'\177\000\200\200p\334\026(\177\000\200\200p\334\030)\177\000\300\200p\334\022\032\177\000\300\200p\334\024\033\177\000\300\200p\334\026\034\177\000\300\200p\334\030\035\177\000\022\000\b\322\000\001\341\004\024\000\b\322\000\001\311\005\000\200p\334\022\016\177\000\000\200p\334\024\017\177\000\016\000\b\322\000\001\271\005\000\000\b\322\000\001\301\004\000\200p\334\016\020\177\000\000\200p\334\000\021\177\000@\200p\334\022\n\177\000@\200p\334\024\013\177\000@\200p\334\016\f\177\000@\200p\334\000\r\177\000\200\200p\334\022\006\177\000\200\200p\334\024\007\177\000\200\200p\334\016\b\177\000\200\200p\334\000\t\177\000\300\200p\334\022\002\177\000\300\200p\334\024\003\177\000\300\200p\334\016\004\177\000\300\200p\334\000\005\177\000\000\000\201\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\006\000\000\000\000\000\000\000P\004\000\000\000\000\000\000\013\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000\005\000\000\000\000\000\000\000\000\005\000\000\000\000\000\000\n\000\000\000\000\000\000\000V\000\000\000\000\000\000\000\365\376\377o\000\000\000\000\260\004\000\000\000\000\000\000\004\000\000\000\000\000\000\000\330\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Linker: AMD LLD 19.0.0 (/longer_pathname_so_that_rpms_can_support_packaging_the_debug_info_for_all_os_profiles/src/llvm-project/llvm c87081df219c42dc27c5b6d86c0525bc7d01f727)\000AMD clang version 19.0.0git (https://github.com/RadeonOpenCompute/llvm-project roc-6.4.1 25184 c87081df219c42dc27c5b6d86c0525bc7d01f727)\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000V\000\000\000\000\002\b\000\000L\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\022\003\007\000\000\026\000\000\000\000\000\000\340!\000\000\000\000\000\000\034\000\000\000\021\003\006\000\200\005\000\000\000\000\000\000@\000\000\000\000\000\000\000:\000\000\000\021\000\n\000p\\\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000.note\000.dynsym\000.gnu.hash\000.hash\000.dynstr\000.rodata\000.text\000.dynamic\000.relro_padding\000.bss\000.AMDGPU.csdata\000.comment\000.symtab\000.shstrtab\000.strtab\000\000_Z8micro_tk13micro_globals\000_Z8micro_tk13micro_globals.kd\000__hip_cuid_a387003902ba631b\000_DYNAMIC\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\007\000\000\000\002\000\000\000\000\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\000\024\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\007\000\000\000\013\000\000\000\002\000\000\000\000\000\000\000P\004\000\000\000\000\000\000P\004\000\000\000\000\000\000`\000\000\000\000\000\000\000\005\000\000\000\001\000\000\000\b\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000\017\000\000\000\366\377\377o\002\000\000\000\000\000\000\000\260\004\000\000\000\000\000\000\260\004\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\031\000\000\000\005\000\000\000\002\000\000\000\000\000\000\000\330\004\000\000\000\000\000\000\330\004\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\037\000\000\000\003\000\000\000\002\000\000\000\000\000\000\000\000\005\000\000\000\000\000\000\000\005\000\000\000\000\000\000V\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000'\000\000\000\001\000\000\000\002\000\000\000\000\000\000\000\200\005\000\000\000\000\000\000\200\005\000\000\000\000\000\000@\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000/\000\000\000\001\000\000\000\006\000\000\000\000\000\000\000\000\026\000\000\000\000\000\000\000\006\000\000\000\000\000\000\000&\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\0005\000\000\000\006\000\000\000\003\000\000\000\000\000\000\000\000L\000\000\000\000\000\000\000,\000\000\000\000\000\000p\000\000\000\000\000\000\000\005\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000\020\000\000\000\000\000\000\000>\000\000\000\b\000\000\000\003\000\000\000\000\000\000\000pL\000\000\000\000\000\000p,\000\000\000\000\000\000\220\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000M\000\000\000\b\000\000\000\003\000\000\000\000\000\000\000p\\\000\000\000\000\000\000p,\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000R\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000p,\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000a\000\000\000\001\000\000\0000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000p,\000\000\000\000\000\0009\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000j\000\000\000\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\260-\000\000\000\000\000\000x\000\000\000\000\000\000\000\017\000\000\000\002\000\000\000\b\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000r\000\000\000\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000(.\000\000\000\000\000\000\204\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000|\000\000\000\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\254.\000\000\000\000\000\000_\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	.L__unnamed_2, 17168
+	.asciz	"__CLANG_OFFLOAD_BUNDLE__\002\000\000\000\000\000\000\000\000\020\000\000\000\000\000\000\000\000\000\000\000\000\000\000\036\000\000\000\000\000\000\000host-x86_64-unknown-linux-gnu-\000\020\000\000\000\000\000\000\320j\000\000\000\000\000\000\037\000\000\000\000\000\000\000hipv4-amdgcn-amd-amdhsa--gfx942\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\177ELF\002\001\001@\004\000\000\000\000\000\000\000\003\000\340\000\001\000\000\000\000\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\320f\000\000\000\000\000\000L\005\000\000@\0008\000\t\000@\000\020\000\016\000\006\000\000\000\004\000\000\000@\000\000\000\000\000\000\000@\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\370\001\000\000\000\000\000\000\370\001\000\000\000\000\000\000\b\000\000\000\000\000\000\000\001\000\000\000\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\200\b\000\000\000\000\000\000\200\b\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\005\000\000\000\000\t\000\000\000\000\000\000\000\031\000\000\000\000\000\000\000\031\000\000\000\000\000\000\300Z\000\000\000\000\000\000\300Z\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\006\000\000\000\300c\000\000\000\000\000\000\300\203\000\000\000\000\000\000\300\203\000\000\000\000\000\000p\000\000\000\000\000\000\000@\f\000\000\000\000\000\000\000\020\000\000\000\000\000\000\001\000\000\000\006\000\000\0000d\000\000\000\000\000\0000\224\000\000\000\000\000\0000\224\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\020\000\000\000\000\000\000\002\000\000\000\006\000\000\000\300c\000\000\000\000\000\000\300\203\000\000\000\000\000\000\300\203\000\000\000\000\000\000p\000\000\000\000\000\000\000p\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000R\345td\004\000\000\000\300c\000\000\000\000\000\000\300\203\000\000\000\000\000\000\300\203\000\000\000\000\000\000p\000\000\000\000\000\000\000@\f\000\000\000\000\000\000\001\000\000\000\000\000\000\000Q\345td\006\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\004\000\000\000\004\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\000\334\004\000\000\000\000\000\000\334\004\000\000\000\000\000\000\004\000\000\000\000\000\000\000\007\000\000\000\307\004\000\000 \000\000\000AMDGPU\000\000\203\256amdhsa.kernels\221\336\000\022\253.agpr_count\000\245.args\237\203\247.offset\000\245.size\314\220\253.value_kind\250by_value\203\247.offset\314\220\245.size\004\253.value_kind\264hidden_block_count_x\203\247.offset\314\224\245.size\004\253.value_kind\264hidden_block_count_y\203\247.offset\314\230\245.size\004\253.value_kind\264hidden_block_count_z\203\247.offset\314\234\245.size\002\253.value_kind\263hidden_group_size_x\203\247.offset\314\236\245.size\002\253.value_kind\263hidden_group_size_y\203\247.offset\314\240\245.size\002\253.value_kind\263hidden_group_size_z\203\247.offset\314\242\245.size\002\253.value_kind\262hidden_remainder_x\203\247.offset\314\244\245.size\002\253.value_kind\262hidden_remainder_y\203\247.offset\314\246\245.size\002\253.value_kind\262hidden_remainder_z\203\247.offset\314\270\245.size\b\253.value_kind\266hidden_global_offset_x\203\247.offset\314\300\245.size\b\253.value_kind\266hidden_global_offset_y\203\247.offset\314\310\245.size\b\253.value_kind\266hidden_global_offset_z\203\247.offset\314\320\245.size\002\253.value_kind\260hidden_grid_dims\203\247.offset\315\001\b\245.size\004\253.value_kind\267hidden_dynamic_lds_size\271.group_segment_fixed_size\000\266.kernarg_segment_align\b\265.kernarg_segment_size\315\001\220\251.language\250OpenCL C\261.language_version\222\002\000\270.max_flat_workgroup_size\315\002\000\245.name\272_Z8micro_tk13micro_globals\273.private_segment_fixed_size\314\250\253.sgpr_count*\261.sgpr_spill_count\000\247.symbol\275_Z8micro_tk13micro_globals.kd\270.uniform_work_group_size\001\263.uses_dynamic_stack\302\253.vgpr_count\315\001\000\261.vgpr_spill_count*\257.wavefront_size@\255amdhsa.target\271amdgcn-amd-amdhsa--gfx942\256amdhsa.version\222\001\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\022\003\007\000\000\031\000\000\000\000\000\000\264V\000\000\000\000\000\000\034\000\000\000\021\003\006\000@\b\000\000\000\000\000\000@\000\000\000\000\000\000\000:\000\000\000\021\000\n\0000\224\000\000\000\000\000\000\001\000\000\000\000\000\000\000\001\000\000\000\001\000\000\000\001\000\000\000\032\000\000\000\002\000\201\000\000\220\020\000\001\000\000\000n\226\363@\354\205\221\322\227lM\005\004\000\000\000\004\000\000\000\002\000\000\000\000\000\000\000\003\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000_Z8micro_tk13micro_globals\000_Z8micro_tk13micro_globals.kd\000__hip_cuid_a387003902ba631b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\250\000\000\000\220\001\000\000\000\000\000\000\300\020\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000?\000\000\000_\001\257\000\205\001\000\000\b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\003\016\300\000\000\000\000\200\006\006\300 \000\000\000\000\001\016\3000\000\000\000\000\007\006\300P\000\000\000\000\005\006\300`\000\000\000\200\005\006\300\200\000\000\000\200\b\006\300\220\000\000\000\200\301\007\277\177\300\214\277\200\200\007\205\007\320\t\206\200\000\237\276\007\217\036\206\t\220\t\201\036\200\022\277\"\003\000\222\007\t\007\205\000\002\000\201\000\237\002\220\002\235\002\217\000\002\002\201#\"\001\222\002\203\003\220\002\310\002\206\000\002\200\201\001\237\002\220\002\235\002\217\001\002\001\201\001\203\001\220\000\001\000\222\000\003\000\201\000\237\001\220\001\227\001\217\000\001\001\201\001\211\002\220\002\204\002\216\240\002\203\201\003\220\013\203\0130\217\276\000\003:~\017\f\000~\200\017\223\201\001\377\001\206\000\376\377\377\000\001\200\201\000G\000~\0000\221\276\007\377\t\201\000\200\000\000\t\320\003\206\377\000\000\n\376\377\177O\000\017\000~\000\013\001\210\t\217\036\206\003\220\003\201\000\005B~\023!\023\222!\023\023\226!\023!\201\021!\023\226\023\017!\222\021!\221\201\001\237\001\220\023\201!\201\021\017\242\201\021\017\t\277!\023\023\205\"\021\021\205\023\201!\201\021\017\t\277!\023\017\205\017\001\017\210\017\001\223\201\023\013\001\222\000\001\200\201\002\000\002\201\002\210\021\216\021\237\017\220\032\017\000\222\032\021\001\226\001\000\000\201\033\021\001\222\000\001\001\201\032\021\000\222\000\201\200\216\f\000\"\200\r\001#\202\023\210\002\216\002\237\000\220\034\000\000\222\034\002\001\226\001\000\000\201\035\002\001\222\000\001\001\201\034\002\000\222\000\201\200\216\004\000\000\200\203:\000$\005\001\001\202\270\000(&\203:\f \036\200\022\277\f\036\350\321\0065P\004\300\f\000(\377\f\002(\300\000\000\000\237\030\032\"\b\036\350\321\0005P\004\020\036\350\321\0015P\004\204:*$\201(,$\002\000\b\322\f\003\211\000\237\020\022\"\f\000\375\321\032\0161\004\377**&\200\037\000\000\007,.h\000\200\\\334\002\000\177\002\b\000\b\322\b\003\211\000\237\030\032\"\027+4h\000\200\\\334\b\000\177\b\f\000\b\322\f\003\211\000\237 \"\"\210,0(\20446 \000\200\\\334\f\000\177\f\020\000\b\322\020\003\211\000\00702h\37766&x\000\000\000\000\200\\\334\020\000\177\020p\017\214\277\03354*\000\000\232\330\032\002\000\000\031+\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\377*4(\000 \000\000\000\000\232\330\002\004\000\000\0275\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\b\000\000\0315\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\377*6(\000@\000\000\000\000\232\330\002\n\000\000\0277\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\f\000\000\0317\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\377*8(\000`\000\000\000\000\232\330\002\016\000\000\0279\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\020\000\000\0319\004h\204\004\006 \377\006\006&x\000\000\000\f\036\350\321\0069P\004\003\005\004*\237\030\032\"\b\036\350\321\0009P\004\t\003\003\205\000\000\232\330\002\022\000\000\002\000\b\322\f\003\001\000\237\020\022\"\f\000\375\321\034\0161\004\003,\000h\177\300\214\277\000\200\\\334\002\000\177\002\b\000\b\322\b\003\001\000\237\030\032\"\020\036\350\321\0019P\004\000+(h\000\200\\\334\b\000\177\b\f\000\b\322\f\003\001\000\237 \"\"\204(, \000\200\\\334\f\000\177\f\020\000\b\322\020\003\001\000\0030\002h\377,,&x\000\000\000\000\200\\\334\020\000\177\020p\017\214\277\026)(*\000\000\232\330\024\002\000\000\001+\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\004\000\000\0005\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\b\000\000\0015\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\n\000\000\0007\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\000\000\232\330\002\f\000\000\0017\004h\204\004\006 \377\006\006&x\000\000\000\003\005\004*\0009\000h\000\000\232\330\002\016\000\000\204\000\004 \377\004\004&x\000\000\000\002\001\000*\000\000\232\330\000\020\000\000\0019\000h\204\000\002 \377\002\002&x\000\000\000\001\001\000*\000\000\232\330\000\022\000\000\210:\016 \200\001\230\276\201\016\224}\177\300\214\277\000\000\212\277j \200\276\001\000\210\277\000\000\212\277~\000\376\207\377:\000&\300\000\000\000\021\000\004(\004\000\205\322\033\004\002\000\032\017\t\222\002\000\350\321\032\004\002\002\003\000\377\321\003\023\020\004\202:\b \217:8&\214\b$&\004\000\350\321\0345H\004\032\204\000\216\201\b\250%\000\b\026h\002\000\b(\237\b\n\"\b\000\205\322\034\n\002\000\t\000\205\322\035\b\002\000\214@t\334\000\004\177\000\004\036\350\321\034\b\002\002\005\000\377\321\005\021&\004\b\036\350\321\0349H\004\034\204\001\216\201\020\254%\001\020\034h\207:\020$\377\020\020&\200g\000\000\022\003 ~\201$\022$\003\020\036h\204@t\334\000\020\177\000\017\023 h\204 \" \2208\024(\377\"\"&x\000\000\000\021!\252+\000\025 (\207  $\003 \"h\021\023$h\204$& \2408\030(\377&&&x\000\000\000\023%\256+\000\031$(\207$$$\003$&h\2608\032(\023\023(h\204(* \000\033\000(\377**&x\000\000\000\207\000\000$\025)\260+\003\000(h\024\023*h\204*, \377,,&x\000\000\000\206\0164$\026+\262+\0329*(\025\000\375\321\025\017\035\000\025\023,h\204,. \377..&x\000\000\000\027-\264+\n5,(\026\000\375\321\026\017\035\000\026\023.h\204.0 \37700&x\000\000\000\030/\266+\f5.(\027\000\375\321\027\017\035\000\027\0230h\20402 \37722&x\000\000\000\0311\270+\r50(\030\000\375\321\030\017\035\000\030\0232h\234@p\334\000\032\177\000\20424 \202\016\002(\37744&x\000\000\000\0323\272+\206\0022$\034\0034~\224@t\334\000\032\177\000\03194(\032\000\375\321\032\017\035\000\032\0236h\20468 \031\025\024(\37788&x\000\000\000\n\000\375\321\n\017\035\000\0347\274+\n\0236h\20468 \031\031\030(\37788&x\000\000\000\f\000\375\321\f\017\035\000\0347\276+\f\0236h\031\033\032(\20468 \r\000\375\321\r\017\035\000\37788&x\000\000\000\r\0232h\0347\300+\20426 \37766&x\000\000\000\0333\302+\240\0222(\01736h\20468 \37788&x\000\000\000\0347\246+\02136h\20468 \37788&x\000\000\000\0347\244+\02336h\20468 \37788&x\000\000\000\0347\242+\02436h\20468 \37788&x\000\000\000\0347\240+\02536h\20468 \37788&x\000\000\000\0347\236+\02636h\20468 \37788&x\000\000\000\0347\234+\02736h\20468 \37788&x\000\000\000\03476*\200@p\334\000\033\177\000\03036h\20468 \37788&x\000\000\000\03476*|@p\334\000\033\177\000\03236h\20468 \37788&x\000\000\000\03476*x@p\334\000\033\177\000\n36h\20468 \37788&x\000\000\000\03476*t@p\334\000\033\177\000\f36h\20468 \37788&x\000\000\000\03476*\r32hp@p\334\000\033\177\000\20426 \37766&x\000\000\000\03332*`@p\334\000\031\177\000\300\0222(\01736h\20468 \37788&x\000\000\000\03476*\\@p\334\000\033\177\000\02136h\20468 \37788&x\000\000\000\03476*X@p\334\000\033\177\000\02336h\20468 \37788&x\000\000\000\03476*T@p\334\000\033\177\000\02436h\20468 \37788&x\000\000\000\03476*P@p\334\000\033\177\000\02536h\20468 \37788&x\000\000\000\03476*L@p\334\000\033\177\000\02636h\20468 \37788&x\000\000\000\03476*H@p\334\000\033\177\000\02736h\20468 \37788&x\000\000\000\03476*D@p\334\000\033\177\000\03036h\20468 \37788&x\000\000\000\03476*@@p\334\000\033\177\000\03236h\20468 \37788&x\000\000\000\03476*<@p\334\000\033\177\000\n36h\20468 \37788&x\000\000\000\03476*8@p\334\000\033\177\000\f36h\20468 \37788&x\000\000\000\03476*\r32h4@p\334\000\033\177\000\20426 \37766&x\000\000\000\03332*,@p\334\000\031\177\000\377\0222(`\000\000\000\01736h\20468 \37788&x\000\000\000\03476*0@p\334\000\033\177\000\02136h\20468 \37788&x\000\000\000\03476*(@p\334\000\033\177\000\02336h\20468 \37788&x\000\000\000\03476*$@p\334\000\033\177\000\02436h\20468 \37788&x\000\000\000\03476*\0253*h @p\334\000\033\177\000\204*6 \37766&x\000\000\000\033+**\034@p\334\000\025\177\000\0263*h\204*, \377,,&x\000\000\000\026+**\030@p\334\000\025\177\000\0273*h\204*, \377,,&x\000\000\000\026+**\024@p\334\000\025\177\000\0303*h\204*, \377,,&x\000\000\000\026+**\020@p\334\000\025\177\000\0323*h\204*, \377,,&x\000\000\000\026+**\n3\024h\f@p\334\000\025\177\000\204\024* \377**&x\000\000\000\025\025\024*\b@p\334\000\n\177\000\f3\024h\204\024\030 \377\030\030&x\000\000\000\f\025\024*\004@p\334\000\n\177\000\r3\024h\204\024\030 \377\030\030&x\000\000\000\f\025\024*\007\000\000\322\007\013%\004\007\020\020h\000@p\334\000\n\177\000\b\017\024h\204\024\030 \377\030\030&x\000\000\000\f\025\304+\007 \024h\n\017\030h\204\030\032 \377\032\032&x\000\000\000\r\031\306+\007$\030h\f\017\032h\204\032  \377  &x\000\000\000\007\000\000h\020\033\310+\000\017\032h\204\032  \377  &x\000\000\000\020\033\312+\017\017\032h\204\032  \377  &x\000\000\000\020\033\314+\021\017\032h\204\032  \377  &x\000\000\000\020\033\316+\023\017\032h\204\032  \377  &x\000\000\000\024\017\016h\020\033\320+\204\016\032 \377\032\032&x\000\000\000\001\000\000\322\001\013%\004\r\017\322+\b\003\016h\204\016\020 \377\020\020&x\000\000\000\b\017\324+\n\003\016h\204\016\020 \377\020\020&x\000\000\000\b\017\326+\f\003\016h\204\016\020 \377\020\020&x\000\000\000\000\003\000h\b\017\330+\204\000\016 \377\016\016&x\000\000\000\007\001\332+\017\003\000h\204\000\016 \377\016\016&x\000\000\000\007\001\334+\021\003\000h\204\000\016 \377\016\016&x\000\000\000\007\001\336+\023\003\000h\204\000\016 \377\016\016&x\000\000\000\007\001\340+\024\003\000h\204\000\002 \377\002\002&x\000\000\000\001\001\342+\000\026\000h\020\016\002\222\364\000\376\321\000\001\004\002\b\006\000\222\002\022\002\222\000\n\000\222\b\000\b\322\002\0031\000\002\032\002\222\201\000\346%\004\000\b\322\004\003\021\000\000\034\000\222\001\034\000h\240\f\004&\200\002\006~\240@p\334\000\035\177\000\002\201\f\216\201\026\344%\000\201\r\216\201\034\352%\201\000\354%\367\000\376\321\000\003\004\002\214\000\b\322\b\001\t\004\216\000\b\322\004\001\t\004\377\001\202\276\200\000\000\000\377\000\216\276\377\377\000\000\377\001\210\276\300\000\000\000\003\003\004~\003\003\b~\003\003\n~\003\003\f~\003\003\016~\003\003\020~\003\003\022~\003\003\024~\003\003\026~\003\003\030~\003\003\032~\003\003\034~\003\003\036~\003\003 ~\003\003\"~\003\003$~\003\003&~\003\003(~\003\003*~\003\003,~\003\003.~\003\0030~\003\0032~\003\0034~\003\0036~\003\0038~\003\003:~\003\003<~\003\003>~\003\003@~\003\003B~\003\003D~\003\003F~\003\003H~\003\003J~\003\003L~\003\003N~\003\003P~\003\003R~\003\003T~\003\003V~\003\003X~\003\003Z~\003\003\\~\003\003^~\003\003`~\003\003b~\003\003d~\003\003f~\003\003h~\003\003j~\003\003l~\003\003n~\003\003p~\003\003r~\003\003t~\003\003v~\003\003x~\003\003z~\003\003|~\003\003~~\003\003\200~\003\003\202~\003\003\204~\003\003\206~\003\003\210~\003\003\212~\003\003\214~\003\003\216~\003\003\220~\003\003\222~\003\003\224~\003\003\226~\003\003\230~\003\003\232~\003\003\234~\003\003\236~\003\003\240~\003\003\242~\003\003\244~\003\003\246~\003\003\250~\003\003\252~\003\003\254~\003\003\256~\003\003\260~\003\003\262~\003\003\264~\003\003\266~\003\003\270~\003\003\272~\003\003\274~\003\003\276~\003\003\300~\003\003\302~\003\003\304~\003\003\306~\003\003\310~\003\003\312~\003\003\314~\003\003\316~\003\003\320~\003\003\322~\003\003\324~\003\003\326~\003\003\330~\003\003\332~\003\003\334~\003\003\336~\003\003\340~\003\003\342~\003\003\344~\003\003\346~\003\003\350~\003\003\352~\003\003\354~\003\003\356~\003\003\360~\003\003\362~\003\003\364~\003\003\366~\003\003\370~\003\003\372~\003\003\374~\003\003\376~\003\003\000\177\003\003\002\177\377\002\"\177\000\000\002\000\242\000\b\322\214\001a\000\202\000\b\322\242\001\t\000\f\002 \177~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\324\222\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\362\224\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\363\226\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\364\230\001\200~\000\376\210\362\377\211\277\n\001\376\276\252\000\b\322\216\001a\000\202\000\b\322\252\001\t\000\r\002 \177~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\326\232\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\365\234\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\366\236\001\200~\000\376\210\362\377\211\277\n\001\376\276~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\367\240\001\200~\000\376\210\362\377\211\277\n\001\376\276\000\000\354\330\325\000\000\202\000\000\354\330\327\000\000\204\000\000\354\330\330\000\000\244\000\000\354\330\331\000\000\246\000\000\354\330\332\000\000\250\000\000\354\330\333\000\000\254\000\000\354\330\334\000\000\256\000\000\354\330\335\000\000\260\000\000\354\330\336\000\000\370\177\300\214\277\000\000\354\330\337\000\000\372\177\300\214\277\000\000\354\330\340\000\000\374\177\300\214\277\000\000\200\277\202\000\312\321\016\004\013\006\000\000\354\330\341\000\000\376\177\300\214\277\204\000\312\321\016\b\023\006\244\000\312\321\016H\223\006\246\000\312\321\016L\233\006\250\000\312\321\016P\243\006\254\000\312\321\016X\263\006\256\000\312\321\016\\\273\006\260\000\312\321\016`\303\006\370\000\312\321\016\360\343\007\372\000\312\321\016\364\353\007\374\000\312\321\016\370\363\007\376\000\312\321\016\374\373\007\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\250\005\373\005z\000\341\323\250\t\353\005v\000\341\323\250I\333\005r\000\341\323\250M\313\005n\000\341\323\254\005\273\005j\000\341\323\254\t\253\005f\000\341\323\254I\233\005b\000\341\323\254M\213\005^\000\341\323\256\005{\005Z\000\341\323\256\tk\005V\000\341\323\256I[\005R\000\341\323\256MK\005N\000\341\323\260\005;\005J\000\341\323\260\t+\005F\000\341\323\260I\033\005B\000\341\323\260M\013\005>\000\341\323\370\005\373\004:\000\341\323\370\t\353\0046\000\341\323\370I\333\0042\000\341\323\370M\313\004.\000\341\323\372\005\273\004*\000\341\323\372\t\253\004&\000\341\323\372I\233\004\"\000\341\323\372M\213\004\036\000\341\323\374\005{\004\032\000\341\323\374\tk\004\026\000\341\323\374I[\004\022\000\341\323\374MK\004\016\000\341\323\376\005;\004\n\000\341\323\376\t+\004\006\000\341\323\376I\033\004\002\000\341\323\376M\013\004\000\000\217\277\000\000\212\277\202\000\b\322\242\001!\000\f\002 \177~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\324\242\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\242\000\312\321\016D\213\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\362\244\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\244\000\312\321\016H\223\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\363\246\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\246\000\312\321\016L\233\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\364\250\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\250\000\312\321\016P\243\006\202\000\b\322\252\001!\000\r\002 \177~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\326\252\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\252\000\312\321\016T\253\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\365\254\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\254\000\312\321\016X\263\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\366\256\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\256\000\312\321\016\\\273\006~\001\212\276\202\005\b~\203\005\n~\220\005\f~\221\005\016~\004\004\325}\000\000\200\277\000\000\352\320\006 \003\000j\000\200\206\000 \200\276\000\020T\340\367\260\001\200~\000\376\210\362\377\211\277\n\001\376\276p\017\214\277\260\000\312\321\016`\303\006\000\000\354\330\323\000\000\202\000\000\354\330\322\000\000\204\000\000\354\330\321\000\000\370\000\000\354\330\320\000\000\372\000\000\354\330\317\000\000\374\000\000\354\330\316\000\000\376\200@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\206|@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\210x@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\212\177\300\214\277t@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\000\177\300\214\277p@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\262\177\300\214\277`@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\264\177\300\214\277\202\000\312\321\016\004\013\006\204\000\312\321\016\b\023\006\370\000\312\321\016\360\343\007\372\000\312\321\016\364\353\007\374\000\312\321\016\370\363\007\376\000\312\321\016\374\373\007\206\000\312\321\016\f\033\006\210\000\312\321\016\020#\006\212\000\312\321\016\024+\006\000\000\312\321\016\000\002\004\262\000\312\321\016d\313\006\264\000\312\321\016h\323\006\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\374\005\373\005z\000\341\323\374\t\353\005v\000\341\323\374\361\333\005r\000\341\323\374\365\313\005n\000\341\323\376\005\273\005j\000\341\323\376\t\253\005f\000\341\323\376\361\233\005b\000\341\323\376\365\213\005^\000\341\323\206\005{\005Z\000\341\323\206\tk\005V\000\341\323\206\361[\005R\000\341\323\206\365K\005N\000\341\323\210\005;\005J\000\341\323\210\t+\005F\000\341\323\210\361\033\005B\000\341\323\210\365\013\005>\000\341\323\212\005\373\004:\000\341\323\212\t\353\0046\000\341\323\212\361\333\0042\000\341\323\212\365\313\004.\000\341\323\000\005\273\004*\000\341\323\000\t\253\004&\000\341\323\000\361\233\004\"\000\341\323\000\365\213\004\036\000\341\323\262\005{\004\032\000\341\323\262\tk\004\026\000\341\323\262\361[\004\022\000\341\323\262\365K\004\016\000\341\323\264\005;\004\n\000\341\323\264\t+\004\006\000\341\323\264\361\033\004\002\000\341\323\264\365\013\004\000\000\217\277\000\000\212\277\\@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\000X@P\334\000\000\177\202p\017\214\277\000\000\354\330\202\000\000\202T@P\334\000\000\177\204p\017\214\277\000\000\354\330\204\000\000\204P@P\334\000\000\177\206p\017\214\277\000\000\354\330\206\000\000\206L@P\334\000\000\177\210p\017\214\277\000\000\354\330\210\000\000\210H@P\334\000\000\177\212p\017\214\277\000\000\354\330\212\000\000\212D@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\262@@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\264<@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\3708@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\3724@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\374,@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\3760@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\266(@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\270$@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\272 @P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\274\034@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\276\030@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\300\024@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\302\020@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\304\f@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\306\b@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\310\004@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\312\000@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\314\000\000\312\321\016\000\002\004\202\000\312\321\016\004\013\006\204\000\312\321\016\b\023\006\206\000\312\321\016\f\033\006\210\000\312\321\016\020#\006\212\000\312\321\016\024+\006\262\000\312\321\016d\313\006\264\000\312\321\016h\323\006\370\000\312\321\016\360\343\007\372\000\312\321\016\364\353\007\374\000\312\321\016\370\363\007\376\000\312\321\016\374\373\007\266\000\312\321\016l\333\006\270\000\312\321\016p\343\006\272\000\312\321\016t\353\006\274\000\312\321\016x\363\006\276\000\312\321\016|\373\006\300\000\312\321\016\200\003\007\302\000\312\321\016\204\013\007\304\000\312\321\016\210\023\007\306\000\312\321\016\214\033\007\310\000\312\321\016\220#\007\312\000\312\321\016\224+\007\314\000\312\321\016\2303\007\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\210\001\372\005z\000\341\323\210\005\353\005v\000\341\323\210\t\333\005r\000\341\323\210\r\313\005n\000\341\323\212\001\272\005j\000\341\323\212\005\253\005f\000\341\323\212\t\233\005b\000\341\323\212\r\213\005^\000\341\323\262\001z\005Z\000\341\323\262\005k\005V\000\341\323\262\t[\005R\000\341\323\262\rK\005N\000\341\323\264\001:\005J\000\341\323\264\005+\005F\000\341\323\264\t\033\005B\000\341\323\264\r\013\005>\000\341\323\370\001\372\004:\000\341\323\370\005\353\0046\000\341\323\370\t\333\0042\000\341\323\370\r\313\004.\000\341\323\372\001\272\004*\000\341\323\372\005\253\004&\000\341\323\372\t\233\004\"\000\341\323\372\r\213\004\036\000\341\323\374\001z\004\032\000\341\323\374\005k\004\026\000\341\323\374\t[\004\022\000\341\323\374\rK\004\016\000\341\323\376\001:\004\n\000\341\323\376\005+\004\006\000\341\323\376\t\033\004\002\000\341\323\376\r\013\004\000\000\217\277\000\000\212\277p\017\214\277\000\000\232\330\342\222\000\000\000\000\232\330\343\224\000\000\000\000\232\330\344\226\000\000\000\000\232\330\345\230\000\000\000\000\232\330\346\232\000\000\000\000\232\330\347\234\000\000\000\000\232\330\350\236\000\000\000\000\232\330\351\240\000\000\000\000\232\330\352\242\000\000\000\000\232\330\353\244\000\000\000\000\232\330\354\246\000\000\000\000\232\330\355\250\000\000\000\000\232\330\356\252\000\000\000\000\232\330\357\254\000\000\000\000\232\330\360\256\000\000\000\000\232\330\361\260\000\000\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\276m\373\005z\000\341\323\276q\353\005v\000\341\323\276u\333\005r\000\341\323\276y\313\005n\000\341\323\300m\273\005j\000\341\323\300q\253\005f\000\341\323\300u\233\005b\000\341\323\300y\213\005^\000\341\323\302m{\005Z\000\341\323\302qk\005V\000\341\323\302u[\005R\000\341\323\302yK\005N\000\341\323\304m;\005J\000\341\323\304q+\005F\000\341\323\304u\033\005B\000\341\323\304y\013\005>\000\341\323\306m\373\004:\000\341\323\306q\353\0046\000\341\323\306u\333\0042\000\341\323\306y\313\004.\000\341\323\310m\273\004*\000\341\323\310q\253\004&\000\341\323\310u\233\004\"\000\341\323\310y\213\004\036\000\341\323\312m{\004\032\000\341\323\312qk\004\026\000\341\323\312u[\004\022\000\341\323\312yK\004\016\000\341\323\314m;\004\n\000\341\323\314q+\004\006\000\341\323\314u\033\004\002\000\341\323\314y\013\004\000\000\217\277\000\000\212\277\030\377\030\200\200\000\000\000\031\200\031\202\200?\030\261x\374\204\277\240@P\334\000\000\177\000\000\001\000\260p\017\214\277\000\000\230}j \200\276\001\000\210\277\000\000\212\277~\000\376\207\000\000\354\330\325\000\000\000\000\000\354\330\327\000\000\202\000\000\354\330\330\000\000\204\000\000\354\330\331\000\000\206\000\000\354\330\332\000\000\210\000\000\354\330\333\000\000\212\000\000\354\330\334\000\000\214\000\000\354\330\335\000\000\216\000\000\354\330\336\000\000\220\177\300\214\277\000\000\354\330\337\000\000\222\177\300\214\277\000\000\354\330\340\000\000\224\177\300\214\277\377\000\200\276\377\377\000\000\000\000\354\330\341\000\000\226\177\300\214\277\000\000\312\321\000\000\002\004\202\000\312\321\000\004\013\006\224\000\312\321\000(S\006\226\000\312\321\000,[\006\204\000\312\321\000\b\023\006\206\000\312\321\000\f\033\006\210\000\312\321\000\020#\006\212\000\312\321\000\024+\006\214\000\312\321\000\0303\006\216\000\312\321\000\034;\006\220\000\312\321\000 C\006\222\000\312\321\000$K\006\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\210\001\372\005z\000\341\323\210\005\353\005v\000\341\323\210\t\333\005r\000\341\323\210\r\313\005n\000\341\323\212\001\272\005j\000\341\323\212\005\253\005f\000\341\323\212\t\233\005b\000\341\323\212\r\213\005^\000\341\323\214\001z\005Z\000\341\323\214\005k\005V\000\341\323\214\t[\005R\000\341\323\214\rK\005N\000\341\323\216\001:\005J\000\341\323\216\005+\005F\000\341\323\216\t\033\005B\000\341\323\216\r\013\005>\000\341\323\220\001\372\004:\000\341\323\220\005\353\0046\000\341\323\220\t\333\0042\000\341\323\220\r\313\004.\000\341\323\222\001\272\004*\000\341\323\222\005\253\004&\000\341\323\222\t\233\004\"\000\341\323\222\r\213\004\036\000\341\323\224\001z\004\032\000\341\323\224\005k\004\026\000\341\323\224\t[\004\022\000\341\323\224\rK\004\016\000\341\323\226\001:\004\n\000\341\323\226\005+\004\006\000\341\323\226\t\033\004\002\000\341\323\226\r\013\004\000\000\217\277\000\000\212\277\000\000\354\330\323\000\000\000\000\000\354\330\322\000\000\202\000\000\354\330\321\000\000\204\000\000\354\330\320\000\000\206\000\000\354\330\317\000\000\210\000\000\354\330\316\000\000\212\200@P\334\000\000\177\214p\017\214\277\000\000\354\330\214\000\000\214|@P\334\000\000\177\216p\017\214\277\000\000\354\330\216\000\000\216x@P\334\000\000\177\220p\017\214\277\000\000\354\330\220\000\000\220\177\300\214\277t@P\334\000\000\177\222p\017\214\277\000\000\354\330\222\000\000\222\177\300\214\277p@P\334\000\000\177\224p\017\214\277\000\000\354\330\224\000\000\224\177\300\214\277`@P\334\000\000\177\226p\017\214\277\000\000\354\330\226\000\000\226\177\300\214\277\000\000\312\321\000\000\002\004\202\000\312\321\000\004\013\006\224\000\312\321\000(S\006\226\000\312\321\000,[\006\204\000\312\321\000\b\023\006\206\000\312\321\000\f\033\006\210\000\312\321\000\020#\006\212\000\312\321\000\024+\006\214\000\312\321\000\0303\006\216\000\312\321\000\034;\006\220\000\312\321\000 C\006\222\000\312\321\000$K\006\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277~\000\341\323\210\001\372\005z\000\341\323\210\005\353\005v\000\341\323\210\t\333\005r\000\341\323\210\r\313\005n\000\341\323\212\001\272\005j\000\341\323\212\005\253\005f\000\341\323\212\t\233\005b\000\341\323\212\r\213\005^\000\341\323\214\001z\005Z\000\341\323\214\005k\005V\000\341\323\214\t[\005R\000\341\323\214\rK\005N\000\341\323\216\001:\005J\000\341\323\216\005+\005F\000\341\323\216\t\033\005B\000\341\323\216\r\013\005>\000\341\323\220\001\372\004:\000\341\323\220\005\353\0046\000\341\323\220\t\333\0042\000\341\323\220\r\313\004.\000\341\323\222\001\272\004*\000\341\323\222\005\253\004&\000\341\323\222\t\233\004\"\000\341\323\222\r\213\004\344\000\341\323\224\001z\004\022\000\341\323\224\rK\004\364\000\341\323\226\001:\004\000\000\341\323\226\r\013\004\350\000\341\323\224\005k\004\354\000\341\323\224\t[\004\004\000\200\277`@|\334\000\000\177\000\370\000\341\323\226\005+\004\374\000\341\323\226\t\033\004\000\000\217\277\000\000\212\277\\@P\334\000\000\177\000p\017\214\277\000\000\354\330\000\000\000\000X@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\206T@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\210P@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\212L@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\220H@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\240D@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\260@@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\300<@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\3208@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\3404@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\360,@P\334\000\000\177\002p\017\214\277\000\000\354\330\002\000\000\0020@P\334\000\000\177\004p\017\214\277\000\000\354\330\004\000\000\004(@P\334\000\000\177\006p\017\214\277\000\000\354\330\006\000\000\006$@P\334\000\000\177\bp\017\214\277\000\000\354\330\b\000\000\b @P\334\000\000\177\np\017\214\277\000\000\354\330\n\000\000\n\034@P\334\000\000\177\fp\017\214\277\000\000\354\330\f\000\000\f\030@P\334\000\000\177\016p\017\214\277\000\000\354\330\016\000\000\016\024@P\334\000\000\177\020p\017\214\277\000\000\354\330\020\000\000\020\020@P\334\000\000\177\026p\017\214\277\000\000\354\330\026\000\000\026\f@P\334\000\000\177\030p\017\214\277\000\000\354\330\030\000\000\030\b@P\334\000\000\177\032p\017\214\277\000\000\354\330\032\000\000\032\004@P\334\000\000\177\034p\017\214\277\000\000\354\330\034\000\000\034\000@P\334\000\000\177\036\000\000\312\321\000\000\002\004\002\000\312\321\000\004\n\004\004\000\312\321\000\b\022\004\006\000\312\321\000\f\032\004\f\000\312\321\000\0302\004\016\000\312\321\000\034:\004\020\000\312\321\000 B\004\026\000\312\321\000,Z\004\030\000\312\321\0000b\004\032\000\312\321\0004j\004p\017\214\277\000\000\354\330\036\000\000\036\206\000\312\321\000\f\033\006\210\000\312\321\000\020#\006\212\000\312\321\000\024+\006\220\000\312\321\000 C\006\240\000\312\321\000@\203\006\260\000\312\321\000`\303\006\300\000\312\321\000\200\003\007\320\000\312\321\000\240C\007\340\000\312\321\000\300\203\007\360\000\312\321\000\340\303\007\b\000\312\321\000\020\"\004\n\000\312\321\000\024*\004\034\000\312\321\0008r\004\036\000\312\321\000<z\004\177\300\214\277\000\000\212\277\177\300\214\277\001\000\217\277\344\000\341\323\360\001\222\007\350\000\341\323\360\r\243\007\354\000\341\323\360\021\263\007\360\000\341\323\360\025K\004\002\000\200\277`@\\\334\000\000\177\022~\000\341\323\220\001\372\005\202\000\341\323\220\r\353\005\224\000\341\323\240\001\272\005\230\000\341\323\240\r\253\005\244\000\341\323\260\001z\005\264\000\341\323\300\001:\005\304\000\341\323\320\001\372\004\324\000\341\323\340\001\272\004\364\000\341\323\002\001\322\007\370\000\341\323\002\r\343\007\374\000\341\323\002\021\363\007\214\000\341\323\220\021\333\005\220\000\341\323\220\025\313\005\234\000\341\323\240\021\233\005\240\000\341\323\240\025\213\005\250\000\341\323\260\rk\005p\017\214\277\000\000\341\323\002\025K\004\254\000\341\323\260\021[\005\260\000\341\323\260\025K\005\270\000\341\323\300\r+\005\274\000\341\323\300\021\033\005\300\000\341\323\300\025\013\005\310\000\341\323\320\r\353\004\314\000\341\323\320\021\333\004\320\000\341\323\320\025\313\004\330\000\341\323\340\r\253\004\334\000\341\323\340\021\233\004\340\000\341\323\340\025\213\004\000\000\217\277\000\000\212\277\177\300\214\277\001\000\217\277|\000\341\323\f\t\372\005x\000\341\323\f\r\n\006t\000\341\323\f\0212\006p\000\341\323\f\025B\006l\000\341\323\016\tR\006h\000\341\323\016\rb\006d\000\341\323\016\021r\006`\000\341\323\016\025\202\006\\\000\341\323\020\t\222\006X\000\341\323\020\r\242\006T\000\341\323\020\021\262\006P\000\341\323\020\025\302\006L\000\341\323\026\t\322\006H\000\341\323\026\r\342\006D\000\341\323\026\021\362\006@\000\341\323\026\025\002\007<\000\341\323\030\t\022\0078\000\341\323\030\r\"\0074\000\341\323\030\0212\0070\000\341\323\030\025B\007,\000\341\323\032\tR\007(\000\341\323\032\rb\007$\000\341\323\032\021r\007 \000\341\323\032\025\202\007\230\000\341\323\034\t\222\007\030\000\341\323\034\r\242\007\024\000\341\323\034\021\262\007\020\000\341\323\034\025\302\007\f\000\341\323\036\t\322\007\224\000\341\323\036\r\342\007\004\000\341\323\036\021\362\007\000\000\341\323\036\025\002\004\000\000\217\277\000\000\212\277\377\000\200\276\000\000\200\177\377\370\020&\000\000\200\177\000\020\232}j \200\276~\000\200\210\b\000\310\321|!\005\002\377\177\002\260\202\000\377\321|\021\n\000\000#\200\276\200\002\020~\377\370\022(\000\000\001\000\371\020\224}|\000\004\006\001\000\200\277\t\371\004\001~\000\376\207\234@P\334\000\000\177\b\026\017\002\222p\017\214\277\021\020\022)\n\000\205\322\027\022\003\000\b\000\350\321\026\022\003\002\t\000\377\321\t\005(\004\214@T\334\000\000\177\n\b\000\b\322\b\003Q\000p\017\214\277\214\000\b\322\n\003!\004\224@T\334\000\000\177\n\204@T\334\000\000\177\bp\017\214\277\200\000\350\321\b-(\004\237\000\003#\377\000\200\276\000\000\200\177\377\372\020&\000\000\200\177\216\000\b\322\200\0031\006\000\020\232}\000\200l\334\216\202\177\000j \200\276~\000\200\210\b\000\310\321}!\005\002\377\177\002\260|\000\377\321}\021\n\000\000#\200\276\200\002\020~\377\372\022(\000\000\001\000\371\020\224}}\000\004\006\001\000\200\277\t\373\370\000~\000\376\207\026\000\005i\237\004\007#\377\000\200\276\000\000\200\177\377\374\020&\000\000\200\177\220\000\b\322\202\0031\006\000\020\232}\000\200l\334\220|\177\000j \200\276~\000\200\210\b\000\310\321~!\005\002\377\177\002\260|\000\377\321~\021\n\000\000#\200\276\200\002\020~\377\374\022(\000\000\001\000\371\020\224}~\000\004\006\001\000\200\277\t\375\370\000~\000\376\207\026\004\ti\237\b\013#\377\000\200\276\000\000\200\177\377\376\020&\000\000\200\177\222\000\b\322\204\0031\006\000\020\232}\000\200l\334\222|\177\000j \200\276~\000\200\210\b\000\310\321\177!\005\002\377\177\002\260\213\000\377\321\177\021\n\000\000#\200\276\200\002\020~\377\376\022(\000\000\001\000\371\020\224}\177\000\004\006\001\000\200\277\t\377\026\001~\000\376\207\026\b\371h\237\370\372\"\377\000\200\276\000\000\200\177\377\360\020&\000\000\200\177~\000\b\322|\0031\006\000\020\232}\000\200l\334~\213\177\000j \200\276~\000\200\210\b\000\310\321x!\005\002\377\177\002\260\213\000\377\321x\021\n\000\000#\200\276\200\002\020~\377\360\022(\000\000\001\000\371\020\224}x\000\004\006\001\000\200\277\t\361\026\001~\000\376\207\377\000\200\276\000\000\200\177\377\362\020&\000\000\200\177\000\020\232} \200l\334\216\213\177\000j \200\276~\000\200\210\b\000\310\321y!\005\002\377\177\002\260x\000\377\321y\021\n\000\000#\200\276\200\002\020~\377\362\022(\000\000\001\000\371\020\224}y\000\004\006\001\000\200\277\t\363\360\000~\000\376\207\377\000\200\276\000\000\200\177\377\364\020&\000\000\200\177\000\020\232} \200l\334\220x\177\000j \200\276~\000\200\210\b\000\310\321z!\005\002\377\177\002\260x\000\377\321z\021\n\000\000#\200\276\200\002\020~\377\364\022(\000\000\001\000\371\020\224}z\000\004\006\001\000\200\277\t\365\360\000~\000\376\207\377\000\200\276\000\000\200\177\377\366\020&\000\000\200\177\000\020\232} \200l\334\222x\177\000j \200\276~\000\200\210\b\000\310\321{!\005\002\377\177\002\260\213\000\377\321{\021\n\000\000#\200\276\200\002\020~\377\366\022(\000\000\001\000\371\020\224}{\000\004\006\001\000\200\277\t\367\026\001~\000\376\207\377\000\200\276\000\000\200\177\377\350\020&\000\000\200\177\000\020\232} \200l\334~\213\177\000j \200\276~\000\200\210\b\000\310\321t!\005\002\377\177\002\260x\000\377\321t\021\n\000\000#\200\276\200\002\020~\377\350\022(\000\000\001\000\371\020\224}t\000\004\006\001\000\200\277\t\351\360\000~\000\376\207\377\000\200\276\000\000\200\177\377\352\020&\000\000\200\177\000\020\232}@\200l\334\216x\177\000j \200\276~\000\200\210\b\000\310\321u!\005\002\377\177\002\260t\000\377\321u\021\n\000\000#\200\276\200\002\020~\377\352\022(\000\000\001\000\371\020\224}u\000\004\006\001\000\200\277\t\353\350\000~\000\376\207\377\000\200\276\000\000\200\177\377\354\020&\000\000\200\177\000\020\232}@\200l\334\220t\177\000j \200\276~\000\200\210\b\000\310\321v!\005\002\377\177\002\260t\000\377\321v\021\n\000\000#\200\276\200\002\020~\377\354\022(\000\000\001\000\371\020\224}v\000\004\006\001\000\200\277\t\355\350\000~\000\376\207\377\000\200\276\000\000\200\177\377\356\020&\000\000\200\177\000\020\232}@\200l\334\222t\177\000j \200\276~\000\200\210\b\000\310\321w!\005\002\377\177\002\260x\000\377\321w\021\n\000\000#\200\276\200\002\020~\377\356\022(\000\000\001\000\371\020\224}w\000\004\006\001\000\200\277\t\357\360\000~\000\376\207\377\000\200\276\000\000\200\177\377\340\020&\000\000\200\177\000\020\232}@\200l\334~x\177\000j \200\276~\000\200\210\b\000\310\321p!\005\002\377\177\002\260t\000\377\321p\021\n\000\000#\200\276\200\002\020~\377\340\022(\000\000\001\000\371\020\224}p\000\004\006\001\000\200\277\t\341\350\000~\000\376\207\377\000\200\276\000\000\200\177\377\342\020&\000\000\200\177\000\020\232}`\200l\334\216t\177\000j \200\276~\000\200\210\b\000\310\321q!\005\002\377\177\002\260p\000\377\321q\021\n\000\000#\200\276\200\002\020~\377\342\022(\000\000\001\000\371\020\224}q\000\004\006\001\000\200\277\t\343\340\000~\000\376\207\377\000\200\276\000\000\200\177\377\344\020&\000\000\200\177\000\020\232}`\200l\334\220p\177\000j \200\276~\000\200\210\b\000\310\321r!\005\002\377\177\002\260p\000\377\321r\021\n\000\000#\200\276\200\002\020~\377\344\022(\000\000\001\000\371\020\224}r\000\004\006\001\000\200\277\t\345\340\000~\000\376\207\377\000\200\276\000\000\200\177\377\346\020&\000\000\200\177\000\020\232}`\200l\334\222p\177\000j \200\276~\000\200\210\b\000\310\321s!\005\002\377\177\002\260t\000\377\321s\021\n\000\000#\200\276\200\002\020~\377\346\022(\000\000\001\000\371\020\224}s\000\004\006\001\000\200\277\t\347\350\000~\000\376\207\377\000\200\276\000\000\200\177\377\330\020&\000\000\200\177\000\020\232}`\200l\334~t\177\000j \200\276~\000\200\210\b\000\310\321l!\005\002\377\177\002\260r\000\377\321l\021\n\000\000#\200\276\200\002\020~\377\330\022(\000\000\001\000\371\020\224}l\000\004\006\001\000\200\277\t\331\344\000~\000\376\207\204@T\334\000\000\177\bp\017\214\277\220\020\020(p\000\350\321\b-(\004\237\340\342\"\377\000\200\276\000\000\200\177\377\332\020&\000\000\200\177v\000\b\322p\0031\006\000\020\232}\000\200l\334vr\177\000j \200\276~\000\200\210\b\000\310\321m!\005\002\377\177\002\260l\000\377\321m\021\n\000\000#\200\276\200\002\020~\377\332\022(\000\000\001\000\371\020\224}m\000\004\006\001\000\200\277\t\333\330\000~\000\376\207\026\340\344h\237\344\346\"\377\000\200\276\000\000\200\177\377\334\020&\000\000\200\177x\000\b\322r\0031\006\000\020\232}\000\200l\334xl\177\000j \200\276~\000\200\210\b\000\310\321n!\005\002\377\177\002\260l\000\377\321n\021\n\000\000#\200\276\200\002\020~\377\334\022(\000\000\001\000\371\020\224}n\000\004\006\001\000\200\277\t\335\330\000~\000\376\207\026\344\350h\237\350\352\"\377\000\200\276\000\000\200\177\377\336\020&\000\000\200\177z\000\b\322t\0031\006\000\020\232}\000\200l\334zl\177\000j \200\276~\000\200\210\b\000\310\321o!\005\002\377\177\002\260~\000\377\321o\021\n\000\000#\200\276\200\002\020~\377\336\022(\000\000\001\000\371\020\224}o\000\004\006\001\000\200\277\t\337\374\000~\000\376\207\026\350\330h\237\330\332\"\377\000\200\276\000\000\200\177\377\320\020&\000\000\200\177n\000\b\322l\0031\006\000\020\232}\000\200l\334n~\177\000j \200\276~\000\200\210\b\000\310\321h!\005\002\377\177\002\260~\000\377\321h\021\n\000\000#\200\276\200\002\020~\377\320\022(\000\000\001\000\371\020\224}h\000\004\006\001\000\200\277\t\321\374\000~\000\376\207\377\000\200\276\000\000\200\177\377\322\020&\000\000\200\177\000\020\232} \200l\334v~\177\000j \200\276~\000\200\210\b\000\310\321i!\005\002\377\177\002\260h\000\377\321i\021\n\000\000#\200\276\200\002\020~\377\322\022(\000\000\001\000\371\020\224}i\000\004\006\001\000\200\277\t\323\320\000~\000\376\207\377\000\200\276\000\000\200\177\377\324\020&\000\000\200\177\000\020\232} \200l\334xh\177\000j \200\276~\000\200\210\b\000\310\321j!\005\002\377\177\002\260h\000\377\321j\021\n\000\000#\200\276\200\002\020~\377\324\022(\000\000\001\000\371\020\224}j\000\004\006\001\000\200\277\t\325\320\000~\000\376\207\377\000\200\276\000\000\200\177\377\326\020&\000\000\200\177\000\020\232} \200l\334zh\177\000j \200\276~\000\200\210\b\000\310\321k!\005\002\377\177\002\260~\000\377\321k\021\n\000\000#\200\276\200\002\020~\377\326\022(\000\000\001\000\371\020\224}k\000\004\006\001\000\200\277\t\327\374\000~\000\376\207\377\000\200\276\000\000\200\177\377\310\020&\000\000\200\177\000\020\232} \200l\334n~\177\000j \200\276~\000\200\210\b\000\310\321d!\005\002\377\177\002\260h\000\377\321d\021\n\000\000#\200\276\200\002\020~\377\310\022(\000\000\001\000\371\020\224}d\000\004\006\001\000\200\277\t\311\320\000~\000\376\207\377\000\200\276\000\000\200\177\377\312\020&\000\000\200\177\000\020\232}@\200l\334vh\177\000j \200\276~\000\200\210\b\000\310\321e!\005\002\377\177\002\260d\000\377\321e\021\n\000\000#\200\276\200\002\020~\377\312\022(\000\000\001\000\371\020\224}e\000\004\006\001\000\200\277\t\313\310\000~\000\376\207\377\000\200\276\000\000\200\177\377\314\020&\000\000\200\177\000\020\232}@\200l\334xd\177\000j \200\276~\000\200\210\b\000\310\321f!\005\002\377\177\002\260d\000\377\321f\021\n\000\000#\200\276\200\002\020~\377\314\022(\000\000\001\000\371\020\224}f\000\004\006\001\000\200\277\t\315\310\000~\000\376\207\377\000\200\276\000\000\200\177\377\316\020&\000\000\200\177\000\020\232}@\200l\334zd\177\000j \200\276~\000\200\210\b\000\310\321g!\005\002\377\177\002\260h\000\377\321g\021\n\000\000#\200\276\200\002\020~\377\316\022(\000\000\001\000\371\020\224}g\000\004\006\001\000\200\277\t\317\320\000~\000\376\207\377\000\200\276\000\000\200\177\377\300\020&\000\000\200\177\000\020\232}@\200l\334nh\177\000j \200\276~\000\200\210\b\000\310\321`!\005\002\377\177\002\260d\000\377\321`\021\n\000\000#\200\276\200\002\020~\377\300\022(\000\000\001\000\371\020\224}`\000\004\006\001\000\200\277\t\301\310\000~\000\376\207\377\000\200\276\000\000\200\177\377\302\020&\000\000\200\177\000\020\232}`\200l\334vd\177\000j \200\276~\000\200\210\b\000\310\321a!\005\002\377\177\002\260`\000\377\321a\021\n\000\000#\200\276\200\002\020~\377\302\022(\000\000\001\000\371\020\224}a\000\004\006\001\000\200\277\t\303\300\000~\000\376\207\377\000\200\276\000\000\200\177\377\304\020&\000\000\200\177\000\020\232}`\200l\334x`\177\000j \200\276~\000\200\210\b\000\310\321b!\005\002\377\177\002\260`\000\377\321b\021\n\000\000#\200\276\200\002\020~\377\304\022(\000\000\001\000\371\020\224}b\000\004\006\001\000\200\277\t\305\300\000~\000\376\207\377\000\200\276\000\000\200\177\377\306\020&\000\000\200\177\000\020\232}`\200l\334z`\177\000j \200\276~\000\200\210\b\000\310\321c!\005\002\377\177\002\260d\000\377\321c\021\n\000\000#\200\276\200\002\020~\377\306\022(\000\000\001\000\371\020\224}c\000\004\006\001\000\200\277\t\307\310\000~\000\376\207\377\000\200\276\000\000\200\177\377\270\020&\000\000\200\177\000\020\232}`\200l\334nd\177\000j \200\276~\000\200\210\b\000\310\321\\!\005\002\377\177\002\260b\000\377\321\\\021\n\000\000#\200\276\200\002\020~\377\270\022(\000\000\001\000\371\020\224}\\\000\004\006\001\000\200\277\t\271\304\000~\000\376\207\204@T\334\000\000\177\bp\017\214\277\240\020\020(`\000\350\321\b-(\004\237\300\302\"\377\000\200\276\000\000\200\177\377\272\020&\000\000\200\177f\000\b\322`\0031\006\000\020\232}\000\200l\334fb\177\000j \200\276~\000\200\210\b\000\310\321]!\005\002\377\177\002\260\\\000\377\321]\021\n\000\000#\200\276\200\002\020~\377\272\022(\000\000\001\000\371\020\224}]\000\004\006\001\000\200\277\t\273\270\000~\000\376\207\026\300\304h\237\304\306\"\377\000\200\276\000\000\200\177\377\274\020&\000\000\200\177h\000\b\322b\0031\006\000\020\232}\000\200l\334h\\\177\000j \200\276~\000\200\210\b\000\310\321^!\005\002\377\177\002\260\\\000\377\321^\021\n\000\000#\200\276\200\002\020~\377\274\022(\000\000\001\000\371\020\224}^\000\004\006\001\000\200\277\t\275\270\000~\000\376\207\026\304\310h\237\310\312\"\377\000\200\276\000\000\200\177\377\276\020&\000\000\200\177j\000\b\322d\0031\006\000\020\232}\000\200l\334j\\\177\000j \200\276~\000\200\210\b\000\310\321_!\005\002\377\177\002\260n\000\377\321_\021\n\000\000#\200\276\200\002\020~\377\276\022(\000\000\001\000\371\020\224}_\000\004\006\001\000\200\277\t\277\334\000~\000\376\207\026\310\270h\237\270\272\"\377\000\200\276\000\000\200\177\377\260\020&\000\000\200\177^\000\b\322\\\0031\006\000\020\232}\000\200l\334^n\177\000j \200\276~\000\200\210\b\000\310\321X!\005\002\377\177\002\260n\000\377\321X\021\n\000\000#\200\276\200\002\020~\377\260\022(\000\000\001\000\371\020\224}X\000\004\006\001\000\200\277\t\261\334\000~\000\376\207\377\000\200\276\000\000\200\177\377\262\020&\000\000\200\177\000\020\232} \200l\334fn\177\000j \200\276~\000\200\210\b\000\310\321Y!\005\002\377\177\002\260X\000\377\321Y\021\n\000\000#\200\276\200\002\020~\377\262\022(\000\000\001\000\371\020\224}Y\000\004\006\001\000\200\277\t\263\260\000~\000\376\207\377\000\200\276\000\000\200\177\377\264\020&\000\000\200\177\000\020\232} \200l\334hX\177\000j \200\276~\000\200\210\b\000\310\321Z!\005\002\377\177\002\260X\000\377\321Z\021\n\000\000#\200\276\200\002\020~\377\264\022(\000\000\001\000\371\020\224}Z\000\004\006\001\000\200\277\t\265\260\000~\000\376\207\377\000\200\276\000\000\200\177\377\266\020&\000\000\200\177\000\020\232} \200l\334jX\177\000j \200\276~\000\200\210\b\000\310\321[!\005\002\377\177\002\260n\000\377\321[\021\n\000\000#\200\276\200\002\020~\377\266\022(\000\000\001\000\371\020\224}[\000\004\006\001\000\200\277\t\267\334\000~\000\376\207\377\000\200\276\000\000\200\177\377\250\020&\000\000\200\177\000\020\232} \200l\334^n\177\000j \200\276~\000\200\210\b\000\310\321T!\005\002\377\177\002\260X\000\377\321T\021\n\000\000#\200\276\200\002\020~\377\250\022(\000\000\001\000\371\020\224}T\000\004\006\001\000\200\277\t\251\260\000~\000\376\207\377\000\200\276\000\000\200\177\377\252\020&\000\000\200\177\000\020\232}@\200l\334fX\177\000j \200\276~\000\200\210\b\000\310\321U!\005\002\377\177\002\260T\000\377\321U\021\n\000\000#\200\276\200\002\020~\377\252\022(\000\000\001\000\371\020\224}U\000\004\006\001\000\200\277\t\253\250\000~\000\376\207\377\000\200\276\000\000\200\177\377\254\020&\000\000\200\177\000\020\232}@\200l\334hT\177\000j \200\276~\000\200\210\b\000\310\321V!\005\002\377\177\002\260T\000\377\321V\021\n\000\000#\200\276\200\002\020~\377\254\022(\000\000\001\000\371\020\224}V\000\004\006\001\000\200\277\t\255\250\000~\000\376\207\377\000\200\276\000\000\200\177\377\256\020&\000\000\200\177\000\020\232}@\200l\334jT\177\000j \200\276~\000\200\210\b\000\310\321W!\005\002\377\177\002\260X\000\377\321W\021\n\000\000#\200\276\200\002\020~\377\256\022(\000\000\001\000\371\020\224}W\000\004\006\001\000\200\277\t\257\260\000~\000\376\207\377\000\200\276\000\000\200\177\377\240\020&\000\000\200\177\000\020\232}@\200l\334^X\177\000j \200\276~\000\200\210\b\000\310\321P!\005\002\377\177\002\260T\000\377\321P\021\n\000\000#\200\276\200\002\020~\377\240\022(\000\000\001\000\371\020\224}P\000\004\006\001\000\200\277\t\241\250\000~\000\376\207\377\000\200\276\000\000\200\177\377\242\020&\000\000\200\177\000\020\232}`\200l\334fT\177\000j \200\276~\000\200\210\b\000\310\321Q!\005\002\377\177\002\260P\000\377\321Q\021\n\000\000#\200\276\200\002\020~\377\242\022(\000\000\001\000\371\020\224}Q\000\004\006\001\000\200\277\t\243\240\000~\000\376\207\377\000\200\276\000\000\200\177\377\244\020&\000\000\200\177\000\020\232}`\200l\334hP\177\000j \200\276~\000\200\210\b\000\310\321R!\005\002\377\177\002\260P\000\377\321R\021\n\000\000#\200\276\200\002\020~\377\244\022(\000\000\001\000\371\020\224}R\000\004\006\001\000\200\277\t\245\240\000~\000\376\207\377\000\200\276\000\000\200\177\377\246\020&\000\000\200\177\000\020\232}`\200l\334jP\177\000j \200\276~\000\200\210\b\000\310\321S!\005\002\377\177\002\260T\000\377\321S\021\n\000\000#\200\276\200\002\020~\377\246\022(\000\000\001\000\371\020\224}S\000\004\006\001\000\200\277\t\247\250\000~\000\376\207\377\000\200\276\000\000\200\177\377\230\020&\000\000\200\177\000\020\232}`\200l\334^T\177\000j \200\276~\000\200\210\b\000\310\321L!\005\002\377\177\002\260R\000\377\321L\021\n\000\000#\200\276\200\002\020~\377\230\022(\000\000\001\000\371\020\224}L\000\004\006\001\000\200\277\t\231\244\000~\000\376\207\204@T\334\000\000\177\bp\017\214\277\260\020\020(P\000\350\321\b-(\004\237\240\242\"\377\000\200\276\000\000\200\177\377\232\020&\000\000\200\177V\000\b\322P\0031\006\000\020\232}\000\200l\334VR\177\000j \200\276~\000\200\210\b\000\310\321M!\005\002\377\177\002\260L\000\377\321M\021\n\000\000#\200\276\200\002\020~\377\232\022(\000\000\001\000\371\020\224}M\000\004\006\001\000\200\277\t\233\230\000~\000\376\207\026\240\244h\237\244\246\"\377\000\200\276\000\000\200\177\377\234\020&\000\000\200\177X\000\b\322R\0031\006\000\020\232}\000\200l\334XL\177\000j \200\276~\000\200\210\b\000\310\321N!\005\002\377\177\002\260L\000\377\321N\021\n\000\000#\200\276\200\002\020~\377\234\022(\000\000\001\000\371\020\224}N\000\004\006\001\000\200\277\t\235\230\000~\000\376\207\026\244\250h\237\250\252\"\377\000\200\276\000\000\200\177\377\236\020&\000\000\200\177Z\000\b\322T\0031\006\000\020\232}\000\200l\334ZL\177\000j \200\276~\000\200\210\b\000\310\321O!\005\002\377\177\002\260^\000\377\321O\021\n\000\000#\200\276\200\002\020~\377\236\022(\000\000\001\000\371\020\224}O\000\004\006\001\000\200\277\t\237\274\000~\000\376\207\026\250\230h\237\230\232\"\377\000\200\276\000\000\200\177\377\220\020&\000\000\200\177N\000\b\322L\0031\006\000\020\232}\000\200l\334N^\177\000j \200\276~\000\200\210\b\000\310\321H!\005\002\377\177\002\260^\000\377\321H\021\n\000\000#\200\276\200\002\020~\377\220\022(\000\000\001\000\371\020\224}H\000\004\006\001\000\200\277\t\221\274\000~\000\376\207\377\000\200\276\000\000\200\177\377\222\020&\000\000\200\177\000\020\232} \200l\334V^\177\000j \200\276~\000\200\210\b\000\310\321I!\005\002\377\177\002\260H\000\377\321I\021\n\000\000#\200\276\200\002\020~\377\222\022(\000\000\001\000\371\020\224}I\000\004\006\001\000\200\277\t\223\220\000~\000\376\207\377\000\200\276\000\000\200\177\377\224\020&\000\000\200\177\000\020\232} \200l\334XH\177\000j \200\276~\000\200\210\b\000\310\321J!\005\002\377\177\002\260H\000\377\321J\021\n\000\000#\200\276\200\002\020~\377\224\022(\000\000\001\000\371\020\224}J\000\004\006\001\000\200\277\t\225\220\000~\000\376\207\377\000\200\276\000\000\200\177\377\226\020&\000\000\200\177\000\020\232} \200l\334ZH\177\000j \200\276~\000\200\210\b\000\310\321K!\005\002\377\177\002\260^\000\377\321K\021\n\000\000#\200\276\200\002\020~\377\226\022(\000\000\001\000\371\020\224}K\000\004\006\001\000\200\277\t\227\274\000~\000\376\207\377\000\200\276\000\000\200\177\377\210\020&\000\000\200\177\000\020\232} \200l\334N^\177\000j \200\276~\000\200\210\b\000\310\321D!\005\002\377\177\002\260H\000\377\321D\021\n\000\000#\200\276\200\002\020~\377\210\022(\000\000\001\000\371\020\224}D\000\004\006\001\000\200\277\t\211\220\000~\000\376\207\377\000\200\276\000\000\200\177\377\212\020&\000\000\200\177\000\020\232}@\200l\334VH\177\000j \200\276~\000\200\210\b\000\310\321E!\005\002\377\177\002\260D\000\377\321E\021\n\000\000#\200\276\200\002\020~\377\212\022(\000\000\001\000\371\020\224}E\000\004\006\001\000\200\277\t\213\210\000~\000\376\207\377\000\200\276\000\000\200\177\377\214\020&\000\000\200\177\000\020\232}@\200l\334XD\177\000j \200\276~\000\200\210\b\000\310\321F!\005\002\377\177\002\260D\000\377\321F\021\n\000\000#\200\276\200\002\020~\377\214\022(\000\000\001\000\371\020\224}F\000\004\006\001\000\200\277\t\215\210\000~\000\376\207\377\000\200\276\000\000\200\177\377\216\020&\000\000\200\177\000\020\232}@\200l\334ZD\177\000j \200\276~\000\200\210\b\000\310\321G!\005\002\377\177\002\260H\000\377\321G\021\n\000\000#\200\276\200\002\020~\377\216\022(\000\000\001\000\371\020\224}G\000\004\006\001\000\200\277\t\217\220\000~\000\376\207\377\000\200\276\000\000\200\177\377\200\020&\000\000\200\177\000\020\232}@\200l\334NH\177\000j \200\276~\000\200\210\b\000\310\321@!\005\002\377\177\002\260D\000\377\321@\021\n\000\000#\200\276\200\002\020~\377\200\022(\000\000\001\000\371\020\224}@\000\004\006\001\000\200\277\t\201\210\000~\000\376\207\377\000\200\276\000\000\200\177\377\202\020&\000\000\200\177\000\020\232}`\200l\334VD\177\000j \200\276~\000\200\210\b\000\310\321A!\005\002\377\177\002\260@\000\377\321A\021\n\000\000#\200\276\200\002\020~\377\202\022(\000\000\001\000\371\020\224}A\000\004\006\001\000\200\277\t\203\200\000~\000\376\207\377\000\200\276\000\000\200\177\377\204\020&\000\000\200\177\000\020\232}`\200l\334X@\177\000j \200\276~\000\200\210\b\000\310\321B!\005\002\377\177\002\260@\000\377\321B\021\n\000\000#\200\276\200\002\020~\377\204\022(\000\000\001\000\371\020\224}B\000\004\006\001\000\200\277\t\205\200\000~\000\376\207\377\000\200\276\000\000\200\177\377\206\020&\000\000\200\177\000\020\232}`\200l\334Z@\177\000j \200\276~\000\200\210\b\000\310\321C!\005\002\377\177\002\260D\000\377\321C\021\n\000\000#\200\276\200\002\020~\377\206\022(\000\000\001\000\371\020\224}C\000\004\006\001\000\200\277\t\207\210\000~\000\376\207\377\000\200\276\000\000\200\177\377x\020&\000\000\200\177\000\020\232}`\200l\334ND\177\000j \200\276~\000\200\210\b\000\310\321<!\005\002\377\177\002\260D\000\377\321<\021\n\000\000#\200\276\200\002\020~\377x\022(\000\000\001\000\371\020\224}<\000\004\006\001\000\200\277\ty\210\000~\000\376\207\377\022\021h\200\000\000\000\237\020\022\"\n\000\205\322\026\022\002\000\013\000\205\322\027\020\002\000\b\000\350\321\026\020\002\002\t\000\377\321\t\025.\004\214@T\334\000\000\177\n\b\000\b\322\b\003Q\000\377\000\200\276\000\000\200\177p\017\214\277@\000\b\322\n\003!\004\377z\020&\000\000\200\177B\000\b\322\200\003\001\005\000\020\232}\000\200l\334BD\177\000j \200\276~\000\200\210\b\000\310\321=!\005\002\377\177\002\260<\000\377\321=\021\n\000\000#\200\276\200\002\020~\377z\022(\000\000\001\000\371\020\224}=\000\004\006\001\000\200\277\t{x\000~\000\376\207\377\000\200\276\000\000\200\177\377|\020&\000\000\200\177D\000\b\322\202\003\001\005\000\020\232}\000\200l\334D<\177\000j \200\276~\000\200\210\b\000\310\321>!\005\002\377\177\002\260<\000\377\321>\021\n\000\000#\200\276\200\002\020~\377|\022(\000\000\001\000\371\020\224}>\000\004\006\001\000\200\277\t}x\000~\000\376\207\377\000\200\276\000\000\200\177\377~\020&\000\000\200\177F\000\b\322\204\003\001\005\000\020\232}\000\200l\334F<\177\000j \200\276~\000\200\210\b\000\310\321?!\005\002\377\177\002\260H\000\377\321?\021\n\000\000#\200\276\200\002\020~\377~\022(\000\000\001\000\371\020\224}?\000\004\006\001\000\200\277\t\177\220\000~\000\376\207\377\000\200\276\000\000\200\177\377p\020&\000\000\200\177<\000\b\322|\003\001\005\000\020\232}\000\200l\334<H\177\000j \200\276~\000\200\210\b\000\310\3218!\005\002\377\177\002\260>\000\377\3218\021\n\000\000#\200\276\200\002\020~\377p\022(\000\000\001\000\371\020\224}8\000\004\006\001\000\200\277\tq|\000~\000\376\207\377\000\200\276\000\000\200\177\377r\020&\000\000\200\177\000\020\232} \200l\334B>\177\000j \200\276~\000\200\210\b\000\310\3219!\005\002\377\177\002\2608\000\377\3219\021\n\000\000#\200\276\200\002\020~\377r\022(\000\000\001\000\371\020\224}9\000\004\006\001\000\200\277\tsp\000~\000\376\207\377\000\200\276\000\000\200\177\377t\020&\000\000\200\177\000\020\232} \200l\334D8\177\000j \200\276~\000\200\210\b\000\310\321:!\005\002\377\177\002\2608\000\377\321:\021\n\000\000#\200\276\200\002\020~\377t\022(\000\000\001\000\371\020\224}:\000\004\006\001\000\200\277\tup\000~\000\376\207\377\000\200\276\000\000\200\177\377v\020&\000\000\200\177\000\020\232} \200l\334F8\177\000j \200\276~\000\200\210\b\000\310\321;!\005\002\377\177\002\260>\000\377\321;\021\n\000\000#\200\276\200\002\020~\377v\022(\000\000\001\000\371\020\224};\000\004\006\001\000\200\277\tw|\000~\000\376\207\377\000\200\276\000\000\200\177\377h\020&\000\000\200\177\000\020\232} \200l\334<>\177\000j \200\276~\000\200\210\b\000\310\3214!\005\002\377\177\002\2608\000\377\3214\021\n\000\000#\200\276\200\002\020~\377h\022(\000\000\001\000\371\020\224}4\000\004\006\001\000\200\277\tip\000~\000\376\207\377\000\200\276\000\000\200\177\377j\020&\000\000\200\177\000\020\232}@\200l\334B8\177\000j \200\276~\000\200\210\b\000\310\3215!\005\002\377\177\002\2604\000\377\3215\021\n\000\000#\200\276\200\002\020~\377j\022(\000\000\001\000\371\020\224}5\000\004\006\001\000\200\277\tkh\000~\000\376\207\377\000\200\276\000\000\200\177\377l\020&\000\000\200\177\000\020\232}@\200l\334D4\177\000j \200\276~\000\200\210\b\000\310\3216!\005\002\377\177\002\2604\000\377\3216\021\n\000\000#\200\276\200\002\020~\377l\022(\000\000\001\000\371\020\224}6\000\004\006\001\000\200\277\tmh\000~\000\376\207\377\000\200\276\000\000\200\177\377n\020&\000\000\200\177\000\020\232}@\200l\334F4\177\000j \200\276~\000\200\210\b\000\310\3217!\005\002\377\177\002\2608\000\377\3217\021\n\000\000#\200\276\200\002\020~\377n\022(\000\000\001\000\371\020\224}7\000\004\006\001\000\200\277\top\000~\000\376\207\377\000\200\276\000\000\200\177\377`\020&\000\000\200\177\000\020\232}@\200l\334<8\177\000j \200\276~\000\200\210\b\000\310\3210!\005\002\377\177\002\2604\000\377\3210\021\n\000\000#\200\276\200\002\020~\377`\022(\000\000\001\000\371\020\224}0\000\004\006\001\000\200\277\tah\000~\000\376\207\377\000\200\276\000\000\200\177\377b\020&\000\000\200\177\000\020\232}`\200l\334B4\177\000j \200\276~\000\200\210\b\000\310\3211!\005\002\377\177\002\2600\000\377\3211\021\n\000\000#\200\276\200\002\020~\377b\022(\000\000\001\000\371\020\224}1\000\004\006\001\000\200\277\tc`\000~\000\376\207\377\000\200\276\000\000\200\177\377d\020&\000\000\200\177\000\020\232}`\200l\334D0\177\000j \200\276~\000\200\210\b\000\310\3212!\005\002\377\177\002\2600\000\377\3212\021\n\000\000#\200\276\200\002\020~\377d\022(\000\000\001\000\371\020\224}2\000\004\006\001\000\200\277\te`\000~\000\376\207\377\000\200\276\000\000\200\177\377f\020&\000\000\200\177\000\020\232}`\200l\334F0\177\000j \200\276~\000\200\210\b\000\310\3213!\005\002\377\177\002\2604\000\377\3213\021\n\000\000#\200\276\200\002\020~\377f\022(\000\000\001\000\371\020\224}3\000\004\006\001\000\200\277\tgh\000~\000\376\207\377\000\200\276\000\000\200\177\377X\020&\000\000\200\177\000\020\232}`\200l\334<4\177\000j \200\276~\000\200\210\b\000\310\321,!\005\002\377\177\002\2602\000\377\321,\021\n\000\000#\200\276\200\002\020~\377X\022(\000\000\001\000\371\020\224},\000\004\006\001\000\200\277\tYd\000~\000\376\207\377\000\200\276\000\000\200\177\377Z\020&\000\000\200\1770\000\b\322p\003\001\005\000\020\232}\000\200l\33402\177\000j \200\276~\000\200\210\b\000\310\321-!\005\002\377\177\002\260,\000\377\321-\021\n\000\000#\200\276\200\002\020~\377Z\022(\000\000\001\000\371\020\224}-\000\004\006\001\000\200\277\t[X\000~\000\376\207\377\000\200\276\000\000\200\177\377\\\020&\000\000\200\1772\000\b\322r\003\001\005\000\020\232}\000\200l\3342,\177\000j \200\276~\000\200\210\b\000\310\321.!\005\002\377\177\002\260,\000\377\321.\021\n\000\000#\200\276\200\002\020~\377\\\022(\000\000\001\000\371\020\224}.\000\004\006\001\000\200\277\t]X\000~\000\376\207\377\000\200\276\000\000\200\177\377^\020&\000\000\200\1774\000\b\322t\003\001\005\000\020\232}\000\200l\3344,\177\000j \200\276~\000\200\210\b\000\310\321/!\005\002\377\177\002\2606\000\377\321/\021\n\000\000#\200\276\200\002\020~\377^\022(\000\000\001\000\371\020\224}/\000\004\006\001\000\200\277\t_l\000~\000\376\207\377\000\200\276\000\000\200\177\377P\020&\000\000\200\177,\000\b\322l\003\001\005\000\020\232}\000\200l\334,6\177\000j \200\276~\000\200\210\b\000\310\321(!\005\002\377\177\002\260.\000\377\321(\021\n\000\000#\200\276\200\002\020~\377P\022(\000\000\001\000\371\020\224}(\000\004\006\001\000\200\277\tQ\\\000~\000\376\207\377\000\200\276\000\000\200\177\377R\020&\000\000\200\177\000\020\232} \200l\3340.\177\000j \200\276~\000\200\210\b\000\310\321)!\005\002\377\177\002\260(\000\377\321)\021\n\000\000#\200\276\200\002\020~\377R\022(\000\000\001\000\371\020\224})\000\004\006\001\000\200\277\tSP\000~\000\376\207\377\000\200\276\000\000\200\177\377T\020&\000\000\200\177\000\020\232} \200l\3342(\177\000j \200\276~\000\200\210\b\000\310\321*!\005\002\377\177\002\260(\000\377\321*\021\n\000\000#\200\276\200\002\020~\377T\022(\000\000\001\000\371\020\224}*\000\004\006\001\000\200\277\tUP\000~\000\376\207\377\000\200\276\000\000\200\177\377V\020&\000\000\200\177\000\020\232} \200l\3344(\177\000j \200\276~\000\200\210\b\000\310\321+!\005\002\377\177\002\260.\000\377\321+\021\n\000\000#\200\276\200\002\020~\377V\022(\000\000\001\000\371\020\224}+\000\004\006\001\000\200\277\tW\\\000~\000\376\207\377\000\200\276\000\000\200\177\377H\020&\000\000\200\177\000\020\232} \200l\334,.\177\000j \200\276~\000\200\210\b\000\310\321$!\005\002\377\177\002\260(\000\377\321$\021\n\000\000#\200\276\200\002\020~\377H\022(\000\000\001\000\371\020\224}$\000\004\006\001\000\200\277\tIP\000~\000\376\207\377\000\200\276\000\000\200\177\377J\020&\000\000\200\177\000\020\232}@\200l\3340(\177\000j \200\276~\000\200\210\b\000\310\321%!\005\002\377\177\002\260$\000\377\321%\021\n\000\000#\200\276\200\002\020~\377J\022(\000\000\001\000\371\020\224}%\000\004\006\001\000\200\277\tKH\000~\000\376\207\377\000\200\276\000\000\200\177\377L\020&\000\000\200\177\000\020\232}@\200l\3342$\177\000j \200\276~\000\200\210\b\000\310\321&!\005\002\377\177\002\260$\000\377\321&\021\n\000\000#\200\276\200\002\020~\377L\022(\000\000\001\000\371\020\224}&\000\004\006\001\000\200\277\tMH\000~\000\376\207\377\000\200\276\000\000\200\177\377N\020&\000\000\200\177\000\020\232}@\200l\3344$\177\000j \200\276~\000\200\210\b\000\310\321'!\005\002\377\177\002\260(\000\377\321'\021\n\000\000#\200\276\200\002\020~\377N\022(\000\000\001\000\371\020\224}'\000\004\006\001\000\200\277\tOP\000~\000\376\207\377\000\200\276\000\000\200\177\377@\020&\000\000\200\177\000\020\232}@\200l\334,(\177\000j \200\276~\000\200\210\b\000\310\321 !\005\002\377\177\002\260$\000\377\321 \021\n\000\000#\200\276\200\002\020~\377@\022(\000\000\001\000\371\020\224} \000\004\006\001\000\200\277\tAH\000~\000\376\207\377\000\200\276\000\000\200\177\377B\020&\000\000\200\177\000\020\232}`\200l\3340$\177\000j \200\276~\000\200\210\b\000\310\321!!\005\002\377\177\002\260 \000\377\321!\021\n\000\000#\200\276\200\002\020~\377B\022(\000\000\001\000\371\020\224}!\000\004\006\001\000\200\277\tC@\000~\000\376\207\377\000\200\276\000\000\200\177\377D\020&\000\000\200\177\000\020\232}`\200l\3342 \177\000j \200\276~\000\200\210\b\000\310\321\"!\005\002\377\177\002\260 \000\377\321\"\021\n\000\000#\200\276\200\002\020~\377D\022(\000\000\001\000\371\020\224}\"\000\004\006\001\000\200\277\tE@\000~\000\376\207\377\000\200\276\000\000\200\177\377F\020&\000\000\200\177\000\020\232}`\200l\3344 \177\000j \200\276~\000\200\210\b\000\310\321#!\005\002\377\177\002\260$\000\377\321#\021\n\000\000#\200\276\200\002\020~\377F\022(\000\000\001\000\371\020\224}#\000\004\006\001\000\200\277\tGH\000~\000\376\207\377\000\200\276\000\000\200\177\3770\021&\000\000\200\177\000\020\232}`\200l\334,$\177\000j \200\276~\000\200\210\b\000\310\321\230!\005\002\377\177\002\260\"\000\377\321\230\021\n\000\000#\200\276\200\002\020~\3770\023(\000\000\001\000\371\020\224}\230\000\004\006\001\000\200\277\t1E\000~\000\376\207\377\000\200\276\000\000\200\177\3772\021&\000\000\200\177 \000\b\322`\003\001\005\000\020\232}\000\200l\334 \"\177\000j \200\276~\000\200\210\b\000\310\321\231!\005\002\377\177\002\260\034\000\377\321\231\021\n\000\000#\200\276\200\002\020~\3772\023(\000\000\001\000\371\020\224}\231\000\004\006\001\000\200\277\t39\000~\000\376\207\377\000\200\276\000\000\200\177\3774\021&\000\000\200\177\"\000\b\322b\003\001\005\000\020\232}\000\200l\334\"\034\177\000j \200\276~\000\200\210\b\000\310\321\232!\005\002\377\177\002\260\034\000\377\321\232\021\n\000\000#\200\276\200\002\020~\3774\023(\000\000\001\000\371\020\224}\232\000\004\006\001\000\200\277\t59\000~\000\376\207\377\000\200\276\000\000\200\177\3776\021&\000\000\200\177$\000\b\322d\003\001\005\000\020\232}\000\200l\334$\034\177\000j \200\276~\000\200\210\b\000\310\321\233!\005\002\377\177\002\260&\000\377\321\233\021\n\000\000#\200\276\200\002\020~\3776\023(\000\000\001\000\371\020\224}\233\000\004\006\001\000\200\277\t7M\000~\000\376\207\377\000\200\276\000\000\200\177\3770\020&\000\000\200\177\034\000\b\322\\\003\001\005\000\020\232}\000\200l\334\034&\177\000j \200\276~\000\200\210\b\000\310\321\030!\005\002\377\177\002\260\036\000\377\321\030\021\n\000\000#\200\276\200\002\020~\3770\022(\000\000\001\000\371\020\224}\030\000\004\006\001\000\200\277\t1<\000~\000\376\207\377\000\200\276\000\000\200\177\3772\020&\000\000\200\177\000\020\232} \200l\334 \036\177\000j \200\276~\000\200\210\b\000\310\321\031!\005\002\377\177\002\260\030\000\377\321\031\021\n\000\000#\200\276\200\002\020~\3772\022(\000\000\001\000\371\020\224}\031\000\004\006\001\000\200\277\t30\000~\000\376\207\377\000\200\276\000\000\200\177\3774\020&\000\000\200\177\000\020\232} \200l\334\"\030\177\000j \200\276~\000\200\210\b\000\310\321\032!\005\002\377\177\002\260\030\000\377\321\032\021\n\000\000#\200\276\200\002\020~\3774\022(\000\000\001\000\371\020\224}\032\000\004\006\001\000\200\277\t50\000~\000\376\207\377\000\200\276\000\000\200\177\3776\020&\000\000\200\177\000\020\232} \200l\334$\030\177\000j \200\276~\000\200\210\b\000\310\321\033!\005\002\377\177\002\260\036\000\377\321\033\021\n\000\000#\200\276\200\002\020~\3776\022(\000\000\001\000\371\020\224}\033\000\004\006\001\000\200\277\t7<\000~\000\376\207\377\000\200\276\000\000\200\177\377(\020&\000\000\200\177\000\020\232} \200l\334\034\036\177\000j \200\276~\000\200\210\b\000\310\321\024!\005\002\377\177\002\260\030\000\377\321\024\021\n\000\000#\200\276\200\002\020~\377(\022(\000\000\001\000\371\020\224}\024\000\004\006\001\000\200\277\t)0\000~\000\376\207\377\000\200\276\000\000\200\177\377*\020&\000\000\200\177\000\020\232}@\200l\334 \030\177\000j \200\276~\000\200\210\b\000\310\321\025!\005\002\377\177\002\260\024\000\377\321\025\021\n\000\000#\200\276\200\002\020~\377*\022(\000\000\001\000\371\020\224}\025\000\004\006\001\000\200\277\t+(\000~\000\376\207\377\000\200\276\000\000\200\177\377,\020&\000\000\200\177\000\020\232}@\200l\334\"\024\177\000j \200\276~\000\200\210\b\000\310\321\026!\005\002\377\177\002\260\024\000\377\321\026\021\n\000\000#\200\276\200\002\020~\377,\022(\000\000\001\000\371\020\224}\026\000\004\006\001\000\200\277\t-(\000~\000\376\207\377\000\200\276\000\000\200\177\377.\020&\000\000\200\177\000\020\232}@\200l\334$\024\177\000j \200\276~\000\200\210\b\000\310\321\027!\005\002\377\177\002\260\030\000\377\321\027\021\n\000\000#\200\276\200\002\020~\377.\022(\000\000\001\000\371\020\224}\027\000\004\006\001\000\200\277\t/0\000~\000\376\207\377\000\200\276\000\000\200\177\377 \020&\000\000\200\177\000\020\232}@\200l\334\034\030\177\000j \200\276~\000\200\210\b\000\310\321\020!\005\002\377\177\002\260\024\000\377\321\020\021\n\000\000#\200\276\200\002\020~\377 \022(\000\000\001\000\371\020\224}\020\000\004\006\001\000\200\277\t!(\000~\000\376\207\377\000\200\276\000\000\200\177\377\"\020&\000\000\200\177\000\020\232}`\200l\334 \024\177\000j \200\276~\000\200\210\b\000\310\321\021!\005\002\377\177\002\260\020\000\377\321\021\021\n\000\000#\200\276\200\002\020~\377\"\022(\000\000\001\000\371\020\224}\021\000\004\006\001\000\200\277\t# \000~\000\376\207\377\000\200\276\000\000\200\177\377$\020&\000\000\200\177\000\020\232}`\200l\334\"\020\177\000j \200\276~\000\200\210\b\000\310\321\022!\005\002\377\177\002\260\020\000\377\321\022\021\n\000\000#\200\276\200\002\020~\377$\022(\000\000\001\000\371\020\224}\022\000\004\006\001\000\200\277\t% \000~\000\376\207\377\000\200\276\000\000\200\177\377&\020&\000\000\200\177\000\020\232}`\200l\334$\020\177\000j \200\276~\000\200\210\b\000\310\321\023!\005\002\377\177\002\260\024\000\377\321\023\021\n\000\000#\200\276\200\002\020~\377&\022(\000\000\001\000\371\020\224}\023\000\004\006\001\000\200\277\t'(\000~\000\376\207\377\000\200\276\000\000\200\177\377\030\020&\000\000\200\177\000\020\232}`\200l\334\034\024\177\000j \200\276~\000\200\210\b\000\310\321\f!\005\002\377\177\002\260\022\000\377\321\f\021\n\000\000#\200\276\200\002\020~\377\030\022(\000\000\001\000\371\020\224}\f\000\004\006\001\000\200\277\t\031$\000~\000\376\207\377\000\200\276\000\000\200\177\377\032\020&\000\000\200\177\020\000\b\322P\003\001\005\000\020\232}\000\200l\334\020\022\177\000j \200\276~\000\200\210\b\000\310\321\r!\005\002\377\177\002\260\f\000\377\321\r\021\n\000\000#\200\276\200\002\020~\377\032\022(\000\000\001\000\371\020\224}\r\000\004\006\001\000\200\277\t\033\030\000~\000\376\207\377\000\200\276\000\000\200\177\377\034\020&\000\000\200\177\022\000\b\322R\003\001\005\000\020\232}\000\200l\334\022\f\177\000j \200\276~\000\200\210\b\000\310\321\016!\005\002\377\177\002\260\f\000\377\321\016\021\n\000\000#\200\276\200\002\020~\377\034\022(\000\000\001\000\371\020\224}\016\000\004\006\001\000\200\277\t\035\030\000~\000\376\207\377\000\200\276\000\000\200\177\377\036\020&\000\000\200\177\024\000\b\322T\003\001\005\000\020\232}\000\200l\334\024\f\177\000j \200\276~\000\200\210\b\000\310\321\017!\005\002\377\177\002\260\026\000\377\321\017\021\n\000\000#\200\276\200\002\020~\377\036\022(\000\000\001\000\371\020\224}\017\000\004\006\001\000\200\277\t\037,\000~\000\376\207\377\000\200\276\000\000\200\177\377(\021&\000\000\200\177\f\000\b\322L\003\001\005\000\020\232}\000\200l\334\f\026\177\000j \200\276~\000\200\210\b\000\310\321\224!\005\002\377\177\002\260\016\000\377\321\224\021\n\000\000#\200\276\200\002\020~\377(\023(\000\000\001\000\371\020\224}\224\000\004\006\001\000\200\277\t)\035\000~\000\376\207\377\000\200\276\000\000\200\177\377*\021&\000\000\200\177\000\020\232} \200l\334\020\016\177\000j \200\276~\000\200\210\b\000\310\321\225!\005\002\377\177\002\260\b\000\377\321\225\021\n\000\000#\200\276\200\002\020~\377*\023(\000\000\001\000\371\020\224}\225\000\004\006\001\000\200\277\t+\021\000~\000\376\207 \200l\334\022\b\177\000\377\000\200\276\000\000\200\177\377,\021&\000\000\200\177\000\020\232}j \200\276~\000\200\210\b\000\310\321\226!\005\002\377\177\002\260\b\000\377\321\226\021\n\000\000#\200\276\200\002\020~\377,\023(\000\000\001\000\371\020\224}\226\000\004\006\001\000\200\277\t-\021\000~\000\376\207 \200l\334\024\b\177\000\377\000\200\276\000\000\200\177\377.\021&\000\000\200\177\000\020\232}j \200\276~\000\200\210\b\000\310\321\227!\005\002\377\177\002\260\016\000\377\321\227\021\n\000\000#\200\276\200\002\020~\377.\023(\000\000\001\000\371\020\224}\227\000\004\006\001\000\200\277\t/\035\000~\000\376\207\377\000\200\276\000\000\200\177\377\b\020&\000\000\200\177\000\020\232} \200l\334\f\016\177\000j \200\276~\000\200\210\b\000\310\321\004!\005\002\377\177\002\260\b\000\377\321\004\021\n\000\000#\200\276\200\002\020~\377\b\022(\000\000\001\000\371\020\224}\004\000\004\006\001\000\200\277\t\t\020\000~\000\376\207\377\000\200\276\000\000\200\177\377\n\b&\000\000\200\177\000\b\232}@\200l\334\020\b\177\000j \200\276~\000\200\210\004\000\310\321\005!\005\002\377\177\002\260\004\000\377\321\005\t\n\000\000#\200\276\200\002\b~\377\n\020(\000\000\001\000\371\b\224}\005\000\004\006\001\000\200\277\b\013\b\000~\000\376\207@\200l\334\022\004\177\000\377\000\200\276\000\000\200\177\377\f\b&\000\000\200\177\000\b\232}j \200\276~\000\200\210\004\000\310\321\006!\005\002\377\177\002\260\004\000\377\321\006\t\n\000\000#\200\276\200\002\b~\377\f\n(\000\000\001\000\371\b\224}\006\000\004\006\001\000\200\277\005\r\b\000~\000\376\207@\200l\334\024\004\177\000\377\000\200\276\000\000\200\177\377\016\b&\000\000\200\177\000\b\232}j \200\276~\000\200\210\004\000\310\321\007!\005\002\377\177\002\260\b\000\377\321\007\t\n\000\000#\200\276\200\002\b~\377\016\n(\000\000\001\000\371\b\224}\007\000\004\006\001\000\200\277\005\017\020\000~\000\376\207\377\000\200\276\000\000\200\177\377\000\b&\000\000\200\177\000\b\232}@\200l\334\f\b\177\000j \200\276~\000\200\210\004\000\310\321\000!\005\002\377\177\002\260\004\000\377\321\000\t\n\000\000#\200\276\200\002\b~\377\000\n(\000\000\001\000\371\b\224}\000\000\004\006\001\000\200\277\005\001\b\000~\000\376\207\377\000\200\276\000\000\200\177\377\002\000&\000\000\200\177\000\000\232}`\200l\334\020\004\177\000j \200\276~\000\200\210\000\000\310\321\001!\005\002\377\177\002\260\000\000\377\321\001\001\n\000\000#\200\276\200\002\000~\377\002\b(\000\000\001\000\371\000\224}\001\000\004\006\001\000\200\277\004\003\000\000~\000\376\207`\200l\334\022\000\177\000\377\000\200\276\000\000\200\177\377\004\000&\000\000\200\177\000\000\232}j \200\276~\000\200\210\000\000\310\321\002!\005\002\377\177\002\260\000\000\377\321\002\001\n\000\000#\200\276\200\002\000~\377\004\002(\000\000\001\000\371\000\224}\002\000\004\006\001\000\200\277\001\005\000\000~\000\376\207`\200l\334\024\000\177\000\377\000\200\276\000\000\200\177\377\006\000&\000\000\200\177\000\000\232}j \200\276~\000\200\210\006\000\211\277\000#\200\276\013\000\211\277~\000\376\207`\200l\334\f\004\177\000\000\000\201\277\000\000\310\321\003!\005\002\377\177\002\260\004\000\377\321\003\001\n\000\000#\200\276\365\377\210\277\200\002\000~\377\006\002(\000\000\001\000\371\000\224}\003\000\004\006\001\000\200\277\001\007\b\000~\000\376\207`\200l\334\f\004\177\000\000\000\201\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\000\000\200\277\006\000\000\000\000\000\000\000\030\007\000\000\000\000\000\000\013\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000\005\000\000\000\000\000\000\000\310\007\000\000\000\000\000\000\n\000\000\000\000\000\000\000V\000\000\000\000\000\000\000\365\376\377o\000\000\000\000x\007\000\000\000\000\000\000\004\000\000\000\000\000\000\000\240\007\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Linker: AMD LLD 19.0.0 (/longer_pathname_so_that_rpms_can_support_packaging_the_debug_info_for_all_os_profiles/src/llvm-project/llvm c87081df219c42dc27c5b6d86c0525bc7d01f727)\000AMD clang version 19.0.0git (https://github.com/RadeonOpenCompute/llvm-project roc-6.4.1 25184 c87081df219c42dc27c5b6d86c0525bc7d01f727)\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000V\000\000\000\000\002\b\000\300\203\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\022\003\007\000\000\031\000\000\000\000\000\000\264V\000\000\000\000\000\000\034\000\000\000\021\003\006\000@\b\000\000\000\000\000\000@\000\000\000\000\000\000\000:\000\000\000\021\000\n\0000\224\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000.note\000.dynsym\000.gnu.hash\000.hash\000.dynstr\000.rodata\000.text\000.dynamic\000.relro_padding\000.bss\000.AMDGPU.csdata\000.comment\000.symtab\000.shstrtab\000.strtab\000\000_Z8micro_tk13micro_globals\000_Z8micro_tk13micro_globals.kd\000__hip_cuid_a387003902ba631b\000_DYNAMIC\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\007\000\000\000\002\000\000\000\000\000\000\0008\002\000\000\000\000\000\0008\002\000\000\000\000\000\000\334\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\007\000\000\000\013\000\000\000\002\000\000\000\000\000\000\000\030\007\000\000\000\000\000\000\030\007\000\000\000\000\000\000`\000\000\000\000\000\000\000\005\000\000\000\001\000\000\000\b\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000\017\000\000\000\366\377\377o\002\000\000\000\000\000\000\000x\007\000\000\000\000\000\000x\007\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\031\000\000\000\005\000\000\000\002\000\000\000\000\000\000\000\240\007\000\000\000\000\000\000\240\007\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\004\000\000\000\000\000\000\000\037\000\000\000\003\000\000\000\002\000\000\000\000\000\000\000\310\007\000\000\000\000\000\000\310\007\000\000\000\000\000\000V\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000'\000\000\000\001\000\000\000\002\000\000\000\000\000\000\000@\b\000\000\000\000\000\000@\b\000\000\000\000\000\000@\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000@\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000/\000\000\000\001\000\000\000\006\000\000\000\000\000\000\000\000\031\000\000\000\000\000\000\000\t\000\000\000\000\000\000\300Z\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\0005\000\000\000\006\000\000\000\003\000\000\000\000\000\000\000\300\203\000\000\000\000\000\000\300c\000\000\000\000\000\000p\000\000\000\000\000\000\000\005\000\000\000\000\000\000\000\b\000\000\000\000\000\000\000\020\000\000\000\000\000\000\000>\000\000\000\b\000\000\000\003\000\000\000\000\000\000\0000\204\000\000\000\000\000\0000d\000\000\000\000\000\000\320\013\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000M\000\000\000\b\000\000\000\003\000\000\000\000\000\000\0000\224\000\000\000\000\000\0000d\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000R\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\0000d\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000a\000\000\000\001\000\000\0000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\0000d\000\000\000\000\000\0009\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000j\000\000\000\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000pe\000\000\000\000\000\000x\000\000\000\000\000\000\000\017\000\000\000\002\000\000\000\b\000\000\000\000\000\000\000\030\000\000\000\000\000\000\000r\000\000\000\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\350e\000\000\000\000\000\000\204\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000|\000\000\000\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000lf\000\000\000\000\000\000_\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+	.size	.L__unnamed_2, 31440
 
 	.type	__hip_fatbin_wrapper,@object    # @__hip_fatbin_wrapper
 	.section	.hipFatBinSegment,"aw",@progbits
@@ -48950,8 +47898,8 @@ DW.ref.__gxx_personality_v0:
 	.addrsig_sym pybind11_object_init
 	.addrsig_sym pybind11_object_dealloc
 	.addrsig_sym _ZN8pybind116detail24deregister_instance_implEPvPNS0_8instanceE
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeES10_
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_ENUlRNS_6detail13function_callEE_8__invokeESZ_
 	.addrsig_sym __hip_module_ctor
 	.addrsig_sym __hip_module_dtor
 	.addrsig_sym _Unwind_Resume
@@ -49001,13 +47949,13 @@ DW.ref.__gxx_personality_v0:
 	.addrsig_sym PyLong_Type
 	.addrsig_sym PyBool_Type
 	.addrsig_sym PyBaseObject_Type
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL11bind_kernelITnDaXadL_Z8micro_tk13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types
 	.addrsig_sym _Py_TrueStruct
 	.addrsig_sym _Py_FalseStruct
 	.addrsig_sym PyFloat_Type
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E9signature
-	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_NS9_IfLin1ELin1ELin1ELin1EJEEEEEEvT1_T2_DpMT0_T3_EUlNS_6objectESJ_SJ_E_vJSJ_SJ_SJ_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSF_DpT1_EDpRKT2_E5types
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E9signature
+	.addrsig_sym _ZZN8pybind1112cpp_function10initializeIZN7kittens2pyL13bind_functionITnDaXadL_Z14dispatch_micro13micro_globalsEES5_NS_7module_EPKcJNS2_2glI14__hip_bfloat16Lin1ELin1ELin1ELin1EJEEESB_SB_EEEvT1_T2_DpMT0_T3_EUlNS_6objectESI_SI_E_vJSI_SI_SI_EJNS_4nameENS_5scopeENS_7siblingEEEEvOT_PFSE_DpT1_EDpRKT2_E5types
 	.addrsig_sym .L__unnamed_2
 	.addrsig_sym __hip_fatbin_wrapper
 	.addrsig_sym __hip_cuid_a387003902ba631b
