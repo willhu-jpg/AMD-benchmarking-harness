@@ -2,6 +2,7 @@ To try any of these, toggle the target in the Makefile and ```make clean && make
 
 - ```128_128_64_16/```: 596 TFLOPs
 
+- ```256_128_64_16_alt/```: 545 TFLOPS
 - ```256_128_64_16/```: 608 TFLOPs
 - ```256_128_64_16_persist/```: 611 TFLOPs
 
