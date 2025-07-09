@@ -1,5 +1,4 @@
 #include "kittens.cuh"
-#include "pyutils/pyutils.cuh"
 using namespace kittens;
 
 __device__ inline float4 load_global_vec_new(const float4* gptr) {
@@ -22,14 +21,21 @@ __device__ inline void store_shared_vec_new(uint32_t lds_off, float2 val) {
     );
 }
 
+enum class coherency {
+	cache_all = 0,
+	cache_global = 1,
+	cache_stream = 2,
+	non_temporal = 3
+};
+
 __device__ inline float4 buffer_load_vec4(i32x4 srsrc, uint32_t offset_bytes) {
-    __uint128_t raw = llvm_amdgcn_raw_buffer_load_b128(srsrc, offset_bytes, 0, 0);
+    const int cc = static_cast<int>(coherency::cache_all);
+    __uint128_t raw = llvm_amdgcn_raw_buffer_load_b128(srsrc, offset_bytes, 0, cc);
     return *reinterpret_cast<float4*>(&raw);
 }
 
-
 __device__ inline i32x4 make_srsrc(const void* ptr, uint32_t range_bytes) {
-    buffer_resource rsrc = make_buffer_resource(ptr, range_bytes, 0x110000);  // default config
+    buffer_resource rsrc = make_buffer_resource(ptr, range_bytes, 0x020000);  // default config
     return *reinterpret_cast<i32x4*>(&rsrc);
 }
 
@@ -51,12 +57,14 @@ __device__ inline void load_global_to_registers(
     const int big_calls = (total_calls + small_calls - 1) / small_calls;
 
     const int row_stride = src.template stride<axis>();
+    // const int row_stride_bytes = row_stride * sizeof(T);
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     T* base_ptr = (T*)&src[unit_coord];  // global memory pointer
     const int laneid = threadIdx.x % N_THREADS;
 
     // buffer resource
     const int total_bytes = row_stride * ST::rows * sizeof(T);
+
     i32x4 srsrc = make_srsrc(base_ptr, total_bytes);
 
     int buf_idx = 0;
@@ -73,6 +81,7 @@ __device__ inline void load_global_to_registers(
                 int col = (chunk_idx % memcpy_per_row) * elem_per_memcpy;
                 int flat_offset = row * row_stride + col;
                 int byte_offset = flat_offset * sizeof(T);
+                // int byte_offset = ((uint32_t)row << 8) | (col * sizeof(T));
 
                 reg_buffer[buf_idx] = buffer_load_vec4(srsrc, byte_offset);
                 buf_idx++;
@@ -135,6 +144,7 @@ __device__ inline float2 load_shared_vec_async(uint32_t lds_off) {
     );
     return result;
 }
+
 /**
  * @brief Load data from a shared tile into a register tile.
  *
@@ -196,9 +206,6 @@ __device__ inline static void load_async_shared_to_register(RT &dst, const ST &s
     }
 }
 
-
-
-
 __device__ inline void store_global_float(float* ptr, float val) {
     asm volatile(
         "global_store_dword %0, %1, off\n"
@@ -217,14 +224,19 @@ __device__ inline void store_global_float(float* ptr, float val) {
  * @param row_stride[in] The stride in elements between rows in the destination array.
  */
 template<int axis, ducks::rt::col_layout RT, ducks::gl::all GL, ducks::coord::tile COORD=coord<RT>>
-__device__ inline static void store_optimized(const GL &dst, const RT &src, const COORD &idx) {
+__device__ inline static void store_transposed(const GL &dst, const RT &src, const COORD &idx) {
     using T = base_types::packing<typename RT::dtype>::unpacked_type;
     using U = typename GL::dtype;
+    using U2 = base_types::packing<U>::packed_type;
+    using T2 = base_types::packing<T>::packed_type;
 
     U *dst_ptr = (U*)&dst[(idx.template unit_coord<axis, 3>())];
     const int row_stride = dst.template stride<axis>();
     const int laneid = kittens::laneid();
     const int row_offset = 4*(laneid/16), col_offset = laneid%16;
+
+    uint32_t buffer_size = dst.batch * dst.depth * dst.rows * dst.cols * sizeof(U);
+    buffer_resource br = make_buffer_resource(dst_ptr, buffer_size, 0x00020000);
 
     #pragma unroll
     for(int i = 0; i < src.height; i++) {
@@ -232,29 +244,21 @@ __device__ inline static void store_optimized(const GL &dst, const RT &src, cons
         #pragma unroll
         for(int j = 0; j < src.width; j++) {
             const int col = j*src.tile_size_col + col_offset;
-            
-            // Use optimized stores for floats, keeping exact same logic
-            if constexpr (std::is_same_v<U, float>) {
-                store_global_float((float*)&dst_ptr[(row+0)*row_stride + col], 
-                                 base_types::convertor<U, T>::convert(src.tiles[i][j].data[0].x));
-                store_global_float((float*)&dst_ptr[(row+1)*row_stride + col], 
-                                 base_types::convertor<U, T>::convert(src.tiles[i][j].data[0].y));
-                store_global_float((float*)&dst_ptr[(row+2)*row_stride + col], 
-                                 base_types::convertor<U, T>::convert(src.tiles[i][j].data[1].x));
-                store_global_float((float*)&dst_ptr[(row+3)*row_stride + col], 
-                                 base_types::convertor<U, T>::convert(src.tiles[i][j].data[1].y));
-            } else {
-                // Original code for non-float types
-                dst_ptr[(row+0)*row_stride + col] = base_types::convertor<U, T>::convert(src.tiles[i][j].data[0].x);
-                dst_ptr[(row+1)*row_stride + col] = base_types::convertor<U, T>::convert(src.tiles[i][j].data[0].y);
-                dst_ptr[(row+2)*row_stride + col] = base_types::convertor<U, T>::convert(src.tiles[i][j].data[1].x);
-                dst_ptr[(row+3)*row_stride + col] = base_types::convertor<U, T>::convert(src.tiles[i][j].data[1].y);
-            }
+            U2 tmp[2] = {base_types::convertor<U2, T2>::convert(src.tiles[i][j].data[0]), base_types::convertor<U2, T2>::convert(src.tiles[i][j].data[1])};
+            uint64_t tmp_val = *(uint64_t*)tmp;
+
+            llvm_amdgcn_raw_buffer_store_b64(
+                tmp_val,
+                std::bit_cast<i32x4>(br),
+                (col*row_stride + row) * sizeof(U),
+                0,
+                0
+            );
         }
     }
 }
 
 template<ducks::rt::all RT, ducks::gl::all GL, ducks::coord::tile COORD=coord<RT>>
-__device__ inline static void store_optimized(const GL &dst, const RT &src, const COORD &idx) {
-    store<2, RT, GL, COORD>(dst, src, idx);
+__device__ inline static void store_transposed(const GL &dst, const RT &src, const COORD &idx) {
+    store_transposed<2, RT, GL, COORD>(dst, src, idx);
 }
