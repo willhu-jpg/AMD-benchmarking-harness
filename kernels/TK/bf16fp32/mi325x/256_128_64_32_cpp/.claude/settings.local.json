@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make:*)",
+      "Bash(source:*)",
+      "Bash(export:*)",
+      "Bash(echo $THUNDERKITTENS_ROOT)",
+      "Bash(./matmul_benchmark)",
+      "Bash(echo:*)",
+      "Bash(ls:*)"
+    ],
+    "deny": []
+  }
+}
