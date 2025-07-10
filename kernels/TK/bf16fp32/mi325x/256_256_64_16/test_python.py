@@ -94,12 +94,12 @@ if profiling:
 # Kernel matmul
 C = torch.zeros(N, N, dtype=torch.bfloat16, device='cuda')
 for _ in range(num_warmup):
-    tk_kernel.dispatch_micro(A, B, C)
+    tk_kernel.dispatch_micro(B, A, C)
 timings = []
 for _ in range(num_iters):
     torch.cuda.synchronize()
     start_event.record()
-    tk_kernel.dispatch_micro(A, B, C)
+    tk_kernel.dispatch_micro(B, A,C)
     end_event.record()
     torch.cuda.synchronize()
     elapsed_time = start_event.elapsed_time(end_event)
