@@ -198,7 +198,6 @@ __device__ inline static void load_async_shared_to_register(RT &dst, const ST &s
             const int row = i*dst.tile_size_row + row_offset;
 
             if constexpr (std::is_same_v<typename RT::layout, ducks::rt_layout::row>) { // handle the row-major layout
-
                 if constexpr (sizeof(typename ST::dtype) == 4) {
                     // handle float32
                     float2 loaded0 = load_shared_vec_async(src.idx(src_ptr, {row, col}));
@@ -207,8 +206,7 @@ __device__ inline static void load_async_shared_to_register(RT &dst, const ST &s
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(loaded1);
                 } else {
                     // handle fp16 and bf16
-                    // float2 loaded = load_shared_vec_async_offset(addr, i * RT::cols * RT::tile_size_row * sizeof(U2));
-                    float2 loaded = load_shared_vec_async(src.idx(src_ptr, {row, col}));
+                    float2 loaded = load_shared_vec_async_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
                     U2* tmp = reinterpret_cast<U2*>(&loaded);
                     dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
