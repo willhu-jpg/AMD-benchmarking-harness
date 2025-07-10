@@ -45,10 +45,6 @@ void micro_tk(const micro_globals g) {
     rt_fl<REG_BLOCK, REG_BLOCK, ducks::rt_layout::col> C_accum[2];
     for (int i = 0; i < 2; i++) { zero(C_accum[i]); }
 
-    // Small register buffers for pipelining
-    constexpr int BUFFER_SIZE = 128;
-    float4 a_buffer_next[BUFFER_SIZE];
-    float4 b_buffer_next[BUFFER_SIZE];
 
     // Original WGID.
     int wgid = (blockIdx.y * gridDim.x) + blockIdx.x;
@@ -93,6 +89,11 @@ void micro_tk(const micro_globals g) {
     }
 
     for (int tile = 0; tile < num_tiles - 1; ++tile) {
+        // Small register buffers for pipelining
+        constexpr int BUFFER_SIZE = 128;
+        float4 a_buffer_next[BUFFER_SIZE];
+        float4 b_buffer_next[BUFFER_SIZE];
+
         // Cluster 0
         load_global_to_registers<2, false, st_bf<BLOCK_SIZE, K_STEP>, _gl_A, coord<st_bf<BLOCK_SIZE, K_STEP>>, NUM_THREADS>(
             a_buffer_next, BUFFER_SIZE, g.a, {0, 0, row, tile + 1}, As);
@@ -106,7 +107,6 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         // Cluster 1
-        asm volatile("s_waitcnt lgkmcnt(0)");
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], tiles[1], tiles[0], C_accum[0]);
         mma_ABt(C_accum[1], tiles[2], tiles[0], C_accum[1]);
@@ -127,7 +127,6 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         // Cluster 3
-        asm volatile("s_waitcnt lgkmcnt(0)");
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], tiles[4], tiles[3], C_accum[0]);
         mma_ABt(C_accum[1], tiles[5], tiles[3], C_accum[1]);
@@ -147,7 +146,6 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         // Cluster 5
-        asm volatile("s_waitcnt lgkmcnt(0)");
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], tiles[1], tiles[0], C_accum[0]);
         mma_ABt(C_accum[1], tiles[2], tiles[0], C_accum[1]);
@@ -156,7 +154,7 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         // Cluster 6
-        asm volatile("s_waitcnt vmcnt(0)");
+        __builtin_amdgcn_s_setprio(1);
         store_registers_to_shared<st_bf<BLOCK_SIZE, K_STEP>, NUM_THREADS>(
             a_buffer_next, As);
         store_registers_to_shared<st_bf<BLOCK_SIZE, K_STEP>, NUM_THREADS>(
@@ -165,7 +163,6 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
 
         // Cluster 7
-        asm volatile("s_waitcnt lgkmcnt(0)");
         __builtin_amdgcn_s_setprio(1);
         mma_ABt(C_accum[0], tiles[4], tiles[3], C_accum[0]);
         mma_ABt(C_accum[1], tiles[5], tiles[3], C_accum[1]);
@@ -189,7 +186,6 @@ void micro_tk(const micro_globals g) {
     __builtin_amdgcn_sched_barrier(0);
 
     // // Cluster 1
-    asm volatile("s_waitcnt lgkmcnt(0)");
     __builtin_amdgcn_s_setprio(1);
     mma_ABt(C_accum[0], tiles[1], tiles[0], C_accum[0]);
     mma_ABt(C_accum[1], tiles[2], tiles[0], C_accum[1]);
@@ -206,7 +202,6 @@ void micro_tk(const micro_globals g) {
     __builtin_amdgcn_sched_barrier(0);
 
     // Cluster 3
-    asm volatile("s_waitcnt lgkmcnt(0)");
     __builtin_amdgcn_s_setprio(1);
     mma_ABt(C_accum[0], tiles[4], tiles[3], C_accum[0]);
     mma_ABt(C_accum[1], tiles[5], tiles[3], C_accum[1]);
@@ -226,7 +221,6 @@ void micro_tk(const micro_globals g) {
     __builtin_amdgcn_sched_barrier(0);
 
     // // Cluster 5
-    asm volatile("s_waitcnt lgkmcnt(0)");
     __builtin_amdgcn_s_setprio(1);
     mma_ABt(C_accum[0], tiles[1], tiles[0], C_accum[0]);
     mma_ABt(C_accum[1], tiles[2], tiles[0], C_accum[1]);
@@ -235,7 +229,6 @@ void micro_tk(const micro_globals g) {
     __builtin_amdgcn_sched_barrier(0);
 
     // // Cluster 7
-    asm volatile("s_waitcnt lgkmcnt(0)");
     __builtin_amdgcn_s_setprio(1);
     mma_ABt(C_accum[0], tiles[4], tiles[3], C_accum[0]);
     mma_ABt(C_accum[1], tiles[5], tiles[3], C_accum[1]);
