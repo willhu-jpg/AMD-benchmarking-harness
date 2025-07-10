@@ -58,7 +58,7 @@ void micro_tk(const micro_globals g) {
     wgid = (wgid % NUM_XCDS) * (NUM_WGS / NUM_XCDS) + (wgid / NUM_XCDS);
 
     // Swizzle for better L2 within the same XCD.
-    const int WGM = 16;
+    const int WGM = 4;
     const int num_pid_m = ceil_div(M, BLOCK_SIZE);
     const int num_pid_n = ceil_div(N, BLOCK_SIZE);
 
@@ -179,10 +179,6 @@ void micro_tk(const micro_globals g) {
         __builtin_amdgcn_sched_barrier(0);
     }
 
-    if (warp_row == 0) {
-        __builtin_amdgcn_s_barrier();
-    }
-
     // Epilogue
     // Cluster 0
     __builtin_amdgcn_sched_barrier(0);
@@ -192,6 +188,7 @@ void micro_tk(const micro_globals g) {
     asm volatile("s_waitcnt lgkmcnt(0)");
     __builtin_amdgcn_s_barrier();
     __builtin_amdgcn_sched_barrier(0);
+    
 
     // // Cluster 1
     __builtin_amdgcn_s_setprio(1);
@@ -243,6 +240,10 @@ void micro_tk(const micro_globals g) {
     __builtin_amdgcn_s_setprio(0);
     __builtin_amdgcn_s_barrier();
     __builtin_amdgcn_sched_barrier(0);
+
+    if (warp_row == 0) {
+        __builtin_amdgcn_s_barrier();
+    }
 
     store(g.c, C_accum[0], {0, 0, row * 4 + warp_row, col * 4 + warp_col});
     store(g.c, C_accum[1], {0, 0, row * 4 + warp_row + 2, col * 4 + warp_col});
