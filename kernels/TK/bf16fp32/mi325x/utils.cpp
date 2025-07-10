@@ -217,10 +217,18 @@ __device__ inline static void load_async_shared_to_register(RT &dst, const ST &s
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(loaded1);
                 } else {
                     // handle fp16 and bf16
-                    float2 loaded = load_shared_vec_async_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
-                    U2* tmp = reinterpret_cast<U2*>(&loaded);
-                    dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
-                    dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
+                    // float2 loaded = load_shared_vec_async_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
+                    // U2* tmp = reinterpret_cast<U2*>(&loaded);
+                    // dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
+                    // dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
+                    
+                    // avoid v_bfi_b32
+                    asm volatile(
+                        "ds_read_b64 %0, %1 offset:%2\n"
+                        : "=v"(*reinterpret_cast<uint64_t*>(&dst.tiles[i][j].data[0]))
+                        : "v"(addr), "i"(i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U))
+                        : "memory"
+                    );
                 }
             }
             else { // handle the column-major layout
@@ -272,11 +280,20 @@ __device__ inline static void load_sync_shared_to_register(RT &dst, const ST &sr
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(loaded1);
                 } else {
                     // handle fp16 and bf16
-                    float2 loaded = load_shared_vec_sync_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
-                    U2* tmp = reinterpret_cast<U2*>(&loaded);
-                    asm volatile("s_waitcnt lgkmcnt(0)");
-                    dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
-                    dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
+                    // float2 loaded = load_shared_vec_sync_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
+                    // U2* tmp = reinterpret_cast<U2*>(&loaded);
+                    // asm volatile("s_waitcnt lgkmcnt(0)");
+                    // dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
+                    // dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
+
+                    // avoid v_bfi_b32
+                    asm volatile(
+                        "ds_read_b64 %0, %1 offset:%2\n"
+                        "s_waitcnt lgkmcnt(0)\n"
+                        : "=v"(*reinterpret_cast<uint64_t*>(&dst.tiles[i][j].data[0]))
+                        : "v"(addr), "i"(i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U))
+                        : "memory"
+                    );
                 }
             }
             else { // handle the column-major layout
