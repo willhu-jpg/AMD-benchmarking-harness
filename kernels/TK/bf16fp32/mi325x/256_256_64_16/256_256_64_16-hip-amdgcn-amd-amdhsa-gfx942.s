@@ -912,22 +912,18 @@ s_waitcnt lgkmcnt(0)
 	;;#ASMEND
 	;;#ASMSTART
 	ds_read_b64 v[242:243], v1 offset:0
-s_waitcnt lgkmcnt(0)
 
 	;;#ASMEND
 	;;#ASMSTART
 	ds_read_b64 v[244:245], v1 offset:0x800
-s_waitcnt lgkmcnt(0)
 
 	;;#ASMEND
 	;;#ASMSTART
 	ds_read_b64 v[246:247], v1 offset:0x1000
-s_waitcnt lgkmcnt(0)
 
 	;;#ASMEND
 	;;#ASMSTART
 	ds_read_b64 v[248:249], v1 offset:0x1800
-s_waitcnt lgkmcnt(0)
 
 	;;#ASMEND
 	s_nop 0
@@ -996,7 +992,6 @@ s_waitcnt lgkmcnt(0)
 	s_setprio 0
 	s_barrier
 	; sched_barrier mask(0x00000000)
-	s_setprio 1
 	s_waitcnt vmcnt(7)
 	;;#ASMSTART
 	ds_write_b64 v169, v[130:131]
@@ -1068,6 +1063,9 @@ s_waitcnt lgkmcnt(0)
 	;;#ASMSTART
 	ds_write_b64 v184, v[200:201]
 
+	;;#ASMEND
+	;;#ASMSTART
+	s_waitcnt lgkmcnt(0)
 	;;#ASMEND
 	s_barrier
 	; sched_barrier mask(0x00000000)
@@ -1812,7 +1810,7 @@ s_waitcnt lgkmcnt(0)
                                         ; -- End function
 	.section	.AMDGPU.csdata,"",@progbits
 ; Kernel info:
-; codeLenInByte = 8468
+; codeLenInByte = 8440
 ; NumSgprs: 32
 ; NumVgprs: 250
 ; NumAgprs: 0
