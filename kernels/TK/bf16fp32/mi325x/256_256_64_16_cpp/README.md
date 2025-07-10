@@ -1,141 +1,75 @@
-# ThunderKittens Mixed Precision Matrix Multiplication Benchmark
-
-This directory contains a C++/HIP implementation of ThunderKittens mixed precision (bf16/fp32) matrix multiplication with rocBLAS comparison benchmarking.
-
-## Overview
-
-The benchmark performs A×B^T matrix multiplication where:
-- **A**: M×K matrix (bf16, row-major)
-- **B**: N×K matrix (bf16, row-major) 
-- **C**: M×N result matrix (bf16, row-major)
-- **Operation**: C[i][j] = Σ_k A[i][k] × B[j][k]
-
-## Files
-
-- **`256_128_64_32.cpp`**: ThunderKittens kernel implementation with C++ interface
-- **`launch.cpp`**: Benchmarking infrastructure with rocBLAS comparison
-- **`Makefile`**: Build configuration for AMD CDNA3 architecture
-
-## Key Features
-
-- **Mixed Precision**: bf16 inputs with fp32 accumulation, bf16 output
-- **MFMA Operations**: Utilizes AMD CDNA3 Matrix Fused Multiply-Add units
-- **Performance Comparison**: ThunderKittens vs rocBLAS baseline
-- **Correctness Validation**: CPU reference implementation for verification
-
-## Build and Run
-
-```bash
-# Set up environment
-export THUNDERKITTENS_ROOT=/path/to/ThunderKittens-HIP
-
-# Build
-make clean && make
-
-# Run benchmark (8192×8192×8192 matrices)
-./matmul_benchmark
 ```
+root@gpu-10:/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/scratch_v4# make
+/opt/rocm/bin/hipcc kernel.cpp -DKITTENS_CDNA3 --offload-arch=gfx942 -mcpu=gfx942 -O3 -DNDEBUG -ffast-math -funroll-loops -fvectorize -Rpass-analysis=kernel-resource-usage -Rpass=loop-vectorize -std=c++20 -w --save-temps -I/workdir/AMD-benchmarking-harness/ThunderKittens-HIP/include -I/workdir/AMD-benchmarking-harness/ThunderKittens-HIP/prototype -Rpass-analysis=kernel-resource-usage -Xclang -Rpass=kernel-resource-usage -I/workdir/AMD-benchmarking-harness/ThunderKittens-HIP/include -I/opt/rocm/include/hip  -fopenmp -lrocblas \
+    -o matmul_benchmark 2>&1 | tee /shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs/0710_0201_outputs/make_build.log
+remark: kernel.cpp:44:0: Function Name: _Z8micro_tk13micro_globals [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     SGPRs: 35 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     VGPRs: 250 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     AGPRs: 0 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     ScratchSize [bytes/lane]: 0 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     Dynamic Stack: False [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     Occupancy [waves/SIMD]: 2 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     SGPRs Spill: 0 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     VGPRs Spill: 0 [-Rpass-analysis=kernel-resource-usage]
+remark: kernel.cpp:44:0:     LDS Size [bytes/block]: 0 [-Rpass-analysis=kernel-resource-usage]
+root@gpu-10:/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/scratch_v4# ls
+Makefile                                kernel-hip-amdgcn-amd-amdhsa-gfx942.hipi  kernel-hip-amdgcn-amd-amdhsa-gfx942.out.resolution.txt  kernel-host-x86_64-unknown-linux-gnu.hipi  kernel.cpp                              matmul_benchmark
+README.md                               kernel-hip-amdgcn-amd-amdhsa-gfx942.o     kernel-hip-amdgcn-amd-amdhsa-gfx942.s                   kernel-host-x86_64-unknown-linux-gnu.o     kernel.cpp-hip-amdgcn-amd-amdhsa.hipfb  ui_output_agent_13383_dispatch_1
+kernel-hip-amdgcn-amd-amdhsa-gfx942.bc  kernel-hip-amdgcn-amd-amdhsa-gfx942.out   kernel-host-x86_64-unknown-linux-gnu.bc                 kernel-host-x86_64-unknown-linux-gnu.s     launch.cpp
+root@gpu-10:/workdir/AMD-benchmarking-harness/kernels/TK/bf16fp32/mi325x/scratch_v4# ./matmul_benchmark
+--------------------  M_size=8192 N_size=8192 K_size=8192  --------------------
+Allocated host memory
+Initialized matrices
+Performed CPU matrix multiplication
+Allocated device memory
+Copied matrices to device
 
-## rocBLAS Integration Challenges and Solutions
 
-### The Core Problem: Matrix Layout Mismatch
+=== ThunderKittens Kernel ===
+ThunderKittens execution time: 1721.2 us
+ThunderKittens performance: 638.806 TFLOPs
 
-The main challenge was getting rocBLAS to compute the same A×B^T operation as ThunderKittens. rocBLAS expects **column-major** matrices while our data is stored in **row-major** format.
+=== rocBLAS Baseline ===
+rocBLAS execution time: 1482.39 us
+rocBLAS performance: 741.714 TFLOPs
 
-### Initial Attempts and Failures
+=== Performance Summary ===
+ThunderKittens: 638.806 TFLOPs
+rocBLAS:        741.714 TFLOPs
+Speedup:        0.861257x
+Copied results back to host
+Converted results to float
 
-1. **Direct Translation**: Initially tried calling rocBLAS directly with row-major data, which produced completely wrong results.
+=== Correctness Analysis: ThunderKittens vs rocBLAS ===
+Difference at [1,3957]: TK=6.4375 vs BLAS=6.46875 (diff=0.03125)
+Difference at [4,1544]: TK=12.75 vs BLAS=12.8125 (diff=0.0625)
+Difference at [5,1353]: TK=-2.40625 vs BLAS=-2.39062 (diff=0.015625)
+Difference at [6,4675]: TK=-2.03125 vs BLAS=-2.04688 (diff=0.015625)
+Difference at [12,7996]: TK=3.6875 vs BLAS=3.67188 (diff=0.015625)
+Difference at [15,1482]: TK=-7.625 vs BLAS=-7.65625 (diff=0.03125)
+Difference at [16,460]: TK=4.4375 vs BLAS=4.40625 (diff=0.03125)
+Difference at [16,532]: TK=-5.25 vs BLAS=-5.28125 (diff=0.03125)
+Difference at [16,1336]: TK=2.35938 vs BLAS=2.34375 (diff=0.015625)
+Difference at [20,7041]: TK=3.0625 vs BLAS=3.07812 (diff=0.015625)
+Difference at [20,7790]: TK=-11.8125 vs BLAS=-11.875 (diff=0.0625)
+Difference at [24,2714]: TK=7.90625 vs BLAS=7.875 (diff=0.03125)
+Difference at [30,2359]: TK=-10.25 vs BLAS=-10.3125 (diff=0.0625)
+Difference at [35,1614]: TK=12.8125 vs BLAS=12.875 (diff=0.0625)
+Difference at [41,2720]: TK=11.8125 vs BLAS=11.75 (diff=0.0625)
+Difference at [43,2938]: TK=6 vs BLAS=6.03125 (diff=0.03125)
+Difference at [48,2352]: TK=5.1875 vs BLAS=5.21875 (diff=0.03125)
+Difference at [52,1705]: TK=2.92188 vs BLAS=2.90625 (diff=0.015625)
+Difference at [54,5590]: TK=-2.92188 vs BLAS=-2.90625 (diff=0.015625)
+Difference at [54,6952]: TK=-3.60938 vs BLAS=-3.59375 (diff=0.015625)
+... (showing only first 20 differences)
 
-2. **Transpose Flag Confusion**: Attempted various combinations of `rocblas_operation_transpose` and `rocblas_operation_none` flags without understanding the underlying layout conversion.
+Correctness Summary:
+Max error:     0.125
+Mean error:    1.7262e-06
+Large errors:  2906 / 67108864
+Accuracy:      99.9957%
 
-3. **Leading Dimension Errors**: Incorrectly set leading dimensions, causing memory access violations and wrong computations.
-
-### The Solution: Row-Major to Column-Major Conversion
-
-The breakthrough came from understanding the mathematical relationship between row-major and column-major representations:
-
-**For row-major data interpreted as column-major:**
-- Our A(M×K) row-major → A^T(K×M) column-major  
-- Our B(N×K) row-major → B^T(K×N) column-major
-- Our C(M×N) row-major → C^T(N×M) column-major
-
-**To compute C = A × B^T in row-major:**
-We need rocBLAS to compute: **C^T = B^T × A** in column-major terms
-
-### Final Working Implementation
-
-```cpp
-void rocblas_gemm(__hip_bfloat16* A, __hip_bfloat16* B, __hip_bfloat16* C, 
-                  int M_size, int N_size, int K_size) {
-    rocblas_handle handle;
-    rocblas_create_handle(&handle);
-    
-    float alpha = 1.0f;
-    float beta = 0.0f;
-    
-    // Key insight: Compute C^T = B^T × A to get C = A × B^T
-    rocblas_gemm_ex(handle,
-                    rocblas_operation_transpose,  // op(B) = T (transpose B)
-                    rocblas_operation_none,       // op(A) = N (A not transposed)
-                    N_size, M_size, K_size,       // N, M, K (dimensions for C^T)
-                    &alpha,                       // alpha
-                    B, rocblas_datatype_bf16_r, K_size,  // B matrix, leading dim K
-                    A, rocblas_datatype_bf16_r, K_size,  // A matrix, leading dim K
-                    &beta,                        // beta
-                    C, rocblas_datatype_bf16_r, N_size,  // C matrix, leading dim N
-                    C, rocblas_datatype_bf16_r, N_size,  // C matrix, leading dim N
-                    rocblas_datatype_f32_r,       // compute type (fp32 accumulation)
-                    rocblas_gemm_algo_standard,   // algorithm
-                    0, 0);                        // solution index, flags
-    
-    rocblas_destroy_handle(handle);
-}
+=== CPU Reference Comparison ===
+TK vs CPU errors:     1957
+BLAS vs CPU errors:   1957
 ```
-
-### Critical Implementation Details
-
-1. **Transpose Operation**: `rocblas_operation_transpose` on the first operand (B) to achieve B^T
-2. **Leading Dimensions**: K_size for both A and B (since they're both K-wide), N_size for C
-3. **Dimension Order**: N_size, M_size, K_size (swapped from typical M,N,K order)
-4. **Mixed Precision**: `rocblas_datatype_f32_r` for accumulation with bf16 inputs/outputs
-
-### Verification Results
-
-The corrected implementation achieves:
-- **Correctness**: 99.9957% accuracy vs ThunderKittens (only 2,906 errors out of 67M elements)
-- **Performance**: 715.639 TFLOPs vs ThunderKittens' 636.048 TFLOPs
-- **Numerical Precision**: Max error only 0.125 (bf16 precision level)
-
-### Performance Timing Improvements
-
-An additional optimization was correcting the timing measurements by taking `end_time` immediately after the kernel loop, before `hipDeviceSynchronize()`. This captures actual GPU dispatch time rather than including synchronization overhead:
-
-```cpp
-// Before: Included sync overhead
-for(int i = 0; i < ITERS; i++) {
-    rocblas_gemm(d_A, d_B, d_C_hipblas, M_size, N_size, K_size);
-}
-hipDeviceSynchronize();
-auto end_blas = std::chrono::high_resolution_clock::now();
-
-// After: Pure kernel dispatch time
-for(int i = 0; i < ITERS; i++) {
-    rocblas_gemm(d_A, d_B, d_C_hipblas, M_size, N_size, K_size);
-}
-auto end_blas = std::chrono::high_resolution_clock::now();
-hipDeviceSynchronize();
-```
-
-## Architecture Details
-
-- **Target**: AMD CDNA3 (gfx942) 
-- **Compiler**: ROCm 6.4.1 HIP compiler
-- **Mixed Precision**: bf16 inputs, fp32 accumulation, bf16 outputs
-- **Resource Usage**: 34 SGPRs, 207 VGPRs, 2 waves/SIMD occupancy, 0 spills
-
-## Current Performance
-
-- **ThunderKittens**: 636.048 TFLOPs
-- **rocBLAS**: 715.639 TFLOPs  
-- **Efficiency**: ~89% of rocBLAS performance
-- **Correctness**: 99.9957% accuracy between implementations
