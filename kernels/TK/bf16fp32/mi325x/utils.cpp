@@ -34,10 +34,10 @@ __device__ inline float4 buffer_load_vec4(i32x4 srsrc, uint32_t offset_bytes) {
     return *reinterpret_cast<float4*>(&raw);
 }
 
-__device__ inline i32x4 make_srsrc(const void* ptr, uint32_t range_bytes) {
-    buffer_resource rsrc = make_buffer_resource(ptr, range_bytes, 0x020000);  // default config
-    return *reinterpret_cast<i32x4*>(&rsrc);
-}
+// __device__ inline i32x4 make_srsrc(const void* ptr, uint32_t range_bytes) {
+//     buffer_resource rsrc = make_buffer_resource(ptr, range_bytes, 0x020000);  // default config
+//     return *reinterpret_cast<i32x4*>(&rsrc);
+// }
 
 // Load from global memory to registers with proper batching for cache locality
 template<int axis, bool assume_aligned,
@@ -81,7 +81,6 @@ __device__ inline void load_global_to_registers(
                 int col = (chunk_idx % memcpy_per_row) * elem_per_memcpy;
                 int flat_offset = row * row_stride + col;
                 int byte_offset = flat_offset * sizeof(T);
-                // int byte_offset = ((uint32_t)row << 8) | (col * sizeof(T));
 
                 reg_buffer[buf_idx] = buffer_load_vec4(srsrc, byte_offset);
                 buf_idx++;
@@ -149,7 +148,7 @@ __device__ inline float2 load_shared_vec_sync_offset(uint32_t lds_off, uint32_t 
     float2 result;
     asm volatile(
         "ds_read_b64 %0, %1 offset:%2\n"
-        "s_waitcnt lgkmcnt(0)\n"
+        // "s_waitcnt lgkmcnt(0)\n"
         : "=v"(result)              // Output: store result in float2
         : "v"(lds_off), "i"(offset)              // Input: LDS offset to read from
         : "memory"
@@ -275,6 +274,7 @@ __device__ inline static void load_sync_shared_to_register(RT &dst, const ST &sr
                     // handle fp16 and bf16
                     float2 loaded = load_shared_vec_sync_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
                     U2* tmp = reinterpret_cast<U2*>(&loaded);
+                    asm volatile("s_waitcnt lgkmcnt(0)");
                     dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(tmp[0]);
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(tmp[1]);
                 }
