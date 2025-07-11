@@ -38,7 +38,7 @@ ICXXFLAGS+= -I${THUNDERKITTENS_ROOT}/include -I${THUNDERKITTENS_ROOT}/prototype 
 # Default target
 all: $(TARGET)
 
-LOGDIR := /shared/amdgpu/home/tech_ops_amd_xqh/simran/data_logs/$(shell date +%m%d_%H%M)_outputs
+LOGDIR := /workdir/data_logs/$(shell date +%m%d_%H%M%S)_outputs
 LOGFILE := $(LOGDIR)/make_build.log
 
 $(TARGET): $(SRC)
