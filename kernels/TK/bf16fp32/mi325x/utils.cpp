@@ -1,6 +1,7 @@
 #include "kittens.cuh"
 using namespace kittens;
 
+
 __device__ inline float4 load_global_vec_new(const float4* gptr) {
     float4 v;
     asm volatile(
@@ -34,11 +35,6 @@ __device__ inline float4 buffer_load_vec4(i32x4 srsrc, uint32_t offset_bytes) {
     return *reinterpret_cast<float4*>(&raw);
 }
 
-// __device__ inline i32x4 make_srsrc(const void* ptr, uint32_t range_bytes) {
-//     buffer_resource rsrc = make_buffer_resource(ptr, range_bytes, 0x020000);  // default config
-//     return *reinterpret_cast<i32x4*>(&rsrc);
-// }
-
 // Load from global memory to registers with proper batching for cache locality
 template<int axis, bool assume_aligned,
          ducks::st::all ST, ducks::gl::all GL,
@@ -46,7 +42,7 @@ template<int axis, bool assume_aligned,
          int N_THREADS = WARP_THREADS>
 __device__ inline void load_global_to_registers(
     float4* reg_buffer, int buffer_size,
-    const GL& src, const COORD& idx, const ST& dst_template)
+    const GL& src, const COORD& idx, const ST& dst_template, int offset, int split)
 {
     using T = typename ST::dtype;
     constexpr int elem_per_memcpy = sizeof(float4)/sizeof(T);
@@ -55,20 +51,19 @@ __device__ inline void load_global_to_registers(
     constexpr int total_calls = (total_chunks + N_THREADS - 1) / N_THREADS;
     constexpr int small_calls = 16;
     const int big_calls = (total_calls + small_calls - 1) / small_calls;
+    const int big_calls_start = (big_calls / split) * offset;
+    const int big_calls_end = big_calls_start + (big_calls / split);
 
     const int row_stride = src.template stride<axis>();
-    // const int row_stride_bytes = row_stride * sizeof(T);
     coord<> unit_coord = idx.template unit_coord<axis, 3>();
     T* base_ptr = (T*)&src[unit_coord];  // global memory pointer
     const int laneid = threadIdx.x % N_THREADS;
 
     // buffer resource
     const int total_bytes = row_stride * ST::rows * sizeof(T);
-
     i32x4 srsrc = make_srsrc(base_ptr, total_bytes);
 
     int buf_idx = 0;
-
     for (int i = 0; i < big_calls && buf_idx < buffer_size; ++i) {
         const int offset = i * small_calls;
 
@@ -88,6 +83,7 @@ __device__ inline void load_global_to_registers(
         }
     }
 }
+
 
 
 
@@ -131,6 +127,9 @@ __device__ inline void store_registers_to_shared(
         } // Wait for this batch of stores to complete
     }
 }
+
+
+
 
 __device__ inline float2 load_shared_vec_async_offset(uint32_t lds_off, uint32_t offset) {
     float2 result;
@@ -203,6 +202,8 @@ __device__ inline static void load_async_shared_to_register(RT &dst, const ST &s
                     float2 loaded1 = load_shared_vec_async(src.idx(src_ptr, {row, col+2}));
                     dst.tiles[i][j].data[0] = base_types::convertor<T2, U2>::convert(loaded0);
                     dst.tiles[i][j].data[1] = base_types::convertor<T2, U2>::convert(loaded1);
+
+
                 } else {
                     // handle fp16 and bf16
                     // float2 loaded = load_shared_vec_async_offset(addr, i * ST::underlying_cols * kittens::TILE_ROW_DIM<U> * sizeof(U));
@@ -285,3 +286,8 @@ template<ducks::rt::all RT, ducks::gl::all GL, ducks::coord::tile COORD=coord<RT
 __device__ inline static void store_transposed(const GL &dst, const RT &src, const COORD &idx) {
     store_transposed<2, RT, GL, COORD>(dst, src, idx);
 }
+
+
+
+
+
