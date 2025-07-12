@@ -1,16 +1,16 @@
+########### ROCProfiler ###########
 
-# rocprof
+# one-time setup 
+sudo locale-gen en_US.UTF-8
+sudo update-locale LANG=en_US.UTF-8
+sudo apt-get update
+sudo apt-get install -y locales
+sudo locale-gen en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+localedef -i en_US -f UTF-8 en_US.UTF-8 || true
 
-# setup 
-# sudo locale-gen en_US.UTF-8
-# sudo update-locale LANG=en_US.UTF-8
-# sudo apt-get update
-# sudo apt-get install -y locales
-# sudo locale-gen en_US.UTF-8
-# export LANG=en_US.UTF-8
-# export LC_ALL=en_US.UTF-8
-# localedef -i en_US -f UTF-8 en_US.UTF-8 || true
-
+# installation
 ROCProfiler
 `sudo apt install rocprofiler-compute`
 pip install -r /opt/rocm-6.4.1/libexec/rocprofiler-compute/requirements.txt
@@ -24,7 +24,7 @@ LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 rocprof-compute analyze -p ./ --gui
 rocprof-compute analyze -p workloads/transpose_matmul/MI300/ --gui
 
 
-# rocprof-v3
+########### ROCProfiler V3###########
 
 
 mkdir -p rocprofiler-setup
@@ -45,12 +45,17 @@ cd aqlprofile
 cd build
 sudo make install
 cd ../../..
-
 rm -rf rocprofiler-setup
 
-
+# on MI325
 rocprofv3 --att=true \
           --att-library-path /opt/rocm-6.4.1/lib \
+          -d transpose_matmul \
+          -- python3 test_python.py
+
+# on MI350
+rocprofv3 --att=true \
+          --att-library-path /opt/rocm-6.5.0/lib \
           -d transpose_matmul \
           -- python3 test_python.py
 
