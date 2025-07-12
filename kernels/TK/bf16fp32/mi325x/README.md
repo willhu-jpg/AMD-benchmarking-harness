@@ -1,17 +1,32 @@
-To try any of these, toggle the target in the Makefile and ```make clean && make && python test_python.py```.
+### AMD Instinct MI325X (gfx942) 
 
-- ```128_128_64_16/```: 596 TFLOPs
+Run command:
+```bash
+make clean && make && python test_python.py
+```
 
-- ```256_128_64_16_alt/```: 545 TFLOPS
-- ```256_128_64_16/```: 608 TFLOPs
-- ```256_128_64_16_persist/```: 611 TFLOPs
+Hardware Overview:
 
-- ```256_128_64_32/```: 633 TFLOPs
-- ```256_128_64_32_persist/```: 630 TFLOPs
-- ```256_128_64_32_no_swizzle/```: 590 TFLOPs
-- ```256_128_64_32_outbf16/```: 645 TFLOPs // updated to store c in bf16
+| Component                    | Value                          | Notes                                              |
+|-----------------------------|--------------------------------|----------------------------------------------------|
+| Compute Units (CUs)         | 304                            | More than MI250/MI300 — high parallelism           |
+| SIMDs per CU                | 4                              | Each SIMD handles 1 wavefront                      |
+| Wavefront Size              | 64 threads                     | Fixed per SIMD                                     |
+| Max Waves per CU            | 32                             | Controls concurrency                               |
+| Max Threads per CU          | 2048                           | 32 waves × 64 threads                              |
+| Max Workgroup Size          | 1024 threads                   | Max threads per kernel dispatch                    |
+| VGPRs per SIMD              | 65,536 (32-bit)                | 256 KB per SIMD                                    |
+| Register File per CU        | 4 × 256 KB = 1 MB              | 4 SIMDs                                            |
+| Register File per GPU       | 304 × 1 MB = 304 MB            | Massive register footprint                         |
+| Shared Memory (LDS) per CU  | 64 KB                          | Per workgroup                                      |
+| L1 Cache                    | 32 KB                          | Per CU                                             |
+| L2 Cache                    | 4 MB                           | Shared                                             |
+| L3 Cache                    | 256 MB                         | HBM-attached                                       |
+| Max VGPRs per Thread        | 256 (typical)                  | Set by compiler                                    |
+| SGPRs per SIMD              | ~800–1024                      | Scalar register file                               |
+| Max Clock Speed             | 2100 MHz                       | From `rocminfo`                                    |
+| Memory Bandwidth            | ~5.2 TB/s                      | With HBM3 (if installed with 128 GB)               |
+| ISA Name                    | amdgcn-amd-amdhsa--gfx942      | Use `--offload-arch=gfx942`                        |
 
-- ```256_256_32_16/```: 490 TFLOPs
-- ```256_256_64_16_alt/```: 307 TFLOPS
-- ```256_256_64_16/```: 200 TFLOPs
-- ```256_256_64_16_rolled/```: 485 TFLOPs
+
+
